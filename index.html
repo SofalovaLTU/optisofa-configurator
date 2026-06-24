@@ -364,19 +364,21 @@ function assemblyBox(){if(!placed.length)return null;let minX=Infinity,maxX=-Inf
 
 /* SNAP */
 function gridSnap(rec){const g=0.025;rec.root.position.x=Math.round(rec.root.position.x/g)*g;rec.root.position.z=Math.round(rec.root.position.z/g)*g;}
-const SNAP_RANGE=0.45;  // magnetinis atstumas (m) – pritraukia iš toliau
-const SNAP_GAP=0.02;    // tarpas tarp modulių (m) – kad nesusiliestų/nepersidengtų
+const SNAP_RANGE=0.40;  // pritraukimo zona (m)
+const SNAP_GAP=0.0;     // tarpas tarp modulių – flush, kaip Optisofa connector system
 function snapToNeighbors(rec){
   if(placed.length<2){gridSnap(rec);return;}
   const A=aabb(rec);let best=null;
+  const add=(dx,dz)=>{const cost=Math.hypot(dx,dz);if(!best||cost<best.cost)best={cost,dx,dz};};
   placed.forEach(p=>{if(p===rec)return;const B=aabb(p);
-    const opts=[
-      {dx:B.maxX-A.minX, dz:B.cz-A.cz, gx:SNAP_GAP, gz:0},   // dešinėje nuo B
-      {dx:B.minX-A.maxX, dz:B.cz-A.cz, gx:-SNAP_GAP, gz:0},  // kairėje nuo B
-      {dx:B.cx-A.cx, dz:B.maxZ-A.minZ, gx:0, gz:SNAP_GAP},   // už B
-      {dx:B.cx-A.cx, dz:B.minZ-A.maxZ, gx:0, gz:-SNAP_GAP},  // priekyje B
-    ];
-    opts.forEach(c=>{const cost=Math.hypot(c.dx,c.dz);if(!best||cost<best.cost)best={cost,dx:c.dx+c.gx,dz:c.dz+c.gz};});});
+    // skersinės ašies sulygiavimai: kraštas-prie-krašto (kampui / V / U) arba centras (tiesiai eilei)
+    const zAlign=[B.minZ-A.minZ, B.maxZ-A.maxZ, B.cz-A.cz];
+    const xAlign=[B.minX-A.minX, B.maxX-A.maxX, B.cx-A.cx];
+    const rightX=B.maxX-A.minX+SNAP_GAP, leftX=B.minX-A.maxX-SNAP_GAP;   // A dešinėje / kairėje nuo B
+    const backZ=B.maxZ-A.minZ+SNAP_GAP,  frontZ=B.minZ-A.maxZ-SNAP_GAP;  // A už / priekyje B
+    zAlign.forEach(dz=>{add(rightX,dz);add(leftX,dz);});                 // jungimas per X – kraštai lygiuojasi per Z
+    xAlign.forEach(dx=>{add(dx,backZ);add(dx,frontZ);});                 // jungimas per Z – kraštai lygiuojasi per X
+  });
   if(best&&best.cost<SNAP_RANGE){rec.root.position.x+=best.dx;rec.root.position.z+=best.dz;}else gridSnap(rec);
 }
 
