@@ -139,15 +139,8 @@ const grid=new THREE.GridHelper(40,160,0xd8d0c4,0xe4ded4); grid.position.y=0.001
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
 new ResizeObserver(resize).observe(stage); resize();
 
-/* ---------- drag ---------- */
-let drag=null;
-function rebuildDrag(){
-  if(drag){drag.dispose();}
-  drag=new DragControls(placed.map(p=>p.root),camera,renderer.domElement);
-  drag.addEventListener('dragstart',e=>{orbit.enabled=false; select(rootToPlaced(e.object));});
-  drag.addEventListener('dragend',()=>{orbit.enabled=true; snap(selected);});
-  drag.addEventListener('drag',e=>{e.object.position.y=e.object.userData.baseY;}); // lock to floor
-}
+/* ---------- drag: rankinis, ant grindų plokštumos (y=0) ---------- */
+function rebuildDrag(){}  // paliktas suderinamumui — DragControls nebenaudojam
 function rootToPlaced(o){while(o&&!o.userData.isModule)o=o.parent;return placed.find(p=>p.root===o);}
 function snap(p){if(!p)return;const g=0.025;p.root.position.x=Math.round(p.root.position.x/g)*g;p.root.position.z=Math.round(p.root.position.z/g)*g;}
 
@@ -160,13 +153,39 @@ function select(p){
 }
 function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material){o.material.emissive&&o.material.emissive.setHex(on?0x3a2c12:0x000000);}});}
 
+/* vieningas pelės/lietimo valdymas: pažymėti + tempti grindimis */
+const _ray=new THREE.Raycaster();
+const _floor=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+let _dragRec=null; const _grab=new THREE.Vector3();
+function _ndc(ev){return new THREE.Vector2((ev.offsetX/stage.clientWidth)*2-1,-(ev.offsetY/stage.clientHeight)*2+1);}
+function _floorPoint(ev){_ray.setFromCamera(_ndc(ev),camera);const p=new THREE.Vector3();return _ray.ray.intersectPlane(_floor,p)?p:null;}
+
 renderer.domElement.addEventListener('pointerdown',ev=>{
-  const r=new THREE.Raycaster();const m=new THREE.Vector2((ev.offsetX/stage.clientWidth)*2-1,-(ev.offsetY/stage.clientHeight)*2+1);
-  r.setFromCamera(m,camera);
-  const hit=r.intersectObjects(placed.map(p=>p.root),true)[0];
-  if(hit){let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;select(placed.find(p=>p.root===o));}
-  else if(ev.target===renderer.domElement) select(null);
-},true);
+  _ray.setFromCamera(_ndc(ev),camera);
+  const hit=_ray.intersectObjects(placed.map(p=>p.root),true)[0];
+  if(hit){
+    let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;
+    const rec=placed.find(p=>p.root===o);
+    select(rec);
+    const fp=_floorPoint(ev);
+    if(rec&&fp){_dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);orbit.enabled=false;try{renderer.domElement.setPointerCapture(ev.pointerId);}catch(e){}}
+  } else { select(null); } // tuščia vieta → kamera sukasi normaliai
+},true); // capture: suveikia anksčiau už OrbitControls, kad sukimas nešoktelėtų
+
+renderer.domElement.addEventListener('pointermove',ev=>{
+  if(!_dragRec)return;
+  const fp=_floorPoint(ev); if(!fp)return;
+  _dragRec.root.position.x=fp.x+_grab.x;
+  _dragRec.root.position.z=fp.z+_grab.z;
+  _dragRec.root.position.y=_dragRec.root.userData.baseY||0; // visada ant grindų
+});
+function _endDrag(ev){
+  if(!_dragRec)return;
+  snap(_dragRec); _dragRec=null; orbit.enabled=true;
+  try{renderer.domElement.releasePointerCapture(ev.pointerId);}catch(e){}
+}
+renderer.domElement.addEventListener('pointerup',_endDrag);
+renderer.domElement.addEventListener('pointercancel',_endDrag);
 
 /* ---------- loading modules ---------- */
 const gltf=new GLTFLoader();
@@ -205,7 +224,7 @@ async function addModule(data){
     const rec={root:wrap,data,box:{x:size.x,y:size.y,z:size.z}};
     wrap.position.x=nextX(size.x);
     wrap.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;o.userData.origMat=o.material;}});
-    scene.add(wrap); placed.push(rec); rebuildDrag(); applyFabricTo(rec); updatePrice(); select(rec);
+    scene.add(wrap); placed.push(rec); rebuildDrag(); rec._tex=curTex; applyFabricTo(rec); updatePrice(); select(rec);
     frameAll(); setHint(placed.length===1?'Tempk modulį, kad perdėliotum · spustelk, kad pažymėtum':'');
   }catch(e){ console.error(e); setHint('Nepavyko įkelti modelio'); }
 }
@@ -235,31 +254,50 @@ function updatePrice(){
 
 /* ---------- fabric ---------- */
 const texLoader=new THREE.TextureLoader(); texLoader.setCrossOrigin('anonymous');
+let curTex=null;  // dabartinio audinio tekstūra (bendra visiems moduliams)
+
 function applyFabricTo(rec){
   if(!curFabric)return;
   const col=new THREE.Color(curFabric.hex);
+  const tex=rec._tex||null;
   rec.root.traverse(o=>{
     if(o.isMesh){
-      if(!(o.material instanceof THREE.MeshStandardMaterial) || !o.userData.fabMat){
-        o.material=new THREE.MeshStandardMaterial({color:col,roughness:0.92,metalness:0});
+      if(!o.userData.fabMat){
+        o.material=new THREE.MeshStandardMaterial({roughness:0.9,metalness:0});
         o.userData.fabMat=true;
-      } else { o.material.color.copy(col); }
-      if(rec._tex){o.material.map=rec._tex;o.material.needsUpdate=true;}
+      }
+      if(tex){ o.material.map=tex; o.material.color.set(0xffffff); } // tikra nuotrauka, be tonavimo
+      else   { o.material.map=null; o.material.color.copy(col); }    // kol nėra tekstūros — vienspalvė
+      o.material.needsUpdate=true;
     }
   });
 }
+
+// užkrauna audinio nuotrauką kaip tekstūrą; jei CDN blokuoja CORS — per proxy su CORS antraštėmis
+function loadFabricTexture(url, onOk){
+  const setup=t=>{
+    t.colorSpace=THREE.SRGBColorSpace; t.wrapS=t.wrapT=THREE.RepeatWrapping;
+    t.repeat.set(4,4); // kiek kartų raštas kartojasi — derinama
+    try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}
+    onOk(t);
+  };
+  texLoader.load(url, setup, undefined, ()=>{
+    const prox='https://images.weserv.nl/?url='+encodeURIComponent('ssl:'+url.replace(/^https?:\/\//,''))+'&w=600';
+    texLoader.load(prox, setup, undefined, ()=>{/* ir proxy nepavyko — lieka vienspalvė */});
+  });
+}
+
 function setFabric(f){
-  curFabric=f; $('#fabName').innerHTML='Audinys: <b>'+f.name+'</b> · '+f.color;
+  curFabric=f; curTex=null;
+  $('#fabName').innerHTML='Audinys: <b>'+f.name+'</b> · '+f.color;
   document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
-  // try texture (enhancement); fall back to color silently
-  let tex=null;
+  placed.forEach(p=>{p._tex=null;applyFabricTo(p);}); // iškart vienspalvė (kol kraunasi nuotrauka)
   if(f.image){
-    texLoader.load(f.image, t=>{
-      t.colorSpace=THREE.SRGBColorSpace; t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(3,3);
-      placed.forEach(p=>{p._tex=t;applyFabricTo(p);});
-    }, undefined, ()=>{/* CORS/err: keep solid color */});
+    loadFabricTexture(f.image, t=>{
+      if(curFabric!==f)return;          // vartotojas jau perjungė — ignoruojam vėluojantį krovimą
+      curTex=t; placed.forEach(p=>{p._tex=t;applyFabricTo(p);});
+    });
   }
-  placed.forEach(p=>applyFabricTo(p));
 }
 
 /* ---------- UI build ---------- */
