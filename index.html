@@ -64,7 +64,7 @@
   .roompanel .apply{padding:9px 16px;border:0;background:var(--accent);color:#fff;border-radius:9px;font-weight:700;cursor:pointer;font-size:12px}
   .bottombar{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:var(--shadow-lg);flex-wrap:wrap;justify-content:center;max-width:94%}
   .bbtn{border:0;background:transparent;padding:9px 13px;border-radius:11px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px;transition:.14s;white-space:nowrap;letter-spacing:.01em}
-  .bbtn:hover{background:var(--soft)} .bbtn.on{background:var(--accent);color:#fff}
+  .bbtn:hover{background:var(--soft)} .bbtn.on{background:var(--brass);color:#fff;border-color:var(--brass)}
   .bbtn[disabled]{opacity:.3;cursor:not-allowed} .bbtn.danger:hover{background:#f7e7e2;color:var(--bad)}
   /* AUDINIAI — 2 per eilutę, dideli, su pavadinimu */
   .swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
@@ -248,6 +248,7 @@
     <div class="bottombar">
       <button class="bbtn" id="btnRotate" disabled>⟳ Pasukti</button>
       <button class="bbtn danger" id="btnDelete" disabled>🗑 Šalinti</button>
+      <button class="bbtn" id="btnLock">🔒 Užrakinti</button>
       <button class="bbtn" id="btnDims">📐 Matmenys</button>
       <button class="bbtn" id="btnRoom">🏠 Kambarys</button>
       <button class="bbtn" id="btnZoomIn">🔍＋</button>
@@ -327,7 +328,7 @@ const ORDER_EMAIL='info@sofalova.lt';   // kur keliauja pavyzdžių užsakymai
 
 const $=s=>document.querySelector(s);
 let MANIFEST=null,FABRICS=[],curFamily=null,curFabric=null,curTex=null;
-const placed=[]; let selected=null;
+const placed=[]; let selected=null; let locked=false;
 
 /* SCENE */
 const stage=$('#stage');
@@ -365,7 +366,7 @@ function assemblyBox(){if(!placed.length)return null;let minX=Infinity,maxX=-Inf
 /* SNAP */
 function gridSnap(rec){const g=0.025;rec.root.position.x=Math.round(rec.root.position.x/g)*g;rec.root.position.z=Math.round(rec.root.position.z/g)*g;}
 const SNAP_RANGE=0.40;  // pritraukimo zona (m)
-const SNAP_GAP=0.0;     // tarpas tarp modulių – flush, kaip Optisofa connector system
+const SNAP_GAP=-0.012;  // nedidelis persidengimas – kad tarp modulių nematytųsi tarpų
 function snapToNeighbors(rec){
   if(placed.length<2){gridSnap(rec);return;}
   const A=aabb(rec);let best=null;
@@ -396,6 +397,7 @@ function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floor
 function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();snapToNeighbors(_dragRec);updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();saveState();
   window.removeEventListener('pointermove',onDragMove,true);window.removeEventListener('pointerup',onDragUp,true);}
 function onCanvasPointerDown(ev){
+  if(locked)return;            // užrakinta – modulių neliečiam, OrbitControls suka visą sofą
   _ray.setFromCamera(_ndc(ev),camera);
   const hit=_ray.intersectObjects(placed.map(p=>p.root),true)[0];
   if(hit){
@@ -457,7 +459,7 @@ function applyFabricTo(rec){if(!curFabric)return;const base=curFabric._avg||new 
     if(tex){o.material.map=tex;o.material.color.set(0xffffff);}else{o.material.map=null;o.material.color.copy(base);}o.material.needsUpdate=true;}});}
 function loadFabricTexture(f,onOk){
   const url=f.image;
-  const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(3,3);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}
+  const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}
     if(t.image && !f._avg){const c=avgColor(t.image);if(c)f._avg=c;}onOk(t);};
   // proxy iš karto (patikimas CORS + galima nuskaityti vidutinę spalvą)
   texLoader.load(proxied(url,1024),setup,undefined,()=>{
@@ -518,7 +520,7 @@ const PRESETS={
 function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MANIFEST.families[curFamily];
   const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c))})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
-  list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div>`;b.onclick=()=>applyPreset(p);wrap.appendChild(b);
+  list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
     presetThumb(p.codes).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
 async function applyPreset(p){clearAll();const fam=MANIFEST.families[curFamily];for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}frameAll();updateRoom();}
 
@@ -528,7 +530,7 @@ function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#mo
     const price=d.price_min===d.price_max?('€'+d.price_min):('€'+d.price_min+'–'+d.price_max);
     const dim=d.dims_cm?`${d.dims_cm.W||'?'}×${d.dims_cm.D||'?'}×${d.dims_cm.H||'?'} cm`:'';
     el.innerHTML=`<div class="thumb">⏳</div><div class="info"><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div><div class="add">＋</div>`;
-    el.onclick=()=>addModule(d);wrap.appendChild(el);
+    el.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}addModule(d);};wrap.appendChild(el);
     if(d.glb)thumbFor(d.glb).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});
     else el.querySelector('.thumb').textContent='▢';});
   if(fam.modules&&!fam.modules.length&&fam.note){const n=document.createElement('div');n.className='note';n.textContent=fam.note;wrap.appendChild(n);}}
@@ -566,7 +568,7 @@ function updateRoom(){if(!roomOn){clearRoom();return;}clearRoom();
   if(fw>=0&&fd>=0)badge.innerHTML=`<span class="ok">✓ Telpa</span><br>${sofaTxt}<br>Lieka: ${fw}×${fd} cm`;
   else{const miss=[];if(fw<0)miss.push(`pločio ${-fw} cm`);if(fd<0)miss.push(`ilgio ${-fd} cm`);badge.innerHTML=`<span class="bad">✗ Netelpa</span><br>${sofaTxt}<br>Trūksta: ${miss.join(', ')}`;}badge.classList.add('show');}
 $('#btnRoom').onclick=()=>{roomOn=!roomOn;$('#btnRoom').classList.toggle('on',roomOn);$('#roompanel').classList.toggle('show',roomOn);updateRoom();};
-$('#roomApply').onclick=updateRoom;$('#roomW').onchange=updateRoom;$('#roomD').onchange=updateRoom;
+$('#roomApply').onclick=()=>{updateRoom();$('#roompanel').classList.remove('show');};$('#roomW').onchange=updateRoom;$('#roomD').onchange=updateRoom;
 
 /* DIMENSIONS */
 let dimsOn=false,dimBox=null;
@@ -584,10 +586,16 @@ $('#btnZoomIn').onclick=()=>zoomBy(0.82);
 $('#btnZoomOut').onclick=()=>zoomBy(1.22);
 
 /* BUTTONS */
-$('#btnRotate').onclick=()=>{if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;snapToNeighbors(selected);updateRoom();saveState();}};
-$('#btnDelete').onclick=()=>{if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
+$('#btnRotate').onclick=()=>{if(locked)return;if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;snapToNeighbors(selected);updateRoom();saveState();}};
+$('#btnDelete').onclick=()=>{if(locked)return;if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
 function clearAll(){placed.forEach(p=>scene.remove(p.root));placed.length=0;updatePrice();select(null);updateRoom();setHint('Spustelk modulį ar greitą rinkinį kairėje');}
-$('#btnClear').onclick=clearAll;
+$('#btnClear').onclick=()=>{if(locked)return;clearAll();};
+function applyLockUI(){const b=$('#btnLock');if(b){b.textContent=locked?'🔓 Atrakinti':'🔒 Užrakinti';b.classList.toggle('on',locked);}
+  if(locked)select(null);
+  $('#btnRotate').disabled=locked||!selected;$('#btnDelete').disabled=locked||!selected;$('#btnClear').disabled=locked;
+  document.body.classList.toggle('locked',locked);}
+$('#btnLock').onclick=()=>{if(!placed.length){toast('Pirma sudėk sofą');return;}locked=!locked;applyLockUI();saveState();
+  setHint(locked?'Sofa užrakinta · audinį, matmenis ir AR keisti vis tiek gali':'Atrakinta · gali redaguoti modulius');};
 
 /* SUMMARY + PDF */
 function configSummary(){const groups={};placed.forEach(p=>{const k=p.data.name;groups[k]=groups[k]||{name:k,count:0,dims:p.data.dims_cm,pmin:p.data.price_min,pmax:p.data.price_max};groups[k].count++;});
@@ -609,12 +617,13 @@ $('#btnPDF').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą')
   doc.setFontSize(10);doc.setTextColor(120);doc.text(`≈ €${s.monthly}/mėn · 12 mėn.`,W-14,y,{align:'right'});doc.save('sofalova-konfiguracija.pdf');toast('PDF parsisiųstas ✓');};
 
 /* SAVE & SHARE */
-function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,m:placed.map(p=>({c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot}))};return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
+function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>({c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot}))};return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
 async function restoreConfig(str){let cfg;try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
+  locked=false;
   if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));buildPresets();buildModules();}
   if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}
   const fam=MANIFEST.families[curFamily];const all=[...(fam.modules||[]),...(fam.cushions||[])];
-  for(const it of(cfg.m||[])){const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c);if(!d)continue;await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});}frameAll();updateRoom();}
+  for(const it of(cfg.m||[])){const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c);if(!d)continue;await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});}frameAll();updateRoom();locked=!!cfg.lk;applyLockUI();}
 $('#btnShare').onclick=()=>{if(!placed.length){toast('Pirma sudėliok sofą');return;}const url=location.origin+location.pathname+'#'+encodeConfig();history.replaceState(null,'',url);navigator.clipboard?.writeText(url).then(()=>toast('Nuoroda nukopijuota ✓'),()=>toast('Nuoroda URL juostoje'));};
 
 /* AR */
