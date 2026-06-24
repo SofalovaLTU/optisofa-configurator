@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Optisofa — modulinis konfigūratorius</title>
+<title>Sofalova.lt — konfigūratorius</title>
 <style>
   :root{
     --bg:#f4f1ec; --panel:#ffffff; --ink:#2a2622; --muted:#8a817a;
@@ -12,10 +12,10 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
-  #app{display:grid;grid-template-columns:268px 1fr 304px;grid-template-rows:56px 1fr;height:100%}
+  #app{display:grid;grid-template-columns:288px 1fr 312px;grid-template-rows:56px 1fr;height:100%}
   header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--panel);border-bottom:1px solid var(--line);z-index:5}
-  .brand{font-weight:700;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
-  .brand small{display:block;font-weight:500;letter-spacing:.06em;color:var(--muted);font-size:10px;margin-top:2px}
+  .brand{font-weight:800;letter-spacing:.1em;font-size:15px}
+  .brand small{display:block;font-weight:500;letter-spacing:.08em;color:var(--muted);font-size:10px;margin-top:1px;text-transform:uppercase}
   .price{text-align:right;display:flex;align-items:baseline;gap:14px}
   .price .big{font-size:20px;font-weight:700}
   .price .mo{font-size:12px;color:var(--muted)}
@@ -33,30 +33,35 @@
   .presets{display:flex;flex-wrap:wrap;gap:6px}
   .preset{font-size:11.5px;font-weight:600;padding:7px 11px;border:1px solid var(--line);border-radius:18px;background:#fff;cursor:pointer;transition:.15s}
   .preset:hover{border-color:var(--accent);background:var(--accent-soft)}
-  .mod{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:.15s;background:#fff}
+  /* modulių kortelės su miniatiūra */
+  .mod{display:flex;align-items:center;gap:11px;padding:8px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer;transition:.15s;background:#fff}
   .mod:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow)}
+  .mod .thumb{width:62px;height:48px;border-radius:8px;background:#f3eee5 center/contain no-repeat;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px}
+  .mod .info{flex:1;min-width:0}
   .mod .nm{font-size:13px;font-weight:600}
   .mod .meta{font-size:10.5px;color:var(--muted);margin-top:2px}
-  .mod .add{font-size:18px;color:var(--accent);font-weight:300;line-height:1}
+  .mod .add{font-size:22px;color:var(--accent);font-weight:300;line-height:1;padding-right:6px}
   .note{font-size:11px;color:var(--muted);line-height:1.5;background:var(--accent-soft);border-radius:8px;padding:10px;margin-top:6px}
   #stage{position:relative;overflow:hidden}
   #c{display:block;width:100%;height:100%}
+  #dimLabels{position:absolute;inset:0;pointer-events:none}
+  .dimlbl{position:absolute;transform:translate(-50%,-50%);background:var(--sel);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;box-shadow:var(--shadow)}
   .hint{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:20px;padding:7px 16px;font-size:12px;color:var(--muted);pointer-events:none;transition:.3s;backdrop-filter:blur(6px);max-width:80%;text-align:center}
   .fitbadge{position:absolute;top:14px;right:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;box-shadow:var(--shadow);display:none;line-height:1.5}
   .fitbadge.show{display:block}
   .fitbadge .ok{color:var(--ok);font-weight:700}
   .fitbadge .bad{color:var(--bad);font-weight:700}
-  .bottombar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:var(--shadow);flex-wrap:wrap;justify-content:center;max-width:94%}
-  .bbtn{border:0;background:transparent;padding:8px 11px;border-radius:8px;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px;transition:.12s;white-space:nowrap}
+  .bottombar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:3px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:5px;box-shadow:var(--shadow);flex-wrap:wrap;justify-content:center;max-width:96%}
+  .bbtn{border:0;background:transparent;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:5px;transition:.12s;white-space:nowrap}
   .bbtn:hover{background:var(--accent-soft)}
   .bbtn.on{background:var(--accent);color:#fff}
   .bbtn[disabled]{opacity:.35;cursor:not-allowed}
   .bbtn.danger:hover{background:#f7e4e0;color:#a8392b}
-  .roompanel{position:absolute;bottom:74px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);display:none;align-items:center;gap:10px;font-size:12px}
+  .roompanel{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);display:none;align-items:flex-end;gap:10px;font-size:12px}
   .roompanel.show{display:flex}
   .roompanel label{display:flex;flex-direction:column;gap:3px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
   .roompanel input{width:74px;padding:7px 8px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-weight:600;color:var(--ink)}
-  .roompanel .apply{padding:8px 14px;border:0;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;cursor:pointer;align-self:flex-end}
+  .roompanel .apply{padding:8px 14px;border:0;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;cursor:pointer}
   .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
   .sw{position:relative;aspect-ratio:1;border-radius:8px;border:2px solid transparent;cursor:pointer;overflow:hidden;background-size:cover;background-position:center;transition:.12s}
   .sw:hover{transform:scale(1.06)}
@@ -67,13 +72,22 @@
   .chip{font-size:10.5px;padding:4px 9px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;text-transform:capitalize;transition:.12s}
   .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
   .chip.feat.active{background:var(--sel);border-color:var(--sel)}
-  .fabname{font-size:12px;color:var(--muted);margin-bottom:10px;min-height:16px}
+  .fabname{font-size:13px;color:var(--ink);margin-bottom:8px}
   .fabname b{color:var(--ink)}
   .fabcount{font-size:10px;color:var(--muted);font-weight:400}
+  .specbox{font-size:11.5px;color:var(--muted);background:var(--accent-soft);border-radius:10px;padding:11px 12px;margin-bottom:11px;line-height:1.7;display:none}
+  .specbox.show{display:block}
+  .specbox .row{display:flex;justify-content:space-between;gap:8px}
+  .specbox .row b{color:var(--ink);font-weight:600}
+  .specbox .feats{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
+  .specbox .badge{font-size:9.5px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:2px 7px;color:var(--ink)}
+  .specbox .stars{color:var(--sel);letter-spacing:1px}
+  .sample-btn{width:100%;margin-bottom:14px;padding:10px;border:1px solid var(--accent);background:#fff;color:var(--accent);border-radius:10px;font-weight:600;font-size:12.5px;cursor:pointer;transition:.12s}
+  .sample-btn:hover{background:var(--accent);color:#fff}
   #loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:10;flex-direction:column;gap:14px;font-size:13px;color:var(--muted)}
   .spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite}
   @keyframes s{to{transform:rotate(360deg)}}
-  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#fff;padding:11px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;z-index:30}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#fff;padding:11px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   #mvWrap{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center}
   #mvWrap.show{display:flex}
@@ -85,7 +99,7 @@
 <body>
 <div id="app">
   <header>
-    <div class="brand">OPTISOFA<small>Modulinis konfigūratorius</small></div>
+    <div class="brand">SOFALOVA.LT<small>Sofų konfigūratorius</small></div>
     <div class="price">
       <div class="mo" id="monthly"></div>
       <div><span class="big" id="price">€0</span><small id="priceNote">pasirink modulius</small></div>
@@ -103,6 +117,7 @@
 
   <div id="stage">
     <canvas id="c"></canvas>
+    <div id="dimLabels"></div>
     <div class="hint" id="hint">Spustelk modulį ar greitą rinkinį kairėje</div>
     <div class="fitbadge" id="fit"></div>
 
@@ -118,7 +133,9 @@
       <button class="bbtn" id="btnDims">📐 Matmenys</button>
       <button class="bbtn" id="btnRoom">🏠 Kambarys</button>
       <button class="bbtn" id="btnAR">📱 AR</button>
-      <button class="bbtn" id="btnShare">🔗 Išsaugoti</button>
+      <button class="bbtn" id="btnPDF">📄 PDF</button>
+      <button class="bbtn" id="btnEmail">✉️ Siųsti</button>
+      <button class="bbtn" id="btnShare">🔗 Nuoroda</button>
       <button class="bbtn" id="btnClear">Išvalyti</button>
     </div>
   </div>
@@ -126,6 +143,9 @@
   <aside class="right">
     <div class="sec-title">Audinys <span class="fabcount" id="fabCount"></span></div>
     <div class="fabname" id="fabName">Pasirink audinį</div>
+    <div class="specbox" id="specBox"></div>
+    <button class="sample-btn" id="btnSample">✄ Užsakyti nemokamą pavyzdį</button>
+    <div class="sec-title">Filtrai</div>
     <div class="filterrow" id="featFilter"></div>
     <div class="filterrow" id="colorFilter"></div>
     <div class="swatches" id="swatches"></div>
@@ -149,9 +169,13 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 
+/* ====== KONFIGŪRACIJA (pakeisk pagal poreikį) ====== */
+const ORDER_EMAIL = 'info@sofalova.lt';   // į kurį adresą eina pavyzdžių užsakymai / projektai
+const SAMPLE_PAGE = '';                    // jei turi Shopify pavyzdžių puslapį — įrašyk URL (tada vietoj el. laiško atidarys jį)
+
 const $ = s => document.querySelector(s);
 let MANIFEST=null, FABRICS=[], curFamily=null, curFabric=null, curTex=null;
-const placed=[];            // {root(wrap), data, box:{x,y,z}, rot:0..3, _tex}
+const placed=[];
 let selected=null;
 
 /* ============ SCENE ============ */
@@ -164,7 +188,7 @@ const scene=new THREE.Scene(); scene.background=new THREE.Color(0xf4f1ec);
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);
 camera.position.set(2.6,2.0,3.2);
 const orbit=new OrbitControls(camera,renderer.domElement);
-orbit.enableDamping=true; orbit.maxPolarAngle=Math.PI*0.49; orbit.minDistance=1.0; orbit.maxDistance=14; orbit.target.set(0,0.35,0);
+orbit.enableDamping=true; orbit.maxPolarAngle=Math.PI*0.49; orbit.minDistance=1.0; orbit.maxDistance=16; orbit.target.set(0,0.35,0);
 
 scene.add(new THREE.HemisphereLight(0xffffff,0xdad2c5,1.0));
 const key=new THREE.DirectionalLight(0xffffff,2.1); key.position.set(3,6,4);
@@ -173,8 +197,7 @@ key.shadow.camera.left=-6;key.shadow.camera.right=6;key.shadow.camera.top=6;key.
 key.shadow.bias=-0.0003; scene.add(key);
 const fill=new THREE.DirectionalLight(0xffffff,0.5); fill.position.set(-4,3,-3); scene.add(fill);
 
-const floorMat=new THREE.MeshStandardMaterial({color:0xeae4da,roughness:1});
-const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),floorMat);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshStandardMaterial({color:0xeae4da,roughness:1}));
 floor.rotation.x=-Math.PI/2; floor.receiveShadow=true; scene.add(floor);
 const grid=new THREE.GridHelper(60,240,0xd8d0c4,0xe4ded4); grid.position.y=0.001; scene.add(grid);
 
@@ -182,375 +205,433 @@ function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSiz
 new ResizeObserver(resize).observe(stage); resize();
 
 /* ============ GEOMETRY HELPERS ============ */
-// efektyvūs matmenys atsižvelgiant į 90° pasukimą
-function extOf(rec){ return (rec.rot%2===0) ? {x:rec.box.x,z:rec.box.z} : {x:rec.box.z,z:rec.box.x}; }
-function aabb(rec){
-  const cx=rec.root.position.x, cz=rec.root.position.z, e=extOf(rec);
-  return {minX:cx-e.x/2,maxX:cx+e.x/2,minZ:cz-e.z/2,maxZ:cz+e.z/2,cx,cz,ex:e.x,ez:e.z};
-}
-function assemblyBox(){ // bendras AABB visų modulių (be grindų)
+function extOf(rec){return (rec.rot%2===0)?{x:rec.box.x,z:rec.box.z}:{x:rec.box.z,z:rec.box.x};}
+function aabb(rec){const cx=rec.root.position.x,cz=rec.root.position.z,e=extOf(rec);return{minX:cx-e.x/2,maxX:cx+e.x/2,minZ:cz-e.z/2,maxZ:cz+e.z/2,cx,cz,ex:e.x,ez:e.z};}
+function assemblyBox(){
   if(!placed.length)return null;
   let minX=Infinity,maxX=-Infinity,minZ=Infinity,maxZ=-Infinity,maxY=0;
   placed.forEach(p=>{const a=aabb(p);minX=Math.min(minX,a.minX);maxX=Math.max(maxX,a.maxX);minZ=Math.min(minZ,a.minZ);maxZ=Math.max(maxZ,a.maxZ);maxY=Math.max(maxY,p.box.y);});
-  return {minX,maxX,minZ,maxZ,cx:(minX+maxX)/2,cz:(minZ+maxZ)/2,w:maxX-minX,d:maxZ-minZ,h:maxY};
+  return{minX,maxX,minZ,maxZ,cx:(minX+maxX)/2,cz:(minZ+maxZ)/2,w:maxX-minX,d:maxZ-minZ,h:maxY};
 }
 
-/* ============ SNAP (moduliai jungiasi į vientisą sofą) ============ */
+/* ============ SNAP (su mažesne riba → galima atskirti / įterpti) ============ */
 function gridSnap(rec){const g=0.025;rec.root.position.x=Math.round(rec.root.position.x/g)*g;rec.root.position.z=Math.round(rec.root.position.z/g)*g;}
 function snapToNeighbors(rec){
   if(placed.length<2){gridSnap(rec);return;}
   const A=aabb(rec); let best=null;
   placed.forEach(p=>{
     if(p===rec)return; const B=aabb(p);
-    const cands=[
-      {dx:B.maxX-A.minX, dz:B.cz-A.cz},   // dešinėje nuo B
-      {dx:B.minX-A.maxX, dz:B.cz-A.cz},   // kairėje nuo B
-      {dz:B.maxZ-A.minZ, dx:B.cx-A.cx},   // už B
-      {dz:B.minZ-A.maxZ, dx:B.cx-A.cx},   // priekyje B
-    ];
-    cands.forEach(c=>{const cost=Math.hypot(c.dx||0,c.dz||0); if(!best||cost<best.cost)best={cost,dx:c.dx||0,dz:c.dz||0};});
+    [{dx:B.maxX-A.minX,dz:B.cz-A.cz},{dx:B.minX-A.maxX,dz:B.cz-A.cz},{dz:B.maxZ-A.minZ,dx:B.cx-A.cx},{dz:B.minZ-A.maxZ,dx:B.cx-A.cx}]
+    .forEach(c=>{const cost=Math.hypot(c.dx||0,c.dz||0);if(!best||cost<best.cost)best={cost,dx:c.dx||0,dz:c.dz||0};});
   });
-  if(best && best.cost<0.40){ rec.root.position.x+=best.dx; rec.root.position.z+=best.dz; }
+  if(best && best.cost<0.16){rec.root.position.x+=best.dx;rec.root.position.z+=best.dz;} // tik kai arti — kitaip lieka kur padėjai
   else gridSnap(rec);
 }
 
-/* ============ DRAG + SELECT (rankinis, grindų plokštuma) ============ */
-function select(p){
-  selected=p||null;
-  placed.forEach(q=>setEmissive(q,false));
-  if(selected)setEmissive(selected,true);
-  $('#btnRotate').disabled=!selected; $('#btnDelete').disabled=!selected;
-}
+/* ============ DRAG + SELECT ============ */
+function select(p){selected=p||null;placed.forEach(q=>setEmissive(q,false));if(selected)setEmissive(selected,true);$('#btnRotate').disabled=!selected;$('#btnDelete').disabled=!selected;}
 function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive)o.material.emissive.setHex(on?0x3a2c12:0x000000);});}
-
 const _ray=new THREE.Raycaster();
 const _floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
 let _dragRec=null; const _grab=new THREE.Vector3();
 function _ndc(ev){return new THREE.Vector2((ev.offsetX/stage.clientWidth)*2-1,-(ev.offsetY/stage.clientHeight)*2+1);}
 function _floorPoint(ev){_ray.setFromCamera(_ndc(ev),camera);const p=new THREE.Vector3();return _ray.ray.intersectPlane(_floorPlane,p)?p:null;}
-
 renderer.domElement.addEventListener('pointerdown',ev=>{
   _ray.setFromCamera(_ndc(ev),camera);
   const hit=_ray.intersectObjects(placed.map(p=>p.root),true)[0];
-  if(hit){
-    let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;
-    const rec=placed.find(p=>p.root===o); select(rec);
-    const fp=_floorPoint(ev);
-    if(rec&&fp){_dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);orbit.enabled=false;try{renderer.domElement.setPointerCapture(ev.pointerId);}catch(e){}}
-  } else select(null);
+  if(hit){let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;const rec=placed.find(p=>p.root===o);select(rec);
+    const fp=_floorPoint(ev);if(rec&&fp){_dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);orbit.enabled=false;try{renderer.domElement.setPointerCapture(ev.pointerId);}catch(e){}}}
+  else select(null);
 },true);
-renderer.domElement.addEventListener('pointermove',ev=>{
-  if(!_dragRec)return; const fp=_floorPoint(ev); if(!fp)return;
-  _dragRec.root.position.x=fp.x+_grab.x; _dragRec.root.position.z=fp.z+_grab.z; _dragRec.root.position.y=0;
-});
-function _endDrag(ev){ if(!_dragRec)return; snapToNeighbors(_dragRec); _dragRec=null; orbit.enabled=true; updateRoom(); try{renderer.domElement.releasePointerCapture(ev.pointerId);}catch(e){} }
+renderer.domElement.addEventListener('pointermove',ev=>{if(!_dragRec)return;const fp=_floorPoint(ev);if(!fp)return;_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;});
+function _endDrag(ev){if(!_dragRec)return;snapToNeighbors(_dragRec);_dragRec=null;orbit.enabled=true;updateRoom();try{renderer.domElement.releasePointerCapture(ev.pointerId);}catch(e){}}
 renderer.domElement.addEventListener('pointerup',_endDrag);
 renderer.domElement.addEventListener('pointercancel',_endDrag);
 
 /* ============ MODULE LOADING ============ */
 const gltf=new GLTFLoader();
-async function addModule(data, opts={}){
+async function addModule(data,opts={}){
   setHint('Kraunamas modulis…');
   try{
     const g=await gltf.loadAsync(data.glb.replace(/^\//,''));
     const root=g.scene; root.userData.isModule=true; root.userData.data=data;
-    let mc=0; root.traverse(o=>{if(o.isMesh)mc++;});
-    if(!mc){setHint('Modelis tuščias: '+data.glb);return null;}
-    // mastelio normalizavimas pagal dims_cm (manifest = tiesos šaltinis)
-    let box=new THREE.Box3().setFromObject(root); let size=new THREE.Vector3(); box.getSize(size);
+    let mc=0; root.traverse(o=>{if(o.isMesh)mc++;}); if(!mc){setHint('Modelis tuščias: '+data.glb);return null;}
+    let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3(); box.getSize(size);
     const Wcm=parseFloat((data.dims_cm||{}).W);
-    if(Wcm>0 && size.x>1e-4){
-      const r=(Wcm/100)/size.x;
-      if(r>1.7||r<0.6){root.scale.setScalar(r);box=new THREE.Box3().setFromObject(root);box.getSize(size);}
-    }
-    const min=box.min;
-    root.position.set(-min.x-size.x/2, -min.y, -min.z-size.z/2); // centruoti ant 0
+    if(Wcm>0&&size.x>1e-4){const r=(Wcm/100)/size.x;if(r>1.7||r<0.6){root.scale.setScalar(r);box=new THREE.Box3().setFromObject(root);box.getSize(size);}}
+    const min=box.min; root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);
     const wrap=new THREE.Group(); wrap.userData.isModule=true; wrap.userData.data=data; wrap.add(root);
     const rec={root:wrap,data,box:{x:size.x,y:size.y,z:size.z},rot:0,_tex:curTex};
     rec.rot=((opts.rot||0)%4+4)%4; wrap.rotation.y=rec.rot*Math.PI/2;
     wrap.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
     scene.add(wrap); placed.push(rec);
-    if(opts.x!==undefined){ wrap.position.set(opts.x,0,opts.z||0); }
-    else { placeFlushRight(rec); if(placed.length>1) snapToNeighbors(rec); }
+    if(opts.x!==undefined){wrap.position.set(opts.x,0,opts.z||0);}
+    else if(opts.flushRight){placeFlushRight(rec);if(placed.length>1)snapToNeighbors(rec);}
+    else {placeInFront(rec);} // naujas modulis atsiranda priekyje — patogu nutempti į vietą
     applyFabricTo(rec); updatePrice(); select(rec);
     if(opts.frame!==false) frameAll();
     updateRoom();
-    setHint(placed.length===1?'Tempk modulį pele, kad perdėliotum · jie patys susijungia':'');
+    setHint(opts.flushRight?'':'Naujas modulis — nutempk pele į vietą (prisitrauks)');
     return rec;
   }catch(e){console.error(e);setHint('Nepavyko įkelti modelio');return null;}
 }
 function placeFlushRight(rec){
   if(placed.length===1){rec.root.position.set(0,0,0);return;}
-  let maxX=-Infinity,refZ=0;
-  placed.forEach(p=>{if(p===rec)return;const a=aabb(p);if(a.maxX>maxX){maxX=a.maxX;refZ=a.cz;}});
-  const e=extOf(rec); rec.root.position.set(maxX+e.x/2,0,refZ);
+  let maxX=-Infinity,refZ=0;placed.forEach(p=>{if(p===rec)return;const a=aabb(p);if(a.maxX>maxX){maxX=a.maxX;refZ=a.cz;}});
+  const e=extOf(rec);rec.root.position.set(maxX+e.x/2,0,refZ);
 }
-
+function placeInFront(rec){
+  const b=assemblyBox(); const e=extOf(rec);
+  if(!b||placed.length===1){rec.root.position.set(0,0,0);return;}
+  rec.root.position.set(b.cx, 0, b.maxZ + e.z/2 + 0.25); // priekyje, su tarpu
+}
 function frameAll(){
-  const b=assemblyBox(); if(!b)return;
+  const b=assemblyBox();if(!b)return;
   const maxDim=Math.max(b.w,b.h,b.d)||1;
   const fit=(maxDim/2)/Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
-  const dist=THREE.MathUtils.clamp(fit*1.7,1.4,16);
+  const dist=THREE.MathUtils.clamp(fit*1.7,1.4,18);
   orbit.target.lerp(new THREE.Vector3(b.cx,Math.max(b.h*0.4,0.3),b.cz),0.6);
-  const dir=new THREE.Vector3(1,0.7,1.25).normalize();
-  camera.position.lerp(new THREE.Vector3().copy(orbit.target).add(dir.multiplyScalar(dist)),0.6);
+  camera.position.lerp(new THREE.Vector3().copy(orbit.target).add(new THREE.Vector3(1,0.7,1.25).normalize().multiplyScalar(dist)),0.6);
   orbit.update();
 }
 
 /* ============ PRICE ============ */
 function updatePrice(){
-  let min=0,max=0; placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
+  let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
   $('#price').textContent='€'+min;
-  $('#priceNote').textContent = placed.length ? (min!==max?('iki €'+max):(placed.length+' moduliai')) : 'pasirink modulius';
-  $('#monthly').innerHTML = placed.length ? ('≈ <b>€'+Math.round(min/12)+'</b>/mėn · 12 mėn.') : '';
+  $('#priceNote').textContent=placed.length?(min!==max?('iki €'+max):(placed.length+' moduliai')):'pasirink modulius';
+  $('#monthly').innerHTML=placed.length?('≈ <b>€'+Math.round(min/12)+'</b>/mėn · 12 mėn.'):'';
 }
 
-/* ============ FABRIC ============ */
+/* ============ FABRIC (HD tekstūra) ============ */
 const texLoader=new THREE.TextureLoader(); texLoader.setCrossOrigin('anonymous');
+function hiRes(url){return url+(url.includes('?')?'&':'?')+'width=1400';}
 function applyFabricTo(rec){
-  if(!curFabric)return; const col=new THREE.Color(curFabric.hex); const tex=rec._tex||null;
-  rec.root.traverse(o=>{
-    if(o.isMesh){
-      if(!o.userData.fabMat){o.material=new THREE.MeshStandardMaterial({roughness:0.9,metalness:0});o.userData.fabMat=true;}
-      if(tex){o.material.map=tex;o.material.color.set(0xffffff);} else {o.material.map=null;o.material.color.copy(col);}
-      o.material.needsUpdate=true;
-    }
-  });
+  if(!curFabric)return;const col=new THREE.Color(curFabric.hex);const tex=rec._tex||null;
+  rec.root.traverse(o=>{if(o.isMesh){
+    if(!o.userData.fabMat){o.material=new THREE.MeshStandardMaterial({roughness:0.92,metalness:0});o.userData.fabMat=true;}
+    if(tex){o.material.map=tex;o.material.color.set(0xffffff);}else{o.material.map=null;o.material.color.copy(col);}
+    o.material.needsUpdate=true;
+  }});
 }
 function loadFabricTexture(url,onOk){
-  const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(4,4);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}onOk(t);};
-  texLoader.load(url,setup,undefined,()=>{
-    const prox='https://images.weserv.nl/?url='+encodeURIComponent('ssl:'+url.replace(/^https?:\/\//,''))+'&w=600';
+  const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(5,5);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}onOk(t);};
+  const hi=hiRes(url);
+  texLoader.load(hi,setup,undefined,()=>{
+    const prox='https://images.weserv.nl/?url='+encodeURIComponent('ssl:'+url.replace(/^https?:\/\//,''))+'&w=1400';
     texLoader.load(prox,setup,undefined,()=>{});
   });
 }
+function fabAbrasionStars(a){if(!a)return '';const n=Math.round(parseFloat((''+a).split('-').pop()));return '★'.repeat(n)+'☆'.repeat(Math.max(0,5-n));}
+const FEAT_LT={'easy-cleaning':'Lengvai valoma','waterproof':'Atspari vandeniui','pet-friendly':'Augintiniams draugiška'};
+function showSpec(f){
+  const b=$('#specBox');
+  let rows='';
+  if(f.comp) rows+=`<div class="row"><span>Sudėtis</span><b>${f.comp}</b></div>`;
+  if(f.gsm)  rows+=`<div class="row"><span>Tankis</span><b>${f.gsm}</b></div>`;
+  rows+=`<div class="row"><span>Kategorija</span><b>${f.category}</b></div>`;
+  if(f.abrasion) rows+=`<div class="row"><span>Atsparumas dilimui</span><b><span class="stars">${fabAbrasionStars(f.abrasion)}</span> ${f.abrasion}/5 kl.</b></div>`;
+  const feats=(f.features||[]).map(x=>`<span class="badge">${FEAT_LT[x]||x}</span>`).join('');
+  if(feats) rows+=`<div class="feats">${feats}</div>`;
+  b.innerHTML=rows; b.classList.add('show');
+}
 function setFabric(f){
-  curFabric=f; curTex=null;
-  $('#fabName').innerHTML='Audinys: <b>'+f.name+'</b> · '+(f.color==='-'?f.category:f.color);
+  curFabric=f;curTex=null;
+  $('#fabName').innerHTML='<b>'+f.name+'</b>';
+  showSpec(f);
   document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
   placed.forEach(p=>{p._tex=null;applyFabricTo(p);});
-  if(f.image) loadFabricTexture(f.image,t=>{if(curFabric!==f)return;curTex=t;placed.forEach(p=>{p._tex=t;applyFabricTo(p);});});
+  if(f.image)loadFabricTexture(f.image,t=>{if(curFabric!==f)return;curTex=t;placed.forEach(p=>{p._tex=t;applyFabricTo(p);});});
+}
+
+/* ============ THUMBNAILS (renderinam iš tikrų GLB) ============ */
+const thumbRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+thumbRenderer.setSize(160,124); thumbRenderer.outputColorSpace=THREE.SRGBColorSpace;
+const thumbScene=new THREE.Scene();
+thumbScene.add(new THREE.HemisphereLight(0xffffff,0xcccccc,1.5));
+const thumbDir=new THREE.DirectionalLight(0xffffff,1.7); thumbDir.position.set(2,4,3); thumbScene.add(thumbDir);
+const thumbCam=new THREE.PerspectiveCamera(40,160/124,.01,100);
+const thumbCache={};
+async function thumbFor(glb){
+  if(thumbCache[glb])return thumbCache[glb];
+  try{
+    const g=await gltf.loadAsync(glb.replace(/^\//,''));
+    const root=g.scene;
+    const box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3(),c=new THREE.Vector3();
+    box.getSize(size); box.getCenter(c); root.position.sub(c);
+    root.traverse(o=>{if(o.isMesh)o.material=new THREE.MeshStandardMaterial({color:0xcdbfa8,roughness:.9});});
+    thumbScene.add(root);
+    const md=Math.max(size.x,size.y,size.z)||1, dist=md*1.85;
+    thumbCam.position.set(dist*0.85,dist*0.75,dist); thumbCam.lookAt(0,0,0);
+    thumbRenderer.render(thumbScene,thumbCam);
+    const url=thumbRenderer.domElement.toDataURL('image/png');
+    thumbScene.remove(root); thumbCache[glb]=url; return url;
+  }catch(e){return null;}
 }
 
 /* ============ UI: tabs / presets / modules ============ */
 function setHint(t){const h=$('#hint');h.textContent=t||'';h.style.opacity=t?1:0;}
-
 function buildTabs(){
-  const t=$('#tabs'); t.innerHTML='';
+  const t=$('#tabs');t.innerHTML='';
   Object.entries(MANIFEST.families).forEach(([key,fam])=>{
-    const b=document.createElement('button'); b.className='tab'; b.textContent=fam.name;
-    const has=(fam.modules&&fam.modules.length); if(!has)b.disabled=true;
+    const b=document.createElement('button');b.className='tab';b.textContent=fam.name;
+    const has=(fam.modules&&fam.modules.length);if(!has)b.disabled=true;
     b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curFamily=key;buildPresets();buildModules();};
     t.appendChild(b);
     if(!curFamily&&has){curFamily=key;b.classList.add('active');}
   });
 }
 
-// presetai generuojami iš tikrų šeimos kodų (sėdynės eilėje, pufas pridedamas gale)
-function presetsFor(key){
-  const fam=MANIFEST.families[key]; const mods=fam.modules||[];
-  const isPouf=c=>/^OT/i.test(c||'')||/x32$/i.test(c||''); // pufai/atlošai – ne pagrindinė eilė
-  const seats=mods.filter(m=>!isPouf(m.code));
-  const poufs=mods.filter(m=>isPouf(m.code)&&/^OT/i.test(m.code||''));
-  if(!seats.length)return [];
-  const pick=n=>{const out=[];for(let i=0;i<n;i++)out.push(seats[i%seats.length].code);return out;};
-  const list=[
-    {name:'Maža (2)', codes:pick(2)},
-    {name:'Vidutinė (3)', codes:pick(3)},
-    {name:'Didelė (4)', codes:pick(4)},
-  ];
-  if(poufs.length) list.push({name:'Su pufu', codes:[...pick(2),poufs[0].code]});
-  return list;
-}
+/* presetai pagal modulių roles (logiškos kompozicijos).  TODO: tikslūs Optisofa receptai */
+const PRESETS={
+  hug:[
+    {name:'Sofa 2v', seq:['MCL','MSW','MCR']},
+    {name:'Sofa 3v', seq:['MCL','MSW','MSW','MCR']},
+    {name:'Kampinė', seq:['MCL','MSW','MSW','OTW']},
+    {name:'Su pufu', seq:['MCL','MSW','MCR','OTW']},
+  ],
+  slay:[
+    {name:'Sofa 2v', seq:['ML','MR']},
+    {name:'Sofa 3v', seq:['ML','MS','MR']},
+    {name:'Su šezlongu', seq:['ML','MS','OTMR']},
+    {name:'Kampinė U', seq:['OTML','MS','MS','OTMR']},
+  ],
+  cloud:[
+    {name:'Sofa M', seq:['85x85','85x85']},
+    {name:'Sofa L', seq:['106x106','106x106']},
+    {name:'Kampinė', seq:['106x106','85x85','85x85']},
+  ],
+  loft:[],
+};
 function buildPresets(){
-  const wrap=$('#presets'); wrap.innerHTML='';
-  const list=presetsFor(curFamily);
+  const wrap=$('#presets');wrap.innerHTML='';
+  const fam=MANIFEST.families[curFamily];
+  const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c))})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
-  list.forEach(p=>{
-    const b=document.createElement('button'); b.className='preset'; b.textContent=p.name;
-    b.onclick=()=>applyPreset(p);
-    wrap.appendChild(b);
-  });
+  list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.textContent=p.name;b.onclick=()=>applyPreset(p);wrap.appendChild(b);});
 }
 async function applyPreset(p){
   clearAll();
   const fam=MANIFEST.families[curFamily];
-  for(const code of p.codes){
-    const d=fam.modules.find(m=>m.code===code); if(!d)continue;
-    await addModule(d,{frame:false}); // flush-right + snap automatiškai
-  }
-  frameAll(); updateRoom();
+  for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}
+  frameAll();updateRoom();
 }
 
 function buildModules(){
-  const fam=MANIFEST.families[curFamily]; const wrap=$('#modules'); wrap.innerHTML='';
+  const fam=MANIFEST.families[curFamily];const wrap=$('#modules');wrap.innerHTML='';
   const items=[...(fam.modules||[]),...(fam.cushions||[])];
   items.forEach(d=>{
-    const el=document.createElement('div'); el.className='mod';
+    const el=document.createElement('div');el.className='mod';
     const price=d.price_min===d.price_max?('€'+d.price_min):('€'+d.price_min+'–'+d.price_max);
-    const dim=d.dims_cm?`${d.dims_cm.W||'?'}×${d.dims_cm.D||'?'} cm`:'';
-    el.innerHTML=`<div><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div><div class="add">＋</div>`;
+    const dim=d.dims_cm?`${d.dims_cm.W||'?'}×${d.dims_cm.D||'?'}×${d.dims_cm.H||'?'} cm`:'';
+    el.innerHTML=`<div class="thumb">⏳</div><div class="info"><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div><div class="add">＋</div>`;
     el.onclick=()=>addModule(d);
     wrap.appendChild(el);
+    if(d.glb)thumbFor(d.glb).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});
+    else el.querySelector('.thumb').textContent='▢';
   });
   if(fam.modules&&!fam.modules.length&&fam.note){const n=document.createElement('div');n.className='note';n.textContent=fam.note;wrap.appendChild(n);}
 }
 
-/* ============ UI: fabric filters ============ */
-let activeColor=null, activeFeat=null;
+/* ============ FABRIC FILTERS ============ */
+let activeColor=null,activeFeat=null;
 const COLOR_LT={beige:'smėlio',brown:'ruda',grey:'pilka',green:'žalia',blue:'mėlyna',pink:'rožinė',yellow:'geltona',orange:'oranžinė',red:'raudona'};
-const FEAT_LT={'easy-cleaning':'lengvai valoma','waterproof':'atspari vandeniui','pet-friendly':'augintiniams'};
 function buildFabricFilters(){
-  const ff=$('#featFilter'); ff.innerHTML='';
-  const allFeats=[...new Set(FABRICS.flatMap(f=>f.features||[]))];
-  const mkF=(label,val)=>{const c=document.createElement('div');c.className='chip feat'+(val===activeFeat?' active':'');c.textContent=label;c.onclick=()=>{activeFeat=activeFeat===val?null:val;buildFabricFilters();renderSwatches();};return c;};
-  allFeats.forEach(v=>ff.appendChild(mkF(FEAT_LT[v]||v,v)));
-
-  const cf=$('#colorFilter'); cf.innerHTML='';
+  const ff=$('#featFilter');ff.innerHTML='';
+  [...new Set(FABRICS.flatMap(f=>f.features||[]))].forEach(v=>{
+    const c=document.createElement('div');c.className='chip feat'+(v===activeFeat?' active':'');c.textContent=FEAT_LT[v]||v;
+    c.onclick=()=>{activeFeat=activeFeat===v?null:v;buildFabricFilters();renderSwatches();};ff.appendChild(c);
+  });
+  const cf=$('#colorFilter');cf.innerHTML='';
   const colors=[...new Set(FABRICS.map(f=>f.color))].filter(c=>c&&c!=='-');
-  const mkC=(label,val)=>{const c=document.createElement('div');c.className='chip'+(val===activeColor?' active':'');c.textContent=label;c.onclick=()=>{activeColor=activeColor===val?null:val;buildFabricFilters();renderSwatches();};return c;};
-  cf.appendChild(mkC('visos spalvos',null));
-  colors.forEach(c=>cf.appendChild(mkC(COLOR_LT[c]||c,c)));
+  const mk=(label,val)=>{const c=document.createElement('div');c.className='chip'+(val===activeColor?' active':'');c.textContent=label;c.onclick=()=>{activeColor=activeColor===val?null:val;buildFabricFilters();renderSwatches();};return c;};
+  cf.appendChild(mk('visos spalvos',null));
+  colors.forEach(c=>cf.appendChild(mk(COLOR_LT[c]||c,c)));
   renderSwatches();
 }
-function filteredFabrics(){
-  return FABRICS.filter(f=>(!activeColor||f.color===activeColor)&&(!activeFeat||(f.features||[]).includes(activeFeat)));
-}
+function filteredFabrics(){return FABRICS.filter(f=>(!activeColor||f.color===activeColor)&&(!activeFeat||(f.features||[]).includes(activeFeat)));}
 function renderSwatches(){
-  const list=filteredFabrics(); const w=$('#swatches'); w.innerHTML='';
+  const list=filteredFabrics();const w=$('#swatches');w.innerHTML='';
   $('#fabCount').textContent=list.length+' / '+FABRICS.length;
   list.forEach(f=>{
-    const s=document.createElement('div'); s.className='sw'; s.dataset.name=f.name; s.style.background=f.hex;
-    if(f.image)s.style.backgroundImage=`url("${f.image}&width=120")`;
-    s.title=f.name; s.innerHTML=`<span class="lbl">${f.name}</span>`;
-    s.onclick=()=>setFabric(f);
+    const s=document.createElement('div');s.className='sw';s.dataset.name=f.name;s.style.background=f.hex;
+    if(f.image)s.style.backgroundImage=`url("${f.image}&width=160")`;
+    s.title=f.name;s.innerHTML=`<span class="lbl">${f.name}</span>`;s.onclick=()=>setFabric(f);
     if(curFabric&&curFabric.name===f.name)s.classList.add('active');
     w.appendChild(s);
   });
 }
 
-/* ============ ROOM CONTEXT (telpa / netelpa) ============ */
-let roomOn=false; let roomGroup=null;
-function clearRoom(){ if(roomGroup){scene.remove(roomGroup);roomGroup=null;} $('#fit').classList.remove('show'); }
+/* ============ ROOM ============ */
+let roomOn=false,roomGroup=null;
+function clearRoom(){if(roomGroup){scene.remove(roomGroup);roomGroup=null;}$('#fit').classList.remove('show');}
 function updateRoom(){
   if(!roomOn){clearRoom();return;}
   clearRoom();
-  const W=Math.max(1,(parseFloat($('#roomW').value)||350)/100);
-  const D=Math.max(1,(parseFloat($('#roomD').value)||300)/100);
-  const b=assemblyBox();
-  const cx=b?b.cx:0, cz=b?b.cz:0;
+  const W=Math.max(1,(parseFloat($('#roomW').value)||350)/100),D=Math.max(1,(parseFloat($('#roomD').value)||300)/100);
+  const b=assemblyBox();const cx=b?b.cx:0,cz=b?b.cz:0;
   roomGroup=new THREE.Group();
-  // grindų stačiakampis
   const rf=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshStandardMaterial({color:0xfbf8f3,roughness:1}));
-  rf.rotation.x=-Math.PI/2; rf.position.set(cx,0.002,cz); rf.receiveShadow=true; roomGroup.add(rf);
-  // kontūras
+  rf.rotation.x=-Math.PI/2;rf.position.set(cx,0.002,cz);rf.receiveShadow=true;roomGroup.add(rf);
   const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(W,D)),new THREE.LineBasicMaterial({color:0xc08a3e}));
-  edge.rotation.x=-Math.PI/2; edge.position.set(cx,0.004,cz); roomGroup.add(edge);
-  // dvi sienos
-  const wallMat=new THREE.MeshStandardMaterial({color:0xece6dc,roughness:1,transparent:true,opacity:0.45,side:THREE.DoubleSide});
-  const wallH=1.2;
-  const back=new THREE.Mesh(new THREE.PlaneGeometry(W,wallH),wallMat); back.position.set(cx,wallH/2,cz-D/2); roomGroup.add(back);
-  const left=new THREE.Mesh(new THREE.PlaneGeometry(D,wallH),wallMat); left.rotation.y=Math.PI/2; left.position.set(cx-W/2,wallH/2,cz); roomGroup.add(left);
+  edge.rotation.x=-Math.PI/2;edge.position.set(cx,0.004,cz);roomGroup.add(edge);
+  const wm=new THREE.MeshStandardMaterial({color:0xece6dc,roughness:1,transparent:true,opacity:0.45,side:THREE.DoubleSide}),wh=1.2;
+  const back=new THREE.Mesh(new THREE.PlaneGeometry(W,wh),wm);back.position.set(cx,wh/2,cz-D/2);roomGroup.add(back);
+  const left=new THREE.Mesh(new THREE.PlaneGeometry(D,wh),wm);left.rotation.y=Math.PI/2;left.position.set(cx-W/2,wh/2,cz);roomGroup.add(left);
   scene.add(roomGroup);
-  // verdiktas
-  const badge=$('#fit');
-  if(!b){badge.classList.remove('show');return;}
-  const freeW=Math.round((W-b.w)*100), freeD=Math.round((D-b.d)*100);
+  const badge=$('#fit');if(!b){badge.classList.remove('show');return;}
+  const fw=Math.round((W-b.w)*100),fd=Math.round((D-b.d)*100);
   const sofaTxt=`Sofa: ${Math.round(b.w*100)}×${Math.round(b.d*100)} cm`;
-  if(freeW>=0&&freeD>=0){
-    badge.innerHTML=`<span class="ok">✓ Telpa</span><br>${sofaTxt}<br>Lieka: ${freeW}×${freeD} cm`;
-  } else {
-    const miss=[]; if(freeW<0)miss.push(`pločio ${-freeW} cm`); if(freeD<0)miss.push(`ilgio ${-freeD} cm`);
-    badge.innerHTML=`<span class="bad">✗ Netelpa</span><br>${sofaTxt}<br>Trūksta: ${miss.join(', ')}`;
-  }
+  if(fw>=0&&fd>=0)badge.innerHTML=`<span class="ok">✓ Telpa</span><br>${sofaTxt}<br>Lieka: ${fw}×${fd} cm`;
+  else{const miss=[];if(fw<0)miss.push(`pločio ${-fw} cm`);if(fd<0)miss.push(`ilgio ${-fd} cm`);badge.innerHTML=`<span class="bad">✗ Netelpa</span><br>${sofaTxt}<br>Trūksta: ${miss.join(', ')}`;}
   badge.classList.add('show');
 }
-$('#btnRoom').onclick=()=>{
-  roomOn=!roomOn; $('#btnRoom').classList.toggle('on',roomOn); $('#roompanel').classList.toggle('show',roomOn);
-  updateRoom();
+$('#btnRoom').onclick=()=>{roomOn=!roomOn;$('#btnRoom').classList.toggle('on',roomOn);$('#roompanel').classList.toggle('show',roomOn);updateRoom();};
+$('#roomApply').onclick=updateRoom;$('#roomW').onchange=updateRoom;$('#roomD').onchange=updateRoom;
+
+/* ============ DIMENSIONS (etiketės šalia sofos) ============ */
+let dimsOn=false,dimBox=null;
+function clearDimLabels(){$('#dimLabels').innerHTML='';}
+function project(v){const p=v.clone().project(camera);return{x:(p.x*0.5+0.5)*stage.clientWidth,y:(-p.y*0.5+0.5)*stage.clientHeight,vis:p.z<1};}
+function updateDimLabels(){
+  if(!dimsOn){clearDimLabels();return;}
+  const b=assemblyBox();const cont=$('#dimLabels');if(!b){cont.innerHTML='';return;}
+  const wMid=new THREE.Vector3(b.cx,0.02,b.maxZ);     // plotis – priekinė briauna
+  const dMid=new THREE.Vector3(b.maxX,0.02,b.cz);     // gylis – šoninė briauna
+  const hTop=new THREE.Vector3(b.maxX,b.h,b.maxZ);    // aukštis
+  const data=[[wMid,Math.round(b.w*100)+' cm'],[dMid,Math.round(b.d*100)+' cm'],[hTop,'H '+Math.round(b.h*100)+' cm']];
+  cont.innerHTML='';
+  data.forEach(([v,txt])=>{const s=project(v);if(!s.vis)return;const d=document.createElement('div');d.className='dimlbl';d.style.left=s.x+'px';d.style.top=s.y+'px';d.textContent=txt;cont.appendChild(d);});
+}
+$('#btnDims').onclick=()=>{
+  dimsOn=!dimsOn;$('#btnDims').classList.toggle('on',dimsOn);if(dimBox){scene.remove(dimBox);dimBox=null;}
+  const b=assemblyBox();
+  if(dimsOn&&b){const box=new THREE.Box3(new THREE.Vector3(b.minX,0,b.minZ),new THREE.Vector3(b.maxX,b.h,b.maxZ));dimBox=new THREE.Box3Helper(box,0xc08a3e);scene.add(dimBox);}
+  else clearDimLabels();
 };
-$('#roomApply').onclick=updateRoom;
-$('#roomW').onchange=updateRoom; $('#roomD').onchange=updateRoom;
 
 /* ============ BUTTONS ============ */
 $('#btnRotate').onclick=()=>{if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;snapToNeighbors(selected);updateRoom();}};
 $('#btnDelete').onclick=()=>{if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
 function clearAll(){placed.forEach(p=>scene.remove(p.root));placed.length=0;updatePrice();select(null);updateRoom();setHint('Spustelk modulį ar greitą rinkinį kairėje');}
 $('#btnClear').onclick=clearAll;
-let dimsOn=false,dimBox=null;
-$('#btnDims').onclick=()=>{
-  dimsOn=!dimsOn; $('#btnDims').classList.toggle('on',dimsOn); if(dimBox){scene.remove(dimBox);dimBox=null;}
+
+/* ============ SUMMARY (bendrinama PDF / email) ============ */
+function configSummary(){
+  const groups={};
+  placed.forEach(p=>{const k=p.data.name;groups[k]=groups[k]||{name:k,count:0,dims:p.data.dims_cm,pmin:p.data.price_min,pmax:p.data.price_max};groups[k].count++;});
+  let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
   const b=assemblyBox();
-  if(dimsOn&&b){
-    const box=new THREE.Box3(new THREE.Vector3(b.minX,0,b.minZ),new THREE.Vector3(b.maxX,b.h,b.maxZ));
-    dimBox=new THREE.Box3Helper(box,0xc08a3e);scene.add(dimBox);
-    setHint(`Bendras dydis: ${Math.round(b.w*100)} × ${Math.round(b.d*100)} cm`);
-  } else setHint('');
+  return{groups:Object.values(groups),min,max,monthly:Math.round(min/12),
+    dims:b?`${Math.round(b.w*100)}×${Math.round(b.d*100)}×${Math.round(b.h*100)} cm`:'-',
+    family:MANIFEST.families[curFamily]?.name||'-', fabric:curFabric};
+}
+
+/* ============ PDF EKSPORTAS ============ */
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+$('#btnPDF').onclick=async()=>{
+  if(!placed.length){toast('Pirma sudėliok sofą');return;}
+  toast('Ruošiamas PDF…');
+  if(!window.jspdf)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  const {jsPDF}=window.jspdf; const doc=new jsPDF({unit:'mm',format:'a4'}); const W=210; let y=16;
+  doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text('Sofalova.lt — Jūsų konfigūracija',14,y);y+=7;
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(120);
+  doc.text(new Date().toLocaleDateString('lt-LT')+'  ·  Kolekcija: '+(MANIFEST.families[curFamily]?.name||'-'),14,y);y+=6;
+  // 3D nuotrauka
+  try{renderer.render(scene,camera);const img=renderer.domElement.toDataURL('image/jpeg',0.92);const iw=W-28,ih=iw*0.5;doc.addImage(img,'JPEG',14,y,iw,ih);y+=ih+6;}catch(e){}
+  const s=configSummary();
+  doc.setTextColor(30);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Moduliai',14,y);y+=6;
+  doc.setFont('helvetica','normal');doc.setFontSize(10);
+  s.groups.forEach(g=>{const dim=g.dims?`${g.dims.W}×${g.dims.D}×${g.dims.H} cm`:'';const pr=g.pmin===g.pmax?`€${g.pmin}`:`€${g.pmin}–${g.pmax}`;doc.text(`• ${g.count}× ${g.name}`,16,y);doc.text(`${dim}   ${pr}`,W-14,y,{align:'right'});y+=5.5;});
+  y+=3;doc.setDrawColor(210);doc.line(14,y,W-14,y);y+=7;
+  doc.setFont('helvetica','bold');doc.text('Bendri matmenys:',16,y);doc.setFont('helvetica','normal');doc.text(s.dims,W-14,y,{align:'right'});y+=6;
+  if(s.fabric){doc.setFont('helvetica','bold');doc.text('Audinys:',16,y);doc.setFont('helvetica','normal');
+    doc.text(`${s.fabric.name} · ${s.fabric.category}${s.fabric.abrasion?' · atsparumas '+s.fabric.abrasion+'/5':''}`,W-14,y,{align:'right'});y+=6;
+    if(s.fabric.comp){doc.setTextColor(120);doc.text(`${s.fabric.comp}${s.fabric.gsm?' · '+s.fabric.gsm:''}`,16,y);doc.setTextColor(30);y+=6;}}
+  y+=2;doc.setFont('helvetica','bold');doc.setFontSize(13);
+  doc.text('Kaina:',16,y);doc.text(s.min!==s.max?`€${s.min}–${s.max}`:`€${s.min}`,W-14,y,{align:'right'});y+=6;
+  doc.setFontSize(10);doc.setTextColor(120);doc.text(`≈ €${s.monthly}/mėn · 12 mėn.`,W-14,y,{align:'right'});
+  doc.save('sofalova-konfiguracija.pdf');
+  toast('PDF parsisiųstas ✓');
 };
 
-/* ============ SAVE & SHARE (config -> URL) ============ */
+/* ============ EL. PAŠTAS ============ */
+$('#btnEmail').onclick=()=>{
+  if(!placed.length){toast('Pirma sudėliok sofą');return;}
+  const s=configSummary();
+  const url=location.origin+location.pathname+'#'+encodeConfig();history.replaceState(null,'',url);
+  const lines=['Mano Sofalova.lt konfigūracija:','','Kolekcija: '+s.family];
+  s.groups.forEach(g=>lines.push(`• ${g.count}× ${g.name}`));
+  lines.push('','Matmenys: '+s.dims, 'Audinys: '+(s.fabric?s.fabric.name:'-'),
+    'Kaina: '+(s.min!==s.max?`€${s.min}–${s.max}`:`€${s.min}`)+`  (≈ €${s.monthly}/mėn)`,'',
+    'Peržiūrėti konfigūraciją: '+url);
+  const subject=encodeURIComponent('Sofalova konfigūracija — '+s.family);
+  const body=encodeURIComponent(lines.join('\n'));
+  location.href=`mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+};
+
+/* ============ PAVYZDŽIO UŽSAKYMAS ============ */
+$('#btnSample').onclick=()=>{
+  if(!curFabric){toast('Pirma pasirink audinį');return;}
+  if(SAMPLE_PAGE){window.open(SAMPLE_PAGE,'_blank');return;}
+  const subject=encodeURIComponent('Nemokamo audinio pavyzdžio užsakymas: '+curFabric.name);
+  const body=encodeURIComponent(`Norėčiau nemokamo audinio pavyzdžio:\n\nAudinys: ${curFabric.name}\nKategorija: ${curFabric.category}\n\nMano vardas:\nAdresas:\n`);
+  location.href=`mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+};
+
+/* ============ SAVE & SHARE ============ */
 function encodeConfig(){
-  const cfg={f:curFamily, fab:curFabric?curFabric.name:null,
-    m:placed.map(p=>({c:p.data.code||p.data.name, x:+p.root.position.x.toFixed(3), z:+p.root.position.z.toFixed(3), r:p.rot}))};
+  const cfg={f:curFamily,fab:curFabric?curFabric.name:null,m:placed.map(p=>({c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot}))};
   return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));
 }
 async function restoreConfig(str){
-  let cfg; try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
-  if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));
-    buildPresets();buildModules();}
+  let cfg;try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
+  if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));buildPresets();buildModules();}
   if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}
-  const fam=MANIFEST.families[curFamily]; const all=[...(fam.modules||[]),...(fam.cushions||[])];
-  for(const it of (cfg.m||[])){
-    const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c); if(!d)continue;
-    await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});
-  }
-  frameAll(); updateRoom();
+  const fam=MANIFEST.families[curFamily];const all=[...(fam.modules||[]),...(fam.cushions||[])];
+  for(const it of (cfg.m||[])){const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c);if(!d)continue;await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});}
+  frameAll();updateRoom();
 }
 $('#btnShare').onclick=()=>{
   if(!placed.length){toast('Pirma sudėliok sofą');return;}
-  const url=location.origin+location.pathname+'#'+encodeConfig();
-  history.replaceState(null,'',url);
+  const url=location.origin+location.pathname+'#'+encodeConfig();history.replaceState(null,'',url);
   navigator.clipboard?.writeText(url).then(()=>toast('Nuoroda nukopijuota ✓'),()=>toast('Nuoroda URL juostoje'));
 };
 
-/* ============ AR (geriausiai Android; iOS ribota be USDZ) ============ */
+/* ============ AR ============ */
 let mvLoaded=false;
 function loadModelViewer(){return new Promise(res=>{if(mvLoaded)return res();const s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';s.onload=()=>{mvLoaded=true;res();};document.head.appendChild(s);});}
 $('#btnAR').onclick=async()=>{
   if(!placed.length){toast('Pirma sudėliok sofą');return;}
-  toast('Ruošiama AR…');
-  await loadModelViewer();
-  // eksportuojam surinktą sofą į GLB
-  const grp=new THREE.Group(); placed.forEach(p=>grp.add(p.root.clone(true)));
+  toast('Ruošiama AR…');await loadModelViewer();
+  const grp=new THREE.Group();placed.forEach(p=>grp.add(p.root.clone(true)));
   new GLTFExporter().parse(grp,(buf)=>{
-    const blob=new Blob([buf],{type:'model/gltf-binary'}); const url=URL.createObjectURL(blob);
-    const wrap=$('#mvWrap'); wrap.querySelectorAll('model-viewer').forEach(e=>e.remove());
+    const blob=new Blob([buf],{type:'model/gltf-binary'}),url=URL.createObjectURL(blob);
+    const wrap=$('#mvWrap');wrap.querySelectorAll('model-viewer').forEach(e=>e.remove());
     const mv=document.createElement('model-viewer');
-    mv.setAttribute('src',url); mv.setAttribute('camera-controls',''); mv.setAttribute('shadow-intensity','1');
-    mv.setAttribute('ar',''); mv.setAttribute('ar-modes','webxr scene-viewer quick-look'); mv.setAttribute('ar-scale','fixed');
-    wrap.appendChild(mv); wrap.classList.add('show');
-    mv.addEventListener('load',()=>{ try{mv.activateAR&&mv.activateAR();}catch(e){} });
+    mv.setAttribute('src',url);mv.setAttribute('camera-controls','');mv.setAttribute('shadow-intensity','1');
+    mv.setAttribute('ar','');mv.setAttribute('ar-modes','webxr scene-viewer quick-look');mv.setAttribute('ar-scale','fixed');
+    wrap.appendChild(mv);wrap.classList.add('show');
+    mv.addEventListener('load',()=>{try{mv.activateAR&&mv.activateAR();}catch(e){}});
   },(err)=>{console.error(err);toast('AR eksportas nepavyko');},{binary:true});
 };
 $('#mvClose').onclick=()=>{$('#mvWrap').classList.remove('show');$('#mvWrap').querySelectorAll('model-viewer').forEach(e=>e.remove());};
 
 /* ============ TOAST ============ */
-let toastT=null;
-function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
+let toastT=null;function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
 
 /* ============ LOOP ============ */
-(function loop(){requestAnimationFrame(loop);orbit.update();renderer.render(scene,camera);})();
+(function loop(){requestAnimationFrame(loop);orbit.update();updateDimLabels();renderer.render(scene,camera);})();
 
 /* ============ INIT ============ */
 (async function init(){
   try{
     const [m,f]=await Promise.all([fetch('manifest.json').then(r=>r.json()),fetch('fabrics.json').then(r=>r.json())]);
-    MANIFEST=m; FABRICS=f;
-    buildTabs(); buildPresets(); buildModules(); buildFabricFilters();
+    MANIFEST=m;FABRICS=f;
+    buildTabs();buildPresets();buildModules();buildFabricFilters();
     if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
     $('#loader').style.display='none';
-    if(location.hash.length>1) restoreConfig(location.hash.slice(1));
+    if(location.hash.length>1)restoreConfig(location.hash.slice(1));
   }catch(e){console.error(e);$('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';}
 })();
 </script>

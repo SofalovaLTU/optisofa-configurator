@@ -5,7 +5,10 @@
   "color": "beige",
   "hex": "#d8c4a8",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Nata.jpg?v=1666087493"
+  "image": "https://optisofa.com/cdn/shop/products/Nata.jpg?v=1666087493",
+  "comp": "95% polyester, 5% acrylic",
+  "gsm": "855 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Linen",
@@ -15,7 +18,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Linen_31c107ac-85a3-4148-bf7b-4948bd21dc1e.jpg?v=1694077647"
+  "image": "https://optisofa.com/cdn/shop/files/Linen_31c107ac-85a3-4148-bf7b-4948bd21dc1e.jpg?v=1694077647",
+  "comp": "78% polyester, 22% cotton",
+  "gsm": "453 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Bone",
@@ -26,7 +32,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Bone_2.jpg?v=1694078989"
+  "image": "https://optisofa.com/cdn/shop/files/Bone_2.jpg?v=1694078989",
+  "comp": "100% polyester",
+  "gsm": "486 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Waffle",
@@ -36,7 +45,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Pente_03.jpg?v=1717502119"
+  "image": "https://optisofa.com/cdn/shop/files/Pente_03.jpg?v=1717502119",
+  "comp": "95% polyester, 5% cotton",
+  "gsm": "500 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Alabaster",
@@ -46,7 +58,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Alabaster.jpg?v=1667831362"
+  "image": "https://optisofa.com/cdn/shop/products/Alabaster.jpg?v=1667831362",
+  "comp": "100% polyester",
+  "gsm": "415 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Shell",
@@ -56,7 +71,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Shell.jpg?v=1666088530"
+  "image": "https://optisofa.com/cdn/shop/products/Shell.jpg?v=1666088530",
+  "comp": "100% polyester",
+  "gsm": "310 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Papyrus",
@@ -67,7 +85,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Manza-04.jpg?v=1724847098"
+  "image": "https://optisofa.com/cdn/shop/files/Manza-04.jpg?v=1724847098",
+  "comp": null,
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Almond",
@@ -77,7 +98,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Almond.jpg?v=1666086925"
+  "image": "https://optisofa.com/cdn/shop/products/Almond.jpg?v=1666086925",
+  "comp": "100% polyester",
+  "gsm": "450 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Jute",
@@ -85,7 +109,10 @@
   "color": "beige",
   "hex": "#d8c4a8",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Jute.jpg?v=1666087986"
+  "image": "https://optisofa.com/cdn/shop/products/Jute.jpg?v=1666087986",
+  "comp": "100% polyester",
+  "gsm": "610 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Mellow",
@@ -96,7 +123,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Mellow_2.jpg?v=1694078920"
+  "image": "https://optisofa.com/cdn/shop/files/Mellow_2.jpg?v=1694078920",
+  "comp": "100% polyester",
+  "gsm": "486 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Biscuit",
@@ -107,7 +137,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/biscut.jpg?v=1781102738"
+  "image": "https://optisofa.com/cdn/shop/files/biscut.jpg?v=1781102738",
+  "comp": "100% polyester",
+  "gsm": "560 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Nougat",
@@ -115,7 +148,10 @@
   "color": "beige",
   "hex": "#d8c4a8",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Soro-21.jpg?v=1667831577"
+  "image": "https://optisofa.com/cdn/shop/products/Soro-21.jpg?v=1667831577",
+  "comp": "100% polyester",
+  "gsm": "280 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Sandy",
@@ -125,7 +161,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Olaf-16_73cda7ae-5ce7-43ab-a140-dd3dff963502.jpg?v=1667821097"
+  "image": "https://optisofa.com/cdn/shop/products/Olaf-16_73cda7ae-5ce7-43ab-a140-dd3dff963502.jpg?v=1667821097",
+  "comp": "100% polyester",
+  "gsm": "462 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Truffle",
@@ -137,7 +176,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Truffle.jpg?v=1667202891"
+  "image": "https://optisofa.com/cdn/shop/products/Truffle.jpg?v=1667202891",
+  "comp": "100% polyester",
+  "gsm": "300 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Hazel",
@@ -147,7 +189,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/c427e80f-6f9c-46c2-8ae5-f74396bfce5d_x1200_c.jpg?v=1673862170"
+  "image": "https://optisofa.com/cdn/shop/products/c427e80f-6f9c-46c2-8ae5-f74396bfce5d_x1200_c.jpg?v=1673862170",
+  "comp": "100% polyester",
+  "gsm": "415 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Cappuccino",
@@ -155,7 +200,10 @@
   "color": "brown",
   "hex": "#6b4a32",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Cappucino.jpg?v=1666087329"
+  "image": "https://optisofa.com/cdn/shop/products/Cappucino.jpg?v=1666087329",
+  "comp": "100% polyester",
+  "gsm": "450 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Toffee",
@@ -163,7 +211,10 @@
   "color": "grey",
   "hex": "#9a9a9a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Toffee.jpg?v=1666087645"
+  "image": "https://optisofa.com/cdn/shop/products/Toffee.jpg?v=1666087645",
+  "comp": "95% polyester, 5% acrylic",
+  "gsm": "855 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Taupe",
@@ -174,7 +225,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Manza15.jpg?v=1724846876"
+  "image": "https://optisofa.com/cdn/shop/files/Manza15.jpg?v=1724846876",
+  "comp": null,
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Buff",
@@ -184,7 +238,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Buff.jpg?v=1667205200"
+  "image": "https://optisofa.com/cdn/shop/products/Buff.jpg?v=1667205200",
+  "comp": "100% polyester",
+  "gsm": "430 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Caper",
@@ -194,7 +251,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Caper_916a8d58-3f9f-4567-93f1-dbf0b8738349.jpg?v=1780910033"
+  "image": "https://optisofa.com/cdn/shop/files/Caper_916a8d58-3f9f-4567-93f1-dbf0b8738349.jpg?v=1780910033",
+  "comp": "100% polyester",
+  "gsm": "462 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Bison",
@@ -205,7 +265,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Diana-21-Bison.jpg?v=1724759833"
+  "image": "https://optisofa.com/cdn/shop/files/Diana-21-Bison.jpg?v=1724759833",
+  "comp": "100% polyester",
+  "gsm": "486 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Cocoa",
@@ -213,7 +276,10 @@
   "color": "brown",
   "hex": "#6b4a32",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/Zoom-5-Brown.jpg?v=1724846376"
+  "image": "https://optisofa.com/cdn/shop/files/Zoom-5-Brown.jpg?v=1724846376",
+  "comp": "100% polyester",
+  "gsm": "450 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Dusk",
@@ -224,7 +290,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Dusk.jpg?v=1740048732"
+  "image": "https://optisofa.com/cdn/shop/files/Dusk.jpg?v=1740048732",
+  "comp": "100% polyester",
+  "gsm": "350 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Nut",
@@ -235,7 +304,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/nut_2.jpg?v=1781102637"
+  "image": "https://optisofa.com/cdn/shop/files/nut_2.jpg?v=1781102637",
+  "comp": "100% polyester",
+  "gsm": "560 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Onyx",
@@ -246,7 +318,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/onyx_33ced5ec-dc4c-4e52-b8b4-3f7bb34b7e84.jpg?v=1781103160"
+  "image": "https://optisofa.com/cdn/shop/files/onyx_33ced5ec-dc4c-4e52-b8b4-3f7bb34b7e84.jpg?v=1781103160",
+  "comp": "100% polyester",
+  "gsm": "560 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Fog",
@@ -257,7 +332,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Fog_1.jpg?v=1694078492"
+  "image": "https://optisofa.com/cdn/shop/files/Fog_1.jpg?v=1694078492",
+  "comp": "100% polyester",
+  "gsm": "486 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Aria",
@@ -269,7 +347,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Aria.jpg?v=1667204884"
+  "image": "https://optisofa.com/cdn/shop/products/Aria.jpg?v=1667204884",
+  "comp": "100% polyester",
+  "gsm": "300 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Smoke",
@@ -277,7 +358,10 @@
   "color": "grey",
   "hex": "#9a9a9a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Smoke.jpg?v=1666087856"
+  "image": "https://optisofa.com/cdn/shop/products/Smoke.jpg?v=1666087856",
+  "comp": "100% polyester",
+  "gsm": "610 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Griffin",
@@ -285,7 +369,10 @@
   "color": "grey",
   "hex": "#9a9a9a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/Zoom-21-Ash.jpg?v=1724846495"
+  "image": "https://optisofa.com/cdn/shop/files/Zoom-21-Ash.jpg?v=1724846495",
+  "comp": "100% polyester",
+  "gsm": "450 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Coral",
@@ -296,7 +383,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Coral.jpg?v=1740048728"
+  "image": "https://optisofa.com/cdn/shop/files/Coral.jpg?v=1740048728",
+  "comp": "100% polyester",
+  "gsm": "350 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Dove",
@@ -307,7 +397,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Diana-31-Silver.jpg?v=1724759810"
+  "image": "https://optisofa.com/cdn/shop/files/Diana-31-Silver.jpg?v=1724759810",
+  "comp": "100% polyester",
+  "gsm": "486 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Zinc",
@@ -317,7 +410,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Casual-12-Misty.jpg?v=1724760556"
+  "image": "https://optisofa.com/cdn/shop/files/Casual-12-Misty.jpg?v=1724760556",
+  "comp": "78% polyester, 22% cotton",
+  "gsm": "453 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Gris",
@@ -325,7 +421,10 @@
   "color": "grey",
   "hex": "#9a9a9a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Soro-90_147a6b5b-9657-452f-9966-721ae2ee6709.jpg?v=1667831598"
+  "image": "https://optisofa.com/cdn/shop/products/Soro-90_147a6b5b-9657-452f-9966-721ae2ee6709.jpg?v=1667831598",
+  "comp": "100% polyester",
+  "gsm": "280 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Mouse",
@@ -333,7 +432,10 @@
   "color": "grey",
   "hex": "#9a9a9a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/Zoom-19-Dove.jpg?v=1724846319"
+  "image": "https://optisofa.com/cdn/shop/files/Zoom-19-Dove.jpg?v=1724846319",
+  "comp": "100% polyester",
+  "gsm": "450 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Tufa",
@@ -343,7 +445,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/3dd98d24-61c3-4ae2-8b2e-bd409c7ba4e0_x1200_c.jpg?v=1673862161"
+  "image": "https://optisofa.com/cdn/shop/products/3dd98d24-61c3-4ae2-8b2e-bd409c7ba4e0_x1200_c.jpg?v=1673862161",
+  "comp": "100% polyester",
+  "gsm": "415 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Frost",
@@ -354,7 +459,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Frost.jpg?v=1740048725"
+  "image": "https://optisofa.com/cdn/shop/files/Frost.jpg?v=1740048725",
+  "comp": "100% polyester",
+  "gsm": "350 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Shadow",
@@ -364,7 +472,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Shadow.jpg?v=1672234258"
+  "image": "https://optisofa.com/cdn/shop/products/Shadow.jpg?v=1672234258",
+  "comp": "100% polyester",
+  "gsm": "310 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "River",
@@ -374,7 +485,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Casual-16-River.jpg?v=1724760198"
+  "image": "https://optisofa.com/cdn/shop/files/Casual-16-River.jpg?v=1724760198",
+  "comp": "78% polyester, 22% cotton",
+  "gsm": "453 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Arctic",
@@ -384,7 +498,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Arctic.jpg?v=1669308174"
+  "image": "https://optisofa.com/cdn/shop/products/Arctic.jpg?v=1669308174",
+  "comp": "100% polyester",
+  "gsm": "450 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Ink",
@@ -394,7 +511,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Ink.jpg?v=1694070413"
+  "image": "https://optisofa.com/cdn/shop/files/Ink.jpg?v=1694070413",
+  "comp": "78% polyester, 22% cotton",
+  "gsm": "453 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Azure",
@@ -404,7 +524,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/3f81ca15-195c-4c90-afd0-4f5786037405_x1200_c.jpg?v=1673862210"
+  "image": "https://optisofa.com/cdn/shop/products/3f81ca15-195c-4c90-afd0-4f5786037405_x1200_c.jpg?v=1673862210",
+  "comp": "100% polyester",
+  "gsm": "462 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Laguna",
@@ -414,7 +537,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Laguna.jpg?v=1667205347"
+  "image": "https://optisofa.com/cdn/shop/products/Laguna.jpg?v=1667205347",
+  "comp": "100% polyester",
+  "gsm": "430 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Lido",
@@ -424,7 +550,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/f2da55df-5c28-4ebc-a878-ca337bb375b5_x1200_c.jpg?v=1673862203"
+  "image": "https://optisofa.com/cdn/shop/products/f2da55df-5c28-4ebc-a878-ca337bb375b5_x1200_c.jpg?v=1673862203",
+  "comp": null,
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Ocean",
@@ -435,7 +564,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Corbett-78.jpg?v=1724846605"
+  "image": "https://optisofa.com/cdn/shop/files/Corbett-78.jpg?v=1724846605",
+  "comp": "99% polyester, 1% acrylic",
+  "gsm": "560 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Navy Blue",
@@ -443,7 +575,10 @@
   "color": "blue",
   "hex": "#4a6075",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Riviera-81.jpg?v=1667827913"
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-81.jpg?v=1667827913",
+  "comp": "100% polyester",
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Marine Blue",
@@ -455,7 +590,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/MarineBlue.jpg?v=1667205017"
+  "image": "https://optisofa.com/cdn/shop/products/MarineBlue.jpg?v=1667205017",
+  "comp": "100% polyester",
+  "gsm": "300 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Leaf",
@@ -465,7 +603,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Casual-49-Pistachio.jpg?v=1724760372"
+  "image": "https://optisofa.com/cdn/shop/files/Casual-49-Pistachio.jpg?v=1724760372",
+  "comp": "78% polyester, 22% cotton",
+  "gsm": "453 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Basil",
@@ -476,7 +617,10 @@
    "pet-friendly",
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/basil_mateusza.jpg?v=1781101966"
+  "image": "https://optisofa.com/cdn/shop/files/basil_mateusza.jpg?v=1781101966",
+  "comp": "100% polyester",
+  "gsm": "560 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Pistachio",
@@ -486,7 +630,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Prestige-2767_dfe8536b-9df7-4a02-815e-8997d1d1e400.jpg?v=1667826929"
+  "image": "https://optisofa.com/cdn/shop/products/Prestige-2767_dfe8536b-9df7-4a02-815e-8997d1d1e400.jpg?v=1667826929",
+  "comp": "100% polyester",
+  "gsm": "320 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Lima",
@@ -496,7 +643,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Lima.jpg?v=1667831343"
+  "image": "https://optisofa.com/cdn/shop/products/Lima.jpg?v=1667831343",
+  "comp": "100% polyester",
+  "gsm": "415 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Dill",
@@ -506,7 +656,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Pente-33.jpg?v=1717502764"
+  "image": "https://optisofa.com/cdn/shop/files/Pente-33.jpg?v=1717502764",
+  "comp": "95% polyester, 5% cotton",
+  "gsm": "500 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Grass",
@@ -516,7 +669,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Grass.jpg?v=1740048693"
+  "image": "https://optisofa.com/cdn/shop/files/Grass.jpg?v=1740048693",
+  "comp": "68% polyamide, 29% polyester, 3% viscose",
+  "gsm": "577 g/m²",
+  "abrasion": "3-4"
  },
  {
   "name": "Moss",
@@ -526,7 +682,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Moss.jpg?v=1667205279"
+  "image": "https://optisofa.com/cdn/shop/products/Moss.jpg?v=1667205279",
+  "comp": "100% polyester",
+  "gsm": "430 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Pesto",
@@ -534,7 +693,10 @@
   "color": "green",
   "hex": "#5d6b4a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Pesto.jpg?v=1666087780"
+  "image": "https://optisofa.com/cdn/shop/products/Pesto.jpg?v=1666087780",
+  "comp": "100% polyester",
+  "gsm": "610 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Forest Velvet",
@@ -546,7 +708,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/ForestyVelvet.jpg?v=1667204815"
+  "image": "https://optisofa.com/cdn/shop/products/ForestyVelvet.jpg?v=1667204815",
+  "comp": "100% polyester",
+  "gsm": "300 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Bottle Green",
@@ -554,7 +719,10 @@
   "color": "green",
   "hex": "#5d6b4a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Riviera-38.jpg?v=1667827905"
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-38.jpg?v=1667827905",
+  "comp": "100% polyester",
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Jade",
@@ -562,7 +730,10 @@
   "color": "green",
   "hex": "#5d6b4a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Riviera-87.jpg?v=1667827944"
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-87.jpg?v=1667827944",
+  "comp": "100% polyester",
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Amazon",
@@ -572,7 +743,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/1bf2edda-8b7c-490c-a907-a0c29d41483c_x1200_c.jpg?v=1673862299"
+  "image": "https://optisofa.com/cdn/shop/products/1bf2edda-8b7c-490c-a907-a0c29d41483c_x1200_c.jpg?v=1673862299",
+  "comp": "100% polyester",
+  "gsm": "462 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Olive",
@@ -582,7 +756,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Olive_f339b13e-f1cc-4e8f-a70f-e4351d379108.jpg?v=1740048703"
+  "image": "https://optisofa.com/cdn/shop/files/Olive_f339b13e-f1cc-4e8f-a70f-e4351d379108.jpg?v=1740048703",
+  "comp": "68% polyamide, 29% polyester, 3% viscose",
+  "gsm": "577 g/m²",
+  "abrasion": "3-4"
  },
  {
   "name": "Lemon",
@@ -592,7 +769,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Lemon.jpg?v=1694077286"
+  "image": "https://optisofa.com/cdn/shop/files/Lemon.jpg?v=1694077286",
+  "comp": "78% polyester, 22% cotton",
+  "gsm": "453 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Golden Velvet",
@@ -600,7 +780,10 @@
   "color": "yellow",
   "hex": "#d8c66a",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Riviera-41_e59bf0e3-3a71-41d3-8a33-ac21665bbe28.jpg?v=1667827925"
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-41_e59bf0e3-3a71-41d3-8a33-ac21665bbe28.jpg?v=1667827925",
+  "comp": "100% polyester",
+  "gsm": null,
+  "abrasion": null
  },
  {
   "name": "Rust",
@@ -610,7 +793,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Rust.jpg?v=1740048636"
+  "image": "https://optisofa.com/cdn/shop/files/Rust.jpg?v=1740048636",
+  "comp": "68% polyamide, 29% polyester, 3% viscose",
+  "gsm": "577 g/m²",
+  "abrasion": "3-4"
  },
  {
   "name": "Henna",
@@ -622,7 +808,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Henna.jpg?v=1667205075"
+  "image": "https://optisofa.com/cdn/shop/products/Henna.jpg?v=1667205075",
+  "comp": "100% polyester",
+  "gsm": "300 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Brosca",
@@ -632,7 +821,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Brosca.jpg?v=1740048711"
+  "image": "https://optisofa.com/cdn/shop/files/Brosca.jpg?v=1740048711",
+  "comp": "68% polyamide, 29% polyester, 3% viscose",
+  "gsm": "577 g/m²",
+  "abrasion": "3-4"
  },
  {
   "name": "Cherry",
@@ -642,7 +834,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Cherry.jpg?v=1740048716"
+  "image": "https://optisofa.com/cdn/shop/files/Cherry.jpg?v=1740048716",
+  "comp": "68% polyamide, 29% polyester, 3% viscose",
+  "gsm": "577 g/m²",
+  "abrasion": "3-4"
  },
  {
   "name": "Misty",
@@ -652,7 +847,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/09.jpg?v=1779193372"
+  "image": "https://optisofa.com/cdn/shop/files/09.jpg?v=1779193372",
+  "comp": "68% polyamide, 29% polyester, 3% viscose",
+  "gsm": "577 g/m²",
+  "abrasion": "3-4"
  },
  {
   "name": "Dusty Pink",
@@ -660,7 +858,10 @@
   "color": "pink",
   "hex": "#caa0a8",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Dusty-Pink.jpg?v=1666087942"
+  "image": "https://optisofa.com/cdn/shop/products/Dusty-Pink.jpg?v=1666087942",
+  "comp": "100% polyester",
+  "gsm": "610 g/m²",
+  "abrasion": "4"
  },
  {
   "name": "Flamingo",
@@ -672,7 +873,10 @@
    "easy-cleaning",
    "waterproof"
   ],
-  "image": "https://optisofa.com/cdn/shop/products/Flamingo.jpg?v=1667204951"
+  "image": "https://optisofa.com/cdn/shop/products/Flamingo.jpg?v=1667204951",
+  "comp": "100% polyester",
+  "gsm": "300 g/m²",
+  "abrasion": "5"
  },
  {
   "name": "Marshmallow",
@@ -680,7 +884,10 @@
   "color": "pink",
   "hex": "#caa0a8",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/products/Soro-61.jpg?v=1667831587"
+  "image": "https://optisofa.com/cdn/shop/products/Soro-61.jpg?v=1667831587",
+  "comp": "100% polyester",
+  "gsm": "280 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Banana",
@@ -690,7 +897,10 @@
   "features": [
    "easy-cleaning"
   ],
-  "image": "https://optisofa.com/cdn/shop/files/Banana__standard.jpg?v=1728041674"
+  "image": "https://optisofa.com/cdn/shop/files/Banana__standard.jpg?v=1728041674",
+  "comp": "92% polyester, 8% polyamide",
+  "gsm": "287 g/m²",
+  "abrasion": "4-5"
  },
  {
   "name": "Canyon",
@@ -698,7 +908,10 @@
   "color": "-",
   "hex": "#bbbbbb",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/Canyon.jpg?v=1775212953"
+  "image": "https://optisofa.com/cdn/shop/files/Canyon.jpg?v=1775212953",
+  "comp": "94% Recycled Polypropylene, 6% Polyester",
+  "gsm": "415 g/m²",
+  "abrasion": null
  },
  {
   "name": "Latte",
@@ -706,7 +919,10 @@
   "color": "-",
   "hex": "#bbbbbb",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/latte_a08e7cfb-ab74-4fea-8b1d-18cd0e1d3982.jpg?v=1775555445"
+  "image": "https://optisofa.com/cdn/shop/files/latte_a08e7cfb-ab74-4fea-8b1d-18cd0e1d3982.jpg?v=1775555445",
+  "comp": "94% Recycled Polypropylene, 6% Polyester",
+  "gsm": "415 g/m²",
+  "abrasion": null
  },
  {
   "name": "Drift Blue",
@@ -714,7 +930,10 @@
   "color": "-",
   "hex": "#bbbbbb",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/drift-blue_3fe24cd8-f1a4-4ebd-8747-be8c90e39d26.jpg?v=1775555480"
+  "image": "https://optisofa.com/cdn/shop/files/drift-blue_3fe24cd8-f1a4-4ebd-8747-be8c90e39d26.jpg?v=1775555480",
+  "comp": "94% Recycled Polypropylene, 6% Polyester",
+  "gsm": "415 g/m²",
+  "abrasion": null
  },
  {
   "name": "Midnight",
@@ -722,7 +941,10 @@
   "color": "-",
   "hex": "#bbbbbb",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/midnight.jpg?v=1775555250"
+  "image": "https://optisofa.com/cdn/shop/files/midnight.jpg?v=1775555250",
+  "comp": "94% Recycled Polypropylene, 6% Polyester",
+  "gsm": "415 g/m²",
+  "abrasion": null
  },
  {
   "name": "Sandstone",
@@ -730,6 +952,9 @@
   "color": "-",
   "hex": "#bbbbbb",
   "features": [],
-  "image": "https://optisofa.com/cdn/shop/files/sandstone_a443b4bf-8f8e-4f92-9484-b7704d7fac96.jpg?v=1775555373"
+  "image": "https://optisofa.com/cdn/shop/files/sandstone_a443b4bf-8f8e-4f92-9484-b7704d7fac96.jpg?v=1775555373",
+  "comp": "94% Recycled Polypropylene, 6% Polyester",
+  "gsm": "415 g/m²",
+  "abrasion": null
  }
 ]
