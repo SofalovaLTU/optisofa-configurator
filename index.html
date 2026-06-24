@@ -172,6 +172,29 @@
   .om-detail-add{width:100%;margin-top:12px;padding:13px;border:0;border-radius:11px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);letter-spacing:.02em}
   .om-detail-add:hover{background:#000}
   .om-detail-add.on{background:var(--brass)}
+
+  /* mobilios skilčių juostos bazė (desktop — paslėpta) */
+  #mobileNav{display:none}
+  @media(max-width:900px){
+    #mobileNav{display:flex;gap:6px;padding:8px 12px}
+    #mobileNav button{flex:1;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 6px;font-weight:700;font-size:13px;font-family:var(--font);color:var(--ink);cursor:pointer;transition:.14s;letter-spacing:.01em}
+    #mobileNav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+    html,body{height:auto;min-height:100%}
+    body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+    #app{display:block;height:auto;min-height:100vh}
+    header{position:fixed;top:0;left:0;right:0;height:54px;z-index:30}
+    #stage{position:fixed;top:54px;left:0;right:0;height:50vh;z-index:20;border-bottom:1px solid var(--line)}
+    #mobileNav{position:fixed;top:calc(54px + 50vh);left:0;right:0;height:54px;z-index:25;background:var(--panel);border-bottom:1px solid var(--line)}
+    aside.left,aside.right{margin-top:calc(54px + 50vh + 54px);padding-bottom:40px}
+
+    /* skilčių matomumas */
+    body[data-mobtab="presets"] .m-group[data-grp="modules"]{display:none}
+    body[data-mobtab="presets"] aside.right{display:none}
+    body[data-mobtab="modules"] .m-group[data-grp="presets"]{display:none}
+    body[data-mobtab="modules"] aside.right{display:none}
+    body[data-mobtab="fabric"] aside.left{display:none}
+  }
 </style>
 </head>
 <body>
@@ -181,13 +204,23 @@
     <div class="price"><div class="mo" id="monthly"></div><div><span class="big" id="price">€0</span><small id="priceNote">pasirink modulius</small></div></div>
   </header>
 
+  <nav id="mobileNav">
+    <button data-t="presets">Rinkiniai</button>
+    <button data-t="modules">Moduliai</button>
+    <button data-t="fabric">Audiniai</button>
+  </nav>
+
   <aside class="left">
     <div class="sec-title">Kolekcija</div>
     <div class="tabs" id="tabs"></div>
-    <div class="sec-title">Greiti rinkiniai</div>
-    <div class="presets" id="presets"></div>
-    <div class="sec-title">Moduliai</div>
-    <div id="modules"></div>
+    <div class="m-group" data-grp="presets">
+      <div class="sec-title">Greiti rinkiniai</div>
+      <div class="presets" id="presets"></div>
+    </div>
+    <div class="m-group" data-grp="modules">
+      <div class="sec-title">Moduliai</div>
+      <div id="modules"></div>
+    </div>
   </aside>
 
   <div id="stage">
@@ -630,6 +663,11 @@ let toastT=null;function toast(msg){const t=$('#toast');t.textContent=msg;t.clas
 
 /* LOOP */
 (function loop(){requestAnimationFrame(loop);orbit.update();updateDimLabels();renderer.render(scene,camera);})();
+
+/* MOBILE skilčių perjungimas (Rinkiniai / Moduliai / Audiniai) */
+function setMobTab(t){document.body.dataset.mobtab=t;document.querySelectorAll('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.t===t));}
+document.querySelectorAll('#mobileNav button').forEach(b=>b.onclick=()=>setMobTab(b.dataset.t));
+setMobTab('modules');
 
 /* INIT */
 (async function init(){
