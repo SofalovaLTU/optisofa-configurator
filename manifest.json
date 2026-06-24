@@ -367,7 +367,36 @@
    "frame": "Certified solid softwood + wood-based components",
    "tech_sheet": "https://optisofa.com/cdn/shop/files/Loft.pdf",
    "fabrics": "all",
-   "modules": [],
+   "modules": [
+    {
+     "family": "Loft",
+     "kind": "product",
+     "name": "Loft Sofa (3 vietų)",
+     "code": "LOFT3S",
+     "glb": "LOFT_SOFA_3S.glb",
+     "price_min": 1220,
+     "price_max": 1450,
+     "dims_cm": {
+      "W": "252",
+      "D": "126",
+      "H": "87"
+     }
+    },
+    {
+     "family": "Loft",
+     "kind": "product",
+     "name": "Loft su šezlongu",
+     "code": "LOFTCHAISE",
+     "glb": "LOFT_CHAISE.glb",
+     "price_min": 1540,
+     "price_max": 2030,
+     "dims_cm": {
+      "W": "252",
+      "D": "167",
+      "H": "87"
+     }
+    }
+   ],
    "modules_missing_3d": [
     "MS",
     "MR",
