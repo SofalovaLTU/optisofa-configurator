@@ -204,8 +204,39 @@
     .preset .pthumb{height:92px}
     .mod .thumb{height:96px}
     /* 4) pasirinkto audinio aprašymas lieka matomas viršuje slenkant */
-    #fabHead{position:sticky;top:calc(54px + 50vh + 54px);z-index:8;background:var(--panel);padding:10px 0 8px;margin-top:-6px;border-bottom:1px solid var(--line)}
-    #fabHead .specbox{margin-bottom:8px}
+  }
+
+  /* header CTA */
+  .head-right{display:flex;align-items:center;gap:18px}
+  .order-cta{border:0;background:var(--brass);color:#fff;font-weight:700;font-size:13px;padding:11px 20px;border-radius:11px;cursor:pointer;font-family:var(--font);letter-spacing:.02em;white-space:nowrap;transition:.15s}
+  .order-cta:hover{background:#876a3c}
+  /* sticky pavyzdžių CTA */
+  #sampleBar{display:none}
+  .sample-cta{width:100%;border:0;background:var(--brass);color:#fff;font-weight:700;font-size:13px;padding:12px;border-radius:11px;cursor:pointer;font-family:var(--font);letter-spacing:.01em;transition:.15s}
+  .sample-cta:hover{background:#876a3c}
+  /* audinio aprašymas po eilute */
+  #fabInline{grid-column:1/-1;margin:2px 0 8px}
+  #fabInline .fi-name{font-weight:800;font-size:14px;margin-bottom:8px;color:var(--ink)}
+  /* pirkimo modalas */
+  .buy-body{padding:18px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:13px}
+  .buy-summary{background:var(--soft);border-radius:12px;padding:13px 15px;font-size:12.5px;line-height:1.95}
+  .buy-summary .bs-title{font-weight:800;margin-bottom:6px;font-size:13.5px}
+  .buy-summary .bs-row{display:flex;justify-content:space-between;gap:10px}
+  .buy-summary .bs-total{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:7px;padding-top:7px;font-weight:800}
+  .buy-summary .bs-empty{color:var(--muted)}
+  .buy-body .om-form{gap:10px}
+  .buy-body textarea{padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-family:var(--font);resize:vertical}
+  .buy-body textarea:focus{outline:none;border-color:var(--ink)}
+  .buy-thanks{text-align:center;padding:34px 16px}
+  .buy-thanks .bt-check{width:56px;height:56px;border-radius:50%;background:var(--brass);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .buy-thanks .bt-title{font-size:18px;font-weight:800;margin-bottom:6px}
+  .buy-thanks .bt-sub{color:var(--muted);font-size:13px}
+  @media(max-width:900px){
+    .order-cta{padding:9px 13px;font-size:12px}
+    .head-right{gap:10px}
+    #sampleBar{display:block;position:fixed;top:calc(54px + 50vh + 54px);left:0;right:0;z-index:24;background:var(--panel);border-bottom:1px solid var(--line);padding:8px 12px}
+    aside.left,aside.right{margin-top:calc(54px + 50vh + 54px + 56px)}
+    #btnSample{display:none}
   }
 </style>
 </head>
@@ -213,7 +244,10 @@
 <div id="app">
   <header>
     <div class="brand">SOFALOVA.LT<small>Sofų konfigūratorius</small></div>
-    <div class="price"><div class="mo" id="monthly"></div><div><span class="big" id="price">€0</span><small id="priceNote">pasirink modulius</small></div></div>
+    <div class="head-right">
+      <div class="price"><div class="mo" id="monthly"></div><div><span class="big" id="price">€0</span><small id="priceNote">pasirink modulius</small></div></div>
+      <button id="btnOrder" class="order-cta">Užsakyti</button>
+    </div>
   </header>
 
   <nav id="mobileNav">
@@ -221,6 +255,8 @@
     <button data-t="modules">Moduliai</button>
     <button data-t="fabric">Audiniai</button>
   </nav>
+
+  <div id="sampleBar"><button id="btnSampleTop" class="sample-cta">✄ Užsakyti nemokamus audinių pavyzdžius</button></div>
 
   <aside class="left">
     <div class="sec-title">Kolekcija</div>
@@ -256,7 +292,6 @@
       <button class="bbtn" id="btnAR">📱 AR</button>
       <button class="bbtn" id="btnPDF">📄 PDF</button>
       <button class="bbtn" id="btnShare">🔗 Nuoroda</button>
-      <button class="bbtn" id="btnClear">Išvalyti</button>
     </div>
   </div>
 
@@ -327,7 +362,7 @@ import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 const ORDER_EMAIL='info@sofalova.lt';   // kur keliauja pavyzdžių užsakymai
 
 const $=s=>document.querySelector(s);
-let MANIFEST=null,FABRICS=[],curFamily=null,curFabric=null,curTex=null;
+let MANIFEST=null,FABRICS=[],curFamily=null,curFabric=null,curTex=null,ready=false;
 const placed=[]; let selected=null; let locked=false;
 
 /* SCENE */
@@ -443,7 +478,7 @@ function frameAll(){const b=assemblyBox();if(!b)return;const md=Math.max(b.w,b.h
   camera.position.lerp(new THREE.Vector3().copy(orbit.target).add(new THREE.Vector3(1,0.7,1.25).normalize().multiplyScalar(dist)),0.6);orbit.update();}
 
 /* PRICE */
-function saveState(){try{localStorage.setItem('sofalova_cfg',encodeConfig());}catch(e){}}
+function saveState(){if(!ready)return;try{localStorage.setItem('sofalova_cfg',encodeConfig());}catch(e){}}
 function updatePrice(){saveState();let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
   $('#price').textContent='€'+min;$('#priceNote').textContent=placed.length?(min!==max?('iki €'+max):(placed.length+' moduliai')):'pasirink modulius';
   $('#monthly').innerHTML=placed.length?('≈ <b>€'+Math.round(min/12)+'</b>/mėn · 12 mėn.'):'';}
@@ -471,7 +506,7 @@ const FEAT_LT={'easy-cleaning':'Lengvai valoma','waterproof':'Atspari vandeniui'
 function specHTML(f){let r='';if(f.comp)r+=`<div class="row"><span>Sudėtis</span><b>${f.comp}</b></div>`;if(f.gsm)r+=`<div class="row"><span>Tankis</span><b>${f.gsm}</b></div>`;
   r+=`<div class="row"><span>Kategorija</span><b>${f.category}</b></div>`;if(f.abrasion)r+=`<div class="row"><span>Atsparumas dilimui</span><b><span class="stars">${abrasionStars(f.abrasion)}</span> ${f.abrasion}/5 kl.</b></div>`;
   const feats=(f.features||[]).map(x=>`<span class="badge">${FEAT_LT[x]||x}</span>`).join('');if(feats)r+=`<div class="feats">${feats}</div>`;return r;}
-function setFabric(f){curFabric=f;curTex=null;$('#fabName').innerHTML='<b>'+f.name+'</b>';$('#specBox').innerHTML=specHTML(f);$('#specBox').classList.add('show');
+function setFabric(f){curFabric=f;curTex=null;$('#fabName').innerHTML='<b>'+f.name+'</b>';
   document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
   placed.forEach(p=>{p._tex=null;applyFabricTo(p);});
   loadFabricTexture(f,t=>{if(curFabric!==f)return;curTex=t;placed.forEach(p=>{p._tex=t;applyFabricTo(p);});});saveState();}
@@ -550,8 +585,15 @@ function renderSwatches(){const list=filteredFabrics();const w=$('#swatches');w.
     if(f.image){im.style.backgroundImage=`url("${f.image}&width=400")`;}
     const nm=document.createElement('div');nm.className='sw-name';nm.textContent=f.name;
     s.appendChild(im);s.appendChild(nm);
-    s.onclick=()=>setFabric(f);if(curFabric&&curFabric.name===f.name)s.classList.add('active');w.appendChild(s);});}
+    s.onclick=()=>{setFabric(f);showFabDesc(s,f);};if(curFabric&&curFabric.name===f.name)s.classList.add('active');w.appendChild(s);});}
 
+
+function showFabDesc(el,f){const w=$('#swatches');let d=document.getElementById('fabInline');
+  if(!d){d=document.createElement('div');d.id='fabInline';d.className='specbox show';}
+  d.innerHTML='<div class="fi-name">'+f.name+'</div>'+specHTML(f);
+  const cards=[...w.querySelectorAll('.sw')];const idx=cards.indexOf(el);
+  if(idx<0){w.appendChild(d);return;}
+  const rowEnd=cards[Math.min(idx-(idx%2)+1,cards.length-1)];rowEnd.after(d);}
 /* ROOM */
 let roomOn=false,roomGroup=null;
 function clearRoom(){if(roomGroup){scene.remove(roomGroup);roomGroup=null;}$('#fit').classList.remove('show');}
@@ -589,10 +631,9 @@ $('#btnZoomOut').onclick=()=>zoomBy(1.22);
 $('#btnRotate').onclick=()=>{if(locked)return;if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;snapToNeighbors(selected);updateRoom();saveState();}};
 $('#btnDelete').onclick=()=>{if(locked)return;if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
 function clearAll(){placed.forEach(p=>scene.remove(p.root));placed.length=0;updatePrice();select(null);updateRoom();setHint('Spustelk modulį ar greitą rinkinį kairėje');}
-$('#btnClear').onclick=()=>{if(locked)return;clearAll();};
 function applyLockUI(){const b=$('#btnLock');if(b){b.textContent=locked?'🔓 Atrakinti':'🔒 Užrakinti';b.classList.toggle('on',locked);}
   if(locked)select(null);
-  $('#btnRotate').disabled=locked||!selected;$('#btnDelete').disabled=locked||!selected;$('#btnClear').disabled=locked;
+  $('#btnRotate').disabled=locked||!selected;$('#btnDelete').disabled=locked||!selected;
   document.body.classList.toggle('locked',locked);}
 $('#btnLock').onclick=()=>{if(!placed.length){toast('Pirma sudėk sofą');return;}locked=!locked;applyLockUI();saveState();
   setHint(locked?'Sofa užrakinta · audinį, matmenis ir AR keisti vis tiek gali':'Atrakinta · gali redaguoti modulius');};
@@ -643,6 +684,39 @@ function omOpen(){buildOmFilters();renderOmSwatches();if(curFabric)omDetail(curF
 function omClose(){$('#orderModal').classList.remove('show');}
 $('#btnSample').onclick=omOpen;$('#omClose').onclick=omClose;
 $('#orderModal').addEventListener('click',e=>{if(e.target.id==='orderModal')omClose();});
+/* PIRKIMO modalas (Užsakyti) */
+function buyFormHTML(){return '<div class="buy-summary" id="buySummary"></div>'
+  +'<div class="om-form">'
+  +'<input id="bVardas" placeholder="Vardas *">'
+  +'<input id="bPavarde" placeholder="Pavardė">'
+  +'<input id="bAdresas" placeholder="Pristatymo adresas">'
+  +'<input id="bTel" placeholder="Kontaktinis telefonas">'
+  +'<input id="bEmail" placeholder="El. paštas">'
+  +'<textarea id="bPastabos" rows="3" placeholder="Papildomos pastabos"></textarea>'
+  +'</div><button class="om-submit" id="buySend">Siųsti</button>';}
+function buyCounts(){const c={};placed.forEach(p=>{const n=p.data.name||p.data.code;c[n]=(c[n]||0)+1;});return c;}
+function buyPrice(){let mn=0,mx=0;placed.forEach(p=>{mn+=p.data.price_min||0;mx+=p.data.price_max||p.data.price_min||0;});return mn===mx?('€'+mn):('€'+mn+'–'+mx);}
+function buySummaryHTML(){if(!placed.length)return '<div class="bs-empty">Sofa dar nesukonfigūruota — galite užsakyti, susisieksime dėl detalių.</div>';
+  const fam=(MANIFEST.families[curFamily]&&MANIFEST.families[curFamily].name)||curFamily;
+  const rows=Object.entries(buyCounts()).map(([n,c])=>'<div class="bs-row"><span>'+n+'</span><b>'+c+'×</b></div>').join('');
+  return '<div class="bs-title">'+fam+' · '+placed.length+' moduliai</div>'+rows
+    +'<div class="bs-row"><span>Audinys</span><b>'+(curFabric?curFabric.name:'—')+'</b></div>'
+    +'<div class="bs-total"><span>Kaina</span><b>'+buyPrice()+'</b></div>';}
+function buySummaryText(){if(!placed.length)return 'Sofa dar nesukonfigūruota.';
+  const fam=(MANIFEST.families[curFamily]&&MANIFEST.families[curFamily].name)||curFamily;
+  const rows=Object.entries(buyCounts()).map(([n,c])=>c+' x '+n).join('\n');
+  return fam+' ('+placed.length+' moduliai)\n'+rows+'\nAudinys: '+(curFabric?curFabric.name:'-')+'\nKaina: '+buyPrice();}
+function openBuy(){$('#buyBody').innerHTML=buyFormHTML();$('#buySummary').innerHTML=buySummaryHTML();$('#buySend').onclick=sendBuy;$('#buyModal').classList.add('show');}
+function sendBuy(){const v=$('#bVardas').value.trim(),tel=$('#bTel').value.trim(),em=$('#bEmail').value.trim();
+  if(!v||(!tel&&!em)){toast('Įveskite vardą ir telefoną arba el. paštą');return;}
+  const link=location.origin+location.pathname+'#'+encodeConfig();
+  const body='UZSAKYMAS\n\n'+buySummaryText()+'\n\nVardas: '+v+'\nPavarde: '+$('#bPavarde').value+'\nPristatymo adresas: '+$('#bAdresas').value+'\nTelefonas: '+tel+'\nEl. pastas: '+em+'\nPastabos: '+$('#bPastabos').value+'\n\nKonfiguracija: '+link;
+  try{window.location.href='mailto:'+ORDER_EMAIL+'?subject='+encodeURIComponent('Sofalova uzsakymas')+'&body='+encodeURIComponent(body);}catch(e){}
+  $('#buyBody').innerHTML='<div class="buy-thanks"><div class="bt-check">✓</div><div class="bt-title">Dėkojame už Jūsų užsakymą!</div><div class="bt-sub">Netrukus su jumis susisieksime dėl patvirtinimo.</div></div>';}
+$('#btnOrder').onclick=openBuy;
+$('#buyX').onclick=()=>$('#buyModal').classList.remove('show');
+$('#buyModal').addEventListener('click',e=>{if(e.target.id==='buyModal')$('#buyModal').classList.remove('show');});
+$('#btnSampleTop').onclick=omOpen;
 function buildOmFilters(){
   const ff=$('#omFeat');ff.innerHTML='';
   [...new Set(FABRICS.flatMap(f=>f.features||[]))].forEach(v=>{const c=document.createElement('div');c.className='chip feat'+(v===omActiveFeat?' active':'');c.textContent=FEAT_LT[v]||v;c.onclick=()=>{omActiveFeat=omActiveFeat===v?null:v;buildOmFilters();renderOmSwatches();};ff.appendChild(c);});
@@ -707,9 +781,19 @@ setMobTab('modules');
   try{const [m,f]=await Promise.all([fetch('manifest.json').then(r=>r.json()),fetch('fabrics.json').then(r=>r.json())]);
     MANIFEST=m;FABRICS=f;buildTabs();buildPresets();buildModules();buildFabricFilters();
     if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
-    $('#loader').style.display='none';if(location.hash.length>1)restoreConfig(location.hash.slice(1));else{try{const s=localStorage.getItem('sofalova_cfg');if(s)restoreConfig(s);}catch(e){}}
+    // atstatom IŠ KARTO ir LAUKIAM, kol baigs – tik tada slepiam loaderį (jokio tuščio blyksnio)
+    if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
+    else{try{const s=localStorage.getItem('sofalova_cfg');if(s)await restoreConfig(s);}catch(e){}}
+    ready=true;saveState();
+    $('#loader').style.display='none';
   }catch(e){console.error(e);$('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';}
 })();
 </script>
+<div class="modal" id="buyModal">
+  <div class="modal-card" style="width:min(560px,96vw)">
+    <div class="modal-head"><div><h2>Užsakymas</h2><p class="sub">Užpildykite duomenis — susisieksime dėl patvirtinimo.</p></div><button class="x" id="buyX">×</button></div>
+    <div class="buy-body" id="buyBody"></div>
+  </div>
+</div>
 </body>
 </html>
