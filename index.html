@@ -277,30 +277,34 @@ function snapToNeighbors(rec){
   if(best&&best.cost<0.16){rec.root.position.x+=best.dx;rec.root.position.z+=best.dz;}else gridSnap(rec);
 }
 
-/* SELECT + DRAG (robust: window listeners + client coords) */
-function select(p){selected=p||null;placed.forEach(q=>setEmissive(q,false));if(selected)setEmissive(selected,true);$('#btnRotate').disabled=!selected;$('#btnDelete').disabled=!selected;}
-function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive)o.material.emissive.setHex(on?0x3a2c12:0x000000);});}
+/* SELECT + DRAG — robustas: geometrinė patikra + stopPropagation prieš OrbitControls */
+let selBox=null;
+function updateSelBox(){if(selBox){scene.remove(selBox);selBox=null;}if(selected){const b=new THREE.Box3().setFromObject(selected.root);selBox=new THREE.Box3Helper(b,0xc08a3e);scene.add(selBox);}}
+function select(p){selected=p||null;placed.forEach(q=>setEmissive(q,false));if(selected)setEmissive(selected,true);updateSelBox();$('#btnRotate').disabled=!selected;$('#btnDelete').disabled=!selected;}
+function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive){o.material.emissive.setHex(on?0x4a3614:0x000000);}});}
 const _ray=new THREE.Raycaster(),_floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
 let _dragRec=null;const _grab=new THREE.Vector3();
 function _ndc(ev){const r=renderer.domElement.getBoundingClientRect();return new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);}
 function _floorPoint(ev){_ray.setFromCamera(_ndc(ev),camera);const p=new THREE.Vector3();return _ray.ray.intersectPlane(_floorPlane,p)?p:null;}
-function onDragMove(ev){if(!_dragRec)return;const fp=_floorPoint(ev);if(!fp)return;_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;}
-function onDragUp(){if(!_dragRec)return;snapToNeighbors(_dragRec);_dragRec=null;orbit.enabled=true;updateRoom();window.removeEventListener('pointermove',onDragMove);window.removeEventListener('pointerup',onDragUp);}
-// SVARBU: ant window + capture, kad suveiktų PRIEŠ OrbitControls (kuris kabo ant drobės)
+function _inCanvas(ev){const r=renderer.domElement.getBoundingClientRect();return ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom;}
+function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floorPoint(ev);if(!fp)return;_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;updateSelBox();}
+function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();snapToNeighbors(_dragRec);updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();
+  window.removeEventListener('pointermove',onDragMove,true);window.removeEventListener('pointerup',onDragUp,true);}
 window.addEventListener('pointerdown',ev=>{
-  if(ev.target!==renderer.domElement) return;            // tik ant 3D drobės, ne ant UI
+  if(!_inCanvas(ev))return;                                  // tik 3D srityje (pagal koordinates, ne pagal target)
   _ray.setFromCamera(_ndc(ev),camera);
   const hit=_ray.intersectObjects(placed.map(p=>p.root),true)[0];
   if(hit){
     let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;const rec=placed.find(p=>p.root===o);select(rec);
     const fp=_floorPoint(ev);
     if(rec&&fp){
-      _dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);
-      orbit.enabled=false;                                // išjungiam PRIEŠ Orbit pointerdown → kamera nesisuka
-      window.addEventListener('pointermove',onDragMove);
-      window.addEventListener('pointerup',onDragUp);
+      ev.stopPropagation();ev.preventDefault();              // Orbit fiziškai negauna šio paspaudimo
+      _dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);orbit.enabled=false;
+      window.addEventListener('pointermove',onDragMove,true);
+      window.addEventListener('pointerup',onDragUp,true);
+      setHint('Tempk — modulis seks paskui pelę');
     }
-  } else select(null);
+  } else select(null);                                       // tuščia vieta → Orbit suksis normaliai
 },true);
 
 /* ADD MODULE */
