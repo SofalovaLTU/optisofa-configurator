@@ -182,7 +182,19 @@ async function addModule(data){
   try{
     const g=await gltf.loadAsync(data.glb.replace(/^\//,'')); // relative to site root
     const root=g.scene; root.userData.isModule=true; root.userData.data=data;
-    const box=new THREE.Box3().setFromObject(root); const size=new THREE.Vector3(); box.getSize(size);
+    // sanity: ar GLB turi geometrijos?
+    let meshCount=0; root.traverse(o=>{if(o.isMesh)meshCount++;});
+    if(!meshCount){ setHint('Modelis tuščias (be geometrijos): '+data.glb); return; }
+    // mastelio normalizavimas: manifest dims_cm = tiesos šaltinis (taiso cm/mm eksportus)
+    let box=new THREE.Box3().setFromObject(root); let size=new THREE.Vector3(); box.getSize(size);
+    const Wcm=parseFloat((data.dims_cm||{}).W);
+    if(Wcm>0 && size.x>1e-4){
+      const ratio=(Wcm/100)/size.x;
+      if(ratio>1.7 || ratio<0.6){           // tik aiškus neatitikimas
+        root.scale.setScalar(ratio);
+        box=new THREE.Box3().setFromObject(root); box.getSize(size); // perskaičiuoti
+      }
+    }
     const min=box.min;
     root.position.x = -min.x - size.x/2; // center on X origin first
     root.position.z = -min.z - size.z/2;
@@ -201,7 +213,17 @@ async function addModule(data){
 function frameAll(){
   if(!placed.length)return;
   const b=new THREE.Box3();placed.forEach(p=>b.expandByObject(p.root));
-  const c=new THREE.Vector3();b.getCenter(c);orbit.target.lerp(new THREE.Vector3(c.x,0.35,c.z),0.5);
+  const c=new THREE.Vector3();b.getCenter(c);
+  const s=new THREE.Vector3();b.getSize(s);
+  const maxDim=Math.max(s.x,s.y,s.z)||1;
+  // atstumas, kad visa kompozicija tilptų į kadrą (+ atsarga)
+  const fit=(maxDim/2)/Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+  const dist=THREE.MathUtils.clamp(fit*1.6,1.4,12);
+  orbit.target.lerp(new THREE.Vector3(c.x,Math.max(s.y*0.4,0.3),c.z),0.6);
+  const dir=new THREE.Vector3(1,0.7,1.25).normalize();
+  const desired=new THREE.Vector3().copy(orbit.target).add(dir.multiplyScalar(dist));
+  camera.position.lerp(desired,0.6);
+  orbit.update();
 }
 
 /* ---------- price ---------- */

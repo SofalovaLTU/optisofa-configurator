@@ -1,1 +1,735 @@
-[{"name": "Nata Boucle", "category": "Boucle", "color": "beige", "hex": "#d8c4a8", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Nata.jpg?v=1666087493"}, {"name": "Linen", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Linen_31c107ac-85a3-4148-bf7b-4948bd21dc1e.jpg?v=1694077647"}, {"name": "Bone", "category": "Velvet", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Bone_2.jpg?v=1694078989"}, {"name": "Waffle", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Pente_03.jpg?v=1717502119"}, {"name": "Alabaster", "category": "Corduroy", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Alabaster.jpg?v=1667831362"}, {"name": "Shell", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Shell.jpg?v=1666088530"}, {"name": "Papyrus", "category": "Boucle", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Manza-04.jpg?v=1724847098"}, {"name": "Almond", "category": "Corduroy", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Almond.jpg?v=1666086925"}, {"name": "Jute", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Jute.jpg?v=1666087986"}, {"name": "Mellow", "category": "Velvet", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Mellow_2.jpg?v=1694078920"}, {"name": "Biscuit", "category": "Velvet", "color": "beige", "hex": "#d8c4a8", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/biscut.jpg?v=1781102738"}, {"name": "Nougat", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Soro-21.jpg?v=1667831577"}, {"name": "Sandy", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Olaf-16_73cda7ae-5ce7-43ab-a140-dd3dff963502.jpg?v=1667821097"}, {"name": "Truffle", "category": "Velvet", "color": "beige", "hex": "#d8c4a8", "features": ["pet-friendly", "easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Truffle.jpg?v=1667202891"}, {"name": "Hazel", "category": "Corduroy", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/c427e80f-6f9c-46c2-8ae5-f74396bfce5d_x1200_c.jpg?v=1673862170"}, {"name": "Cappuccino", "category": "Corduroy", "color": "brown", "hex": "#6b4a32", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Cappucino.jpg?v=1666087329"}, {"name": "Toffee", "category": "Boucle", "color": "grey", "hex": "#9a9a9a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Toffee.jpg?v=1666087645"}, {"name": "Taupe", "category": "Boucle", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Manza15.jpg?v=1724846876"}, {"name": "Buff", "category": "Matte Velvet", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Buff.jpg?v=1667205200"}, {"name": "Caper", "category": "Plain", "color": "brown", "hex": "#6b4a32", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Caper_916a8d58-3f9f-4567-93f1-dbf0b8738349.jpg?v=1780910033"}, {"name": "Bison", "category": "Velvet", "color": "brown", "hex": "#6b4a32", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Diana-21-Bison.jpg?v=1724759833"}, {"name": "Cocoa", "category": "Corduroy", "color": "brown", "hex": "#6b4a32", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Zoom-5-Brown.jpg?v=1724846376"}, {"name": "Dusk", "category": "Plain", "color": "grey", "hex": "#9a9a9a", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Dusk.jpg?v=1740048732"}, {"name": "Nut", "category": "Velvet", "color": "brown", "hex": "#6b4a32", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/nut_2.jpg?v=1781102637"}, {"name": "Onyx", "category": "Velvet", "color": "grey", "hex": "#9a9a9a", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/onyx_33ced5ec-dc4c-4e52-b8b4-3f7bb34b7e84.jpg?v=1781103160"}, {"name": "Fog", "category": "Velvet", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Fog_1.jpg?v=1694078492"}, {"name": "Aria", "category": "Velvet", "color": "grey", "hex": "#9a9a9a", "features": ["pet-friendly", "easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Aria.jpg?v=1667204884"}, {"name": "Smoke", "category": "Plain", "color": "grey", "hex": "#9a9a9a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Smoke.jpg?v=1666087856"}, {"name": "Griffin", "category": "Corduroy", "color": "grey", "hex": "#9a9a9a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Zoom-21-Ash.jpg?v=1724846495"}, {"name": "Coral", "category": "Plain", "color": "green", "hex": "#5d6b4a", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Coral.jpg?v=1740048728"}, {"name": "Dove", "category": "Velvet", "color": "grey", "hex": "#9a9a9a", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Diana-31-Silver.jpg?v=1724759810"}, {"name": "Zinc", "category": "Plain", "color": "grey", "hex": "#9a9a9a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Casual-12-Misty.jpg?v=1724760556"}, {"name": "Gris", "category": "Plain", "color": "grey", "hex": "#9a9a9a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Soro-90_147a6b5b-9657-452f-9966-721ae2ee6709.jpg?v=1667831598"}, {"name": "Mouse", "category": "Corduroy", "color": "grey", "hex": "#9a9a9a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Zoom-19-Dove.jpg?v=1724846319"}, {"name": "Tufa", "category": "Corduroy", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/3dd98d24-61c3-4ae2-8b2e-bd409c7ba4e0_x1200_c.jpg?v=1673862161"}, {"name": "Frost", "category": "Plain", "color": "beige", "hex": "#d8c4a8", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Frost.jpg?v=1740048725"}, {"name": "Shadow", "category": "Plain", "color": "grey", "hex": "#9a9a9a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Shadow.jpg?v=1672234258"}, {"name": "River", "category": "Plain", "color": "blue", "hex": "#4a6075", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Casual-16-River.jpg?v=1724760198"}, {"name": "Arctic", "category": "Corduroy", "color": "blue", "hex": "#4a6075", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Arctic.jpg?v=1669308174"}, {"name": "Ink", "category": "Plain", "color": "blue", "hex": "#4a6075", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Ink.jpg?v=1694070413"}, {"name": "Azure", "category": "Plain", "color": "grey", "hex": "#9a9a9a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/3f81ca15-195c-4c90-afd0-4f5786037405_x1200_c.jpg?v=1673862210"}, {"name": "Laguna", "category": "Matte Velvet", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Laguna.jpg?v=1667205347"}, {"name": "Lido", "category": "Plain", "color": "blue", "hex": "#4a6075", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/f2da55df-5c28-4ebc-a878-ca337bb375b5_x1200_c.jpg?v=1673862203"}, {"name": "Ocean", "category": "Boucle", "color": "blue", "hex": "#4a6075", "features": ["easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Corbett-78.jpg?v=1724846605"}, {"name": "Navy Blue", "category": "Velvet", "color": "blue", "hex": "#4a6075", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Riviera-81.jpg?v=1667827913"}, {"name": "Marine Blue", "category": "Velvet", "color": "blue", "hex": "#4a6075", "features": ["pet-friendly", "easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/MarineBlue.jpg?v=1667205017"}, {"name": "Leaf", "category": "Plain", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Casual-49-Pistachio.jpg?v=1724760372"}, {"name": "Basil", "category": "Velvet", "color": "green", "hex": "#5d6b4a", "features": ["pet-friendly", "easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/basil_mateusza.jpg?v=1781101966"}, {"name": "Pistachio", "category": "Velvet", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Prestige-2767_dfe8536b-9df7-4a02-815e-8997d1d1e400.jpg?v=1667826929"}, {"name": "Lima", "category": "Corduroy", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Lima.jpg?v=1667831343"}, {"name": "Dill", "category": "Plain", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Pente-33.jpg?v=1717502764"}, {"name": "Grass", "category": "Boucle", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Grass.jpg?v=1740048693"}, {"name": "Moss", "category": "Matte Velvet", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Moss.jpg?v=1667205279"}, {"name": "Pesto", "category": "Plain", "color": "green", "hex": "#5d6b4a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Pesto.jpg?v=1666087780"}, {"name": "Forest Velvet", "category": "Velvet", "color": "green", "hex": "#5d6b4a", "features": ["pet-friendly", "easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/ForestyVelvet.jpg?v=1667204815"}, {"name": "Bottle Green", "category": "Velvet", "color": "green", "hex": "#5d6b4a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Riviera-38.jpg?v=1667827905"}, {"name": "Jade", "category": "Velvet", "color": "green", "hex": "#5d6b4a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Riviera-87.jpg?v=1667827944"}, {"name": "Amazon", "category": "Plain", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/1bf2edda-8b7c-490c-a907-a0c29d41483c_x1200_c.jpg?v=1673862299"}, {"name": "Olive", "category": "Boucle", "color": "green", "hex": "#5d6b4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Olive_f339b13e-f1cc-4e8f-a70f-e4351d379108.jpg?v=1740048703"}, {"name": "Lemon", "category": "Plain", "color": "yellow", "hex": "#d8c66a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Lemon.jpg?v=1694077286"}, {"name": "Golden Velvet", "category": "Velvet", "color": "yellow", "hex": "#d8c66a", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Riviera-41_e59bf0e3-3a71-41d3-8a33-ac21665bbe28.jpg?v=1667827925"}, {"name": "Rust", "category": "Boucle", "color": "orange", "hex": "#cf8a4a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Rust.jpg?v=1740048636"}, {"name": "Henna", "category": "Velvet", "color": "orange", "hex": "#cf8a4a", "features": ["pet-friendly", "easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Henna.jpg?v=1667205075"}, {"name": "Brosca", "category": "Boucle", "color": "brown", "hex": "#6b4a32", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Brosca.jpg?v=1740048711"}, {"name": "Cherry", "category": "Boucle", "color": "red", "hex": "#9a4a44", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Cherry.jpg?v=1740048716"}, {"name": "Misty", "category": "Boucle", "color": "beige", "hex": "#d8c4a8", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/09.jpg?v=1779193372"}, {"name": "Dusty Pink", "category": "Plain", "color": "pink", "hex": "#caa0a8", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Dusty-Pink.jpg?v=1666087942"}, {"name": "Flamingo", "category": "Velvet", "color": "pink", "hex": "#caa0a8", "features": ["pet-friendly", "easy-cleaning", "waterproof"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Flamingo.jpg?v=1667204951"}, {"name": "Marshmallow", "category": "Plain", "color": "pink", "hex": "#caa0a8", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/products/Soro-61.jpg?v=1667831587"}, {"name": "Banana", "category": "Plain", "color": "yellow", "hex": "#d8c66a", "features": ["easy-cleaning"], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Banana__standard.jpg?v=1728041674"}, {"name": "Canyon", "category": "Outdoor", "color": "-", "hex": "#bbbbbb", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/Canyon.jpg?v=1775212953"}, {"name": "Latte", "category": "Outdoor", "color": "-", "hex": "#bbbbbb", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/latte_a08e7cfb-ab74-4fea-8b1d-18cd0e1d3982.jpg?v=1775555445"}, {"name": "Drift Blue", "category": "Outdoor", "color": "-", "hex": "#bbbbbb", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/drift-blue_3fe24cd8-f1a4-4ebd-8747-be8c90e39d26.jpg?v=1775555480"}, {"name": "Midnight", "category": "Outdoor", "color": "-", "hex": "#bbbbbb", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/midnight.jpg?v=1775555250"}, {"name": "Sandstone", "category": "Outdoor", "color": "-", "hex": "#bbbbbb", "features": [], "image": "https://cdn.shopify.com/s/files/1/0573/2705/8995/files/sandstone_a443b4bf-8f8e-4f92-9484-b7704d7fac96.jpg?v=1775555373"}]
+[
+ {
+  "name": "Nata Boucle",
+  "category": "Boucle",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Nata.jpg?v=1666087493"
+ },
+ {
+  "name": "Linen",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Linen_31c107ac-85a3-4148-bf7b-4948bd21dc1e.jpg?v=1694077647"
+ },
+ {
+  "name": "Bone",
+  "category": "Velvet",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Bone_2.jpg?v=1694078989"
+ },
+ {
+  "name": "Waffle",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Pente_03.jpg?v=1717502119"
+ },
+ {
+  "name": "Alabaster",
+  "category": "Corduroy",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Alabaster.jpg?v=1667831362"
+ },
+ {
+  "name": "Shell",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Shell.jpg?v=1666088530"
+ },
+ {
+  "name": "Papyrus",
+  "category": "Boucle",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Manza-04.jpg?v=1724847098"
+ },
+ {
+  "name": "Almond",
+  "category": "Corduroy",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Almond.jpg?v=1666086925"
+ },
+ {
+  "name": "Jute",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Jute.jpg?v=1666087986"
+ },
+ {
+  "name": "Mellow",
+  "category": "Velvet",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Mellow_2.jpg?v=1694078920"
+ },
+ {
+  "name": "Biscuit",
+  "category": "Velvet",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/biscut.jpg?v=1781102738"
+ },
+ {
+  "name": "Nougat",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Soro-21.jpg?v=1667831577"
+ },
+ {
+  "name": "Sandy",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Olaf-16_73cda7ae-5ce7-43ab-a140-dd3dff963502.jpg?v=1667821097"
+ },
+ {
+  "name": "Truffle",
+  "category": "Velvet",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Truffle.jpg?v=1667202891"
+ },
+ {
+  "name": "Hazel",
+  "category": "Corduroy",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/c427e80f-6f9c-46c2-8ae5-f74396bfce5d_x1200_c.jpg?v=1673862170"
+ },
+ {
+  "name": "Cappuccino",
+  "category": "Corduroy",
+  "color": "brown",
+  "hex": "#6b4a32",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Cappucino.jpg?v=1666087329"
+ },
+ {
+  "name": "Toffee",
+  "category": "Boucle",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Toffee.jpg?v=1666087645"
+ },
+ {
+  "name": "Taupe",
+  "category": "Boucle",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Manza15.jpg?v=1724846876"
+ },
+ {
+  "name": "Buff",
+  "category": "Matte Velvet",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Buff.jpg?v=1667205200"
+ },
+ {
+  "name": "Caper",
+  "category": "Plain",
+  "color": "brown",
+  "hex": "#6b4a32",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Caper_916a8d58-3f9f-4567-93f1-dbf0b8738349.jpg?v=1780910033"
+ },
+ {
+  "name": "Bison",
+  "category": "Velvet",
+  "color": "brown",
+  "hex": "#6b4a32",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Diana-21-Bison.jpg?v=1724759833"
+ },
+ {
+  "name": "Cocoa",
+  "category": "Corduroy",
+  "color": "brown",
+  "hex": "#6b4a32",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/Zoom-5-Brown.jpg?v=1724846376"
+ },
+ {
+  "name": "Dusk",
+  "category": "Plain",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Dusk.jpg?v=1740048732"
+ },
+ {
+  "name": "Nut",
+  "category": "Velvet",
+  "color": "brown",
+  "hex": "#6b4a32",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/nut_2.jpg?v=1781102637"
+ },
+ {
+  "name": "Onyx",
+  "category": "Velvet",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/onyx_33ced5ec-dc4c-4e52-b8b4-3f7bb34b7e84.jpg?v=1781103160"
+ },
+ {
+  "name": "Fog",
+  "category": "Velvet",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Fog_1.jpg?v=1694078492"
+ },
+ {
+  "name": "Aria",
+  "category": "Velvet",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Aria.jpg?v=1667204884"
+ },
+ {
+  "name": "Smoke",
+  "category": "Plain",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Smoke.jpg?v=1666087856"
+ },
+ {
+  "name": "Griffin",
+  "category": "Corduroy",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/Zoom-21-Ash.jpg?v=1724846495"
+ },
+ {
+  "name": "Coral",
+  "category": "Plain",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Coral.jpg?v=1740048728"
+ },
+ {
+  "name": "Dove",
+  "category": "Velvet",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Diana-31-Silver.jpg?v=1724759810"
+ },
+ {
+  "name": "Zinc",
+  "category": "Plain",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Casual-12-Misty.jpg?v=1724760556"
+ },
+ {
+  "name": "Gris",
+  "category": "Plain",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Soro-90_147a6b5b-9657-452f-9966-721ae2ee6709.jpg?v=1667831598"
+ },
+ {
+  "name": "Mouse",
+  "category": "Corduroy",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/Zoom-19-Dove.jpg?v=1724846319"
+ },
+ {
+  "name": "Tufa",
+  "category": "Corduroy",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/3dd98d24-61c3-4ae2-8b2e-bd409c7ba4e0_x1200_c.jpg?v=1673862161"
+ },
+ {
+  "name": "Frost",
+  "category": "Plain",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Frost.jpg?v=1740048725"
+ },
+ {
+  "name": "Shadow",
+  "category": "Plain",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Shadow.jpg?v=1672234258"
+ },
+ {
+  "name": "River",
+  "category": "Plain",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Casual-16-River.jpg?v=1724760198"
+ },
+ {
+  "name": "Arctic",
+  "category": "Corduroy",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Arctic.jpg?v=1669308174"
+ },
+ {
+  "name": "Ink",
+  "category": "Plain",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Ink.jpg?v=1694070413"
+ },
+ {
+  "name": "Azure",
+  "category": "Plain",
+  "color": "grey",
+  "hex": "#9a9a9a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/3f81ca15-195c-4c90-afd0-4f5786037405_x1200_c.jpg?v=1673862210"
+ },
+ {
+  "name": "Laguna",
+  "category": "Matte Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Laguna.jpg?v=1667205347"
+ },
+ {
+  "name": "Lido",
+  "category": "Plain",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/f2da55df-5c28-4ebc-a878-ca337bb375b5_x1200_c.jpg?v=1673862203"
+ },
+ {
+  "name": "Ocean",
+  "category": "Boucle",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Corbett-78.jpg?v=1724846605"
+ },
+ {
+  "name": "Navy Blue",
+  "category": "Velvet",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-81.jpg?v=1667827913"
+ },
+ {
+  "name": "Marine Blue",
+  "category": "Velvet",
+  "color": "blue",
+  "hex": "#4a6075",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/MarineBlue.jpg?v=1667205017"
+ },
+ {
+  "name": "Leaf",
+  "category": "Plain",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Casual-49-Pistachio.jpg?v=1724760372"
+ },
+ {
+  "name": "Basil",
+  "category": "Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/basil_mateusza.jpg?v=1781101966"
+ },
+ {
+  "name": "Pistachio",
+  "category": "Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Prestige-2767_dfe8536b-9df7-4a02-815e-8997d1d1e400.jpg?v=1667826929"
+ },
+ {
+  "name": "Lima",
+  "category": "Corduroy",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Lima.jpg?v=1667831343"
+ },
+ {
+  "name": "Dill",
+  "category": "Plain",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Pente-33.jpg?v=1717502764"
+ },
+ {
+  "name": "Grass",
+  "category": "Boucle",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Grass.jpg?v=1740048693"
+ },
+ {
+  "name": "Moss",
+  "category": "Matte Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Moss.jpg?v=1667205279"
+ },
+ {
+  "name": "Pesto",
+  "category": "Plain",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Pesto.jpg?v=1666087780"
+ },
+ {
+  "name": "Forest Velvet",
+  "category": "Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/ForestyVelvet.jpg?v=1667204815"
+ },
+ {
+  "name": "Bottle Green",
+  "category": "Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-38.jpg?v=1667827905"
+ },
+ {
+  "name": "Jade",
+  "category": "Velvet",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-87.jpg?v=1667827944"
+ },
+ {
+  "name": "Amazon",
+  "category": "Plain",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/1bf2edda-8b7c-490c-a907-a0c29d41483c_x1200_c.jpg?v=1673862299"
+ },
+ {
+  "name": "Olive",
+  "category": "Boucle",
+  "color": "green",
+  "hex": "#5d6b4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Olive_f339b13e-f1cc-4e8f-a70f-e4351d379108.jpg?v=1740048703"
+ },
+ {
+  "name": "Lemon",
+  "category": "Plain",
+  "color": "yellow",
+  "hex": "#d8c66a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Lemon.jpg?v=1694077286"
+ },
+ {
+  "name": "Golden Velvet",
+  "category": "Velvet",
+  "color": "yellow",
+  "hex": "#d8c66a",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Riviera-41_e59bf0e3-3a71-41d3-8a33-ac21665bbe28.jpg?v=1667827925"
+ },
+ {
+  "name": "Rust",
+  "category": "Boucle",
+  "color": "orange",
+  "hex": "#cf8a4a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Rust.jpg?v=1740048636"
+ },
+ {
+  "name": "Henna",
+  "category": "Velvet",
+  "color": "orange",
+  "hex": "#cf8a4a",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Henna.jpg?v=1667205075"
+ },
+ {
+  "name": "Brosca",
+  "category": "Boucle",
+  "color": "brown",
+  "hex": "#6b4a32",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Brosca.jpg?v=1740048711"
+ },
+ {
+  "name": "Cherry",
+  "category": "Boucle",
+  "color": "red",
+  "hex": "#9a4a44",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Cherry.jpg?v=1740048716"
+ },
+ {
+  "name": "Misty",
+  "category": "Boucle",
+  "color": "beige",
+  "hex": "#d8c4a8",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/09.jpg?v=1779193372"
+ },
+ {
+  "name": "Dusty Pink",
+  "category": "Plain",
+  "color": "pink",
+  "hex": "#caa0a8",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Dusty-Pink.jpg?v=1666087942"
+ },
+ {
+  "name": "Flamingo",
+  "category": "Velvet",
+  "color": "pink",
+  "hex": "#caa0a8",
+  "features": [
+   "pet-friendly",
+   "easy-cleaning",
+   "waterproof"
+  ],
+  "image": "https://optisofa.com/cdn/shop/products/Flamingo.jpg?v=1667204951"
+ },
+ {
+  "name": "Marshmallow",
+  "category": "Plain",
+  "color": "pink",
+  "hex": "#caa0a8",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/products/Soro-61.jpg?v=1667831587"
+ },
+ {
+  "name": "Banana",
+  "category": "Plain",
+  "color": "yellow",
+  "hex": "#d8c66a",
+  "features": [
+   "easy-cleaning"
+  ],
+  "image": "https://optisofa.com/cdn/shop/files/Banana__standard.jpg?v=1728041674"
+ },
+ {
+  "name": "Canyon",
+  "category": "Outdoor",
+  "color": "-",
+  "hex": "#bbbbbb",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/Canyon.jpg?v=1775212953"
+ },
+ {
+  "name": "Latte",
+  "category": "Outdoor",
+  "color": "-",
+  "hex": "#bbbbbb",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/latte_a08e7cfb-ab74-4fea-8b1d-18cd0e1d3982.jpg?v=1775555445"
+ },
+ {
+  "name": "Drift Blue",
+  "category": "Outdoor",
+  "color": "-",
+  "hex": "#bbbbbb",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/drift-blue_3fe24cd8-f1a4-4ebd-8747-be8c90e39d26.jpg?v=1775555480"
+ },
+ {
+  "name": "Midnight",
+  "category": "Outdoor",
+  "color": "-",
+  "hex": "#bbbbbb",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/midnight.jpg?v=1775555250"
+ },
+ {
+  "name": "Sandstone",
+  "category": "Outdoor",
+  "color": "-",
+  "hex": "#bbbbbb",
+  "features": [],
+  "image": "https://optisofa.com/cdn/shop/files/sandstone_a443b4bf-8f8e-4f92-9484-b7704d7fac96.jpg?v=1775555373"
+ }
+]
