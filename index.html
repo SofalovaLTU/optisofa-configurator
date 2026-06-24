@@ -315,7 +315,7 @@ function onCanvasPointerDown(ev){
 async function addModule(data,opts={}){
   setHint('Kraunamas modulis…');
   try{
-    const root=await loadGLB(data.glb);root.userData.isModule=true;root.userData.data=data;
+    const root=await loadGLB(data.glb);root.userData.data=data;
     let mc=0;root.traverse(o=>{if(o.isMesh)mc++;});if(!mc){setHint('Modelis tuščias: '+data.glb);return null;}
     normScale(root,parseFloat((data.dims_cm||{}).W));
     let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;
