@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Optisofa — modulinis konfigūratorius</title>
+<style>
+  :root{
+    --bg:#f4f1ec; --panel:#ffffff; --ink:#2a2622; --muted:#8a817a;
+    --line:#e7e1d8; --accent:#1f1b18; --accent-soft:#efe9e0; --sel:#c08a3e;
+    --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+  #app{display:grid;grid-template-columns:260px 1fr 300px;grid-template-rows:56px 1fr;height:100%}
+  header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--panel);border-bottom:1px solid var(--line);z-index:5}
+  .brand{font-weight:700;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+  .brand small{display:block;font-weight:500;letter-spacing:.06em;color:var(--muted);font-size:10px;margin-top:2px}
+  .price{text-align:right}
+  .price .big{font-size:20px;font-weight:700}
+  .price small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+  aside{background:var(--panel);overflow-y:auto;padding:16px}
+  aside.left{border-right:1px solid var(--line)}
+  aside.right{border-left:1px solid var(--line)}
+  .sec-title{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:4px 0 10px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+  .tab{flex:1;min-width:54px;padding:8px 6px;text-align:center;font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;transition:.15s}
+  .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tab[disabled]{opacity:.4;cursor:not-allowed}
+  .mod{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:.15s;background:#fff}
+  .mod:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow)}
+  .mod .nm{font-size:13px;font-weight:600}
+  .mod .meta{font-size:10.5px;color:var(--muted);margin-top:2px}
+  .mod .add{font-size:18px;color:var(--accent);font-weight:300;line-height:1}
+  .note{font-size:11px;color:var(--muted);line-height:1.5;background:var(--accent-soft);border-radius:8px;padding:10px;margin-top:6px}
+  #stage{position:relative;overflow:hidden}
+  #c{display:block;width:100%;height:100%}
+  .hint{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:20px;padding:7px 16px;font-size:12px;color:var(--muted);pointer-events:none;transition:.4s;backdrop-filter:blur(6px)}
+  .bottombar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:var(--shadow)}
+  .bbtn{border:0;background:transparent;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px;transition:.12s}
+  .bbtn:hover{background:var(--accent-soft)}
+  .bbtn[disabled]{opacity:.35;cursor:not-allowed}
+  .bbtn.danger:hover{background:#f7e4e0;color:#a8392b}
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .sw{position:relative;aspect-ratio:1;border-radius:8px;border:2px solid transparent;cursor:pointer;overflow:hidden;background-size:cover;background-position:center;transition:.12s}
+  .sw:hover{transform:scale(1.06)}
+  .sw.active{border-color:var(--sel);box-shadow:0 0 0 2px #fff,0 0 0 4px var(--sel)}
+  .sw .lbl{position:absolute;inset:auto 0 0 0;font-size:8px;text-align:center;background:rgba(0,0,0,.45);color:#fff;padding:1px 0;opacity:0;transition:.12s}
+  .sw:hover .lbl{opacity:1}
+  .filterrow{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+  .chip{font-size:10.5px;padding:4px 9px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;text-transform:capitalize}
+  .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .fabname{font-size:12px;color:var(--muted);margin-bottom:10px;min-height:16px}
+  .fabname b{color:var(--ink)}
+  #loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:10;flex-direction:column;gap:14px;font-size:13px;color:var(--muted)}
+  .spin{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+  @media(max-width:880px){#app{grid-template-columns:1fr;grid-template-rows:56px 1fr auto auto}aside{max-height:180px}aside.right{order:4}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">OPTISOFA<small>Modulinis konfigūratorius</small></div>
+    <div class="price"><span class="big" id="price">€0</span><small id="priceNote">pasirink modulius</small></div>
+  </header>
+
+  <aside class="left">
+    <div class="sec-title">Kolekcija</div>
+    <div class="tabs" id="tabs"></div>
+    <div class="sec-title">Moduliai</div>
+    <div id="modules"></div>
+  </aside>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div class="hint" id="hint">Spustelk modulį kairėje, kad pridėtum</div>
+    <div class="bottombar">
+      <button class="bbtn" id="btnRotate" disabled>⟳ Pasukti</button>
+      <button class="bbtn danger" id="btnDelete" disabled>🗑 Pašalinti</button>
+      <button class="bbtn" id="btnDims">📐 Matmenys</button>
+      <button class="bbtn" id="btnClear">Išvalyti</button>
+    </div>
+  </div>
+
+  <aside class="right">
+    <div class="sec-title">Audinys</div>
+    <div class="fabname" id="fabName">Pasirink audinį</div>
+    <div class="filterrow" id="colorFilter"></div>
+    <div class="swatches" id="swatches"></div>
+  </aside>
+</div>
+
+<div id="loader"><div class="spin"></div><div id="loadtxt">Kraunama…</div></div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { DragControls } from 'three/addons/controls/DragControls.js';
+
+const $ = s => document.querySelector(s);
+const CDN_BASE = 'https://optisofa.com/cdn/shop/files/';
+let MANIFEST=null, FABRICS=[], curFamily=null, curFabric=null;
+const placed=[];            // {root, data, box}
+let selected=null;
+
+/* ---------- scene ---------- */
+const stage=$('#stage');
+const renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0xf4f1ec);
+const camera=new THREE.PerspectiveCamera(45,1,.05,100);
+camera.position.set(2.6,2.0,3.2);
+const orbit=new OrbitControls(camera,renderer.domElement);
+orbit.enableDamping=true; orbit.maxPolarAngle=Math.PI*0.49; orbit.minDistance=1.2; orbit.maxDistance=9; orbit.target.set(0,0.35,0);
+
+scene.add(new THREE.HemisphereLight(0xffffff,0xdAd2c5,1.0));
+const key=new THREE.DirectionalLight(0xffffff,2.1); key.position.set(3,6,4);
+key.castShadow=true; key.shadow.mapSize.set(2048,2048);
+key.shadow.camera.left=-4;key.shadow.camera.right=4;key.shadow.camera.top=4;key.shadow.camera.bottom=-4;
+key.shadow.bias=-0.0003; scene.add(key);
+scene.add(new THREE.DirectionalLight(0xffffff,0.5).translateX(-4).translateY(3).translateZ(-3));
+
+const floorMat=new THREE.MeshStandardMaterial({color:0xeae4da,roughness:1});
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(40,40),floorMat);
+floor.rotation.x=-Math.PI/2; floor.receiveShadow=true; scene.add(floor);
+const grid=new THREE.GridHelper(40,160,0xd8d0c4,0xe4ded4); grid.position.y=0.001; scene.add(grid);
+
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage); resize();
+
+/* ---------- drag ---------- */
+let drag=null;
+function rebuildDrag(){
+  if(drag){drag.dispose();}
+  drag=new DragControls(placed.map(p=>p.root),camera,renderer.domElement);
+  drag.addEventListener('dragstart',e=>{orbit.enabled=false; select(rootToPlaced(e.object));});
+  drag.addEventListener('dragend',()=>{orbit.enabled=true; snap(selected);});
+  drag.addEventListener('drag',e=>{e.object.position.y=e.object.userData.baseY;}); // lock to floor
+}
+function rootToPlaced(o){while(o&&!o.userData.isModule)o=o.parent;return placed.find(p=>p.root===o);}
+function snap(p){if(!p)return;const g=0.025;p.root.position.x=Math.round(p.root.position.x/g)*g;p.root.position.z=Math.round(p.root.position.z/g)*g;}
+
+/* ---------- selection ---------- */
+function select(p){
+  selected=p||null;
+  placed.forEach(q=>setEmissive(q,false));
+  if(selected) setEmissive(selected,true);
+  $('#btnRotate').disabled=!selected; $('#btnDelete').disabled=!selected;
+}
+function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material){o.material.emissive&&o.material.emissive.setHex(on?0x3a2c12:0x000000);}});}
+
+renderer.domElement.addEventListener('pointerdown',ev=>{
+  const r=new THREE.Raycaster();const m=new THREE.Vector2((ev.offsetX/stage.clientWidth)*2-1,-(ev.offsetY/stage.clientHeight)*2+1);
+  r.setFromCamera(m,camera);
+  const hit=r.intersectObjects(placed.map(p=>p.root),true)[0];
+  if(hit){let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;select(placed.find(p=>p.root===o));}
+  else if(ev.target===renderer.domElement) select(null);
+},true);
+
+/* ---------- loading modules ---------- */
+const gltf=new GLTFLoader();
+function nextX(width){ // place new module to the right of current assembly
+  if(!placed.length) return -totalWidth()/2 + width/2;
+  let maxX=-Infinity; placed.forEach(p=>{maxX=Math.max(maxX,p.root.position.x+p.box.x/2);});
+  return maxX+width/2+0.005;
+}
+function totalWidth(){return placed.reduce((s,p)=>s+p.box.x,0);}
+
+async function addModule(data){
+  setHint('Kraunamas modulis…');
+  try{
+    const g=await gltf.loadAsync(data.glb.replace(/^\//,'')); // relative to site root
+    const root=g.scene; root.userData.isModule=true; root.userData.data=data;
+    const box=new THREE.Box3().setFromObject(root); const size=new THREE.Vector3(); box.getSize(size);
+    const min=box.min;
+    root.position.x = -min.x - size.x/2; // center on X origin first
+    root.position.z = -min.z - size.z/2;
+    root.position.y = -min.y;
+    // wrap in group so transforms are clean
+    const wrap=new THREE.Group(); wrap.userData.isModule=true; wrap.userData.data=data; wrap.add(root);
+    wrap.userData.baseY=0;
+    const rec={root:wrap,data,box:{x:size.x,y:size.y,z:size.z}};
+    wrap.position.x=nextX(size.x);
+    wrap.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;o.userData.origMat=o.material;}});
+    scene.add(wrap); placed.push(rec); rebuildDrag(); applyFabricTo(rec); updatePrice(); select(rec);
+    frameAll(); setHint(placed.length===1?'Tempk modulį, kad perdėliotum · spustelk, kad pažymėtum':'');
+  }catch(e){ console.error(e); setHint('Nepavyko įkelti modelio'); }
+}
+
+function frameAll(){
+  if(!placed.length)return;
+  const b=new THREE.Box3();placed.forEach(p=>b.expandByObject(p.root));
+  const c=new THREE.Vector3();b.getCenter(c);orbit.target.lerp(new THREE.Vector3(c.x,0.35,c.z),0.5);
+}
+
+/* ---------- price ---------- */
+function updatePrice(){
+  let min=0,max=0; placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
+  $('#price').textContent='€'+min;
+  $('#priceNote').textContent = placed.length? (min!==max?('nuo €'+min+' · iki €'+max):(placed.length+' moduliai')) : 'pasirink modulius';
+}
+
+/* ---------- fabric ---------- */
+const texLoader=new THREE.TextureLoader(); texLoader.setCrossOrigin('anonymous');
+function applyFabricTo(rec){
+  if(!curFabric)return;
+  const col=new THREE.Color(curFabric.hex);
+  rec.root.traverse(o=>{
+    if(o.isMesh){
+      if(!(o.material instanceof THREE.MeshStandardMaterial) || !o.userData.fabMat){
+        o.material=new THREE.MeshStandardMaterial({color:col,roughness:0.92,metalness:0});
+        o.userData.fabMat=true;
+      } else { o.material.color.copy(col); }
+      if(rec._tex){o.material.map=rec._tex;o.material.needsUpdate=true;}
+    }
+  });
+}
+function setFabric(f){
+  curFabric=f; $('#fabName').innerHTML='Audinys: <b>'+f.name+'</b> · '+f.color;
+  document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
+  // try texture (enhancement); fall back to color silently
+  let tex=null;
+  if(f.image){
+    texLoader.load(f.image, t=>{
+      t.colorSpace=THREE.SRGBColorSpace; t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(3,3);
+      placed.forEach(p=>{p._tex=t;applyFabricTo(p);});
+    }, undefined, ()=>{/* CORS/err: keep solid color */});
+  }
+  placed.forEach(p=>applyFabricTo(p));
+}
+
+/* ---------- UI build ---------- */
+function setHint(t){const h=$('#hint');h.textContent=t||'';h.style.opacity=t?1:0;}
+
+function buildTabs(){
+  const t=$('#tabs'); t.innerHTML='';
+  Object.entries(MANIFEST.families).forEach(([key,fam])=>{
+    const b=document.createElement('button'); b.className='tab'; b.textContent=fam.name;
+    const hasMods=(fam.modules&&fam.modules.length);
+    if(!hasMods) b.disabled=true;
+    b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curFamily=key;buildModules();};
+    t.appendChild(b);
+    if(!curFamily&&hasMods){curFamily=key;b.classList.add('active');}
+  });
+}
+function buildModules(){
+  const fam=MANIFEST.families[curFamily]; const wrap=$('#modules'); wrap.innerHTML='';
+  const items=[...(fam.modules||[]),...(fam.cushions||[])];
+  items.forEach(d=>{
+    const el=document.createElement('div'); el.className='mod';
+    const price=d.price_min===d.price_max?('€'+d.price_min):('€'+d.price_min+'–'+d.price_max);
+    const dim=d.dims_cm?`${d.dims_cm.W||'?'}×${d.dims_cm.D||'?'} cm`:'';
+    el.innerHTML=`<div><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div><div class="add">＋</div>`;
+    el.onclick=()=>addModule(d);
+    wrap.appendChild(el);
+  });
+  if(fam.modules&&!fam.modules.length&&fam.note){
+    const n=document.createElement('div');n.className='note';n.textContent=fam.note;wrap.appendChild(n);
+  }
+}
+function buildFabrics(){
+  const colors=[...new Set(FABRICS.map(f=>f.color))].filter(c=>c&&c!=='-');
+  const cf=$('#colorFilter'); 
+  const mk=(label,val)=>{const c=document.createElement('div');c.className='chip'+(val===null?' active':'');c.textContent=label;c.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');renderSwatches(val);};return c;};
+  cf.appendChild(mk('visi',null));
+  const LT={beige:'smėlio',brown:'ruda',grey:'pilka',green:'žalia',blue:'mėlyna',pink:'rožinė',yellow:'geltona',orange:'oranžinė',red:'raudona'};
+  colors.forEach(c=>cf.appendChild(mk(LT[c]||c,c)));
+  renderSwatches(null);
+}
+function renderSwatches(color){
+  const list=color?FABRICS.filter(f=>f.color===color):FABRICS;
+  const w=$('#swatches'); w.innerHTML='';
+  list.forEach(f=>{
+    const s=document.createElement('div'); s.className='sw'; s.dataset.name=f.name;
+    s.style.background=f.hex;
+    if(f.image) s.style.backgroundImage=`url("${f.image}&width=120")`;
+    s.title=f.name;
+    s.innerHTML=`<span class="lbl">${f.name}</span>`;
+    s.onclick=()=>setFabric(f);
+    if(curFabric&&curFabric.name===f.name)s.classList.add('active');
+    w.appendChild(s);
+  });
+}
+
+/* ---------- buttons ---------- */
+$('#btnRotate').onclick=()=>{if(selected){selected.root.rotation.y+=Math.PI/2;snap(selected);}};
+$('#btnDelete').onclick=()=>{if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);rebuildDrag();updatePrice();select(null);if(!placed.length)setHint('Spustelk modulį kairėje, kad pridėtum');}};
+$('#btnClear').onclick=()=>{placed.forEach(p=>scene.remove(p.root));placed.length=0;rebuildDrag();updatePrice();select(null);setHint('Spustelk modulį kairėje, kad pridėtum');};
+let dimsOn=false; let dimBox=null;
+$('#btnDims').onclick=()=>{
+  dimsOn=!dimsOn; if(dimBox){scene.remove(dimBox);dimBox=null;}
+  if(dimsOn&&placed.length){
+    const b=new THREE.Box3();placed.forEach(p=>b.expandByObject(p.root));const s=new THREE.Vector3();b.getSize(s);
+    dimBox=new THREE.Box3Helper(b,0xc08a3e);scene.add(dimBox);
+    setHint(`Bendras dydis: ${Math.round(s.x*100)} × ${Math.round(s.z*100)} cm`);
+  } else setHint('');
+};
+
+/* ---------- loop ---------- */
+(function loop(){requestAnimationFrame(loop);orbit.update();renderer.render(scene,camera);})();
+
+/* ---------- init ---------- */
+(async function init(){
+  try{
+    const [m,f]=await Promise.all([
+      fetch('manifest.json').then(r=>r.json()),
+      fetch('fabrics.json').then(r=>r.json())
+    ]);
+    MANIFEST=m; FABRICS=f;
+    if(!MANIFEST.base) MANIFEST.base = location.origin.replace(/\/$/,'')+'/';
+    buildTabs(); buildModules(); buildFabrics();
+    if(FABRICS.length) setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
+    $('#loader').style.display='none';
+  }catch(e){
+    console.error(e);
+    $('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';
+  }
+})();
+</script>
+</body>
+</html>
