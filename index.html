@@ -102,18 +102,21 @@
   .modal-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start}
   .modal-head h2{margin:0;font-size:19px;font-weight:800;letter-spacing:.01em} .modal-head .sub{margin:4px 0 0;font-size:12px;color:var(--muted);font-weight:500}
   .modal-head .x{background:none;border:0;font-size:26px;cursor:pointer;color:var(--muted);line-height:1}
-  .order-grid{display:grid;grid-template-columns:1fr 340px;flex:1;min-height:0}
+  
+  .order-grid{display:grid;grid-template-columns:1fr 400px;flex:1;min-height:0}
   .order-left{padding:18px 22px;overflow-y:auto;border-right:1px solid var(--line)}
   .order-right{padding:18px 20px;overflow-y:auto;background:var(--soft);display:flex;flex-direction:column;gap:16px}
-  .om-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:11px}
+  .om-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
   .om-sw{position:relative;border-radius:11px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.14s;background:#fff;box-shadow:var(--shadow)}
   .om-sw img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
-  .om-sw .nm{font-size:9.5px;font-weight:600;text-align:center;padding:5px 3px;background:#fff;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  
+  .om-sw .nm{font-size:11.5px;font-weight:600;text-align:center;padding:5px 3px;background:#fff;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .om-sw:hover{border-color:var(--brass)} .om-sw.sel{border-color:var(--brass)}
   .om-sw .tick{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:50%;background:var(--brass);color:#fff;font-size:13px;display:none;align-items:center;justify-content:center}
   .om-sw.sel .tick{display:flex}
   .om-detail{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  .om-detail .big{width:100%;aspect-ratio:1.4;object-fit:cover;display:block;background:var(--soft)}
+  
+  .om-detail .big{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--soft)}
   .om-detail .body{padding:14px 16px}
   .om-detail h3{margin:0 0 4px;font-size:17px;font-weight:800} .om-detail .cat{font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:capitalize}
   .om-detail .spec{font-size:11.5px;color:var(--muted);line-height:1.85} .om-detail .spec b{color:var(--ink);font-weight:700}
@@ -452,8 +455,10 @@ function buildFabricFilters(){const ff=$('#featFilter');ff.innerHTML='';
 function filteredFabrics(){return FABRICS.filter(f=>(!activeColor||f.color===activeColor)&&(!activeFeat||(f.features||[]).includes(activeFeat)));}
 function renderSwatches(){const list=filteredFabrics();const w=$('#swatches');w.innerHTML='';$('#fabCount').textContent=list.length+' / '+FABRICS.length;
   list.forEach(f=>{const s=document.createElement('div');s.className='sw';s.dataset.name=f.name;s.title=f.name;
-    const img=f.image?`background-image:url("${f.image}&width=400")`:`background:${f.hex}`;
-    s.innerHTML=`<div class="sw-img" style="${img}"></div><div class="sw-name">${f.name}</div>`;
+    const im=document.createElement('div');im.className='sw-img';
+    if(f.image){im.style.backgroundImage=`url("${f.image}&width=400")`;}else{im.style.background=f.hex;}
+    const nm=document.createElement('div');nm.className='sw-name';nm.textContent=f.name;
+    s.appendChild(im);s.appendChild(nm);
     s.onclick=()=>setFabric(f);if(curFabric&&curFabric.name===f.name)s.classList.add('active');w.appendChild(s);});}
 
 /* ROOM */
