@@ -1,5 +1,5 @@
 {
- "_comment": "Optisofa modulinių sofų 3D paketas. Kainos (price_min/price_max) REDAGUOJAMOS. base = Netlify modelių svetainė.",
+ "_comment": "Optisofa modulinių sofų 3D paketas. Kainos (price_min/price_max) REDAGUOJAMOS. base = Netlify modelių svetainė. [keliai plokšti — GLB repo šaknyje]",
  "base": "https://optisofa-models.netlify.app/",
  "fabrics": {
   "source": "FABRICS.md",
@@ -19,7 +19,7 @@
     {
      "code": "MCL",
      "name": "Hug MCL (kampas kairėn)",
-     "glb": "models/hug/HUG_MCL.glb",
+     "glb": "HUG_MCL.glb",
      "price_min": 560,
      "price_max": 710,
      "dims_cm": {
@@ -34,7 +34,7 @@
     {
      "code": "MCR",
      "name": "Hug MCR (kampas dešinėn)",
-     "glb": "models/hug/HUG_MCR.glb",
+     "glb": "HUG_MCR.glb",
      "price_min": 560,
      "price_max": 710,
      "dims_cm": {
@@ -49,7 +49,7 @@
     {
      "code": "MSW",
      "name": "Hug MSW (plati sėdynė)",
-     "glb": "models/hug/HUG_MSW.glb",
+     "glb": "HUG_MSW.glb",
      "price_min": 495,
      "price_max": 645,
      "dims_cm": {
@@ -64,7 +64,7 @@
     {
      "code": "MSN",
      "name": "Hug MSN (siaura sėdynė)",
-     "glb": "models/hug/HUG_MSN.glb",
+     "glb": "HUG_MSN.glb",
      "price_min": 460,
      "price_max": 610,
      "dims_cm": {
@@ -79,7 +79,7 @@
     {
      "code": "OTN",
      "name": "Hug OTN (pufas siauras)",
-     "glb": "models/hug/HUG_OTN.glb",
+     "glb": "HUG_OTN.glb",
      "price_min": 340,
      "price_max": 415,
      "dims_cm": {
@@ -92,7 +92,7 @@
     {
      "code": "OTW",
      "name": "Hug OTW (pufas platus)",
-     "glb": "models/hug/HUG_OTW.glb",
+     "glb": "HUG_OTW.glb",
      "price_min": 340,
      "price_max": 415,
      "dims_cm": {
@@ -107,14 +107,14 @@
     {
      "code": "D60X40",
      "name": "Hug You (pagalvėlė 60x40)",
-     "glb": "models/hug/HUG_CUSHION_60x40.glb",
+     "glb": "HUG_CUSHION_60x40.glb",
      "price_min": 50,
      "price_max": 50
     },
     {
      "code": "D40X40",
      "name": "Hug Me (pagalvėlė 40x40)",
-     "glb": "models/hug/HUG_CUSHION_40x40.glb",
+     "glb": "HUG_CUSHION_40x40.glb",
      "price_min": 50,
      "price_max": 50
     }
@@ -131,7 +131,7 @@
     {
      "code": "106x32",
      "name": "Cloud 106x32 (atlošas)",
-     "glb": "models/cloud/CLOUD_106x32.glb",
+     "glb": "CLOUD_106x32.glb",
      "price_min": 310,
      "price_max": 460,
      "dims_cm": {
@@ -144,7 +144,7 @@
     {
      "code": "85x32",
      "name": "Cloud 85x32 (atlošas)",
-     "glb": "models/cloud/CLOUD_85x32.glb",
+     "glb": "CLOUD_85x32.glb",
      "price_min": 280,
      "price_max": 430,
      "dims_cm": {
@@ -157,7 +157,7 @@
     {
      "code": "85x85",
      "name": "Cloud 85x85 (sėdynė)",
-     "glb": "models/cloud/CLOUD_85x85.glb",
+     "glb": "CLOUD_85x85.glb",
      "price_min": 420,
      "price_max": 570,
      "dims_cm": {
@@ -170,7 +170,7 @@
     {
      "code": "106x85",
      "name": "Cloud 106x85 (sėdynė)",
-     "glb": "models/cloud/CLOUD_106x85.glb",
+     "glb": "CLOUD_106x85.glb",
      "price_min": 455,
      "price_max": 605,
      "dims_cm": {
@@ -183,7 +183,7 @@
     {
      "code": "106x106",
      "name": "Cloud 106x106 (sėdynė)",
-     "glb": "models/cloud/CLOUD_106x106.glb",
+     "glb": "CLOUD_106x106.glb",
      "price_min": 495,
      "price_max": 645,
      "dims_cm": {
@@ -198,14 +198,14 @@
     {
      "code": "ROUND",
      "name": "Cloud pagalvėlė (apvali)",
-     "glb": "models/cloud/CLOUD_CUSHION_ROUND.glb",
+     "glb": "CLOUD_CUSHION_ROUND.glb",
      "price_min": 85,
      "price_max": 85
     },
     {
      "code": "SQUARE",
      "name": "Cloud Moon pagalvėlė (kvadratinė)",
-     "glb": "models/cloud/CLOUD_CUSHION_SQUARE.glb",
+     "glb": "CLOUD_CUSHION_SQUARE.glb",
      "price_min": 90,
      "price_max": 90
     }
@@ -222,7 +222,7 @@
     {
      "code": "MC",
      "name": "Slay MC",
-     "glb": "models/slay/SLAY_MC.glb",
+     "glb": "SLAY_MC.glb",
      "price_min": 380,
      "price_max": 505,
      "dims_cm": {
@@ -236,7 +236,7 @@
     {
      "code": "ML",
      "name": "Slay ML",
-     "glb": "models/slay/SLAY_ML.glb",
+     "glb": "SLAY_ML.glb",
      "price_min": 325,
      "price_max": 450,
      "dims_cm": {
@@ -250,7 +250,7 @@
     {
      "code": "MR",
      "name": "Slay MR",
-     "glb": "models/slay/SLAY_MR.glb",
+     "glb": "SLAY_MR.glb",
      "price_min": 325,
      "price_max": 450,
      "dims_cm": {
@@ -264,7 +264,7 @@
     {
      "code": "MLO",
      "name": "Slay MLO",
-     "glb": "models/slay/SLAY_MLO.glb",
+     "glb": "SLAY_MLO.glb",
      "price_min": 385,
      "price_max": 510,
      "dims_cm": {
@@ -278,7 +278,7 @@
     {
      "code": "MRO",
      "name": "Slay MRO",
-     "glb": "models/slay/SLAY_MRO.glb",
+     "glb": "SLAY_MRO.glb",
      "price_min": 385,
      "price_max": 510,
      "dims_cm": {
@@ -292,7 +292,7 @@
     {
      "code": "MS",
      "name": "Slay MS",
-     "glb": "models/slay/SLAY_MS.glb",
+     "glb": "SLAY_MS.glb",
      "price_min": 270,
      "price_max": 395,
      "dims_cm": {
@@ -306,7 +306,7 @@
     {
      "code": "SS",
      "name": "Slay SS",
-     "glb": "models/slay/SLAY_SS.glb",
+     "glb": "SLAY_SS.glb",
      "price_min": 230,
      "price_max": 330,
      "dims_cm": {
@@ -319,7 +319,7 @@
     {
      "code": "OTML",
      "name": "Slay OTML",
-     "glb": "models/slay/SLAY_OTML.glb",
+     "glb": "SLAY_OTML.glb",
      "price_min": 565,
      "price_max": 715,
      "dims_cm": {
@@ -333,7 +333,7 @@
     {
      "code": "OTMR",
      "name": "Slay OTMR",
-     "glb": "models/slay/SLAY_OTMR.glb",
+     "glb": "SLAY_OTMR.glb",
      "price_min": 565,
      "price_max": 715,
      "dims_cm": {
@@ -349,7 +349,7 @@
     {
      "code": "PUF",
      "name": "Slay pufas",
-     "glb": "models/slay/SLAY_PUF.glb",
+     "glb": "SLAY_PUF.glb",
      "price_min": 245,
      "price_max": 295,
      "dims_cm": {
@@ -382,7 +382,7 @@
     {
      "code": "PUF",
      "name": "Loft pufas",
-     "glb": "models/loft/LOFT_PUF.glb",
+     "glb": "LOFT_PUF.glb",
      "price_min": 240,
      "price_max": 285,
      "dims_cm": {
