@@ -42,6 +42,7 @@
   .mod .info{padding:9px 12px}.mod .nm{font-size:13.5px;font-weight:600}.mod .meta{font-size:11.5px;color:var(--muted);margin-top:3px}
   .mod .add{position:absolute;top:8px;right:10px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-size:20px;font-weight:300;line-height:30px;text-align:center}
   .note{font-size:11px;color:var(--muted);line-height:1.5;background:var(--accent-soft);border-radius:8px;padding:10px;margin-top:6px}
+  #dbg{position:absolute;bottom:62px;left:14px;background:rgba(31,27,24,.85);color:#fff;font-size:11px;font-family:monospace;padding:5px 9px;border-radius:6px;z-index:6;pointer-events:none}
   #stage{position:relative;overflow:hidden}
   #c{display:block;width:100%;height:100%}
   #dimLabels{position:absolute;inset:0;pointer-events:none}
@@ -146,6 +147,7 @@
     <canvas id="c"></canvas>
     <div id="dimLabels"></div>
     <div class="hint" id="hint">Spustelk modulį ar greitą rinkinį kairėje</div>
+    <div id="dbg">diagnostika</div>
     <div class="fitbadge" id="fit"></div>
     <div class="roompanel" id="roompanel">
       <label>Plotis, cm<input id="roomW" type="number" value="350" min="100" max="1200"></label>
@@ -241,6 +243,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0xf4f1ec);
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
+renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIEŠ OrbitControls → mūsų handleris vykdomas pirmas
 const orbit=new OrbitControls(camera,renderer.domElement);
 orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=1.0;orbit.maxDistance=16;orbit.target.set(0,0.35,0);
 scene.add(new THREE.HemisphereLight(0xffffff,0xdad2c5,1.0));
@@ -290,22 +293,23 @@ function _inCanvas(ev){const r=renderer.domElement.getBoundingClientRect();retur
 function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floorPoint(ev);if(!fp)return;_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;updateSelBox();}
 function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();snapToNeighbors(_dragRec);updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();
   window.removeEventListener('pointermove',onDragMove,true);window.removeEventListener('pointerup',onDragUp,true);}
-window.addEventListener('pointerdown',ev=>{
-  if(!_inCanvas(ev))return;                                  // tik 3D srityje (pagal koordinates, ne pagal target)
+function dbg(t){const d=$('#dbg');if(d)d.textContent=t;}
+function onCanvasPointerDown(ev){
   _ray.setFromCamera(_ndc(ev),camera);
   const hit=_ray.intersectObjects(placed.map(p=>p.root),true)[0];
+  dbg('tap · moduliai:'+placed.length+' · pataikyta:'+(hit?'TAIP':'ne'));
   if(hit){
     let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;const rec=placed.find(p=>p.root===o);select(rec);
     const fp=_floorPoint(ev);
     if(rec&&fp){
-      ev.stopPropagation();ev.preventDefault();              // Orbit fiziškai negauna šio paspaudimo
+      ev.stopImmediatePropagation();ev.preventDefault();      // OrbitControls (registruotas vėliau) negaus šio paspaudimo
       _dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);orbit.enabled=false;
       window.addEventListener('pointermove',onDragMove,true);
       window.addEventListener('pointerup',onDragUp,true);
       setHint('Tempk — modulis seks paskui pelę');
     }
-  } else select(null);                                       // tuščia vieta → Orbit suksis normaliai
-},true);
+  } else select(null);
+}
 
 /* ADD MODULE */
 async function addModule(data,opts={}){
