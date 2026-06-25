@@ -352,7 +352,7 @@
 <div class="modal" id="orderModal">
   <div class="modal-card">
     <div class="modal-head">
-      <div><h2>Nemokami audinių pavyzdžiai</h2><p class="sub">Bakstelėk audinį peržiūrai, „＋“ įdeda jį į užsakymą. Iki 10 nemokamų pavyzdžių.</p></div>
+      <div><h2>Nemokami audinių pavyzdžiai <span style="font-size:11px;color:var(--brass);font-weight:800;letter-spacing:.1em">v3</span></h2><p class="sub">Bakstelėk audinį peržiūrai, „＋“ įdeda jį į užsakymą. Iki 10 nemokamų pavyzdžių.</p></div>
       <button class="x" id="omClose">×</button>
     </div>
     <div class="order-grid">
@@ -790,10 +790,13 @@ function omToggle(f,card,btn){
   if(btn){btn.classList.toggle('on',on);btn.textContent=on?'\u2713':'\uFF0B';}
   renderOmChosen();
 }
+function squareOmFrame(){const fr=document.getElementById('omFrame');if(!fr)return;const w=fr.clientWidth||fr.offsetWidth;if(w>0){fr.style.setProperty('padding-top','0','important');fr.style.setProperty('height',w+'px','important');}}
 function omDetail(f){const on=omSel.has(f.name);
   $('#omDetail').innerHTML=`<div class="om-frame" id="omFrame"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Prideta prie uzsakymo':'\uFF0B Prideti i uzsakyma'}</button></div>`;
   const fr=document.getElementById('omFrame');if(fr)fr.style.backgroundImage=`url("${f.image}&width=1200")`;
+  requestAnimationFrame(squareOmFrame);setTimeout(squareOmFrame,100);setTimeout(squareOmFrame,300);
   const b=$('#omDetailAdd');if(b)b.onclick=()=>{omToggle(f,null,null);renderOmSwatches();omDetail(f);};}
+window.addEventListener('resize',squareOmFrame);
 function renderOmChosen(){const c=$('#omChosen');c.innerHTML='';$('#omCount').textContent=omSel.size;
   [...omSel].forEach(name=>{const el=document.createElement('span');el.className='om-chip';el.innerHTML=`${name} <b title="Pašalinti">×</b>`;
     el.querySelector('b').onclick=()=>{omSel.delete(name);renderOmChosen();renderOmSwatches();};c.appendChild(el);});
