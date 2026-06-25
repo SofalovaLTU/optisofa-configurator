@@ -678,7 +678,14 @@ const PRESETS={
   ],
   slay:[{name:'Sofa 2v',seq:['ML','MR']},{name:'Sofa 3v',seq:['ML','MS','MR']},{name:'Su šezlongu',seq:['ML','MS','OTMR']},{name:'Kampinė U',seq:['OTML','MS','MS','OTMR']}],
   cloud:[{name:'Sofa M',seq:['85x85','85x85']},{name:'Sofa L',seq:['106x106','106x106']},{name:'Kampinė',seq:['106x106','85x85','85x85']}],
-  loft:[],
+  loft:[
+    {name:'3 vietų \u00b7 252 cm',seq:['ML','MR']},
+    {name:'4 vietų \u00b7 347 cm',seq:['ML','MS','MR']},
+    {name:'Su šezlongu (kairė)',seq:['OTML','MR']},
+    {name:'Su šezlongu (dešinė)',seq:['ML','OTMR']},
+    {name:'Didelė su šezlongu',seq:['OTML','MS','MR']},
+    {name:'4 vietų + šezlongas',seq:['ML','MS','OTMR']}
+  ],
 };
 function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MANIFEST.families[curFamily];
   const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c))})).filter(p=>p.codes.length);

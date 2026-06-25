@@ -369,44 +369,104 @@
    "fabrics": "all",
    "modules": [
     {
-     "family": "Loft",
-     "kind": "product",
-     "name": "Loft Sofa (3 vietų)",
-     "code": "LOFT3S",
-     "glb": "LOFT_SOFA_3S.glb",
-     "price_min": 1220,
-     "price_max": 1450,
+     "code": "ML",
+     "name": "Loft ML (kairė)",
+     "glb": "LOFT_ML.glb",
+     "price_min": 610,
+     "price_max": 760,
      "dims_cm": {
-      "W": "252",
-      "D": "126",
-      "H": "87"
-     }
+      "W": 126,
+      "D": 126,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 52
     },
     {
-     "family": "Loft",
-     "kind": "product",
-     "name": "Loft su šezlongu",
-     "code": "LOFTCHAISE",
-     "glb": "LOFT_CHAISE.glb",
-     "price_min": 1540,
-     "price_max": 2030,
+     "code": "MR",
+     "name": "Loft MR (dešinė)",
+     "glb": "LOFT_MR.glb",
+     "price_min": 610,
+     "price_max": 760,
      "dims_cm": {
-      "W": "252",
-      "D": "167",
-      "H": "87"
-     }
+      "W": 126,
+      "D": 126,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 52
+    },
+    {
+     "code": "MS",
+     "name": "Loft MS (vidurys)",
+     "glb": "LOFT_MS.glb",
+     "price_min": 500,
+     "price_max": 620,
+     "dims_cm": {
+      "W": 95,
+      "D": 126,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 34
+    },
+    {
+     "code": "MCL",
+     "name": "Loft MCL (kampas, kairė)",
+     "glb": "LOFT_MCL.glb",
+     "price_min": 660,
+     "price_max": 820,
+     "dims_cm": {
+      "W": 126,
+      "D": 126,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 55
+    },
+    {
+     "code": "MCR",
+     "name": "Loft MCR (kampas, dešinė)",
+     "glb": "LOFT_MCR.glb",
+     "price_min": 660,
+     "price_max": 820,
+     "dims_cm": {
+      "W": 126,
+      "D": 126,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 55
+    },
+    {
+     "code": "OTML",
+     "name": "Loft OTML (šezlongas, kairė)",
+     "glb": "LOFT_OTML.glb",
+     "price_min": 820,
+     "price_max": 1080,
+     "dims_cm": {
+      "W": 126,
+      "D": 167,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 59
+    },
+    {
+     "code": "OTMR",
+     "name": "Loft OTMR (šezlongas, dešinė)",
+     "glb": "LOFT_OTMR.glb",
+     "price_min": 820,
+     "price_max": 1080,
+     "dims_cm": {
+      "W": 126,
+      "D": 167,
+      "H": 87,
+      "seat_height": 43
+     },
+     "weight_kg": 59
     }
    ],
-   "modules_missing_3d": [
-    "MS",
-    "MR",
-    "ML",
-    "MCL",
-    "MCR",
-    "OTML",
-    "OTMR"
-   ],
-   "note": "Loft atskirų modulių 3D nebuvo įkelta — tik pufas. Sofos failai labai sunkūs (346-401k v).",
    "cushions": [
     {
      "code": "PUF",
