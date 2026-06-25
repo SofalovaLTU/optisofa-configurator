@@ -116,7 +116,7 @@
   .om-sw.sel .tick{display:flex}
   .om-detail{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
   
-  .om-detail .big{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--soft)}
+  .om-detail .big{display:block}
   .om-detail .body{padding:14px 16px}
   .om-detail h3{margin:0 0 4px;font-size:17px;font-weight:800} .om-detail .cat{font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:capitalize}
   .om-detail .spec{font-size:11.5px;color:var(--muted);line-height:1.85} .om-detail .spec b{color:var(--ink);font-weight:700}
@@ -153,7 +153,7 @@
     .order-grid{grid-template-columns:1fr;display:flex;flex-direction:column}
     .order-right{order:-1;border-top:0;border-bottom:1px solid var(--line)} /* peržiūra+forma viršuje */
     .om-swatches{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-    .om-detail .big{min-height:240px}
+    .om-frame{padding-top:100%}
   }
   @media(max-width:560px){
     .swatches{grid-template-columns:repeat(2,1fr)}
@@ -168,7 +168,6 @@
   .om-add{margin:0 8px 8px;padding:8px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:var(--font);transition:.14s}
   .om-add:hover{border-color:var(--ink)}
   .om-add.on{background:var(--brass);border-color:var(--brass);color:#fff}
-  .om-detail .big{aspect-ratio:1;min-height:300px}
   .om-detail-add{width:100%;margin-top:12px;padding:13px;border:0;border-radius:11px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);letter-spacing:.02em}
   .om-detail-add:hover{background:#000}
   .om-detail-add.on{background:var(--brass)}
@@ -256,7 +255,6 @@
   }
 
   /* pavyzdžių modalas – švaresnis */
-  .om-detail .big{width:100%!important;height:360px!important;object-fit:cover;display:block;background:var(--soft)}
   .om-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;background:#fff}
   .om-row .nm{font-size:12.5px;font-weight:700;text-align:left;padding:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
   .om-plus{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:17px;font-weight:400;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.14s;padding:0}
@@ -266,7 +264,6 @@
   /* dropdown atstumas iki pirmos eilutės = toks pat kaip tarp audinių eilučių */
   .order-left .filters-dd{margin-bottom:13px}
   /* peržiūra – tikras kvadratas (plotis = aukštis) */
-  .om-detail .big{width:100%!important;aspect-ratio:1/1!important;height:auto!important;min-height:0!important;object-fit:cover;display:block;background:var(--soft)}
 
   /* kvadratinė peržiūra – padding-top metodas (veikia visose naršyklėse) */
   .om-frame{position:relative;width:100%;padding-top:100%;overflow:hidden;background:var(--soft)}
