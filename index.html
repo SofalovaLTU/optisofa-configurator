@@ -557,7 +557,7 @@ async function addModule(data,opts={}){
   try{
     const root=await loadGLB(data.glb);root.userData.data=data;
     let mc=0;root.traverse(o=>{if(o.isMesh)mc++;});if(!mc){setHint('Modelis tuščias: '+data.glb);return null;}
-    if(opts.fit){fitScaleRoot(root,((opts.rot||0)%4+4)%4,opts.fit.wd,opts.fit.dd);}else{normScale(root,parseFloat((data.dims_cm||{}).W));}
+    normScale(root,parseFloat((data.dims_cm||{}).W));
     let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;
     root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);
     const wrap=new THREE.Group();wrap.userData.isModule=true;wrap.userData.data=data;wrap.add(root);
@@ -686,7 +686,7 @@ async function thumbFor(glb){if(thumbCache[glb])return thumbCache[glb];try{const
 async function presetThumb(codes,layout,build){const key=curFamily+':'+(build?'B'+JSON.stringify(build):layout?'L'+layout.map(i=>i.code+i.x+i.z+i.rot).join(','):codes.join(','));if(thumbCache[key])return thumbCache[key];
   try{const fam=MANIFEST.families[curFamily];const group=new THREE.Group();let x=0;
     if(build){const L=await cloudLayout(build);
-      for(const it of L){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);fitScaleRoot(root,((it.rot||0)%4+4)%4,it.wd,it.dd);const box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;const wrp=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrp.add(root);wrp.rotation.y=(it.rot||0)*Math.PI/2;wrp.position.set(it.x,0,it.z);group.add(wrp);}
+      for(const it of L){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);normScale(root,parseFloat((d.dims_cm||{}).W));const box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;const wrp=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrp.add(root);wrp.rotation.y=(it.rot||0)*Math.PI/2;wrp.position.set(it.x,0,it.z);group.add(wrp);}
       if(!group.children.length)return null;const ub=renderThumb(group,true);thumbCache[key]=ub;return ub;}
     const items=layout||codes.map(c=>({code:c,_row:true}));
     for(const it of items){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);
@@ -751,29 +751,27 @@ function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MAN
     presetThumb(p.codes,p.layout,p.build).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
 async function cloudLayout(r){
   const fam=MANIFEST.families.cloud, mod=c=>fam.modules.find(m=>m.code===c);
-  const nat={}; for(const c of ['106x32','85x32']){const d=mod(c);if(!d)continue;const root=await loadGLB(d.glb);const b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3();b.getSize(s);nat[c]=s.x>=s.z;}
-  const backRot=c=>(nat[c]?0:1), armRot=c=>(nat[c]?1:0); // back: ilga ašis per X; arm: ilga ašis per Z
-  const SEATW={'85x85':0.85,'106x85':1.06,'106x106':1.06}, SEATD={'85x85':0.85,'106x85':0.85,'106x106':1.06};
-  const P=0.32, OV=0.01;
-  const backCode=c=>(SEATW[c]>=1.0?'106x32':'85x32');
-  const armCode=c=>(SEATD[c]>=1.0?'106x32':'85x32');
-  const out=[]; let cur=0; const seats=[];
-  for(const c of r.run){const w=SEATW[c],d=SEATD[c];if(!w)continue;const cx=cur+w/2;out.push({code:c,x:cx,z:0,rot:0,wd:w,dd:d});seats.push({code:c,cx,w,d});cur+=w;}
+  const dim=c=>{const d=mod(c)||{},D=d.dims_cm||{};return {x:(D.W||85)/100, z:(D.D||85)/100};};
+  const fX=(c,rot)=>(rot%2===0)?dim(c).x:dim(c).z;
+  const fZ=(c,rot)=>(rot%2===0)?dim(c).z:dim(c).x;
+  const seatRot=c=>(dim(c).z>dim(c).x+1e-4?1:0); // platesnė pusė per X (106x85 -> pasukti)
+  const OV=0.02, out=[]; let cur=0; const seats=[];
+  for(const c of r.run){if(!mod(c))continue;const rot=seatRot(c),w=fX(c,rot),d=fZ(c,rot),cx=cur+w/2;out.push({code:c,x:cx,z:0,rot});seats.push({code:c,cx,w,d});cur+=w;}
   if(!seats.length)return out; const runMaxX=cur;
-  for(const s of seats){const bc=backCode(s.code);out.push({code:bc,x:s.cx,z:-s.d/2-P/2+OV,rot:backRot(bc),wd:s.w,dd:P});} // atlošai už sėdynių
+  for(const s of seats){const bc=(s.w>=1.0?'106x32':'85x32');out.push({code:bc,x:s.cx,z:-s.d/2-fZ(bc,1)/2+OV,rot:1});} // atlošas už sėdynės (ilga ašis per X)
   const legs=[];
   if(r.leg&&r.leg.length){const end=seats[seats.length-1];let z=end.d/2;
-    for(const c of r.leg){const w=SEATW[c],d=SEATD[c];if(!w)continue;const cz=z+d/2;out.push({code:c,x:end.cx,z:cz,rot:0,wd:w,dd:d});legs.push({cx:end.cx,w,d,cz,code:c});z+=d;}
-    for(const s of legs){const bc=backCode(s.code);out.push({code:bc,x:s.cx+s.w/2+P/2-OV,z:s.cz,rot:armRot(bc),wd:P,dd:s.w});} // atlošas gulimos dalies išorinėje pusėje
+    for(const c of r.leg){if(!mod(c))continue;const rot=seatRot(c),w=fX(c,rot),d=fZ(c,rot),cz=z+d/2;out.push({code:c,x:end.cx,z:cz,rot});legs.push({code:c,cx:end.cx,w,d,cz});z+=d;}
+    for(const s of legs){const bc=(s.w>=1.0?'106x32':'85x32');out.push({code:bc,x:s.cx+s.w/2+fX(bc,0)/2-OV,z:s.cz,rot:0});} // atlošas gulimos dalies išorinėje pusėje
   }
-  if(r.arms!==false){const a0=armCode(seats[0].code);out.push({code:a0,x:-P/2+OV,z:0,rot:armRot(a0),wd:P,dd:seats[0].d}); // kairys porankis
-    if(!legs.length){const a1=armCode(seats[seats.length-1].code);out.push({code:a1,x:runMaxX+P/2-OV,z:0,rot:armRot(a1),wd:P,dd:seats[seats.length-1].d});} // dešinys porankis
-    else{const lf=legs[legs.length-1],fc=backCode(lf.code);out.push({code:fc,x:lf.cx,z:lf.cz+lf.d/2+P/2-OV,rot:backRot(fc),wd:lf.w,dd:P});} // gulimos dalies priekio užbaiga
+  if(r.arms!==false){const a0=(seats[0].d>=1.0?'106x32':'85x32');out.push({code:a0,x:-fX(a0,0)/2+OV,z:0,rot:0}); // kairys porankis (32 per X, gylis = sėdynės gylis)
+    if(!legs.length){const a1=(seats[seats.length-1].d>=1.0?'106x32':'85x32');out.push({code:a1,x:runMaxX+fX(a1,0)/2-OV,z:0,rot:0});} // dešinys porankis
+    else{const lf=legs[legs.length-1],fc=(lf.w>=1.0?'106x32':'85x32');out.push({code:fc,x:lf.cx,z:lf.cz+lf.d/2+fZ(fc,1)/2-OV,rot:1});} // gulimos dalies priekio užbaiga
   }
   return out;
 }
 async function buildCloudSet(r){clearAll();const fam=MANIFEST.families.cloud;const layout=await cloudLayout(r);
-  for(const it of layout){const d=fam.modules.find(m=>m.code===it.code);if(d)await addModule(d,{x:it.x,z:it.z,rot:it.rot,fit:{wd:it.wd,dd:it.dd},frame:false});}
+  for(const it of layout){const d=fam.modules.find(m=>m.code===it.code);if(d)await addModule(d,{x:it.x,z:it.z,rot:it.rot,frame:false});}
   frameAll();updateRoom();saveState();}
 async function applyPreset(p){if(p.build){await buildCloudSet(p.build);return;}clearAll();const fam=MANIFEST.families[curFamily];if(p.layout){for(const it of p.layout){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;await addModule(d,{x:it.x/100,z:it.z/100,rot:it.rot||0,ori:it.ori,frame:false});}}else{for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}}frameAll();updateRoom();}
 
