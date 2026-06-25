@@ -480,18 +480,26 @@ function cushionRail(){
   return null;}
 function clampCushionX(rec,x){const rail=cushionRail();if(!rail)return x;const hw=extOf(rec).x/2;
   let lo=rail.railMinX+hw, hi=rail.railMaxX-hw;
-  placed.filter(p=>p!==rec&&isCushion(p.data)).forEach(o=>{const sep=extOf(o).x/2+hw+CUSH_GAP;
+  placed.filter(p=>p!==rec&&isCushion(p.data)&&(p._row||0)===(rec._row||0)).forEach(o=>{const sep=extOf(o).x/2+hw+CUSH_GAP;
     if(o.root.position.x<rec.root.position.x)lo=Math.max(lo,o.root.position.x+sep); // kaimynas kairėje – apatinė riba
     else hi=Math.min(hi,o.root.position.x-sep);});                                   // kaimynas dešinėje – viršutinė riba
   if(lo>hi)return (lo+hi)/2; return Math.min(hi,Math.max(lo,x));}
+const CUSH_PER_ROW=3;
+function cushionRowBackStop(row,rail){if(row<=0)return rail.zFront;
+  const prev=placed.filter(p=>isCushion(p.data)&&(p._row||0)===row-1);
+  if(!prev.length)return rail.zFront;
+  return Math.max(...prev.map(c=>c.root.position.z+extOf(c).z/2));} // ankstesnės eilės priekis = nematomas atlošas
 function placeNewCushion(rec){const rail=cushionRail();const e=extOf(rec);
   if(!rail){rec.root.position.set(0,0.37,0);return;}
-  const others=placed.filter(p=>p!==rec&&isCushion(p.data));let x;
-  if(!others.length)x=(rail.railMinX+rail.railMaxX)/2;
-  else{const right=Math.max(...others.map(o=>aabb(o).maxX));x=right+e.x/2+CUSH_GAP;
-    if(x>rail.railMaxX-e.x/2){const left=Math.min(...others.map(o=>aabb(o).minX));x=left-e.x/2-CUSH_GAP;}}
+  const others=placed.filter(p=>p!==rec&&isCushion(p.data));
+  let row=0;while(others.filter(p=>(p._row||0)===row).length>=CUSH_PER_ROW)row++; rec._row=row; // >3 -> nauja eilė priekyje
+  const same=others.filter(p=>(p._row||0)===row);
+  const z=cushionRowBackStop(row,rail)+e.z/2-0.04;let x;
+  if(!same.length)x=(rail.railMinX+rail.railMaxX)/2;
+  else{const right=Math.max(...same.map(o=>aabb(o).maxX));x=right+e.x/2+CUSH_GAP;
+    if(x>rail.railMaxX-e.x/2){const left=Math.min(...same.map(o=>aabb(o).minX));x=left-e.x/2-CUSH_GAP;}}
   x=Math.min(rail.railMaxX-e.x/2,Math.max(rail.railMinX+e.x/2,x));
-  rec.root.position.set(x,rail.y,rail.zFront+e.z/2-0.04);updateSelBox();}
+  rec.root.position.set(x,rail.y,z);updateSelBox();}
 function snapToNeighbors(rec){
   if(placed.length<2){gridSnap(rec);return;}
   const A=aabb(rec);let best=null;
@@ -511,14 +519,16 @@ function snapToNeighbors(rec){
 /* SELECT + DRAG — robustas: geometrinė patikra + stopPropagation prieš OrbitControls */
 let selBox=null;
 function updateSelBox(){if(selBox){scene.remove(selBox);selBox=null;}if(selected){const b=new THREE.Box3().setFromObject(selected.root);selBox=new THREE.Box3Helper(b,0xc08a3e);scene.add(selBox);}}
-function select(p){selected=p||null;placed.forEach(q=>setEmissive(q,false));if(selected)setEmissive(selected,true);updateSelBox();$('#btnRotate').disabled=!selected;$('#btnDelete').disabled=!selected;}
+function select(p){selected=p||null;placed.forEach(q=>setEmissive(q,false));if(selected)setEmissive(selected,true);updateSelBox();$('#btnRotate').disabled=!selected;$('#btnDelete').disabled=!selected;
+  if(selected&&isCushion(selected.data)&&curFamily==='cloud'){setHint('Pasirink audinį – jis keisis tik šiai pagalvei');const fn=selected._fab||curFabric;document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',fn&&s.dataset.name===fn.name));}
+  else{document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',curFabric&&s.dataset.name===curFabric.name));}}
 function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive){o.material.emissive.setHex(on?0x4a3614:0x000000);}});}
 const _ray=new THREE.Raycaster(),_floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
 let _dragRec=null;const _grab=new THREE.Vector3();
 function _ndc(ev){const r=renderer.domElement.getBoundingClientRect();return new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);}
 function _floorPoint(ev){_ray.setFromCamera(_ndc(ev),camera);const p=new THREE.Vector3();return _ray.ray.intersectPlane(_floorPlane,p)?p:null;}
 function _inCanvas(ev){const r=renderer.domElement.getBoundingClientRect();return ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom;}
-function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floorPoint(ev);if(!fp)return;if(isCushion(_dragRec.data)&&curFamily==='cloud'){const rail=cushionRail(),e=extOf(_dragRec);_dragRec.root.position.x=clampCushionX(_dragRec,fp.x+_grab.x);if(rail){_dragRec.root.position.z=rail.zFront+e.z/2-0.04;_dragRec.root.position.y=rail.y;}updateSelBox();return;}_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;updateSelBox();}
+function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floorPoint(ev);if(!fp)return;if(isCushion(_dragRec.data)&&curFamily==='cloud'){const rail=cushionRail(),e=extOf(_dragRec);_dragRec.root.position.x=clampCushionX(_dragRec,fp.x+_grab.x);if(rail){_dragRec.root.position.z=cushionRowBackStop(_dragRec._row||0,rail)+e.z/2-0.04;_dragRec.root.position.y=rail.y;}updateSelBox();return;}_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;updateSelBox();}
 function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();if(!(isCushion(_dragRec.data)&&curFamily==='cloud')){autoOrientBackArm(_dragRec);snapToNeighbors(_dragRec);}updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();saveState();
   window.removeEventListener('pointermove',onDragMove,true);window.removeEventListener('pointerup',onDragUp,true);}
 function onCanvasPointerDown(ev){
@@ -615,7 +625,7 @@ function fabricParams(cat){cat=(cat||'').toLowerCase();
   if(cat.indexOf('boucle')>=0)  return {rough:0.97,sheen:0.06,srough:0.90,bump:0.060};
   if(cat.indexOf('corduroy')>=0)return {rough:0.88,sheen:0.06,srough:0.80,bump:0.040};
   return {rough:0.92,sheen:0.04,srough:0.90,bump:0.026};} // plain/weave/linen/outdoor
-function applyFabricTo(rec){if(!curFabric)return;const base=curFabric._avg||new THREE.Color(curFabric.hex);const tex=rec._tex||null;const P=fabricParams(curFabric.category);
+function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const base=fab._avg||new THREE.Color(fab.hex);const tex=rec._tex||null;const P=fabricParams(fab.category);
   rec.root.traverse(o=>{if(o.isMesh){
     if(!o.userData.fabMat){o.material=new THREE.MeshPhysicalMaterial({metalness:0,side:THREE.DoubleSide,bumpMap:FABRIC_BUMP});o.material.envMapIntensity=0.30;o.userData.fabMat=true;}
     const m=o.material;m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=new THREE.Color(0xffffff);m.bumpScale=P.bump;
@@ -641,10 +651,15 @@ function extraHTML(f){if(!f.desc&&!f.care)return '';let inner='';
 window.toggleMore=function(btn){const w=btn.nextElementSibling;const open=w.classList.toggle('open');
   btn.querySelector('.mb-ic').textContent=open?'\u2212':'\uFF0B';
   btn.querySelector('.mb-tx').textContent=open?'Slėpti informaciją':'Audinio aprašymas ir priežiūra';};
-function setFabric(f){curFabric=f;curTex=null;$('#fabName').innerHTML='<b>'+f.name+'</b>';
+function setFabric(f){
+  if(selected&&isCushion(selected.data)&&curFamily==='cloud'){const rec=selected;rec._fab=f;rec._tex=null;
+    document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
+    $('#fabName').innerHTML='<b>'+f.name+'</b> · tik pagalvei';applyFabricTo(rec);
+    loadFabricTexture(f,t=>{if(rec._fab!==f)return;rec._tex=t;applyFabricTo(rec);});saveState();return;}
+  curFabric=f;curTex=null;$('#fabName').innerHTML='<b>'+f.name+'</b>';
   document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
-  placed.forEach(p=>{p._tex=null;applyFabricTo(p);});
-  loadFabricTexture(f,t=>{if(curFabric!==f)return;curTex=t;placed.forEach(p=>{p._tex=t;applyFabricTo(p);});});saveState();}
+  placed.forEach(p=>{if(p._fab)return;p._tex=null;applyFabricTo(p);});
+  loadFabricTexture(f,t=>{if(curFabric!==f)return;curTex=t;placed.forEach(p=>{if(p._fab)return;p._tex=t;applyFabricTo(p);});});saveState();}
 
 /* THUMBNAILS (HQ) */
 const thumbRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
@@ -845,13 +860,15 @@ $('#btnPDF').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą')
   doc.setFontSize(10);doc.setTextColor(120);doc.text(`≈ €${s.monthly}/mėn · 12 mėn.`,W-14,y,{align:'right'});doc.save('sofalova-konfiguracija.pdf');toast('PDF parsisiųstas ✓');};
 
 /* SAVE & SHARE */
-function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>({c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot}))};return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
+function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>{const o={c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot};if(p._fab)o.fb=p._fab.name;if(p._row)o.rw=p._row;return o;})};return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
 async function restoreConfig(str){let cfg;try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
   locked=false;
   if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));buildPresets();buildModules();}
   if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}
   const fam=MANIFEST.families[curFamily];const all=[...(fam.modules||[]),...(fam.cushions||[])];
-  for(const it of(cfg.m||[])){const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c);if(!d)continue;await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});}frameAll();updateRoom();locked=placed.length?!!cfg.lk:false;applyLockUI();}
+  for(const it of(cfg.m||[])){const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c);if(!d)continue;const rec=await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});if(rec){if(it.rw!==undefined)rec._row=it.rw;if(it.fb){const ff=FABRICS.find(x=>x.name===it.fb);if(ff){rec._fab=ff;applyFabricTo(rec);loadFabricTexture(ff,t=>{if(rec._fab===ff){rec._tex=t;applyFabricTo(rec);}});}}}}
+  if(curFamily==='cloud'){const rl=cushionRail();if(rl)placed.filter(p=>isCushion(p.data)).forEach(c=>{c.root.position.y=rl.y;});}
+  frameAll();updateRoom();locked=placed.length?!!cfg.lk:false;applyLockUI();}
 $('#btnShare').onclick=()=>{if(!placed.length){toast('Pirma sudėliok sofą');return;}const url=location.origin+location.pathname+'#'+encodeConfig();history.replaceState(null,'',url);navigator.clipboard?.writeText(url).then(()=>toast('Nuoroda nukopijuota ✓'),()=>toast('Nuoroda URL juostoje'));};
 
 /* AR */
