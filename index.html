@@ -557,7 +557,7 @@ async function addModule(data,opts={}){
   try{
     const root=await loadGLB(data.glb);root.userData.data=data;
     let mc=0;root.traverse(o=>{if(o.isMesh)mc++;});if(!mc){setHint('Modelis tuščias: '+data.glb);return null;}
-    normScale(root,parseFloat((data.dims_cm||{}).W));
+    if(!opts.raw)normScale(root,parseFloat((data.dims_cm||{}).W));
     let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;
     root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);
     const wrap=new THREE.Group();wrap.userData.isModule=true;wrap.userData.data=data;wrap.add(root);
@@ -686,7 +686,7 @@ async function thumbFor(glb){if(thumbCache[glb])return thumbCache[glb];try{const
 async function presetThumb(codes,layout,build){const key=curFamily+':'+(build?'B'+JSON.stringify(build):layout?'L'+layout.map(i=>i.code+i.x+i.z+i.rot).join(','):codes.join(','));if(thumbCache[key])return thumbCache[key];
   try{const fam=MANIFEST.families[curFamily];const group=new THREE.Group();let x=0;
     if(build){const L=await cloudLayout(build);
-      for(const it of L){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);normScale(root,parseFloat((d.dims_cm||{}).W));const box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;const wrp=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrp.add(root);wrp.rotation.y=(it.rot||0)*Math.PI/2;wrp.position.set(it.x,0,it.z);group.add(wrp);}
+      for(const it of L){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);const box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;const wrp=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrp.add(root);wrp.rotation.y=(it.rot||0)*Math.PI/2;wrp.position.set(it.x,0,it.z);group.add(wrp);}
       if(!group.children.length)return null;const ub=renderThumb(group,true);thumbCache[key]=ub;return ub;}
     const items=layout||codes.map(c=>({code:c,_row:true}));
     for(const it of items){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);
@@ -748,30 +748,42 @@ function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MAN
   const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c)),layout:p.layout,build:p.build})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
   list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div><div class="pmods">${modBreakdown(p.codes)}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
-    presetThumb(p.codes,p.layout,p.build).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
+    presetThumb(p.codes,p.layout,p.build).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});if(curFamily==='cloud')cloudDiag();}
 async function cloudLayout(r){
   const fam=MANIFEST.families.cloud, mod=c=>fam.modules.find(m=>m.code===c);
-  const dim=c=>{const d=mod(c)||{},D=d.dims_cm||{};return {x:(D.W||85)/100, z:(D.D||85)/100};};
-  const fX=(c,rot)=>(rot%2===0)?dim(c).x:dim(c).z;
-  const fZ=(c,rot)=>(rot%2===0)?dim(c).z:dim(c).x;
-  const seatRot=c=>(dim(c).z>dim(c).x+1e-4?1:0); // platesnė pusė per X (106x85 -> pasukti)
-  const OV=0.02, out=[]; let cur=0; const seats=[];
-  for(const c of r.run){if(!mod(c))continue;const rot=seatRot(c),w=fX(c,rot),d=fZ(c,rot),cx=cur+w/2;out.push({code:c,x:cx,z:0,rot});seats.push({code:c,cx,w,d});cur+=w;}
-  if(!seats.length)return out; const runMaxX=cur;
-  for(const s of seats){const bc=(s.w>=1.0?'106x32':'85x32');out.push({code:bc,x:s.cx,z:-s.d/2-fZ(bc,1)/2+OV,rot:1});} // atlošas už sėdynės (ilga ašis per X)
+  const meas={}; for(const c of [...new Set([...(r.run||[]),...(r.leg||[]),'106x32','85x32'])]){const d=mod(c);if(!d)continue;const root=await loadGLB(d.glb);const b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3();b.getSize(s);meas[c]={x:s.x,z:s.z};} // TIKRAS dydis, be normScale
+  const fpx=(c,rot)=>(rot%2?meas[c].z:meas[c].x), fpz=(c,rot)=>(rot%2?meas[c].x:meas[c].z);
+  const seatRot=c=>(meas[c].z>meas[c].x?1:0);            // platesnė pusė per X (106x85 pasukama)
+  const backRot=c=>(meas[c].x>=meas[c].z?0:1);           // wide: ilgoji ašis per X
+  const armRot=c=>(meas[c].x>=meas[c].z?1:0);            // deep: ilgoji ašis per Z
+  const G=0.03, out=[]; let x=0; const seats=[];
+  for(const c of r.run){if(!meas[c])continue;const rot=seatRot(c),w=fpx(c,rot),d=fpz(c,rot),cx=x+w/2;out.push({code:c,x:cx,z:0,rot});seats.push({code:c,cx,w,d});x+=w-G;}
+  if(!seats.length)return out;
+  const runL=seats[0].cx-seats[0].w/2, runR=seats[seats.length-1].cx+seats[seats.length-1].w/2;
+  for(const s of seats){const bc=(s.w>=0.95?'106x32':'85x32'),br=backRot(bc),bz=fpz(bc,br);out.push({code:bc,x:s.cx,z:-s.d/2-bz/2+G,rot:br});} // atlošas už sėdynės
   const legs=[];
-  if(r.leg&&r.leg.length){const end=seats[seats.length-1];let z=end.d/2;
-    for(const c of r.leg){if(!mod(c))continue;const rot=seatRot(c),w=fX(c,rot),d=fZ(c,rot),cz=z+d/2;out.push({code:c,x:end.cx,z:cz,rot});legs.push({code:c,cx:end.cx,w,d,cz});z+=d;}
-    for(const s of legs){const bc=(s.w>=1.0?'106x32':'85x32');out.push({code:bc,x:s.cx+s.w/2+fX(bc,0)/2-OV,z:s.cz,rot:0});} // atlošas gulimos dalies išorinėje pusėje
+  if(r.leg&&r.leg.length){const e=seats[seats.length-1];let z=e.d/2;
+    for(const c of r.leg){if(!meas[c])continue;const rot=seatRot(c),w=fpx(c,rot),d=fpz(c,rot),cz=z+d/2-G;out.push({code:c,x:e.cx,z:cz,rot});legs.push({code:c,cx:e.cx,w,d,cz});z+=d-G;}
+    for(const s of legs){const bc=(s.w>=0.95?'106x32':'85x32'),br=armRot(bc),bx=fpx(bc,br);out.push({code:bc,x:s.cx+s.w/2+bx/2-G,z:s.cz,rot:br});} // atlošas gulimos dalies išorėje
   }
-  if(r.arms!==false){const a0=(seats[0].d>=1.0?'106x32':'85x32');out.push({code:a0,x:-fX(a0,0)/2+OV,z:0,rot:0}); // kairys porankis (32 per X, gylis = sėdynės gylis)
-    if(!legs.length){const a1=(seats[seats.length-1].d>=1.0?'106x32':'85x32');out.push({code:a1,x:runMaxX+fX(a1,0)/2-OV,z:0,rot:0});} // dešinys porankis
-    else{const lf=legs[legs.length-1],fc=(lf.w>=1.0?'106x32':'85x32');out.push({code:fc,x:lf.cx,z:lf.cz+lf.d/2+fZ(fc,1)/2-OV,rot:1});} // gulimos dalies priekio užbaiga
+  if(r.arms!==false){const a0=(seats[0].d>=0.95?'106x32':'85x32'),ar0=armRot(a0),aw0=fpx(a0,ar0);out.push({code:a0,x:runL-aw0/2+G,z:0,rot:ar0}); // kairys porankis
+    if(!legs.length){const a1=(seats[seats.length-1].d>=0.95?'106x32':'85x32'),ar1=armRot(a1),aw1=fpx(a1,ar1);out.push({code:a1,x:runR+aw1/2-G,z:0,rot:ar1});} // dešinys porankis
+    else{const lf=legs[legs.length-1],fc=(lf.w>=0.95?'106x32':'85x32'),fr=backRot(fc),fz=fpz(fc,fr);out.push({code:fc,x:lf.cx,z:lf.cz+lf.d/2+fz/2-G,rot:fr});} // gulimos dalies priekio užbaiga
   }
   return out;
 }
+let _diagDone=false;
+async function cloudDiag(){if(_diagDone)return;_diagDone=true;const fam=MANIFEST.families.cloud;if(!fam)return;
+  let rows='';for(const m of fam.modules){try{const root=await loadGLB(m.glb);const b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3(),c=new THREE.Vector3();b.getSize(s);b.getCenter(c);
+    rows+=m.code+':  '+Math.round(s.x*100)+' x '+Math.round(s.y*100)+' x '+Math.round(s.z*100)+'   centras('+Math.round(c.x*100)+','+Math.round(c.z*100)+')<br>';
+  }catch(e){rows+=m.code+': KLAIDA<br>';}}
+  const d=document.createElement('div');d.id='cloudDiag';
+  d.innerHTML='<button id="diagX" style="float:right;border:none;background:#9c7b46;color:#fff;border-radius:6px;width:24px;height:24px;cursor:pointer">x</button><b>Cloud GLB matmenys (cm)</b><br><span style="color:#777">kodas: plotis x aukstis x gylis | bbox centras(x,z)</span><hr style="border:none;border-top:1px solid #ddd">'+rows;
+  d.style.cssText='position:fixed;top:90px;left:24px;z-index:99999;background:#fff;border:2px solid #9c7b46;padding:14px 18px;font:13px/1.7 monospace;color:#222;box-shadow:0 10px 30px rgba(0,0,0,.18);border-radius:12px;max-width:380px';
+  document.body.appendChild(d);document.getElementById('diagX').onclick=()=>d.remove();
+}
 async function buildCloudSet(r){clearAll();const fam=MANIFEST.families.cloud;const layout=await cloudLayout(r);
-  for(const it of layout){const d=fam.modules.find(m=>m.code===it.code);if(d)await addModule(d,{x:it.x,z:it.z,rot:it.rot,frame:false});}
+  for(const it of layout){const d=fam.modules.find(m=>m.code===it.code);if(d)await addModule(d,{x:it.x,z:it.z,rot:it.rot,raw:true,frame:false});}
   frameAll();updateRoom();saveState();}
 async function applyPreset(p){if(p.build){await buildCloudSet(p.build);return;}clearAll();const fam=MANIFEST.families[curFamily];if(p.layout){for(const it of p.layout){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;await addModule(d,{x:it.x/100,z:it.z/100,rot:it.rot||0,ori:it.ori,frame:false});}}else{for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}}frameAll();updateRoom();}
 
