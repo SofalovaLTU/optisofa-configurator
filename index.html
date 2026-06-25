@@ -254,6 +254,14 @@
     .fabtop{position:static;padding:0;border-bottom:0}
     aside.right .swatches{overflow:visible;padding:0}
   }
+
+  /* pavyzdžių modalas – švaresnis */
+  .om-detail .big{width:100%!important;height:360px!important;object-fit:cover;display:block;background:var(--soft)}
+  .om-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;background:#fff}
+  .om-row .nm{font-size:12.5px;font-weight:700;text-align:left;padding:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+  .om-plus{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:17px;font-weight:400;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.14s;padding:0}
+  .om-plus:hover{border-color:var(--ink);background:var(--soft)}
+  .om-plus.on{background:var(--brass);border-color:var(--brass);color:#fff}
 </style>
 </head>
 <body>
@@ -336,13 +344,15 @@
 <div class="modal" id="orderModal">
   <div class="modal-card">
     <div class="modal-head">
-      <div><h2>Nemokami audinių pavyzdžiai</h2><p class="sub">Bakstelėk audinį peržiūrai, paskui spausk „Pridėti“. Iki 10 nemokamų pavyzdžių.</p></div>
+      <div><h2>Nemokami audinių pavyzdžiai</h2><p class="sub">Bakstelėk audinį peržiūrai, „＋“ įdeda jį į užsakymą. Iki 10 nemokamų pavyzdžių.</p></div>
       <button class="x" id="omClose">×</button>
     </div>
     <div class="order-grid">
       <div class="order-left">
-        <div class="filterrow" id="omFeat"></div>
-        <div class="filterrow" id="omColor"></div>
+        <div class="filters-dd">
+          <select id="omFeatSel" class="fdrop"></select>
+          <select id="omColorSel" class="fdrop"></select>
+        </div>
         <div class="om-swatches" id="omSwatches"></div>
       </div>
       <div class="order-right">
@@ -741,11 +751,13 @@ $('#buyX').onclick=()=>$('#buyModal').classList.remove('show');
 $('#buyModal').addEventListener('click',e=>{if(e.target.id==='buyModal')$('#buyModal').classList.remove('show');});
 $('#btnSampleTop').onclick=omOpen;
 function buildOmFilters(){
-  const ff=$('#omFeat');ff.innerHTML='';
-  [...new Set(FABRICS.flatMap(f=>f.features||[]))].forEach(v=>{const c=document.createElement('div');c.className='chip feat'+(v===omActiveFeat?' active':'');c.textContent=FEAT_LT[v]||v;c.onclick=()=>{omActiveFeat=omActiveFeat===v?null:v;buildOmFilters();renderOmSwatches();};ff.appendChild(c);});
-  const cf=$('#omColor');cf.innerHTML='';const colors=[...new Set(FABRICS.map(f=>f.color))].filter(c=>c&&c!=='-');
-  const mk=(l,v)=>{const c=document.createElement('div');c.className='chip'+(v===omActiveColor?' active':'');c.textContent=l;c.onclick=()=>{omActiveColor=omActiveColor===v?null:v;buildOmFilters();renderOmSwatches();};return c;};
-  cf.appendChild(mk('visos',null));colors.forEach(c=>cf.appendChild(mk(COLOR_LT[c]||c,c)));
+  const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):s;
+  const fs=$('#omFeatSel');fs.innerHTML='<option value="">Visos savybės</option>';
+  [...new Set(FABRICS.flatMap(f=>f.features||[]))].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=FEAT_LT[v]||v;fs.appendChild(o);});
+  fs.value=omActiveFeat||'';fs.onchange=()=>{omActiveFeat=fs.value||null;renderOmSwatches();};
+  const cs=$('#omColorSel');cs.innerHTML='<option value="">Visos spalvos</option>';
+  [...new Set(FABRICS.map(f=>f.color))].filter(c=>c&&c!=='-').forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=cap(COLOR_LT[c]||c);cs.appendChild(o);});
+  cs.value=omActiveColor||'';cs.onchange=()=>{omActiveColor=cs.value||null;renderOmSwatches();};
 }
 function omFiltered(){return FABRICS.filter(f=>(!omActiveColor||f.color===omActiveColor)&&(!omActiveFeat||(f.features||[]).includes(omActiveFeat)));}
 function renderOmSwatches(){const w=$('#omSwatches');w.innerHTML='';
@@ -754,11 +766,12 @@ function renderOmSwatches(){const w=$('#omSwatches');w.innerHTML='';
     const img=document.createElement('img');img.src=f.image+'&width=320';img.alt=f.name;
     img.onerror=()=>{img.style.display='none';};
     img.onclick=(e)=>{e.stopPropagation();omDetail(f);};
+    const row=document.createElement('div');row.className='om-row';
     const nm=document.createElement('div');nm.className='nm';nm.textContent=f.name;
-    const btn=document.createElement('button');btn.className='om-add'+(omSel.has(f.name)?' on':'');
-    btn.textContent=omSel.has(f.name)?'\u2713 Prideta':'\uFF0B Prideti';
-    btn.onclick=(e)=>{e.stopPropagation();omToggle(f,d,btn);};
-    d.appendChild(img);d.appendChild(nm);d.appendChild(btn);
+    const plus=document.createElement('button');plus.className='om-plus'+(omSel.has(f.name)?' on':'');plus.textContent=omSel.has(f.name)?'\u2713':'\uFF0B';plus.title='Pridėti į užsakymą';
+    plus.onclick=(e)=>{e.stopPropagation();omToggle(f,d,plus);};
+    row.appendChild(nm);row.appendChild(plus);
+    d.appendChild(img);d.appendChild(row);
     d.onclick=()=>omDetail(f);
     w.appendChild(d);});}
 function omToggle(f,card,btn){
@@ -766,7 +779,7 @@ function omToggle(f,card,btn){
   else{if(omSel.size>=10){toast('Daugiausiai 10 pavyzdžių');return;}omSel.add(f.name);}
   const on=omSel.has(f.name);
   if(card)card.classList.toggle('sel',on);
-  if(btn){btn.classList.toggle('on',on);btn.textContent=on?'\u2713 Prideta':'\uFF0B Prideti';}
+  if(btn){btn.classList.toggle('on',on);btn.textContent=on?'\u2713':'\uFF0B';}
   renderOmChosen();
 }
 function omDetail(f){const on=omSel.has(f.name);
