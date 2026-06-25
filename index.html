@@ -355,6 +355,7 @@
     <div class="modal-head">
       <div><h2>Nemokami audinių pavyzdžiai <span style="font-size:11px;color:var(--brass);font-weight:800;vertical-align:middle;letter-spacing:.1em">NAUJA</span></h2><p class="sub">Bakstelėk audinį peržiūrai, „＋“ įdeda jį į užsakymą. Iki 10 nemokamų pavyzdžių.</p></div>
       <button class="x" id="omClose">×</button>
+      <span id="omDbg" style="position:fixed;left:8px;bottom:8px;background:#111;color:#5f5;font:11px monospace;padding:4px 7px;border-radius:5px;z-index:9999"></span>
     </div>
     <div class="order-grid">
       <div class="order-left">
@@ -791,12 +792,15 @@ function omToggle(f,card,btn){
   if(btn){btn.classList.toggle('on',on);btn.textContent=on?'\u2713':'\uFF0B';}
   renderOmChosen();
 }
+function squareOmFrame(){const fr=document.getElementById('omFrame');if(!fr)return;const w=fr.clientWidth||fr.offsetWidth;
+  if(w>0){fr.style.setProperty('padding-top','0','important');fr.style.setProperty('height',w+'px','important');}
+  const img=fr.querySelector('img');if(img){img.style.setProperty('position','absolute','important');img.style.setProperty('top','0','important');img.style.setProperty('left','0','important');img.style.setProperty('width','100%','important');img.style.setProperty('height','100%','important');img.style.setProperty('object-fit','cover','important');}
+  const d=document.getElementById('omDbg');if(d)d.textContent='frame plotis='+w+'px · aukštis nustatytas='+fr.offsetHeight+'px';}
 function omDetail(f){const on=omSel.has(f.name);
-  $('#omDetail').innerHTML=`<div class="om-frame"><img class="big" src="${f.image}&width=1200" alt="" onerror="this.style.display='none'"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Prideta prie uzsakymo':'\uFF0B Prideti i uzsakyma'}</button></div>`;
-  const fr=$('#omDetail').querySelector('.om-frame');
-  if(fr)requestAnimationFrame(()=>{const w=fr.offsetWidth;if(w){fr.style.paddingTop='0';fr.style.height=w+'px';}});
+  $('#omDetail').innerHTML=`<div class="om-frame" id="omFrame"><img class="big" src="${f.image}&width=1200" alt="" onerror="this.style.display='none'"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Prideta prie uzsakymo':'\uFF0B Prideti i uzsakyma'}</button></div>`;
+  requestAnimationFrame(squareOmFrame);setTimeout(squareOmFrame,80);setTimeout(squareOmFrame,250);
   const b=$('#omDetailAdd');if(b)b.onclick=()=>{omToggle(f,null,null);renderOmSwatches();omDetail(f);};}
-window.addEventListener('resize',()=>{const od=$('#omDetail');if(!od)return;const fr=od.querySelector('.om-frame');if(fr&&fr.offsetWidth){fr.style.paddingTop='0';fr.style.height=fr.offsetWidth+'px';}});
+window.addEventListener('resize',squareOmFrame);
 function renderOmChosen(){const c=$('#omChosen');c.innerHTML='';$('#omCount').textContent=omSel.size;
   [...omSel].forEach(name=>{const el=document.createElement('span');el.className='om-chip';el.innerHTML=`${name} <b title="Pašalinti">×</b>`;
     el.querySelector('b').onclick=()=>{omSel.delete(name);renderOmChosen();renderOmSwatches();};c.appendChild(el);});
