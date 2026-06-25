@@ -632,7 +632,11 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const b
   rec.root.traverse(o=>{if(o.isMesh){
     if(!o.userData.fabMat){o.material=new THREE.MeshPhysicalMaterial({metalness:0,side:THREE.DoubleSide,bumpMap:FABRIC_BUMP});o.material.envMapIntensity=0.30;o.userData.fabMat=true;}
     const m=o.material;m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=new THREE.Color(0xffffff);m.bumpScale=P.bump;
-    if(tex){m.map=tex;m.color.set(0xffffff);}else{m.map=null;m.color.copy(base);}m.needsUpdate=true;}});}
+    if(!o.userData._rep){if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const gs=new THREE.Vector3();o.geometry.boundingBox.getSize(gs);const T=0.5;const cl=v=>Math.min(3,Math.max(0.4,(v||T)/T));o.userData._rep=[cl(gs.x),cl(Math.max(gs.y||0,gs.z||0))];} // vienodas audinio tankis pagal dydį
+    const rp=o.userData._rep;
+    if(tex){const t=tex.clone();t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rp[0],rp[1]);t.needsUpdate=true;m.map=t;m.color.set(0xffffff);
+      const bm=FABRIC_BUMP.clone();bm.wrapS=bm.wrapT=THREE.RepeatWrapping;bm.repeat.set(rp[0],rp[1]);bm.needsUpdate=true;m.bumpMap=bm;}
+    else{m.map=null;m.bumpMap=FABRIC_BUMP;m.color.copy(base);}m.needsUpdate=true;}});}
 function loadFabricTexture(f,onOk){
   const url=f.image;
   const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}
