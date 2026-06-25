@@ -8,7 +8,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Nata.jpg?v=1666087493",
   "comp": "95% polyester, 5% acrylic",
   "gsm": "855 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Klasikinis bukle audinys kreminės spalvos, puikiai atitinkantis naujausias interjero tendencijas. Išskirtinai minkštas, storas ir prabangus, jis suteikia erdvei elegancijos bei stiliaus. Leiskite sau prabangą — sofa iš šio bukle ar derantis pufas tikrai džiugins.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Linen",
@@ -21,7 +23,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Linen_31c107ac-85a3-4148-bf7b-4948bd21dc1e.jpg?v=1694077647",
   "comp": "78% polyester, 22% cotton",
   "gsm": "453 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai aukštos kokybės audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl audinį lengva išlaikyti nepriekaištingos būklės. Užtikrina komfortą, patvarumą ir apsaugą nuo kasdienio dėvėjimosi.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Bone",
@@ -35,7 +39,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Bone_2.jpg?v=1694078989",
   "comp": "100% polyester",
   "gsm": "486 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Vešlus ir storas išskirtinai aukštos kokybės veliūro audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl jį itin lengva išlaikyti nepriekaištingos būklės. Komfortas ir išskirtinis patvarumas kasdieniame naudojime.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Waffle",
@@ -48,7 +54,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Pente_03.jpg?v=1717502119",
   "comp": "95% polyester, 5% cotton",
   "gsm": "500 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Maloniai liečiamas, storas austas audinys, padengtas nanodalelių sluoksniu, veiksmingai neleidžiančiu nešvarumams įsiskverbti. Todėl net atkaklias dėmes galima pašalinti be valiklių. Easy Clean technologija leidžia dėmes — net nuo kečupo, kavos ar rašalo — pašalinti vien vandeniu arba vandeniu su muilu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Alabaster",
@@ -61,7 +69,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Alabaster.jpg?v=1667831362",
   "comp": "100% polyester",
   "gsm": "415 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Minkštas velveto audinys, suteikiantis sofai visiškai naują charakterį. Smulkūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą. Vandenį atstumiantis sluoksnis leidžia audinį lengvai valyti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Shell",
@@ -74,7 +84,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Shell.jpg?v=1666088530",
   "comp": "100% polyester",
   "gsm": "310 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Modernus, tankus austas audinys, išskirtinai minkštas liesti. Primena bukle, tačiau turi suplotą pynimą, todėl labai praktiškas kasdieniam naudojimui.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Papyrus",
@@ -88,7 +100,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Manza-04.jpg?v=1724847098",
   "comp": null,
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Minkštas bukle audinys su unikalia atlasą primenančia faktūra, žavintis elegantiška išvaizda. Dėl subtilių, tankiai išdėstytų kilpelių puikiai tinka interjerams, jungiantiems stilingą charakterį su šilta, jaukia atmosfera.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Almond",
@@ -101,7 +115,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Almond.jpg?v=1666086925",
   "comp": "100% polyester",
   "gsm": "450 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Minkštas liesti velveto audinys suteikia baldams visiškai naują charakterį. Platūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Jute",
@@ -112,7 +128,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Jute.jpg?v=1666087986",
   "comp": "100% polyester",
   "gsm": "610 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Lygus audinys su švelniu trumpu plaukeliu, austas iš šviesesnių ir tamsesnių siūlų. Medžiaga itin maloni liesti ir užtikrina maksimalų komfortą. Lengvai prižiūrima. Audinio žvilgesio ir atspalvių kaita — natūralus reiškinys.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Mellow",
@@ -126,7 +144,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Mellow_2.jpg?v=1694078920",
   "comp": "100% polyester",
   "gsm": "486 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Vešlus ir storas išskirtinai aukštos kokybės veliūro audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl jį itin lengva išlaikyti nepriekaištingos būklės. Komfortas ir išskirtinis patvarumas kasdieniame naudojime.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Biscuit",
@@ -140,7 +160,9 @@
   "image": "https://optisofa.com/cdn/shop/files/biscut.jpg?v=1781102738",
   "comp": "100% polyester",
   "gsm": "560 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, todėl atrodo kilniai ir elegantiškai. Ji išskirtinai minkšta ir aksominė liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Nougat",
@@ -151,7 +173,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Soro-21.jpg?v=1667831577",
   "comp": "100% polyester",
   "gsm": "280 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Audinys su gražia austa faktūra ir smulkiu trumpu plaukeliu. Medžiaga išskirtinai maloni liesti ir užtikrina maksimalų komfortą. Storas ir tvirtas, atsparus ištįsimui, lengvai prižiūrimas ir nepalankus dėmėms.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Sandy",
@@ -164,7 +188,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Olaf-16_73cda7ae-5ce7-43ab-a140-dd3dff963502.jpg?v=1667821097",
   "comp": "100% polyester",
   "gsm": "462 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Smulkiai austas audinys. Minkštas ir švelnus liesti, užtikrina maksimalų komfortą. Patvarus ir atsparus dilimui, gražiai krenta bei nesiglamžo. Atrodo kaip natūralus linas, o Easy Clean sluoksnis leidžia jį lengvai prižiūrėti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Truffle",
@@ -179,7 +205,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Truffle.jpg?v=1667202891",
   "comp": "100% polyester",
   "gsm": "300 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, prideda rafinuotumo ir elegancijos. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti. Papildomai padengtas easy-clean sluoksniu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Hazel",
@@ -192,7 +220,9 @@
   "image": "https://optisofa.com/cdn/shop/products/c427e80f-6f9c-46c2-8ae5-f74396bfce5d_x1200_c.jpg?v=1673862170",
   "comp": "100% polyester",
   "gsm": "415 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Minkštas velveto audinys, suteikiantis sofai visiškai naują charakterį. Smulkūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą. Vandenį atstumiantis sluoksnis leidžia audinį lengvai valyti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Cappuccino",
@@ -203,7 +233,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Cappucino.jpg?v=1666087329",
   "comp": "100% polyester",
   "gsm": "450 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Minkštas liesti velveto audinys suteikia baldams visiškai naują charakterį. Platūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Toffee",
@@ -214,7 +246,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Toffee.jpg?v=1666087645",
   "comp": "95% polyester, 5% acrylic",
   "gsm": "855 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Klasikinis bukle audinys pilkos spalvos, puikiai atitinkantis naujausias interjero tendencijas. Išskirtinai minkštas, storas ir prabangus, jis suteikia erdvei elegancijos bei stiliaus. Leiskite sau prabangą — sofa iš šio bukle ar derantis pufas tikrai džiugins.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Taupe",
@@ -228,7 +262,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Manza15.jpg?v=1724846876",
   "comp": null,
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Minkštas bukle audinys su unikalia atlasą primenančia faktūra, žavintis elegantiška išvaizda. Dėl subtilių, tankiai išdėstytų kilpelių puikiai tinka interjerams, jungiantiems stilingą charakterį su šilta, jaukia atmosfera.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Buff",
@@ -241,7 +277,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Buff.jpg?v=1667205200",
   "comp": "100% polyester",
   "gsm": "430 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Unikalus matinio atspalvio veliūro audinys, nerodantis atspalvių kaitos. Padengtas specialiu apsauginiu sluoksniu, sukuriančiu hidrofobinį paviršių — skysčiai iškart neįsigeria, todėl išsiliejimą galima švelniai nusausinti šluoste ar popieriniu rankšluosčiu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Caper",
@@ -254,7 +292,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Caper_916a8d58-3f9f-4567-93f1-dbf0b8738349.jpg?v=1780910033",
   "comp": "100% polyester",
   "gsm": "462 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Smulkiai austas audinys. Minkštas ir švelnus liesti, užtikrina maksimalų komfortą. Patvarus ir atsparus dilimui, gražiai krenta bei nesiglamžo. Atrodo kaip natūralus linas, o Easy Clean sluoksnis leidžia jį lengvai prižiūrėti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Bison",
@@ -268,7 +308,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Diana-21-Bison.jpg?v=1724759833",
   "comp": "100% polyester",
   "gsm": "486 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Vešlus ir storas išskirtinai aukštos kokybės veliūro audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl jį itin lengva išlaikyti nepriekaištingos būklės. Komfortas ir išskirtinis patvarumas kasdieniame naudojime.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Cocoa",
@@ -279,7 +321,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Zoom-5-Brown.jpg?v=1724846376",
   "comp": "100% polyester",
   "gsm": "450 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Minkštas liesti velveto audinys suteikia baldams visiškai naują charakterį. Platūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Dusk",
@@ -293,7 +337,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Dusk.jpg?v=1740048732",
   "comp": "100% polyester",
   "gsm": "350 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Megztas audinys su austą faktūrą primenančiu raštu. Minkštas liesti, su maloniu, kašmyrą primenančiu paviršiumi. Puikiai tinka svetainėms, miegamiesiams ir vaikų kambariams. Estetika gražiai dera skandinaviško stiliaus interjeruose.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Nut",
@@ -307,7 +353,9 @@
   "image": "https://optisofa.com/cdn/shop/files/nut_2.jpg?v=1781102637",
   "comp": "100% polyester",
   "gsm": "560 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, todėl atrodo kilniai ir elegantiškai. Ji išskirtinai minkšta ir aksominė liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Onyx",
@@ -321,7 +369,9 @@
   "image": "https://optisofa.com/cdn/shop/files/onyx_33ced5ec-dc4c-4e52-b8b4-3f7bb34b7e84.jpg?v=1781103160",
   "comp": "100% polyester",
   "gsm": "560 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tobula minkšto veliūro ir subtilaus matinio paviršiaus kombinacija — visiškai be žvilgesio. Klasikinė, elegantiška išvaizda daro jį puikia populiarių blizgių veliūrų alternatyva.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Fog",
@@ -335,7 +385,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Fog_1.jpg?v=1694078492",
   "comp": "100% polyester",
   "gsm": "486 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Vešlus ir storas išskirtinai aukštos kokybės veliūro audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl jį itin lengva išlaikyti nepriekaištingos būklės. Komfortas ir išskirtinis patvarumas kasdieniame naudojime.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Aria",
@@ -350,7 +402,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Aria.jpg?v=1667204884",
   "comp": "100% polyester",
   "gsm": "300 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, prideda rafinuotumo ir elegancijos. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti. Papildomai padengtas easy-clean sluoksniu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Smoke",
@@ -361,7 +415,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Smoke.jpg?v=1666087856",
   "comp": "100% polyester",
   "gsm": "610 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Lygus audinys su švelniu trumpu plaukeliu, austas iš šviesesnių ir tamsesnių siūlų. Medžiaga itin maloni liesti ir užtikrina maksimalų komfortą. Lengvai prižiūrima. Audinio žvilgesio ir atspalvių kaita — natūralus reiškinys.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Griffin",
@@ -372,7 +428,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Zoom-21-Ash.jpg?v=1724846495",
   "comp": "100% polyester",
   "gsm": "450 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Minkštas liesti velveto audinys suteikia baldams visiškai naują charakterį. Platūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Coral",
@@ -386,7 +444,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Coral.jpg?v=1740048728",
   "comp": "100% polyester",
   "gsm": "350 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Megztas audinys su austą faktūrą primenančiu raštu. Minkštas liesti, su maloniu, kašmyrą primenančiu paviršiumi. Puikiai tinka svetainėms, miegamiesiams ir vaikų kambariams. Estetika gražiai dera skandinaviško stiliaus interjeruose.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Dove",
@@ -400,7 +460,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Diana-31-Silver.jpg?v=1724759810",
   "comp": "100% polyester",
   "gsm": "486 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Vešlus ir storas išskirtinai aukštos kokybės veliūro audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl jį itin lengva išlaikyti nepriekaištingos būklės. Komfortas ir išskirtinis patvarumas kasdieniame naudojime.",
+  "care": "Skalbti rankomis 30°C. Nedžiovinti būgninėje džiovyklėje. Nelyginti. Nebalinti. Nevalyti chemiškai."
  },
  {
   "name": "Zinc",
@@ -413,7 +475,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Casual-12-Misty.jpg?v=1724760556",
   "comp": "78% polyester, 22% cotton",
   "gsm": "453 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai aukštos kokybės audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl audinį lengva išlaikyti nepriekaištingos būklės. Užtikrina komfortą, patvarumą ir apsaugą nuo kasdienio dėvėjimosi.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Gris",
@@ -424,7 +488,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Soro-90_147a6b5b-9657-452f-9966-721ae2ee6709.jpg?v=1667831598",
   "comp": "100% polyester",
   "gsm": "280 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Audinys su gražia austa faktūra ir smulkiu trumpu plaukeliu. Medžiaga išskirtinai maloni liesti ir užtikrina maksimalų komfortą. Storas ir tvirtas, atsparus ištįsimui, lengvai prižiūrimas ir nepalankus dėmėms.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Mouse",
@@ -435,7 +501,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Zoom-19-Dove.jpg?v=1724846319",
   "comp": "100% polyester",
   "gsm": "450 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Minkštas liesti velveto audinys suteikia baldams visiškai naują charakterį. Platūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Tufa",
@@ -448,7 +516,9 @@
   "image": "https://optisofa.com/cdn/shop/products/3dd98d24-61c3-4ae2-8b2e-bd409c7ba4e0_x1200_c.jpg?v=1673862161",
   "comp": "100% polyester",
   "gsm": "415 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Minkštas velveto audinys, suteikiantis sofai visiškai naują charakterį. Smulkūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą. Vandenį atstumiantis sluoksnis leidžia audinį lengvai valyti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Frost",
@@ -462,7 +532,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Frost.jpg?v=1740048725",
   "comp": "100% polyester",
   "gsm": "350 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Megztas audinys su austą faktūrą primenančiu raštu. Minkštas liesti, su maloniu, kašmyrą primenančiu paviršiumi. Puikiai tinka svetainėms, miegamiesiams ir vaikų kambariams. Estetika gražiai dera skandinaviško stiliaus interjeruose.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Shadow",
@@ -475,7 +547,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Shadow.jpg?v=1672234258",
   "comp": "100% polyester",
   "gsm": "310 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Modernus, tankus austas audinys, išskirtinai minkštas liesti. Primena bukle, tačiau turi suplotą pynimą, todėl labai praktiškas kasdieniam naudojimui.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "River",
@@ -488,7 +562,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Casual-16-River.jpg?v=1724760198",
   "comp": "78% polyester, 22% cotton",
   "gsm": "453 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai aukštos kokybės audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl audinį lengva išlaikyti nepriekaištingos būklės. Užtikrina komfortą, patvarumą ir apsaugą nuo kasdienio dėvėjimosi.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Arctic",
@@ -501,7 +577,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Arctic.jpg?v=1669308174",
   "comp": "100% polyester",
   "gsm": "450 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Minkštas liesti velveto audinys suteikia baldams visiškai naują charakterį. Platūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Ink",
@@ -514,7 +592,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Ink.jpg?v=1694070413",
   "comp": "78% polyester, 22% cotton",
   "gsm": "453 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai aukštos kokybės audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl audinį lengva išlaikyti nepriekaištingos būklės. Užtikrina komfortą, patvarumą ir apsaugą nuo kasdienio dėvėjimosi.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Azure",
@@ -527,7 +607,9 @@
   "image": "https://optisofa.com/cdn/shop/products/3f81ca15-195c-4c90-afd0-4f5786037405_x1200_c.jpg?v=1673862210",
   "comp": "100% polyester",
   "gsm": "462 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Smulkiai austas audinys. Minkštas ir švelnus liesti, užtikrina maksimalų komfortą. Patvarus ir atsparus dilimui, gražiai krenta bei nesiglamžo. Atrodo kaip natūralus linas, o Easy Clean sluoksnis leidžia jį lengvai prižiūrėti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Laguna",
@@ -540,7 +622,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Laguna.jpg?v=1667205347",
   "comp": "100% polyester",
   "gsm": "430 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Unikalus matinio atspalvio veliūro audinys, nerodantis atspalvių kaitos. Padengtas specialiu apsauginiu sluoksniu, sukuriančiu hidrofobinį paviršių — skysčiai iškart neįsigeria, todėl išsiliejimą galima švelniai nusausinti šluoste ar popieriniu rankšluosčiu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Lido",
@@ -553,7 +637,9 @@
   "image": "https://optisofa.com/cdn/shop/products/f2da55df-5c28-4ebc-a878-ca337bb375b5_x1200_c.jpg?v=1673862203",
   "comp": null,
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Smulkiai austas audinys. Minkštas ir švelnus liesti, užtikrina maksimalų komfortą. Patvarus ir atsparus dilimui, gražiai krenta bei nesiglamžo. Atrodo kaip natūralus linas, o Easy Clean sluoksnis leidžia jį lengvai prižiūrėti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Ocean",
@@ -567,7 +653,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Corbett-78.jpg?v=1724846605",
   "comp": "99% polyester, 1% acrylic",
   "gsm": "560 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Išskirtinis austas audinys, suteikiantis interjerui ypatingą atmosferą. Stiprus, raiškus pynimas giliais tamsiai mėlynos ir smėlio tonais prideda gylio bei erdviškumo. Tai stiliaus pareiškimas — šiuolaikinė itališka modernizmo interpretacija.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Navy Blue",
@@ -578,7 +666,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Riviera-81.jpg?v=1667827913",
   "comp": "100% polyester",
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus, veliūrą primenantis apmušalų audinys. Medžiaga subtiliai žvilga, prideda elegancijos ir rafinuotumo. Labai atsparus dilimui, išskirtinai minkštas bei aksominis liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Marine Blue",
@@ -593,7 +683,9 @@
   "image": "https://optisofa.com/cdn/shop/products/MarineBlue.jpg?v=1667205017",
   "comp": "100% polyester",
   "gsm": "300 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, prideda rafinuotumo ir elegancijos. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti. Papildomai padengtas easy-clean sluoksniu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Leaf",
@@ -606,7 +698,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Casual-49-Pistachio.jpg?v=1724760372",
   "comp": "78% polyester, 22% cotton",
   "gsm": "453 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai aukštos kokybės audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl audinį lengva išlaikyti nepriekaištingos būklės. Užtikrina komfortą, patvarumą ir apsaugą nuo kasdienio dėvėjimosi.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Basil",
@@ -620,7 +714,9 @@
   "image": "https://optisofa.com/cdn/shop/files/basil_mateusza.jpg?v=1781101966",
   "comp": "100% polyester",
   "gsm": "560 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro apmušalų audinys. Medžiaga lengvai žvilga, todėl atrodo kilniai ir elegantiškai. Ji išskirtinai minkšta ir aksominė liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Pistachio",
@@ -633,7 +729,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Prestige-2767_dfe8536b-9df7-4a02-815e-8997d1d1e400.jpg?v=1667826929",
   "comp": "100% polyester",
   "gsm": "320 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus, aksominis veliūro tipo apmušalų audinys. Medžiaga subtiliai žvilga, prideda elegancijos ir rafinuotumo. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti, užtikrina maksimalų komfortą kasdieniame naudojime.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Lima",
@@ -646,7 +744,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Lima.jpg?v=1667831343",
   "comp": "100% polyester",
   "gsm": "415 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Minkštas velveto audinys, suteikiantis sofai visiškai naują charakterį. Smulkūs rumbeliai puikiai pabrėžia baldų formą, prideda elegancijos ir įneša gaivos į interjerą. Vandenį atstumiantis sluoksnis leidžia audinį lengvai valyti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Dill",
@@ -659,7 +759,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Pente-33.jpg?v=1717502764",
   "comp": "95% polyester, 5% cotton",
   "gsm": "500 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Maloniai liečiamas, storas austas audinys, padengtas nanodalelių sluoksniu, veiksmingai neleidžiančiu nešvarumams įsiskverbti. Todėl net atkaklias dėmes galima pašalinti be valiklių. Easy Clean technologija leidžia dėmes — net nuo kečupo, kavos ar rašalo — pašalinti vien vandeniu arba vandeniu su muilu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Grass",
@@ -672,7 +774,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Grass.jpg?v=1740048693",
   "comp": "68% polyamide, 29% polyester, 3% viscose",
   "gsm": "577 g/m²",
-  "abrasion": "3-4"
+  "abrasion": "3-4",
+  "desc": "Bukle audinys su būdinga kilpelių faktūra, sukuriančia minkštą, trimatį paviršių. Šiltas ir malonus liesti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Moss",
@@ -685,7 +789,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Moss.jpg?v=1667205279",
   "comp": "100% polyester",
   "gsm": "430 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Unikalus matinio atspalvio veliūro audinys, nerodantis atspalvių kaitos. Padengtas specialiu apsauginiu sluoksniu, sukuriančiu hidrofobinį paviršių — skysčiai iškart neįsigeria, todėl išsiliejimą galima švelniai nusausinti šluoste ar popieriniu rankšluosčiu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Pesto",
@@ -696,7 +802,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Pesto.jpg?v=1666087780",
   "comp": "100% polyester",
   "gsm": "610 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Lygus audinys su švelniu trumpu plaukeliu, austas iš šviesesnių ir tamsesnių siūlų. Medžiaga itin maloni liesti ir užtikrina maksimalų komfortą. Lengvai prižiūrima. Audinio žvilgesio ir atspalvių kaita — natūralus reiškinys.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Forest Velvet",
@@ -711,7 +819,9 @@
   "image": "https://optisofa.com/cdn/shop/products/ForestyVelvet.jpg?v=1667204815",
   "comp": "100% polyester",
   "gsm": "300 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, prideda rafinuotumo ir elegancijos. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti. Papildomai padengtas easy-clean sluoksniu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Bottle Green",
@@ -722,7 +832,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Riviera-38.jpg?v=1667827905",
   "comp": "100% polyester",
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus, veliūrą primenantis apmušalų audinys. Medžiaga subtiliai žvilga, prideda elegancijos ir rafinuotumo. Labai atsparus dilimui, išskirtinai minkštas bei aksominis liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Jade",
@@ -733,7 +845,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Riviera-87.jpg?v=1667827944",
   "comp": "100% polyester",
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus, veliūrą primenantis apmušalų audinys. Medžiaga subtiliai žvilga, prideda elegancijos ir rafinuotumo. Labai atsparus dilimui, išskirtinai minkštas bei aksominis liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Amazon",
@@ -746,7 +860,9 @@
   "image": "https://optisofa.com/cdn/shop/products/1bf2edda-8b7c-490c-a907-a0c29d41483c_x1200_c.jpg?v=1673862299",
   "comp": "100% polyester",
   "gsm": "462 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Smulkiai austas audinys. Minkštas ir švelnus liesti, užtikrina maksimalų komfortą. Patvarus ir atsparus dilimui, gražiai krenta bei nesiglamžo. Atrodo kaip natūralus linas, o Easy Clean sluoksnis leidžia jį lengvai prižiūrėti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Olive",
@@ -759,7 +875,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Olive_f339b13e-f1cc-4e8f-a70f-e4351d379108.jpg?v=1740048703",
   "comp": "68% polyamide, 29% polyester, 3% viscose",
   "gsm": "577 g/m²",
-  "abrasion": "3-4"
+  "abrasion": "3-4",
+  "desc": "Bukle audinys su būdinga kilpelių faktūra, sukuriančia minkštą, trimatį paviršių. Šiltas ir malonus liesti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Lemon",
@@ -772,7 +890,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Lemon.jpg?v=1694077286",
   "comp": "78% polyester, 22% cotton",
   "gsm": "453 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai aukštos kokybės audinys. Fiber Guard technologija sukuria nematomą apsauginį sluoksnį, neleidžiantį dėmėms ir nešvarumams įsigerti į pluoštą, todėl audinį lengva išlaikyti nepriekaištingos būklės. Užtikrina komfortą, patvarumą ir apsaugą nuo kasdienio dėvėjimosi.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Golden Velvet",
@@ -783,7 +903,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Riviera-41_e59bf0e3-3a71-41d3-8a33-ac21665bbe28.jpg?v=1667827925",
   "comp": "100% polyester",
   "gsm": null,
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus, veliūrą primenantis apmušalų audinys. Medžiaga subtiliai žvilga, prideda elegancijos ir rafinuotumo. Labai atsparus dilimui, išskirtinai minkštas bei aksominis liesti, užtikrina maksimalų komfortą.",
+  "care": "Skalbti rankomis 40°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Rust",
@@ -796,7 +918,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Rust.jpg?v=1740048636",
   "comp": "68% polyamide, 29% polyester, 3% viscose",
   "gsm": "577 g/m²",
-  "abrasion": "3-4"
+  "abrasion": "3-4",
+  "desc": "Bukle audinys su būdinga kilpelių faktūra, sukuriančia minkštą, trimatį paviršių. Šiltas ir malonus liesti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Henna",
@@ -811,7 +935,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Henna.jpg?v=1667205075",
   "comp": "100% polyester",
   "gsm": "300 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, prideda rafinuotumo ir elegancijos. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti. Papildomai padengtas easy-clean sluoksniu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Brosca",
@@ -824,7 +950,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Brosca.jpg?v=1740048711",
   "comp": "68% polyamide, 29% polyester, 3% viscose",
   "gsm": "577 g/m²",
-  "abrasion": "3-4"
+  "abrasion": "3-4",
+  "desc": "Bukle audinys su būdinga kilpelių faktūra, sukuriančia minkštą, trimatį paviršių. Šiltas ir malonus liesti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Cherry",
@@ -837,7 +965,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Cherry.jpg?v=1740048716",
   "comp": "68% polyamide, 29% polyester, 3% viscose",
   "gsm": "577 g/m²",
-  "abrasion": "3-4"
+  "abrasion": "3-4",
+  "desc": "Bukle audinys su būdinga kilpelių faktūra, sukuriančia minkštą, trimatį paviršių. Šiltas ir malonus liesti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Misty",
@@ -850,7 +980,9 @@
   "image": "https://optisofa.com/cdn/shop/files/09.jpg?v=1779193372",
   "comp": "68% polyamide, 29% polyester, 3% viscose",
   "gsm": "577 g/m²",
-  "abrasion": "3-4"
+  "abrasion": "3-4",
+  "desc": "Bukle audinys su būdinga kilpelių faktūra, sukuriančia minkštą, trimatį paviršių. Šiltas ir malonus liesti.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Dusty Pink",
@@ -861,7 +993,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Dusty-Pink.jpg?v=1666087942",
   "comp": "100% polyester",
   "gsm": "610 g/m²",
-  "abrasion": "4"
+  "abrasion": "4",
+  "desc": "Lygus audinys su švelniu trumpu plaukeliu, austas iš šviesesnių ir tamsesnių siūlų. Medžiaga itin maloni liesti ir užtikrina maksimalų komfortą. Lengvai prižiūrima. Audinio žvilgesio ir atspalvių kaita — natūralus reiškinys.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Flamingo",
@@ -876,7 +1010,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Flamingo.jpg?v=1667204951",
   "comp": "100% polyester",
   "gsm": "300 g/m²",
-  "abrasion": "5"
+  "abrasion": "5",
+  "desc": "Tankus ir aksominis veliūro tipo apmušalų audinys. Medžiaga lengvai žvilga, prideda rafinuotumo ir elegancijos. Labai gerai atsparus dilimui, išskirtinai minkštas bei aksominis liesti. Papildomai padengtas easy-clean sluoksniu.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Marshmallow",
@@ -887,7 +1023,9 @@
   "image": "https://optisofa.com/cdn/shop/products/Soro-61.jpg?v=1667831587",
   "comp": "100% polyester",
   "gsm": "280 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Audinys su gražia austa faktūra ir smulkiu trumpu plaukeliu. Medžiaga išskirtinai maloni liesti ir užtikrina maksimalų komfortą. Storas ir tvirtas, atsparus ištįsimui, lengvai prižiūrimas ir nepalankus dėmėms.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Banana",
@@ -900,7 +1038,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Banana__standard.jpg?v=1728041674",
   "comp": "92% polyester, 8% polyamide",
   "gsm": "287 g/m²",
-  "abrasion": "4-5"
+  "abrasion": "4-5",
+  "desc": "Išskirtinai minkštas audinys šiltu geltonu atspalviu. Subtili austa faktūra, vos juntama liesti, suteikia baldams jaukumo. Dėl didelio atsparumo dilimui ir lengvos priežiūros idealiai tinka kasdieniam naudojimui.",
+  "care": "Skalbti rankomis 30°. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°)."
  },
  {
   "name": "Canyon",
@@ -911,7 +1051,9 @@
   "image": "https://optisofa.com/cdn/shop/files/Canyon.jpg?v=1775212953",
   "comp": "94% Recycled Polypropylene, 6% Polyester",
   "gsm": "415 g/m²",
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus ir patvarus apmušalų audinys, sukurtas naudoti lauke. Puikiai atsparus oro sąlygoms ir UV spinduliams. Malonus liesti, šiek tiek minkštas, o modernali faktūra suteikia lauko baldams elegantišką ir gaivų vaizdą.",
+  "care": "Skalbti rankomis 60°C. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°C)."
  },
  {
   "name": "Latte",
@@ -922,7 +1064,9 @@
   "image": "https://optisofa.com/cdn/shop/files/latte_a08e7cfb-ab74-4fea-8b1d-18cd0e1d3982.jpg?v=1775555445",
   "comp": "94% Recycled Polypropylene, 6% Polyester",
   "gsm": "415 g/m²",
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus ir patvarus apmušalų audinys, sukurtas naudoti lauke. Puikiai atsparus oro sąlygoms ir UV spinduliams. Malonus liesti, šiek tiek minkštas, o modernali faktūra suteikia lauko baldams elegantišką ir gaivų vaizdą.",
+  "care": "Skalbti rankomis 60°C. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°C)."
  },
  {
   "name": "Drift Blue",
@@ -933,7 +1077,9 @@
   "image": "https://optisofa.com/cdn/shop/files/drift-blue_3fe24cd8-f1a4-4ebd-8747-be8c90e39d26.jpg?v=1775555480",
   "comp": "94% Recycled Polypropylene, 6% Polyester",
   "gsm": "415 g/m²",
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus ir patvarus apmušalų audinys, sukurtas naudoti lauke. Puikiai atsparus oro sąlygoms ir UV spinduliams. Malonus liesti, šiek tiek minkštas, o modernali faktūra suteikia lauko baldams elegantišką ir gaivų vaizdą.",
+  "care": "Skalbti rankomis 60°C. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°C)."
  },
  {
   "name": "Midnight",
@@ -944,7 +1090,9 @@
   "image": "https://optisofa.com/cdn/shop/files/midnight.jpg?v=1775555250",
   "comp": "94% Recycled Polypropylene, 6% Polyester",
   "gsm": "415 g/m²",
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus ir patvarus apmušalų audinys, sukurtas naudoti lauke. Puikiai atsparus oro sąlygoms ir UV spinduliams. Malonus liesti, šiek tiek minkštas, o modernali faktūra suteikia lauko baldams elegantišką ir gaivų vaizdą.",
+  "care": "Skalbti rankomis 60°C. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°C)."
  },
  {
   "name": "Sandstone",
@@ -955,6 +1103,8 @@
   "image": "https://optisofa.com/cdn/shop/files/sandstone_a443b4bf-8f8e-4f92-9484-b7704d7fac96.jpg?v=1775555373",
   "comp": "94% Recycled Polypropylene, 6% Polyester",
   "gsm": "415 g/m²",
-  "abrasion": null
+  "abrasion": null,
+  "desc": "Tankus ir patvarus apmušalų audinys, sukurtas naudoti lauke. Puikiai atsparus oro sąlygoms ir UV spinduliams. Malonus liesti, šiek tiek minkštas, o modernali faktūra suteikia lauko baldams elegantišką ir gaivų vaizdą.",
+  "care": "Skalbti rankomis 60°C. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°C)."
  }
 ]
