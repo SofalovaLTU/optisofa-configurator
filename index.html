@@ -67,11 +67,11 @@
   .bbtn:hover{background:var(--soft)} .bbtn.on{background:var(--brass);color:#fff;border-color:var(--brass)}
   .bbtn[disabled]{opacity:.3;cursor:not-allowed} .bbtn.danger:hover{background:#f7e7e2;color:var(--bad)}
   /* AUDINIAI — 2 per eilutę, dideli, su pavadinimu */
-  .swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-content:start}
   .sw{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.16s;background:#fff}
   .sw:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--ink)}
   .sw.active{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass)}
-  .sw .sw-img{width:100%;aspect-ratio:1.1;background-size:cover;background-position:center}
+  .sw .sw-img{width:100%;height:140px;background-size:cover;background-position:center;background-repeat:no-repeat}
   .sw .sw-name{font-size:11px;font-weight:600;padding:7px 9px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .filterrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
   .chip{font-size:10.5px;padding:6px 11px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;text-transform:capitalize;transition:.14s;font-weight:600}
