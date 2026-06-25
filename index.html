@@ -793,7 +793,10 @@ function omToggle(f,card,btn){
 }
 function omDetail(f){const on=omSel.has(f.name);
   $('#omDetail').innerHTML=`<div class="om-frame"><img class="big" src="${f.image}&width=1200" alt="" onerror="this.style.display='none'"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Prideta prie uzsakymo':'\uFF0B Prideti i uzsakyma'}</button></div>`;
+  const fr=$('#omDetail').querySelector('.om-frame');
+  if(fr)requestAnimationFrame(()=>{const w=fr.offsetWidth;if(w){fr.style.paddingTop='0';fr.style.height=w+'px';}});
   const b=$('#omDetailAdd');if(b)b.onclick=()=>{omToggle(f,null,null);renderOmSwatches();omDetail(f);};}
+window.addEventListener('resize',()=>{const od=$('#omDetail');if(!od)return;const fr=od.querySelector('.om-frame');if(fr&&fr.offsetWidth){fr.style.paddingTop='0';fr.style.height=fr.offsetWidth+'px';}});
 function renderOmChosen(){const c=$('#omChosen');c.innerHTML='';$('#omCount').textContent=omSel.size;
   [...omSel].forEach(name=>{const el=document.createElement('span');el.className='om-chip';el.innerHTML=`${name} <b title="Pašalinti">×</b>`;
     el.querySelector('b').onclick=()=>{omSel.delete(name);renderOmChosen();renderOmSwatches();};c.appendChild(el);});
