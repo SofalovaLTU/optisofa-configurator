@@ -604,7 +604,7 @@ function frameAll(){const b=assemblyBox();if(!b)return;
   orbit.update();}
 
 /* PRICE */
-function saveState(){if(!ready)return;try{localStorage.setItem('sofalova_cfg',encodeConfig());}catch(e){}}
+function saveState(){if(!ready)return;try{localStorage.setItem('sofalova_cfg_v2',encodeConfig());}catch(e){}}
 function updatePrice(){saveState();let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
   $('#price').textContent='€'+min;$('#priceNote').textContent=placed.length?(min!==max?('iki €'+max):(placed.length+' moduliai')):'pasirink modulius';
   $('#monthly').innerHTML=placed.length?('≈ <b>€'+Math.round(min/12)+'</b>/mėn · 12 mėn.'):'';}
@@ -748,7 +748,7 @@ function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MAN
   const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c)),layout:p.layout,build:p.build})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
   list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div><div class="pmods">${modBreakdown(p.codes)}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
-    presetThumb(p.codes,p.layout,p.build).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});if(curFamily==='cloud')cloudDiag();}
+    presetThumb(p.codes,p.layout,p.build).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
 async function cloudLayout(r){
   const fam=MANIFEST.families.cloud, mod=c=>fam.modules.find(m=>m.code===c);
   const meas={}; for(const c of [...new Set([...(r.run||[]),...(r.leg||[]),'106x32','85x32'])]){const d=mod(c);if(!d)continue;const root=await loadGLB(d.glb);const b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3();b.getSize(s);meas[c]={x:s.x,z:s.z};} // TIKRAS dydis, be normScale
@@ -771,16 +771,6 @@ async function cloudLayout(r){
     else{const lf=legs[legs.length-1],fc=(lf.w>=0.95?'106x32':'85x32'),fr=backRot(fc),fz=fpz(fc,fr);out.push({code:fc,x:lf.cx,z:lf.cz+lf.d/2+fz/2-G,rot:fr});} // gulimos dalies priekio užbaiga
   }
   return out;
-}
-let _diagDone=false;
-async function cloudDiag(){if(_diagDone)return;_diagDone=true;const fam=MANIFEST.families.cloud;if(!fam)return;
-  let rows='';for(const m of fam.modules){try{const root=await loadGLB(m.glb);const b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3(),c=new THREE.Vector3();b.getSize(s);b.getCenter(c);
-    rows+=m.code+':  '+Math.round(s.x*100)+' x '+Math.round(s.y*100)+' x '+Math.round(s.z*100)+'   centras('+Math.round(c.x*100)+','+Math.round(c.z*100)+')<br>';
-  }catch(e){rows+=m.code+': KLAIDA<br>';}}
-  const d=document.createElement('div');d.id='cloudDiag';
-  d.innerHTML='<button id="diagX" style="float:right;border:none;background:#9c7b46;color:#fff;border-radius:6px;width:24px;height:24px;cursor:pointer">x</button><b>Cloud GLB matmenys (cm)</b><br><span style="color:#777">kodas: plotis x aukstis x gylis | bbox centras(x,z)</span><hr style="border:none;border-top:1px solid #ddd">'+rows;
-  d.style.cssText='position:fixed;top:90px;left:24px;z-index:99999;background:#fff;border:2px solid #9c7b46;padding:14px 18px;font:13px/1.7 monospace;color:#222;box-shadow:0 10px 30px rgba(0,0,0,.18);border-radius:12px;max-width:380px';
-  document.body.appendChild(d);document.getElementById('diagX').onclick=()=>d.remove();
 }
 async function buildCloudSet(r){clearAll();const fam=MANIFEST.families.cloud;const layout=await cloudLayout(r);
   for(const it of layout){const d=fam.modules.find(m=>m.code===it.code);if(d)await addModule(d,{x:it.x,z:it.z,rot:it.rot,raw:true,frame:false});}
@@ -1028,7 +1018,7 @@ setMobTab('modules');
     if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
     // atstatom IŠ KARTO ir LAUKIAM, kol baigs – tik tada slepiam loaderį (jokio tuščio blyksnio)
     if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
-    else{try{const s=localStorage.getItem('sofalova_cfg');if(s)await restoreConfig(s);}catch(e){}}
+    else{try{const s=localStorage.getItem('sofalova_cfg_v2');if(s)await restoreConfig(s);}catch(e){}}
     ready=true;saveState();
     $('#loader').style.display='none';
   }catch(e){console.error(e);$('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';}
