@@ -770,8 +770,9 @@ async function cloudLayout(r){
     for(const c of r.leg){if(!meas[c])continue;const rot=seatRot(c),w=fpx(c,rot),d=fpz(c,rot),cz=z+d/2-G;out.push({code:c,x:e.cx,z:cz,rot});legs.push({code:c,cx:e.cx,w,d,cz});z+=d-G;}
     for(const s of legs){const bc=(s.w>=0.95?'106x32':'85x32'),br=armRot(bc),bx=fpx(bc,br);out.push({code:bc,x:s.cx+s.w/2+bx/2-G,z:s.cz,rot:br});} // atlošas gulimos dalies išorėje
   }
-  if(r.arms!==false){const a0=(seats[0].d>=0.95?'106x32':'85x32'),ar0=armRot(a0),aw0=fpx(a0,ar0);out.push({code:a0,x:runL-aw0/2+G,z:0,rot:ar0}); // kairys porankis
-    if(!legs.length){const a1=(seats[seats.length-1].d>=0.95?'106x32':'85x32'),ar1=armRot(a1),aw1=fpx(a1,ar1);out.push({code:a1,x:runR+aw1/2-G,z:0,rot:ar1});} // dešinys porankis
+  if(r.arms!==false){const BACKD=fpz('85x32',1);const armZ=(s,c,rt)=>-s.d/2-BACKD+G+fpz(c,rt)/2; // porankio galas lygiuojasi su atlošo (nugaros) linija
+    const a0=(seats[0].d>=0.95?'106x32':'85x32'),ar0=armRot(a0),aw0=fpx(a0,ar0);out.push({code:a0,x:runL-aw0/2+G,z:armZ(seats[0],a0,ar0),rot:ar0}); // kairys porankis
+    if(!legs.length){const a1=(seats[seats.length-1].d>=0.95?'106x32':'85x32'),ar1=armRot(a1),aw1=fpx(a1,ar1);out.push({code:a1,x:runR+aw1/2-G,z:armZ(seats[seats.length-1],a1,ar1),rot:ar1});} // dešinys porankis
     else{const lf=legs[legs.length-1],fc=(lf.w>=0.95?'106x32':'85x32'),fr=backRot(fc),fz=fpz(fc,fr);out.push({code:fc,x:lf.cx,z:lf.cz+lf.d/2+fz/2-G,rot:fr});} // gulimos dalies priekio užbaiga
   }
   return out;
