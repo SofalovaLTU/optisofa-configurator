@@ -106,6 +106,7 @@
   .order-grid{display:grid;grid-template-columns:1fr 460px;flex:1;min-height:0}
   .order-left{padding:18px 22px;overflow-y:auto;border-right:1px solid var(--line)}
   .order-right{padding:18px 20px;overflow-y:auto;background:var(--soft);display:flex;flex-direction:column;gap:16px}
+  .order-right>*{flex:0 0 auto}
   .om-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
   .om-sw{position:relative;border-radius:11px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.14s;background:#fff;box-shadow:var(--shadow)}
   .om-sw img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
@@ -114,7 +115,7 @@
   .om-sw:hover{border-color:var(--brass)} .om-sw.sel{border-color:var(--brass)}
   .om-sw .tick{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:50%;background:var(--brass);color:#fff;font-size:13px;display:none;align-items:center;justify-content:center}
   .om-sw.sel .tick{display:flex}
-  .om-detail{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .om-detail{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;flex:0 0 auto}
   
   .om-detail .big{display:block}
   .om-detail .body{padding:14px 16px}
