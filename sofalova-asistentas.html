@@ -299,6 +299,19 @@ function sofaDataURL(c,hex){
   return url;
 }
 function sofaImg(c,hex){ try{const u=sofaDataURL(c,hex); if(u)return u;}catch(e){} return compSVG(c); }
+/* ===== TIKROS Optisofa nuotraukos (užsikrauna gyvai svetainėje) ===== */
+const PHOTO={
+ 'hug-I':'https://optisofa.com/cdn/shop/collections/Hug-room.jpg?v=1747819289&width=900',
+ 'hug-L':'https://optisofa.com/cdn/shop/collections/Hug-room.jpg?v=1747819289&width=900',
+ 'slay-I':'https://optisofa.com/cdn/shop/files/Slay_3S_Diana_27.jpg?v=1754309956&width=900',
+ 'slay-L':'https://optisofa.com/cdn/shop/collections/Slay3SFCasualPistachio_P1.webp?v=1738057551&width=900',
+ 'cloud-I':'https://optisofa.com/cdn/shop/files/CLOUDSET2-Casual16River.jpg?v=1743597629&width=900',
+ 'cloud-L':'https://optisofa.com/cdn/shop/files/CLOUDSET2-Casual16River.jpg?v=1743597629&width=900'
+};
+function photoFor(c){ return PHOTO[c.fam+'-'+c.shape]||PHOTO[c.fam+'-I']||null; }
+function cardBg(c,hex){ const p=photoFor(c), d=sofaImg(c,hex);
+  if(p) return "background-image:url('"+p+"'),url('"+d+"');background-size:cover,cover;background-position:center,center 62%;background-repeat:no-repeat,no-repeat";
+  return "background-image:url('"+d+"');background-size:cover;background-position:center 62%;background-repeat:no-repeat"; }
 
 
 document.querySelectorAll('.q').forEach(q=>{const key=q.dataset.q;
@@ -385,7 +398,7 @@ function renderResults(picks,aiUsed){
     const price=c.priceMin===c.priceMax?`€${c.priceMin}`:`€${c.priceMin}<small> – €${c.priceMax}</small>`;
     const card=document.createElement('div');card.className='rc';
     card.innerHTML=`
-      <div class="rc-img" style="background-image:url('${sofaImg(c,sel.hex)}');background-size:cover;background-position:center 62%;background-repeat:no-repeat"><span class="rc-badge">${SHAPE_LBL[c.shape]||''}</span></div>
+      <div class="rc-img" style="${cardBg(c,sel.hex)}"><span class="rc-badge">${SHAPE_LBL[c.shape]||''}</span></div>
       <div class="rc-top"><div class="rc-form">${c.form} · ${c.fam.toUpperCase()}</div><div class="rc-name">${c.name}</div></div>
       <div class="rc-why">${escapeHtml(p.reason||'')}</div>
       <div class="rc-body">
@@ -400,7 +413,7 @@ function renderResults(picks,aiUsed){
     const menu=card.querySelector('.fabmenu'),selBtn=card.querySelector('.fabsel');
     selBtn.onclick=(e)=>{e.stopPropagation();document.querySelectorAll('.fabmenu.open').forEach(m=>{if(m!==menu)m.classList.remove('open');});menu.classList.toggle('open');};
     const imgEl=card.querySelector('.rc-img');
-    menu.querySelectorAll('.fabopt').forEach(o=>o.onclick=()=>{const nm=o.dataset.name,hx=o.dataset.hex;selBtn.querySelector('.fabsw').style.background=hx;selBtn.querySelector('.fabnm').textContent=nm;link.href=configLink(c,nm);imgEl.style.backgroundImage="url('"+sofaImg(c,hx)+"')";menu.classList.remove('open');});
+    menu.querySelectorAll('.fabopt').forEach(o=>o.onclick=()=>{const nm=o.dataset.name,hx=o.dataset.hex;selBtn.querySelector('.fabsw').style.background=hx;selBtn.querySelector('.fabnm').textContent=nm;link.href=configLink(c,nm);imgEl.setAttribute('style',cardBg(c,hx));menu.classList.remove('open');});
     card.querySelector('[data-cmp]').onclick=()=>toggleCompare(c.id);
     el.appendChild(card);
   });
