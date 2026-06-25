@@ -330,6 +330,7 @@
       <button class="bbtn" id="btnDims">📐 Matmenys</button>
       <button class="bbtn" id="btnRoom">🏠 Kambarys</button>
       <button class="bbtn" id="btnCenter">🎯 Centruoti</button>
+      <button class="bbtn" id="btnArrange">🧲 Sutvarkyti</button>
       <button class="bbtn" id="btnZoomIn">🔍＋</button>
       <button class="bbtn" id="btnZoomOut">🔍－</button>
       <button class="bbtn" id="btnAR">📱 AR</button>
@@ -425,7 +426,7 @@ const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new R
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
 renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIEŠ OrbitControls → mūsų handleris vykdomas pirmas
 const orbit=new OrbitControls(camera,renderer.domElement);
-orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.3;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
+orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.75;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
 scene.add(new THREE.HemisphereLight(0xffffff,0xdad2c5,0.40));
 const keyL=new THREE.DirectionalLight(0xffffff,1.35);keyL.position.set(3.5,6.5,4);keyL.castShadow=true;keyL.shadow.mapSize.set(2048,2048);keyL.shadow.radius=4;
 keyL.shadow.camera.left=-6;keyL.shadow.camera.right=6;keyL.shadow.camera.top=6;keyL.shadow.camera.bottom=-6;keyL.shadow.bias=-0.0003;scene.add(keyL);
@@ -524,6 +525,15 @@ async function addModule(data,opts={}){
 }
 function placeFlushRight(rec){if(placed.length===1){rec.root.position.set(0,0,0);return;}let maxX=-Infinity,refZ=0;placed.forEach(p=>{if(p===rec)return;const a=aabb(p);if(a.maxX>maxX){maxX=a.maxX;refZ=a.cz;}});const e=extOf(rec);rec.root.position.set(maxX+e.x/2+SNAP_GAP,0,refZ);}
 function placeInFront(rec){const b=assemblyBox(),e=extOf(rec);if(!b||placed.length===1){rec.root.position.set(0,0,0);return;}rec.root.position.set(b.cx,0,b.maxZ+e.z/2+0.3);}
+function arrangeAll(){
+  if(placed.length<2){frameAll();return;}
+  const order=[...placed].sort((a,b)=>a.root.position.x-b.root.position.x); // kairė -> dešinė
+  const z0=order[0].root.position.z;
+  order[0].root.position.z=z0;
+  let edge=aabb(order[0]).maxX;
+  for(let i=1;i<order.length;i++){const rec=order[i],e=extOf(rec);
+    rec.root.position.set(edge+e.x/2+SNAP_GAP,0,z0);edge=aabb(rec).maxX;}
+  updateRoom();updateSelBox();saveState();frameAll();setHint('Sutvarkyta į vieną sofą');}
 function frameAll(){const b=assemblyBox();if(!b)return;
   const center=new THREE.Vector3(b.cx,b.h*0.45,b.cz);
   const dir=new THREE.Vector3(1,0.6,1.25).normalize();
@@ -714,6 +724,7 @@ $('#btnDims').onclick=()=>{dimsOn=!dimsOn;$('#btnDims').classList.toggle('on',di
 orbit.enableZoom=true; orbit.zoomSpeed=1.1;
 function zoomBy(factor){const dir=new THREE.Vector3().subVectors(camera.position,orbit.target);let len=dir.length()*factor;len=THREE.MathUtils.clamp(len,orbit.minDistance,orbit.maxDistance);dir.setLength(len);camera.position.copy(orbit.target).add(dir);orbit.update();}
 $('#btnCenter').onclick=()=>{if(!placed.length){toast('Pirma sudėk sofą');return;}frameAll();};
+$('#btnArrange').onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}if(placed.length<2){toast('Reikia bent 2 modulių');return;}arrangeAll();};
 $('#btnZoomIn').onclick=()=>zoomBy(0.82);
 $('#btnZoomOut').onclick=()=>zoomBy(1.22);
 
