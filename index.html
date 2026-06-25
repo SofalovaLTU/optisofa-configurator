@@ -466,6 +466,9 @@ function assemblyBox(){if(!placed.length)return null;let minX=Infinity,maxX=-Inf
 function gridSnap(rec){const g=0.025;rec.root.position.x=Math.round(rec.root.position.x/g)*g;rec.root.position.z=Math.round(rec.root.position.z/g)*g;}
 const SNAP_RANGE=0.40;  // pritraukimo zona (m)
 const SNAP_GAP=-0.03;   // didesnis persidengimas – tarpai tarp modulių dingsta
+function isBackArm(d){return !!(d&&/x32$/.test(d.code||''));}
+function setOri(rec,ori){const wide=rec.box.x>=rec.box.z;rec.rot=((ori==='wide')?(wide?0:1):(wide?1:0));rec.root.rotation.y=rec.rot*Math.PI/2;}
+function autoOrientBackArm(rec){if(!isBackArm(rec.data))return;const seats=placed.filter(p=>p!==rec&&!isBackArm(p.data));if(!seats.length)return;let near=null,nd=Infinity;seats.forEach(s=>{const d=Math.hypot(s.root.position.x-rec.root.position.x,s.root.position.z-rec.root.position.z);if(d<nd){nd=d;near=s;}});const dx=rec.root.position.x-near.root.position.x,dz=rec.root.position.z-near.root.position.z;setOri(rec,(Math.abs(dz)>=Math.abs(dx))?'wide':'deep');}
 function snapToNeighbors(rec){
   if(placed.length<2){gridSnap(rec);return;}
   const A=aabb(rec);let best=null;
@@ -493,7 +496,7 @@ function _ndc(ev){const r=renderer.domElement.getBoundingClientRect();return new
 function _floorPoint(ev){_ray.setFromCamera(_ndc(ev),camera);const p=new THREE.Vector3();return _ray.ray.intersectPlane(_floorPlane,p)?p:null;}
 function _inCanvas(ev){const r=renderer.domElement.getBoundingClientRect();return ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom;}
 function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floorPoint(ev);if(!fp)return;_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;updateSelBox();}
-function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();snapToNeighbors(_dragRec);updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();saveState();
+function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();autoOrientBackArm(_dragRec);snapToNeighbors(_dragRec);updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();saveState();
   window.removeEventListener('pointermove',onDragMove,true);window.removeEventListener('pointerup',onDragUp,true);}
 function onCanvasPointerDown(ev){
   if(locked)return;            // užrakinta – modulių neliečiam, OrbitControls suka visą sofą
@@ -523,6 +526,7 @@ async function addModule(data,opts={}){
     root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);
     const wrap=new THREE.Group();wrap.userData.isModule=true;wrap.userData.data=data;wrap.add(root);
     const rec={root:wrap,data,box:{x:size.x,y:size.y,z:size.z},rot:0,_tex:curTex};
+    if(opts.ori){const wide=size.x>=size.z;opts.rot=(opts.ori==='wide')?(wide?0:1):(wide?1:0);}
     rec.rot=((opts.rot||0)%4+4)%4;wrap.rotation.y=rec.rot*Math.PI/2;
     wrap.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
     scene.add(wrap);placed.push(rec);
@@ -637,11 +641,13 @@ function renderThumb(group,front){
 }
 const thumbCache={};
 async function thumbFor(glb){if(thumbCache[glb])return thumbCache[glb];try{const g=await loadGLB(glb);const u=renderThumb(g,false);thumbCache[glb]=u;return u;}catch(e){return null;}}
-async function presetThumb(codes){const key=curFamily+':'+codes.join(',');if(thumbCache[key])return thumbCache[key];
+async function presetThumb(codes,layout){const key=curFamily+':'+(layout?'L'+layout.map(i=>i.code+i.x+i.z+i.rot).join(','):codes.join(','));if(thumbCache[key])return thumbCache[key];
   try{const fam=MANIFEST.families[curFamily];const group=new THREE.Group();let x=0;
-    for(const code of codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;const root=await loadGLB(d.glb);
+    const items=layout||codes.map(c=>({code:c,_row:true}));
+    for(const it of items){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);
       normScale(root,parseFloat((d.dims_cm||{}).W));let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;
-      root.position.set(x-min.x,-min.y,-min.z-size.z/2);group.add(root);x+=size.x;}
+      if(it._row){root.position.set(x-min.x,-min.y,-min.z-size.z/2);group.add(root);x+=size.x;}
+      else{const wrap=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrap.add(root);let _rt=it.rot||0;if(it.ori){const wide=size.x>=size.z;_rt=(it.ori==='wide')?(wide?0:1):(wide?1:0);}wrap.rotation.y=_rt*Math.PI/2;wrap.position.set(it.x/100,0,it.z/100);group.add(wrap);}}
     if(!group.children.length)return null;const u=renderThumb(group,true);thumbCache[key]=u;return u;}catch(e){return null;}}
 
 /* UI: tabs/presets/modules */
@@ -677,7 +683,21 @@ const PRESETS={
     {name:'4 vietų plati \u00b7 386 cm',seq:['MCL','MSW','MSW','MCR']}
   ],
   slay:[{name:'Sofa 2v',seq:['ML','MR']},{name:'Sofa 3v',seq:['ML','MS','MR']},{name:'Su šezlongu',seq:['ML','MS','OTMR']},{name:'Kampinė U',seq:['OTML','MS','MS','OTMR']}],
-  cloud:[{name:'Sofa M',seq:['85x85','85x85']},{name:'Sofa L',seq:['106x106','106x106']},{name:'Kampinė',seq:['106x106','85x85','85x85']}],
+  cloud:[
+    {name:'2 vietų \u00b7 234 cm', seq:['85x85','85x85'], layout:[
+      {code:'85x85',x:-42.5,z:0,rot:0},{code:'85x85',x:42.5,z:0,rot:0},
+      {code:'85x32',x:-42.5,z:-58.5,ori:'wide'},{code:'85x32',x:42.5,z:-58.5,ori:'wide'},
+      {code:'85x32',x:-101,z:0,ori:'deep'},{code:'85x32',x:101,z:0,ori:'deep'}]},
+    {name:'3 vietų \u00b7 382 cm', seq:['106x106','106x106','106x106'], layout:[
+      {code:'106x106',x:-106,z:0,rot:0},{code:'106x106',x:0,z:0,rot:0},{code:'106x106',x:106,z:0,rot:0},
+      {code:'106x32',x:-106,z:-69,ori:'wide'},{code:'106x32',x:0,z:-69,ori:'wide'},{code:'106x32',x:106,z:-69,ori:'wide'},
+      {code:'106x32',x:-175,z:0,ori:'deep'},{code:'106x32',x:175,z:0,ori:'deep'}]},
+    {name:'Kampinė \u00b7 276\u00d7244 cm', seq:['106x106','106x106','106x106'], layout:[
+      {code:'106x106',x:-53,z:0,rot:0},{code:'106x106',x:53,z:0,rot:0},{code:'106x106',x:53,z:106,rot:0},
+      {code:'106x32',x:-53,z:-69,ori:'wide'},{code:'106x32',x:53,z:-69,ori:'wide'},
+      {code:'106x32',x:-122,z:0,ori:'deep'},
+      {code:'106x32',x:122,z:0,ori:'deep'},{code:'106x32',x:122,z:106,ori:'deep'}]},
+  ],
   loft:[
     {name:'3 vietų \u00b7 252 cm',seq:['ML','MR']},
     {name:'4 vietų \u00b7 347 cm',seq:['ML','MS','MR']},
@@ -688,11 +708,11 @@ const PRESETS={
   ],
 };
 function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MANIFEST.families[curFamily];
-  const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c))})).filter(p=>p.codes.length);
+  const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c)),layout:p.layout})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
   list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div><div class="pmods">${modBreakdown(p.codes)}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
-    presetThumb(p.codes).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
-async function applyPreset(p){clearAll();const fam=MANIFEST.families[curFamily];for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}frameAll();updateRoom();}
+    presetThumb(p.codes,p.layout).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
+async function applyPreset(p){clearAll();const fam=MANIFEST.families[curFamily];if(p.layout){for(const it of p.layout){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;await addModule(d,{x:it.x/100,z:it.z/100,rot:it.rot||0,ori:it.ori,frame:false});}}else{for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}}frameAll();updateRoom();}
 
 function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#modules');wrap.innerHTML='';
   const items=[...(fam.modules||[]),...(fam.cushions||[])];
