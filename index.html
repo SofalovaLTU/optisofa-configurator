@@ -267,6 +267,13 @@
   .order-left .filters-dd{margin-bottom:13px}
   /* peržiūra – tikras kvadratas (plotis = aukštis) */
   .om-detail .big{width:100%!important;aspect-ratio:1/1!important;height:auto!important;min-height:0!important;object-fit:cover;display:block;background:var(--soft)}
+
+  /* kvadratinė peržiūra – padding-top metodas (veikia visose naršyklėse) */
+  .om-frame{position:relative;width:100%;padding-top:100%;overflow:hidden;background:var(--soft)}
+  .om-detail .big{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;aspect-ratio:auto!important;min-height:0!important;object-fit:cover;display:block}
+  /* "Užsakyti pavyzdžius" – žalvario spalva kaip pagrindiniame puslapyje */
+  .om-submit{background:var(--brass)}
+  .om-submit:hover{background:#876a3c}
 </style>
 </head>
 <body>
@@ -788,7 +795,7 @@ function omToggle(f,card,btn){
   renderOmChosen();
 }
 function omDetail(f){const on=omSel.has(f.name);
-  $('#omDetail').innerHTML=`<img class="big" src="${f.image}&width=1200" alt="" onerror="this.style.display='none'"><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Prideta prie uzsakymo':'\uFF0B Prideti i uzsakyma'}</button></div>`;
+  $('#omDetail').innerHTML=`<div class="om-frame"><img class="big" src="${f.image}&width=1200" alt="" onerror="this.style.display='none'"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Prideta prie uzsakymo':'\uFF0B Prideti i uzsakyma'}</button></div>`;
   const b=$('#omDetailAdd');if(b)b.onclick=()=>{omToggle(f,null,null);renderOmSwatches();omDetail(f);};}
 function renderOmChosen(){const c=$('#omChosen');c.innerHTML='';$('#omCount').textContent=omSel.size;
   [...omSel].forEach(name=>{const el=document.createElement('span');el.className='om-chip';el.innerHTML=`${name} <b title="Pašalinti">×</b>`;
