@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofalova · Sofų asistentas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#e6ded2; --panel:#ffffff; --ink:#1c1a17; --muted:#8b8377; --soft:#f1ece3;
+    --line:#e2dbcf; --brass:#8a6a36; --brass-soft:#ece2d1; --ok:#4a7a55;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 12px 34px rgba(30,26,22,.09);
+    --shadow-lg:0 28px 70px rgba(30,26,22,.20);
+    --r:16px; --font:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:var(--font);color:var(--ink);
+    background:radial-gradient(120% 90% at 50% 0%,#efe9df 0%,#e6ded2 45%,#d8cdba 100%);
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+  header{display:flex;align-items:center;justify-content:space-between;padding:22px 0 8px}
+  .logo{font-weight:800;letter-spacing:.14em;font-size:15px}
+  .logo small{display:block;font-weight:600;letter-spacing:.18em;font-size:9px;color:var(--muted);margin-top:2px}
+  .badge{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--brass);border:1px solid var(--brass-soft);background:var(--brass-soft);padding:6px 12px;border-radius:999px}
+
+  /* INTRO / QUIZ shared card */
+  .stage{padding:26px 0 80px}
+  .hero{padding:34px 0 22px;max-width:720px}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--brass);text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:clamp(30px,5vw,50px);line-height:1.04;letter-spacing:-.02em;font-weight:800;margin:0 0 16px}
+  h1 em{font-style:normal;color:var(--brass)}
+  .lede{font-size:16px;line-height:1.55;color:#4d473f;max-width:560px}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:28px 30px}
+  .q{padding:18px 0;border-bottom:1px solid var(--line)}
+  .q:last-of-type{border-bottom:0}
+  .q-head{display:flex;align-items:baseline;gap:12px;margin-bottom:13px}
+  .q-num{font-size:11px;font-weight:800;color:var(--brass);letter-spacing:.08em;width:20px;flex:0 0 auto}
+  .q-label{font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;padding-left:32px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 16px;font-size:13.5px;font-weight:600;
+    color:var(--ink);cursor:pointer;transition:.15s;font-family:var(--font)}
+  .chip:hover{border-color:var(--brass)}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .cta{margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn{border:0;border-radius:13px;padding:15px 26px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:var(--font);
+    background:var(--brass);color:#fff;letter-spacing:.01em;transition:.15s;box-shadow:var(--shadow)}
+  .btn:hover{background:#71542a}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  .btn.ghost:hover{border-color:var(--brass);color:var(--brass)}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+  .fine{font-size:12px;color:var(--muted)}
+
+  /* LOADING */
+  #loading{display:none;text-align:center;padding:90px 0}
+  .spin{width:46px;height:46px;border-radius:50%;border:3px solid var(--brass-soft);border-top-color:var(--brass);margin:0 auto 22px;animation:r 1s linear infinite}
+  @keyframes r{to{transform:rotate(360deg)}}
+  .load-step{font-size:14px;color:var(--muted);font-weight:600}
+
+  /* RESULTS */
+  #results{display:none}
+  .res-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:6px 0 20px}
+  .res-head h2{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0}
+  .res-head p{margin:6px 0 0;color:var(--muted);font-size:13.5px;max-width:560px;line-height:1.5}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+  .rc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .rc-top{padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+  .rc-form{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+  .rc-name{font-size:18px;font-weight:800;letter-spacing:-.01em;margin:5px 0 0}
+  .rc-why{font-size:13.5px;line-height:1.55;color:#4d473f;padding:14px 20px;background:linear-gradient(var(--soft),var(--soft))}
+  .rc-why b{color:var(--brass);font-weight:700}
+  .rc-body{padding:16px 20px;display:flex;flex-direction:column;gap:13px;flex:1}
+  .stat-row{display:flex;gap:8px;flex-wrap:wrap}
+  .stat{flex:1;min-width:74px;background:var(--soft);border-radius:11px;padding:9px 11px}
+  .stat .k{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+  .stat .v{font-size:14px;font-weight:800;margin-top:2px}
+  .price{font-size:21px;font-weight:800}
+  .price small{font-size:12px;color:var(--muted);font-weight:600}
+  .mono{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+  .fabs{display:flex;gap:8px;align-items:center}
+  .fab{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background-size:cover;background-position:center}
+  .fab-lbl{font-size:11px;color:var(--muted);font-weight:600}
+  .rc-foot{display:flex;gap:9px;padding:14px 20px 18px}
+  .rc-foot .btn{flex:1;padding:12px;font-size:13px}
+  .cmp-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:.15s;white-space:nowrap}
+  .cmp-btn:hover{border-color:var(--brass)} .cmp-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  /* COMPARE BAR + MODAL */
+  #cmpBar{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);
+    box-shadow:0 -10px 30px rgba(30,26,22,.08);transform:translateY(110%);transition:.3s;z-index:40}
+  #cmpBar.show{transform:translateY(0)}
+  .cmp-inner{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .cmp-slots{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .cmp-slot{font-size:12.5px;font-weight:700;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;gap:8px;align-items:center}
+  .cmp-slot x{cursor:pointer;color:var(--muted);font-weight:800}
+  .modal{position:fixed;inset:0;background:rgba(28,24,20,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+  .modal.show{display:flex}
+  .sheet{background:var(--panel);border-radius:20px;max-width:900px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--shadow-lg)}
+  .sheet-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel)}
+  .sheet-head h3{margin:0;font-size:19px;font-weight:800}
+  .x{border:0;background:var(--soft);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px}
+  table.cmp{width:100%;border-collapse:collapse}
+  table.cmp th,table.cmp td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+  table.cmp th{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.04em;width:130px}
+  table.cmp td{font-weight:600}
+  table.cmp .nm{font-size:15px;font-weight:800}
+  .err{background:#f7ece8;border:1px solid #e7cfc6;color:#8a4a39;border-radius:12px;padding:14px 16px;font-size:13.5px;line-height:1.5;margin-top:14px}
+  footer{padding:30px 0 18px;color:var(--muted);font-size:12px}
+  @media(max-width:560px){.card{padding:20px}.chips{padding-left:0}.q-head{padding-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">SOFALOVA.LT<small>SOFŲ ASISTENTAS</small></div>
+    <div class="badge">PoC · AI atranka</div>
+  </header>
+
+  <div class="stage">
+    <!-- INTRO + QUIZ -->
+    <section id="quiz">
+      <div class="hero">
+        <div class="eyebrow">Asmeninė sofų atranka</div>
+        <h1>Atsakykite į kelis klausimus —<br>parinksime <em>jūsų sofą</em>.</h1>
+        <p class="lede">Be naršymo po šimtus variantų. Pasakykite, ko reikia, ir gausite kuruotą sąrašą sudėliotų modulinių kompozicijų su kainomis, matmenimis ir tinkamais audiniais. Patikusią galėsite iškart atsidaryti ir redaguoti konfigūratoriuje.</p>
+      </div>
+
+      <div class="card">
+        <div class="q" data-q="seats">
+          <div class="q-head"><span class="q-num">01</span><span class="q-label">Kiek sėdimų vietų reikia?</span></div>
+          <div class="chips">
+            <button class="chip" data-v="2">2 vietos</button>
+            <button class="chip" data-v="3">3 vietos</button>
+            <button class="chip" data-v="4">4 vietos</button>
+            <button class="chip" data-v="5">5 ir daugiau</button>
+          </div>
+        </div>
+        <div class="q" data-q="budget">
+          <div class="q-head"><span class="q-num">02</span><span class="q-label">Koks biudžetas?</span></div>
+          <div class="chips">
+            <button class="chip" data-v="1500">iki €1 500</button>
+            <button class="chip" data-v="2500">€1 500–2 500</button>
+            <button class="chip" data-v="4000">€2 500–4 000</button>
+            <button class="chip" data-v="99000">€4 000+</button>
+            <button class="chip" data-v="0">Nesvarbu</button>
+          </div>
+        </div>
+        <div class="q" data-q="pets">
+          <div class="q-head"><span class="q-num">03</span><span class="q-label">Ar namuose yra augintinių?</span></div>
+          <div class="chips">
+            <button class="chip" data-v="1">Taip</button>
+            <button class="chip" data-v="0">Ne</button>
+          </div>
+        </div>
+        <div class="q" data-q="kids">
+          <div class="q-head"><span class="q-num">04</span><span class="q-label">Ar namuose maži vaikai?</span></div>
+          <div class="chips">
+            <button class="chip" data-v="1">Taip</button>
+            <button class="chip" data-v="0">Ne</button>
+          </div>
+        </div>
+        <div class="q" data-q="size">
+          <div class="q-head"><span class="q-num">05</span><span class="q-label">Kiek vietos turite sofai?</span></div>
+          <div class="chips">
+            <button class="chip" data-v="250">Kompaktiška · iki ~250 cm</button>
+            <button class="chip" data-v="320">Vidutinė · ~250–320 cm</button>
+            <button class="chip" data-v="99000">Erdvi · 320 cm+</button>
+            <button class="chip" data-v="0">Nežinau</button>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn" id="go" disabled>Rasti man sofas</button>
+          <span class="fine" id="hint">Pasirinkite bent vietų skaičių.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOADING -->
+    <section id="loading">
+      <div class="spin"></div>
+      <div class="load-step" id="loadStep">Kraunamas katalogas…</div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results">
+      <div class="res-head">
+        <div>
+          <h2>Jūsų atranka</h2>
+          <p id="resSub"></p>
+        </div>
+        <button class="btn ghost" id="restart">Pradėti iš naujo</button>
+      </div>
+      <div class="grid" id="cards"></div>
+      <div id="resErr"></div>
+    </section>
+  </div>
+
+  <footer>PoC demonstracija. Kainos, matmenys ir audiniai imami iš gyvo Sofalova katalogo. AI tik rikiuoja ir aprašo — skaičių nekeičia.</footer>
+</div>
+
+<!-- COMPARE BAR -->
+<div id="cmpBar">
+  <div class="cmp-inner">
+    <div class="cmp-slots" id="cmpSlots"></div>
+    <button class="btn" id="cmpOpen">Palyginti</button>
+  </div>
+</div>
+
+<!-- COMPARE MODAL -->
+<div class="modal" id="cmpModal">
+  <div class="sheet">
+    <div class="sheet-head"><h3>Palyginimas</h3><button class="x" id="cmpClose">✕</button></div>
+    <div id="cmpTable"></div>
+  </div>
+</div>
+
+<script>
+const BASE='https://optisofa-configurator.netlify.app';
+const SNAP_GAP=-0.03;
+const NONSEAT=new Set(['OTN','OTW','OTML','OTMR','106x32','85x32']);
+
+// Tiesios (vienos eilės) kompozicijos — atvaizduojamos teisingai
+const CATALOG=[
+  {id:'hug-2',  fam:'hug', name:'Hug · 2 vietų',          codes:['MCL','MCR'],               form:'Kompaktiška'},
+  {id:'hug-3n', fam:'hug', name:'Hug · 3 vietų, siaura',  codes:['MCL','MSN','MCR'],          form:'Klasikinė'},
+  {id:'hug-3p', fam:'hug', name:'Hug · 3 vietų su pufu',  codes:['MCL','OTN','MCR'],          form:'Su pufu'},
+  {id:'hug-3w', fam:'hug', name:'Hug · 3 vietų, plati',   codes:['MCL','MSW','MCR'],          form:'Klasikinė'},
+  {id:'hug-bn', fam:'hug', name:'Hug · suolas su pufais', codes:['OTN','MSW','MSW','OTN'],    form:'Suolas'},
+  {id:'hug-3o', fam:'hug', name:'Hug · 3 vietų + pufas',  codes:['MCL','MSW','OTN'],          form:'Su pufu'},
+  {id:'hug-4',  fam:'hug', name:'Hug · 4 vietų',          codes:['MCL','MSW','MSN','MCR'],    form:'Didelė'},
+  {id:'hug-4n', fam:'hug', name:'Hug · 4 vietų, siaura',  codes:['MCL','MSN','MSN','MCR'],    form:'Didelė'},
+  {id:'hug-4w', fam:'hug', name:'Hug · 4 vietų, plati',   codes:['MCL','MSW','MSW','MCR'],    form:'Didelė'},
+  {id:'slay-2', fam:'slay',name:'Slay · 2 vietų',         codes:['ML','MR'],                  form:'Kompaktiška'},
+  {id:'slay-3', fam:'slay',name:'Slay · 3 vietų',         codes:['ML','MS','MR'],             form:'Klasikinė'},
+  {id:'slay-4', fam:'slay',name:'Slay · 4 vietų',         codes:['ML','MS','MS','MR'],        form:'Didelė'},
+  {id:'cloud-2',fam:'cloud',name:'Cloud · 2 vietų',       codes:['85x85','85x85'],            form:'Kompaktiška'},
+  {id:'cloud-2l',fam:'cloud',name:'Cloud · 2 vietų, erdvi',codes:['106x106','106x106'],      form:'Erdvi'},
+  {id:'cloud-3',fam:'cloud',name:'Cloud · 3 vietų',       codes:['106x106','85x85','85x85'],  form:'Klasikinė'},
+];
+
+let MANIFEST=null, FABRICS=[], MODBYCODE={}, BUILT=[], answers={}, compare=[];
+
+/* ---------- QUIZ ---------- */
+document.querySelectorAll('.q').forEach(q=>{
+  const key=q.dataset.q;
+  q.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+    q.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+    c.classList.add('on'); answers[key]=c.dataset.v; refreshGo();
+  });
+});
+function refreshGo(){
+  const ok=answers.seats!==undefined;
+  document.getElementById('go').disabled=!ok;
+  document.getElementById('hint').textContent=ok?'Galite paleisti atranką.':'Pasirinkite bent vietų skaičių.';
+}
+document.getElementById('go').onclick=run;
+document.getElementById('restart').onclick=()=>{showScreen('quiz')};
+
+function showScreen(s){
+  document.getElementById('quiz').style.display   = s==='quiz'?'block':'none';
+  document.getElementById('loading').style.display= s==='loading'?'block':'none';
+  document.getElementById('results').style.display= s==='results'?'block':'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function loadStep(t){document.getElementById('loadStep').textContent=t;}
+
+/* ---------- DATA ---------- */
+async function ensureData(){
+  if(MANIFEST) return;
+  loadStep('Kraunamas katalogas…');
+  const [m,f]=await Promise.all([
+    fetch(BASE+'/manifest.json').then(r=>r.json()),
+    fetch(BASE+'/fabrics.json').then(r=>r.json())
+  ]);
+  MANIFEST=m; FABRICS=f;
+  Object.values(m.families||{}).forEach(fam=>{
+    (fam.modules||[]).concat(fam.cushions||[]).forEach(mod=>{ if(mod.code) MODBYCODE[mod.code]=mod; });
+  });
+  BUILT=CATALOG.map(buildComp).filter(Boolean);
+}
+function buildComp(c){
+  const mods=c.codes.map(code=>MODBYCODE[code]);
+  if(mods.some(x=>!x)) return null;                       // praleidžiam, jei modulio nėra kataloge
+  let pmin=0,pmax=0,w=0,d=0,h=0;
+  mods.forEach(mod=>{ const dm=mod.dims_cm||{};
+    pmin+=mod.price_min||0; pmax+=(mod.price_max||mod.price_min||0);
+    w+=(+dm.W||0); d=Math.max(d,+dm.D||0); h=Math.max(h,+dm.H||0);
+  });
+  const seats=c.codes.filter(code=>!NONSEAT.has(code)).length;
+  return {...c, mods, priceMin:pmin, priceMax:pmax, w:Math.round(w), d:Math.round(d), h:Math.round(h), seats,
+          breakdown:modBreakdown(c.codes)};
+}
+function modBreakdown(codes){const m={};codes.forEach(k=>m[k]=(m[k]||0)+1);return Object.keys(m).map(k=>m[k]+'× '+k).join(' · ');}
+
+/* ---------- FILTER ---------- */
+function filterComps(){
+  const minSeats=+answers.seats||2;
+  const budget=+answers.budget||0;
+  const maxW=+answers.size||0;
+  let list=BUILT.filter(c=>{
+    if(c.seats < minSeats && !(minSeats>=5 && c.seats>=4)) return false;
+    if(budget && c.priceMin>budget) return false;
+    if(maxW && c.w>maxW) return false;
+    return true;
+  });
+  if(!list.length){                       // atlaisvinam dydžio/biudžeto ribą, kad visada būtų ką rodyti
+    list=BUILT.filter(c=>c.seats>=Math.max(2,minSeats-1));
+  }
+  // surikiuojam: arčiausiai prašytų vietų, tada pigiau
+  list.sort((a,b)=> Math.abs(a.seats-minSeats)-Math.abs(b.seats-minSeats) || a.priceMin-b.priceMin);
+  return list.slice(0,12);
+}
+function fabricShortlist(){
+  const pets=answers.pets==='1', kids=answers.kids==='1';
+  let list=FABRICS.filter(f=>{
+    const ft=f.features||[];
+    if(pets && !(ft.includes('pet-friendly')||ft.includes('easy-cleaning'))) return false;
+    if(kids && !(ft.includes('easy-cleaning')||ft.includes('waterproof'))) return false;
+    return true;
+  });
+  if(list.length<6) list=FABRICS.slice();
+  // įvairovė: po kelis iš kategorijos
+  const byCat={}; const out=[];
+  list.forEach(f=>{const c=f.category||'?';(byCat[c]=byCat[c]||[]).push(f);});
+  let added=true;
+  while(out.length<20 && added){added=false;
+    Object.values(byCat).forEach(arr=>{ if(arr.length && out.length<20){out.push(arr.shift());added=true;} });
+  }
+  return out;
+}
+function fabByName(n){return FABRICS.find(f=>f.name===n);}
+function swatch(f){return f&&f.image?`${f.image}&width=200`:'';}
+
+/* ---------- AI ---------- */
+async function rankWithAI(cands, fabs){
+  const profile={
+    vietos:answers.seats, biudzetas:(+answers.budget? '≤€'+answers.budget : 'nesvarbu'),
+    augintiniai:answers.pets==='1'?'taip':'ne', maziVaikai:answers.kids==='1'?'taip':'ne',
+    erdve:(+answers.size? '≤'+answers.size+'cm' : 'nesvarbu')
+  };
+  const candList=cands.map(c=>({id:c.id,pavadinimas:c.name,kolekcija:c.fam,vietos:c.seats,
+    kaina_nuo:c.priceMin,kaina_iki:c.priceMax,plotis_cm:c.w,gylis_cm:c.d,aukstis_cm:c.h,moduliai:c.breakdown}));
+  const fabList=fabs.map(f=>({pavadinimas:f.name,tipas:f.category,savybes:f.features||[]}));
+  const prompt=
+`Esi Sofalova baldų salono konsultantas. Klientas užpildė trumpą anketą. Iš pateikto kandidatų sąrašo PARINK 4–6 geriausiai tinkančias kompozicijas, surikiuok nuo geriausios ir kiekvienai parašyk trumpą, šiltą paaiškinimą lietuviškai (iki 22 žodžių), kodėl ji tinka BŪTENT šiam klientui (remkis vietomis, biudžetu, augintiniais/vaikais, erdve). Kiekvienai parink 2–3 audinius TIK iš pateikto audinių sąrašo (jei augintiniai/vaikai — praktiški, lengvai valomi).
+
+Kliento anketa: ${JSON.stringify(profile)}
+
+Kandidatai (NEKEISK skaičių): ${JSON.stringify(candList)}
+
+Galimi audiniai: ${JSON.stringify(fabList)}
+
+Atsakyk TIK grynu JSON, be jokio papildomo teksto, formatu:
+{"picks":[{"id":"<kandidato id>","reason":"<paaiškinimas LT>","fabrics":["<audinio pavadinimas>", "..."]}]}`;
+
+  const res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000,
+      messages:[{role:"user",content:prompt}] })
+  });
+  const data=await res.json();
+  const text=(data.content||[]).map(b=>b.type==='text'?b.text:'').join('\n');
+  const clean=text.replace(/```json|```/g,'').trim();
+  const parsed=JSON.parse(clean);
+  return parsed.picks||[];
+}
+
+/* ---------- RUN ---------- */
+async function run(){
+  showScreen('loading');
+  try{
+    await ensureData();
+    const cands=filterComps();
+    const fabs=fabricShortlist();
+    loadStep('Asistentas renka jums tinkamiausias sofas…');
+    let picks=[];
+    try{ picks=await rankWithAI(cands,fabs); }catch(e){ picks=[]; }
+    let aiUsed=picks.length>0;
+    if(!aiUsed){                                   // atsarginis variantas — be AI teksto
+      picks=cands.slice(0,5).map(c=>({id:c.id,
+        reason:`Atitinka jūsų poreikius: ${c.seats} sėdimos vietos, telpa iki ${c.w} cm pločio.`,
+        fabrics:fabs.slice(0,3).map(f=>f.name)}));
+    }
+    renderResults(picks,cands,fabs,aiUsed);
+  }catch(e){
+    showScreen('results');
+    document.getElementById('cards').innerHTML='';
+    document.getElementById('resErr').innerHTML=
+      `<div class="err">Nepavyko užkrauti katalogo iš gyvos svetainės (${BASE}). Patikrinkite ryšį arba ar svetainė pasiekiama, ir bandykite dar kartą.</div>`;
+    document.getElementById('resSub').textContent='';
+  }
+}
+
+/* ---------- RENDER ---------- */
+function renderResults(picks,cands,fabs,aiUsed){
+  const byId=Object.fromEntries(BUILT.map(c=>[c.id,c]));
+  const cardsEl=document.getElementById('cards'); cardsEl.innerHTML='';
+  document.getElementById('resErr').innerHTML='';
+  const n=picks.filter(p=>byId[p.id]).length;
+  document.getElementById('resSub').textContent=
+    `${n} kompozicijos, parinktos pagal jūsų atsakymus${aiUsed?' (asistento atranka)':''}. Pažymėkite iki 3 ir palyginkite, arba atidarykite konfigūratoriuje ir redaguokite.`;
+
+  picks.forEach(p=>{
+    const c=byId[p.id]; if(!c) return;
+    const pickFabs=(p.fabrics||[]).map(fabByName).filter(Boolean).slice(0,3);
+    const fabHtml=pickFabs.length?`<div class="fabs">${pickFabs.map(f=>`<div class="fab" style="background-image:url('${swatch(f)}')" title="${f.name}"></div>`).join('')}<span class="fab-lbl">${pickFabs.map(f=>f.name).join(', ')}</span></div>`:'';
+    const linkFab=pickFabs[0]?pickFabs[0].name:null;
+    const price=c.priceMin===c.priceMax?`€${c.priceMin}`:`€${c.priceMin}<small> – €${c.priceMax}</small>`;
+    const card=document.createElement('div'); card.className='rc';
+    card.innerHTML=`
+      <div class="rc-top"><div class="rc-form">${c.form} · ${c.fam.toUpperCase()}</div><div class="rc-name">${c.name}</div></div>
+      <div class="rc-why">${escapeHtml(p.reason||'')}</div>
+      <div class="rc-body">
+        <div class="stat-row">
+          <div class="stat"><div class="k">VIETOS</div><div class="v">${c.seats}</div></div>
+          <div class="stat"><div class="k">PLOTIS</div><div class="v">${c.w} cm</div></div>
+          <div class="stat"><div class="k">GYLIS</div><div class="v">${c.d} cm</div></div>
+          <div class="stat"><div class="k">AUKŠTIS</div><div class="v">${c.h} cm</div></div>
+        </div>
+        <div class="price">${price}</div>
+        <div class="mono">${c.breakdown}</div>
+        ${fabHtml}
+      </div>
+      <div class="rc-foot">
+        <button class="cmp-btn ${compare.includes(c.id)?'on':''}" data-cmp="${c.id}">${compare.includes(c.id)?'✓ Palyginime':'Palyginti'}</button>
+        <a class="btn" href="${configLink(c,linkFab)}" target="_blank" rel="noopener">Atidaryti ir redaguoti</a>
+      </div>`;
+    card.querySelector('[data-cmp]').onclick=()=>toggleCompare(c.id);
+    cardsEl.appendChild(card);
+  });
+  showScreen('results');
+  renderCmpBar();
+}
+function escapeHtml(s){return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+
+/* ---------- DEEP LINK į konfigūratorių (flush eilė, centruota) ---------- */
+function configLink(c,fabName){
+  const ms=[]; let prevMax=null;
+  c.codes.forEach((code,i)=>{
+    const w=(+(MODBYCODE[code].dims_cm||{}).W||0)/100;
+    let cx = i===0 ? 0 : prevMax + w/2 + SNAP_GAP;
+    prevMax = cx + w/2;
+    ms.push({c:code,x:cx,z:0,r:0});
+  });
+  const minE=ms[0].x-( (+(MODBYCODE[c.codes[0]].dims_cm||{}).W||0)/100)/2;
+  const mid=(minE+prevMax)/2;
+  ms.forEach(m=>m.x=+(m.x-mid).toFixed(3));
+  const cfg={f:c.fam, fab:fabName||null, lk:false, m:ms};
+  const enc=btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));
+  return BASE+'/#'+enc;
+}
+
+/* ---------- COMPARE ---------- */
+function toggleCompare(id){
+  const i=compare.indexOf(id);
+  if(i>=0) compare.splice(i,1);
+  else { if(compare.length>=3){ alert('Galima palyginti iki 3 kompozicijų.'); return; } compare.push(id); }
+  document.querySelectorAll('[data-cmp]').forEach(b=>{
+    const on=compare.includes(b.dataset.cmp);
+    b.classList.toggle('on',on); b.textContent=on?'✓ Palyginime':'Palyginti';
+  });
+  renderCmpBar();
+}
+function renderCmpBar(){
+  const bar=document.getElementById('cmpBar'), slots=document.getElementById('cmpSlots');
+  const byId=Object.fromEntries(BUILT.map(c=>[c.id,c]));
+  slots.innerHTML=compare.map(id=>`<span class="cmp-slot">${byId[id].name}<x data-rm="${id}">✕</x></span>`).join('')||'<span class="fine">Pažymėkite kompozicijas palyginimui.</span>';
+  slots.querySelectorAll('[data-rm]').forEach(x=>x.onclick=()=>toggleCompare(x.dataset.rm));
+  document.getElementById('cmpOpen').disabled=compare.length<2;
+  bar.classList.toggle('show',compare.length>0);
+}
+document.getElementById('cmpOpen').onclick=openCompare;
+document.getElementById('cmpClose').onclick=()=>document.getElementById('cmpModal').classList.remove('show');
+document.getElementById('cmpModal').onclick=e=>{if(e.target.id==='cmpModal')e.target.classList.remove('show');};
+function openCompare(){
+  const byId=Object.fromEntries(BUILT.map(c=>[c.id,c]));
+  const cs=compare.map(id=>byId[id]);
+  const rows=[
+    ['Kaina', c=>c.priceMin===c.priceMax?`€${c.priceMin}`:`€${c.priceMin} – €${c.priceMax}`],
+    ['Sėdimos vietos', c=>c.seats],
+    ['Plotis', c=>c.w+' cm'],
+    ['Gylis', c=>c.d+' cm'],
+    ['Aukštis', c=>c.h+' cm'],
+    ['Kolekcija', c=>c.fam.toUpperCase()],
+    ['Moduliai', c=>c.breakdown],
+    ['Forma', c=>c.form],
+  ];
+  let html='<table class="cmp"><tr><th></th>'+cs.map(c=>`<td class="nm">${c.name}</td>`).join('')+'</tr>';
+  rows.forEach(([label,fn])=>{ html+=`<tr><th>${label}</th>`+cs.map(c=>`<td>${fn(c)}</td>`).join('')+'</tr>'; });
+  html+='<tr><th></th>'+cs.map(c=>`<td><a class="btn" style="display:inline-block;padding:10px 16px;font-size:12.5px" href="${configLink(c,null)}" target="_blank" rel="noopener">Atidaryti</a></td>`).join('')+'</tr>';
+  html+='</table>';
+  document.getElementById('cmpTable').innerHTML=html;
+  document.getElementById('cmpModal').classList.add('show');
+}
+</script>
+</body>
+</html>
