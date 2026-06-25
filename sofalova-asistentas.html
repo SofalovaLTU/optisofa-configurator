@@ -136,6 +136,7 @@
   <div id="cmpBar"><div class="cmp-inner"><div class="cmp-slots" id="cmpSlots"></div><button class="btn" id="cmpOpen">Palyginti</button></div></div>
   <div class="modal" id="cmpModal"><div class="sheet"><div class="sheet-head"><h3>Palyginimas</h3><button class="x" id="cmpClose">✕</button></div><div id="cmpTable"></div></div></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 
 const BASE='https://optisofa-configurator.netlify.app';
@@ -244,6 +245,62 @@ function compSVG(c){
   return 'data:image/svg+xml,'+encodeURIComponent(svg);
 }
 
+/* ===== 3D SOFOS VIZUALAS (THREE.js, modeliuojama iš formų pagal tikrus matmenis) ===== */
+let _R3=null; const _RW=660,_RH=384;
+function renderer3D(){ if(_R3)return _R3; if(typeof THREE==='undefined')return null;
+  const cv=document.createElement('canvas');cv.width=_RW;cv.height=_RH;
+  _R3=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:true});
+  _R3.setSize(_RW,_RH,false); if(THREE.sRGBEncoding)_R3.outputEncoding=THREE.sRGBEncoding; return _R3; }
+function addModule(g,code,mat){
+  const dm=MODBYCODE[code].dims_cm||{}, W=(dm.W||60)/100, D=(dm.D||60)/100, H=(dm.H||70)/100;
+  const isBack=(code==='106x32'||code==='85x32'), isOtto=(code==='OTN'||code==='OTW'),
+        isLoft=code.indexOf('LOFT')===0, isCloud=/x/.test(code)&&!isBack;
+  const box=(w,hh,d,x,y,z)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,hh,d),mat);m.position.set(x,y,z);g.add(m);};
+  if(isBack){box(W,0.5,D*0.85,0,0.30,0);return;}
+  if(isCloud){box(W*0.98,0.22,D*0.98,0,0.12,0);box(W*0.9,0.13,D*0.9,0,0.30,0);return;}
+  if(isLoft){const armW=0.18,innerW=W-armW*2,seatH=0.43;
+    box(W*0.99,0.40,D*0.99,0,0.20,0);
+    const n=Math.max(2,Math.round(innerW/0.85));
+    for(let i=0;i<n;i++){const cw=innerW/n;box(cw*0.93,0.16,D*0.84,-innerW/2+cw*(i+0.5),0.48,0.04);}
+    const bD=Math.min(0.42,D*0.36);box(innerW,H-seatH+0.06,bD,0,seatH+(H-seatH)/2-0.02,-D/2+bD/2);
+    const aH=Math.min(0.62,H*0.85);box(armW,aH,D*0.92,-W/2+armW/2,aH/2,0);box(armW,aH,D*0.92,W/2-armW/2,aH/2,0);return;}
+  const seatH=0.42;
+  box(W*0.98,0.40,D*0.98,0,0.20,0);
+  box(W*0.9,0.16,D*0.88,0,0.47,0.03);
+  if(!isOtto){const bD=Math.min(0.4,D*0.36);box(W*0.96,H-seatH+0.08,bD,0,seatH+(H-seatH)/2-0.02,-D/2+bD/2);
+    const aH=Math.min(0.6,H*0.85),aW=0.14;
+    if(code==='MCL'||code==='ML'||code==='MLO')box(aW,aH,D*0.9,-W/2+aW/2,aH/2,0);
+    if(code==='MCR'||code==='MR'||code==='MRO')box(aW,aH,D*0.9,W/2-aW/2,aH/2,0);}
+}
+function buildSofa(c,hex){
+  const scene=new THREE.Scene();
+  const grp=new THREE.Group();
+  const mat=new THREE.MeshStandardMaterial({color:new THREE.Color(hex||'#c9ad7e'),roughness:0.92,metalness:0.0});
+  (c._lay||layoutOf(c)).forEach(m=>{const g=new THREE.Group();g.position.set(m.x,0,m.z);g.rotation.y=-m.r*Math.PI/2;addModule(g,m.c,mat);grp.add(g);});
+  scene.add(grp);
+  const b1=new THREE.Box3().setFromObject(grp),ctr=new THREE.Vector3();b1.getCenter(ctr);
+  grp.position.x-=ctr.x;grp.position.z-=ctr.z;
+  return {scene,box:new THREE.Box3().setFromObject(grp),mat};
+}
+function sofaDataURL(c,hex){
+  const R=renderer3D(); if(!R)return null;
+  const {scene,box,mat}=buildSofa(c,hex);
+  scene.add(new THREE.HemisphereLight(0xfff3e0,0xa8997c,0.85));
+  const key=new THREE.DirectionalLight(0xffffff,0.95);key.position.set(3,4.5,2.5);scene.add(key);
+  const fill=new THREE.DirectionalLight(0xffffff,0.25);fill.position.set(-2.5,1.5,-2);scene.add(fill);
+  const sph=new THREE.Sphere();box.getBoundingSphere(sph);
+  const cam=new THREE.PerspectiveCamera(33,_RW/_RH,0.1,100);
+  const fov=33*Math.PI/180, dist=sph.radius/Math.sin(fov/2)*1.06;
+  const dir=new THREE.Vector3(0.62,0.5,0.92).normalize();
+  cam.position.copy(sph.center).add(dir.multiplyScalar(dist)); cam.lookAt(sph.center);
+  R.render(scene,cam);
+  const url=R.domElement.toDataURL('image/png');
+  scene.traverse(o=>{if(o.geometry)o.geometry.dispose();}); mat.dispose();
+  return url;
+}
+function sofaImg(c,hex){ try{const u=sofaDataURL(c,hex); if(u)return u;}catch(e){} return compSVG(c); }
+
+
 document.querySelectorAll('.q').forEach(q=>{const key=q.dataset.q;
   q.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{q.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');answers[key]=c.dataset.v;refreshGo();});});
 function refreshGo(){const ok=answers.seats!==undefined;document.getElementById('go').disabled=!ok;document.getElementById('hint').textContent=ok?'Galite paleisti atranką.':'Pasirinkite bent vietų skaičių.';}
@@ -290,6 +347,19 @@ Atsakyk TIK grynu JSON: {"picks":[{"id":"<id>","reason":"<LT>","fabrics":["<pava
   const data=await res.json();const text=(data.content||[]).map(b=>b.type==='text'?b.text:'').join('\n');
   return (JSON.parse(text.replace(/```json|```/g,'').trim()).picks)||[];
 }
+function smartReason(c){
+  const pets=answers.pets==='1', kids=answers.kids==='1';
+  const formTxt={I:'tiesi',L:'kampinė'}[c.shape]||'';
+  const p=[];
+  p.push(`${c.seats} patogios vietos${formTxt?', '+formTxt+' forma':''}.`);
+  if(+answers.size && c.w<=+answers.size) p.push(`Puikiai telpa jūsų erdvėje (${c.w} cm pločio).`);
+  else p.push(`${c.w} cm pločio.`);
+  if(+answers.budget && c.priceMin<=+answers.budget) p.push('Telpa į biudžetą.');
+  if(pets&&kids) p.push('Siūlomi praktiški, lengvai valomi audiniai – patvarūs su vaikais ir augintiniais.');
+  else if(pets) p.push('Su pet-friendly audiniu – atsparus augintiniams.');
+  else if(kids) p.push('Su lengvai valomu audiniu – patogu, kai namuose vaikai.');
+  return p.join(' ');
+}
 async function run(){
   showScreen('loading');
   try{
@@ -297,7 +367,7 @@ async function run(){
     loadStep('Asistentas renka jums tinkamiausias sofas…');
     let picks=[];try{picks=await rankWithAI(cands,lastFabs);}catch(e){picks=[];}
     let aiUsed=picks.length>0;
-    if(!aiUsed)picks=cands.slice(0,5).map(c=>({id:c.id,reason:`Atitinka jūsų poreikius: ${c.seats} sėdimos vietos, telpa iki ${c.w} cm pločio.`,fabrics:lastFabs.slice(0,3).map(f=>f.name)}));
+    if(!aiUsed)picks=cands.slice(0,6).map((c,i)=>({id:c.id,reason:smartReason(c),fabrics:[lastFabs[i%lastFabs.length],lastFabs[(i+4)%lastFabs.length],lastFabs[(i+8)%lastFabs.length]].filter(Boolean).map(x=>x.name)}));
     renderResults(picks,aiUsed);
   }catch(e){showScreen('results');document.getElementById('cards').innerHTML='';document.getElementById('resErr').innerHTML='<div class="err">Įvyko klaida. Pabandykite dar kartą.</div>';document.getElementById('resSub').textContent='';}
 }
@@ -315,7 +385,7 @@ function renderResults(picks,aiUsed){
     const price=c.priceMin===c.priceMax?`€${c.priceMin}`:`€${c.priceMin}<small> – €${c.priceMax}</small>`;
     const card=document.createElement('div');card.className='rc';
     card.innerHTML=`
-      <div class="rc-img" style="background-image:url('${compSVG(c)}')"><span class="rc-badge">${SHAPE_LBL[c.shape]||''}</span></div>
+      <div class="rc-img" style="background-image:url('${sofaImg(c,sel.hex)}');background-size:cover;background-position:center 62%;background-repeat:no-repeat"><span class="rc-badge">${SHAPE_LBL[c.shape]||''}</span></div>
       <div class="rc-top"><div class="rc-form">${c.form} · ${c.fam.toUpperCase()}</div><div class="rc-name">${c.name}</div></div>
       <div class="rc-why">${escapeHtml(p.reason||'')}</div>
       <div class="rc-body">
@@ -329,7 +399,8 @@ function renderResults(picks,aiUsed){
     const link=card.querySelector('.openbtn');link.href=configLink(c,sel.name);
     const menu=card.querySelector('.fabmenu'),selBtn=card.querySelector('.fabsel');
     selBtn.onclick=(e)=>{e.stopPropagation();document.querySelectorAll('.fabmenu.open').forEach(m=>{if(m!==menu)m.classList.remove('open');});menu.classList.toggle('open');};
-    menu.querySelectorAll('.fabopt').forEach(o=>o.onclick=()=>{const nm=o.dataset.name,hx=o.dataset.hex;selBtn.querySelector('.fabsw').style.background=hx;selBtn.querySelector('.fabnm').textContent=nm;link.href=configLink(c,nm);menu.classList.remove('open');});
+    const imgEl=card.querySelector('.rc-img');
+    menu.querySelectorAll('.fabopt').forEach(o=>o.onclick=()=>{const nm=o.dataset.name,hx=o.dataset.hex;selBtn.querySelector('.fabsw').style.background=hx;selBtn.querySelector('.fabnm').textContent=nm;link.href=configLink(c,nm);imgEl.style.backgroundImage="url('"+sofaImg(c,hx)+"')";menu.classList.remove('open');});
     card.querySelector('[data-cmp]').onclick=()=>toggleCompare(c.id);
     el.appendChild(card);
   });
