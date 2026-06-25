@@ -469,6 +469,17 @@ const SNAP_GAP=-0.03;   // didesnis persidengimas – tarpai tarp modulių dings
 function isBackArm(d){return !!(d&&/x32$/.test(d.code||''));}
 function setOri(rec,ori){const wide=rec.box.x>=rec.box.z;rec.rot=((ori==='wide')?(wide?0:1):(wide?1:0));rec.root.rotation.y=rec.rot*Math.PI/2;}
 function autoOrientBackArm(rec){if(!isBackArm(rec.data))return;const seats=placed.filter(p=>p!==rec&&!isBackArm(p.data));if(!seats.length)return;let near=null,nd=Infinity;seats.forEach(s=>{const d=Math.hypot(s.root.position.x-rec.root.position.x,s.root.position.z-rec.root.position.z);if(d<nd){nd=d;near=s;}});const dx=rec.root.position.x-near.root.position.x,dz=rec.root.position.z-near.root.position.z;setOri(rec,(Math.abs(dz)>=Math.abs(dx))?'wide':'deep');}
+function isCushion(d){return !!(d&&(((MANIFEST.families[curFamily]||{}).cushions)||[]).some(c=>c.code===d.code));}
+function layoutCloudCushions(){if(curFamily!=='cloud')return;
+  const cush=placed.filter(p=>isCushion(p.data));if(!cush.length)return;
+  const backs=placed.filter(p=>isBackArm(p.data)&&extOf(p).x>=extOf(p).z);
+  let zFront,cx,h=0.37;
+  if(backs.length){let mz=-Infinity,sx=0;backs.forEach(p=>{const a=aabb(p);mz=Math.max(mz,a.maxZ);sx+=a.cx;});zFront=mz;cx=sx/backs.length;}
+  else{const seats=placed.filter(p=>!isCushion(p.data)&&!isBackArm(p.data));if(!seats.length)return;let mz=Infinity,sx=0;seats.forEach(p=>{const a=aabb(p);mz=Math.min(mz,a.minZ);sx+=a.cx;});zFront=mz;cx=sx/seats.length;}
+  const gap=0.05;const ws=cush.map(c=>extOf(c).x);const totalW=ws.reduce((a,b)=>a+b,0)+gap*(cush.length-1);
+  let x=cx-totalW/2;
+  cush.forEach(c=>{const e=extOf(c);c.root.position.x=x+e.x/2;c.root.position.z=zFront+e.z/2-0.04;c.root.position.y=h;x+=e.x+gap;});
+  updateSelBox();}
 function snapToNeighbors(rec){
   if(placed.length<2){gridSnap(rec);return;}
   const A=aabb(rec);let best=null;
@@ -531,11 +542,12 @@ async function addModule(data,opts={}){
     wrap.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
     scene.add(wrap);placed.push(rec);
     if(opts.x!==undefined)wrap.position.set(opts.x,0,opts.z||0);
+    else if(isCushion(data)&&curFamily==='cloud'){layoutCloudCushions();}
     else if(opts.flushRight){placeFlushRight(rec);if(placed.length>1)snapToNeighbors(rec);}
     else placeInFront(rec);
     applyFabricTo(rec);updatePrice();select(rec);
     if(opts.frame!==false)frameAll();
-    updateRoom();setHint(opts.flushRight?'':'Naujas modulis priekyje — nutempk pele į vietą');
+    updateRoom();setHint(opts.flushRight||(isCushion(data)&&curFamily==='cloud')?'':'Naujas modulis priekyje — nutempk pele į vietą');
     return rec;
   }catch(e){console.error(e);setHint('Nepavyko įkelti modelio');return null;}
 }
@@ -792,7 +804,7 @@ $('#btnZoomOut').onclick=()=>zoomBy(1.22);
 
 /* BUTTONS */
 $('#btnRotate').onclick=()=>{if(locked)return;if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;snapToNeighbors(selected);updateRoom();saveState();}};
-$('#btnDelete').onclick=()=>{if(locked)return;if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
+$('#btnDelete').onclick=()=>{if(locked)return;if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();layoutCloudCushions();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
 function clearAll(){placed.forEach(p=>scene.remove(p.root));placed.length=0;updatePrice();select(null);updateRoom();setHint('Spustelk modulį ar greitą rinkinį kairėje');}
 function applyLockUI(){if(!placed.length)locked=false;const b=$('#btnLock');if(b){b.textContent=locked?'🔓 Atrakinti':'🔒 Užrakinti';b.classList.toggle('on',locked);}
   if(locked)select(null);
