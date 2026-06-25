@@ -723,19 +723,11 @@ const PRESETS={
   ],
   slay:[{name:'Sofa 2v',seq:['ML','MR']},{name:'Sofa 3v',seq:['ML','MS','MR']},{name:'Su šezlongu',seq:['ML','MS','OTMR']},{name:'Kampinė U',seq:['OTML','MS','MS','OTMR']}],
   cloud:[
-    {name:'2 vietų \u00b7 234 cm', seq:['85x85','85x85'], layout:[
-      {code:'85x85',x:-42.5,z:0,rot:0},{code:'85x85',x:42.5,z:0,rot:0},
-      {code:'85x32',x:-42.5,z:-58.5,ori:'wide'},{code:'85x32',x:42.5,z:-58.5,ori:'wide'},
-      {code:'85x32',x:-101,z:0,ori:'deep'},{code:'85x32',x:101,z:0,ori:'deep'}]},
-    {name:'3 vietų \u00b7 382 cm', seq:['106x106','106x106','106x106'], layout:[
-      {code:'106x106',x:-106,z:0,rot:0},{code:'106x106',x:0,z:0,rot:0},{code:'106x106',x:106,z:0,rot:0},
-      {code:'106x32',x:-106,z:-69,ori:'wide'},{code:'106x32',x:0,z:-69,ori:'wide'},{code:'106x32',x:106,z:-69,ori:'wide'},
-      {code:'106x32',x:-175,z:0,ori:'deep'},{code:'106x32',x:175,z:0,ori:'deep'}]},
-    {name:'Kampinė \u00b7 276\u00d7244 cm', seq:['106x106','106x106','106x106'], layout:[
-      {code:'106x106',x:-53,z:0,rot:0},{code:'106x106',x:53,z:0,rot:0},{code:'106x106',x:53,z:106,rot:0},
-      {code:'106x32',x:-53,z:-69,ori:'wide'},{code:'106x32',x:53,z:-69,ori:'wide'},
-      {code:'106x32',x:-122,z:0,ori:'deep'},
-      {code:'106x32',x:122,z:0,ori:'deep'},{code:'106x32',x:122,z:106,ori:'deep'}]},
+    {name:'Cloud Sofa XS', seq:['85x85','85x85'], build:{run:['85x85','85x85']}},
+    {name:'Cloud Sofa S', seq:['106x85','106x85'], build:{run:['106x85','106x85']}},
+    {name:'Cloud Sofa XL', seq:['85x85','85x85','85x85'], build:{run:['85x85','85x85','85x85']}},
+    {name:'Cloud Sofa L', seq:['106x85','106x85','106x85'], build:{run:['106x85','106x85'],leg:['106x85']}},
+    {name:'Cloud Sofa P', seq:['106x106','106x106','106x106'], build:{run:['106x106','106x106'],leg:['106x106']}},
   ],
   loft:[
     {name:'3 vietų \u00b7 252 cm',seq:['ML','MR']},
@@ -747,11 +739,28 @@ const PRESETS={
   ],
 };
 function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MANIFEST.families[curFamily];
-  const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c)),layout:p.layout})).filter(p=>p.codes.length);
+  const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c)),layout:p.layout,build:p.build})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
   list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div><div class="pmods">${modBreakdown(p.codes)}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
     presetThumb(p.codes,p.layout).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
-async function applyPreset(p){clearAll();const fam=MANIFEST.families[curFamily];if(p.layout){for(const it of p.layout){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;await addModule(d,{x:it.x/100,z:it.z/100,rot:it.rot||0,ori:it.ori,frame:false});}}else{for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}}frameAll();updateRoom();}
+async function buildCloudSet(r){clearAll();const fam=MANIFEST.families.cloud,mod=c=>fam.modules.find(m=>m.code===c);
+  const W=c=>parseInt(c),Dp=c=>parseInt((''+c).split('x')[1]);
+  const backCode=c=>(W(c)>=100?'106x32':'85x32'), armCode=c=>(Dp(c)>=100?'106x32':'85x32');
+  const run=[];for(const c of r.run){const rec=await addModule(mod(c),{flushRight:true,frame:false});if(rec)run.push(rec);}
+  if(!run.length){frameAll();updateRoom();return;}
+  for(const s of run){const a=aabb(s);await addModule(mod(backCode(s.data.code)),{x:a.cx,z:a.minZ-0.12,ori:'wide',frame:false});} // atlošai už sėdynių
+  let rmnX=1e9,rmxX=-1e9;run.forEach(s=>{const a=aabb(s);rmnX=Math.min(rmnX,a.minX);rmxX=Math.max(rmxX,a.maxX);});
+  const leg=[];
+  if(r.leg&&r.leg.length){const ea=aabb(run[run.length-1]);let z=ea.maxZ;
+    for(const c of r.leg){const rec=await addModule(mod(c),{x:ea.cx,z:0,frame:false});if(!rec)continue;const sz=extOf(rec);rec.root.position.set(ea.cx,rec.root.position.y,z+sz.z/2);z+=sz.z;leg.push(rec);}
+    for(const s of leg){const a=aabb(s);await addModule(mod(backCode(s.data.code)),{x:a.maxX+0.12,z:a.cz,ori:'deep',frame:false});} // atlošas išorinėje gulimos dalies pusėje
+  }
+  if(r.arms!==false){const la=aabb(run[0]);await addModule(mod(armCode(run[0].data.code)),{x:rmnX-0.16,z:la.cz,ori:'deep',frame:false}); // kairys porankis
+    if(!leg.length){const ra=aabb(run[run.length-1]);await addModule(mod(armCode(run[run.length-1].data.code)),{x:rmxX+0.16,z:ra.cz,ori:'deep',frame:false});} // dešinys porankis
+    else{const lf=aabb(leg[leg.length-1]);await addModule(mod(backCode(leg[leg.length-1].data.code)),{x:lf.cx,z:lf.maxZ+0.12,ori:'wide',frame:false});} // gulimos dalies priekio užbaiga
+  }
+  frameAll();updateRoom();saveState();}
+async function applyPreset(p){if(p.build){await buildCloudSet(p.build);return;}clearAll();const fam=MANIFEST.families[curFamily];if(p.layout){for(const it of p.layout){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;await addModule(d,{x:it.x/100,z:it.z/100,rot:it.rot||0,ori:it.ori,frame:false});}}else{for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}}frameAll();updateRoom();}
 
 function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#modules');wrap.innerHTML='';
   const items=[...(fam.modules||[]),...(fam.cushions||[])];
