@@ -41,7 +41,19 @@
   .preset{border:1px solid var(--line);border-radius:var(--r);background:#fff;cursor:pointer;transition:.18s;overflow:hidden;text-align:left}
   .preset:hover{border-color:var(--ink);box-shadow:var(--shadow);transform:translateY(-1px)}
   .preset .pthumb{width:100%;height:124px;background:var(--soft) center/contain no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px}
-  .preset .pname{font-size:13px;font-weight:700;padding:11px 14px;letter-spacing:.01em}
+  .preset .pname{font-size:13px;font-weight:700;padding:11px 14px 4px;letter-spacing:.01em}
+  .pmods{font-size:10px;color:var(--muted);padding:0 14px 11px;font-weight:600;letter-spacing:.03em}
+  .mod-spec{border-top:1px solid var(--line)}
+  .mod-spec-btn{width:100%;text-align:left;background:#fff;border:0;padding:9px 14px;font:600 11.5px var(--font);color:var(--brass);cursor:pointer;display:flex;align-items:center;gap:7px}
+  .mod-spec-btn:hover{background:var(--soft)}
+  .mod-spec-btn .ms-ic{font-size:13px;width:12px;text-align:center}
+  .mod-spec-wrap{max-height:0;overflow:hidden;transition:max-height .35s ease;background:#fff}
+  .mod-spec-wrap.open{max-height:560px}
+  .mod-spec-in{padding:2px 14px 12px}
+  .ms-row{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:4px 0;border-bottom:1px dashed var(--line)}
+  .ms-row span{color:var(--muted)} .ms-row b{color:var(--ink);font-weight:700;text-align:right}
+  .ms-desc{font-size:12px;line-height:1.5;color:var(--ink);margin:9px 0 7px}
+  .ms-struct{font-size:10.5px;line-height:1.45;color:var(--muted);margin:0;background:var(--soft);border-radius:8px;padding:8px 10px}
   .mod{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);margin-bottom:11px;cursor:pointer;transition:.18s;background:#fff;overflow:hidden;position:relative}
   .mod:hover{border-color:var(--ink);transform:translateY(-1px);box-shadow:var(--shadow)}
   .mod .thumb{width:100%;height:130px;background:var(--soft) center/contain no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px}
@@ -641,8 +653,29 @@ function buildTabs(){const t=$('#tabs');t.innerHTML='';
     t.appendChild(b);if(!curFamily&&has){curFamily=key;b.classList.add('active');}});}
 
 /* presetai: Hug — TIKRAS Optisofa receptas (MCL+MSN+MCR). Slay/Cloud — logiški (TODO: tikslūs receptai) */
+const HUG_STRUCTURE='Karkasas \u2014 kietmedžio fanera. Užpildas \u2014 kintamo tankio poliuretano puta su perdirbto poliesterio pluošto sluoksniu. Sėdynė: medinis karkasas, elastinės spyruoklės, juosmenė ir Pocket Bonell. Atlošas ir ranktūris (40 cm pločio) \u2014 kintamo tankio poliuretanas su minkštu gaubtu. Kojos \u2014 juodos plastikinės su veltinio pagalvėlėmis. Užvalkalai nenuimami. Matmenų tolerancija \u00b12 cm.';
+const MODULE_INFO={
+  MCL:{type:'Kampinis kairinis modulis',dim:'103 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'37 kg',desc:'Kairysis kampinis elementas su ranktūriu ir suapvalintu atlošu kairėje \u2014 sofos kairysis galas.'},
+  MCR:{type:'Kampinis dešininis modulis',dim:'103 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'37 kg',desc:'Dešinysis kampinis elementas su ranktūriu ir suapvalintu atlošu dešinėje \u2014 sofos dešinysis galas.'},
+  MSW:{type:'Plati vidurinė sėdynė',dim:'90 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'29 kg',desc:'Vidurinis sėdimasis modulis be ranktūrių; platesnė sėdimoji dalis.'},
+  MSN:{type:'Siaura vidurinė sėdynė',dim:'65 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'23 kg',desc:'Vidurinis sėdimasis modulis be ranktūrių; siauresnis \u2014 kompaktiškoms kompozicijoms.'},
+  OTN:{type:'Siauras pufas',dim:'65 \u00d7 103 \u00d7 42 cm',seat:'42 cm',weight:'19 kg',desc:'Pufas / kojų atrama; tinka šezlongui suformuoti arba kaip atskira sėdynė.'},
+  OTW:{type:'Platus pufas',dim:'90 \u00d7 75 \u00d7 42 cm',seat:'42 cm',weight:'19 kg',desc:'Platus pufas / kojų atrama; dažnai naudojamas šezlongo galui.'}
+};
+function modBreakdown(codes){const c={};codes.forEach(k=>{c[k]=(c[k]||0)+1;});return Object.keys(c).map(k=>c[k]+'\u00d7 '+k).join(' \u00b7 ');}
+window.toggleMod=function(btn,ev){if(ev)ev.stopPropagation();const w=btn.nextElementSibling;const open=w.classList.toggle('open');const ic=btn.querySelector('.ms-ic');if(ic)ic.textContent=open?'\u2212':'\uFF0B';};
 const PRESETS={
-  hug:[{name:'Hug Sofa 3v',seq:['MCL','MSN','MCR']},{name:'Su pufu',seq:['MCL','MSW','MCR','OTW']},{name:'Kampinė',seq:['MCL','MSW','MSW','OTW']},{name:'Dvigubas',seq:['MCL','MSW','MSW','MCR']}],
+  hug:[
+    {name:'2 vietų \u00b7 206 cm',seq:['MCL','MCR']},
+    {name:'3 vietų siaura \u00b7 271 cm',seq:['MCL','MSN','MCR']},
+    {name:'3 vietų su pufu \u00b7 271 cm',seq:['MCL','OTN','MCR']},
+    {name:'3 vietų plati \u00b7 296 cm',seq:['MCL','MSW','MCR']},
+    {name:'Suolas su pufais \u00b7 310 cm',seq:['OTN','MSW','MSW','OTN']},
+    {name:'3 vietų + pufas \u00b7 258 cm',seq:['MCL','MSW','OTN']},
+    {name:'4 vietų \u00b7 361 cm',seq:['MCL','MSW','MSN','MCR']},
+    {name:'4 vietų siaura \u00b7 336 cm',seq:['MCL','MSN','MSN','MCR']},
+    {name:'4 vietų plati \u00b7 386 cm',seq:['MCL','MSW','MSW','MCR']}
+  ],
   slay:[{name:'Sofa 2v',seq:['ML','MR']},{name:'Sofa 3v',seq:['ML','MS','MR']},{name:'Su šezlongu',seq:['ML','MS','OTMR']},{name:'Kampinė U',seq:['OTML','MS','MS','OTMR']}],
   cloud:[{name:'Sofa M',seq:['85x85','85x85']},{name:'Sofa L',seq:['106x106','106x106']},{name:'Kampinė',seq:['106x106','85x85','85x85']}],
   loft:[],
@@ -650,7 +683,7 @@ const PRESETS={
 function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MANIFEST.families[curFamily];
   const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c))})).filter(p=>p.codes.length);
   if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
-  list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
+  list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div><div class="pmods">${modBreakdown(p.codes)}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
     presetThumb(p.codes).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
 async function applyPreset(p){clearAll();const fam=MANIFEST.families[curFamily];for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}frameAll();updateRoom();}
 
@@ -659,7 +692,9 @@ function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#mo
   items.forEach(d=>{const el=document.createElement('div');el.className='mod';
     const price=d.price_min===d.price_max?('€'+d.price_min):('€'+d.price_min+'–'+d.price_max);
     const dim=d.dims_cm?`${d.dims_cm.W||'?'}×${d.dims_cm.D||'?'}×${d.dims_cm.H||'?'} cm`:'';
-    el.innerHTML=`<div class="thumb">⏳</div><div class="info"><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div><div class="add">＋</div>`;
+    const mi=MODULE_INFO[d.code];
+    const spec=mi?`<div class="mod-spec"><button type="button" class="mod-spec-btn" onclick="toggleMod(this,event)"><span class="ms-ic">\uFF0B</span> Specifikacija</button><div class="mod-spec-wrap"><div class="mod-spec-in"><div class="ms-row"><span>Tipas</span><b>${mi.type}</b></div><div class="ms-row"><span>Matmenys</span><b>${mi.dim}</b></div><div class="ms-row"><span>Sėdynės aukštis</span><b>${mi.seat}</b></div><div class="ms-row"><span>Svoris</span><b>${mi.weight}</b></div><p class="ms-desc">${mi.desc}</p><p class="ms-struct">${HUG_STRUCTURE}</p></div></div></div>`:'';
+    el.innerHTML=`<div class="thumb">⏳</div><div class="info"><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div>${spec}<div class="add">＋</div>`;
     el.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}addModule(d);};wrap.appendChild(el);
     if(d.glb)thumbFor(d.glb).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});
     else el.querySelector('.thumb').textContent='▢';});
