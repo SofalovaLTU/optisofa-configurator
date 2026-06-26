@@ -777,11 +777,15 @@ async function cloudLayout(r){
     seat('106x85',1, A.cx, A.cz+A.d/2-G+fw.d/2); // šezlongas priešais A
     backOf(A);backOf(B);armOf(A,-1);armOf(B,1);return out;}
 
-  if(r.type==='P'){const fs=SF('106x106',0); // 3x 106x106 kampu, šezlongas priekyje kairėje
+  if(r.type==='P'){const fs=SF('106x106',0); // 3x 106x106 kampu, šezlongas priekyje kairėje; kairėje ištisinė porankių siena, dešinė atvira
     const A=seat('106x106',0, fs.w/2, 0);
     const B=seat('106x106',0, fs.w-G+fs.w/2, 0);
-    seat('106x106',0, A.cx, A.cz+A.d/2-G+fs.d/2); // šezlongas priešais A (atviras)
-    backOf(A);backOf(B);armOf(A,-1);armOf(B,1);return out;}
+    const C=seat('106x106',0, A.cx, A.cz+A.d/2-G+fs.d/2); // šezlongas priešais A
+    backOf(A);backOf(B);
+    armOf(A,-1); // kairysis porankis prie galinės kairės sėdynės (lygiuotas su nugara)
+    {const ac='106x32',aw=fpx(ac,0),ad=fpz(ac,0),aFront=A.cz-A.d/2-BACKD+G+ad; // šezlongo kairys porankis — tęsia sieną į priekį
+     out.push({code:ac, x:C.cx-C.w/2-aw/2+G, z:aFront-G+ad/2, rot:0});}
+    return out;}
 
   if(r.type==='U'){const fw=SF('106x85',1),fm=SF('85x85',0); // 3 gale + 2 sparnai priekyje = U
     const A=seat('106x85',1, fw.w/2, 0);
