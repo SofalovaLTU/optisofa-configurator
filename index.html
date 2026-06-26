@@ -733,11 +733,11 @@ const PRESETS={
   ],
   slay:[{name:'Sofa 2v',seq:['ML','MR']},{name:'Sofa 3v',seq:['ML','MS','MR']},{name:'Su šezlongu',seq:['ML','MS','OTMR']},{name:'Kampinė U',seq:['OTML','MS','MS','OTMR']}],
   cloud:[
-    {name:'Cloud Sofa XS', seq:['85x85','85x85'], build:{run:['85x85','85x85']}},
-    {name:'Cloud Sofa S', seq:['106x85','106x85'], build:{run:['106x85','106x85']}},
+    {name:'Cloud Sofa XS', seq:['85x85','85x85'], build:{run:['85x85','85x85'], armCode:'85x32'}},
+    {name:'Cloud Sofa S', seq:['106x85','106x85'], build:{run:['106x85','106x85'], armCode:'106x32'}},
     {name:'Cloud Sofa M', seq:['106x85','85x85'], build:{type:'M'}},
     {name:'Cloud Sofa L', seq:['106x85','106x85','106x85'], build:{type:'L'}},
-    {name:'Cloud Sofa XL', seq:['85x85','85x85','85x85'], build:{run:['85x85','85x85','85x85']}},
+    {name:'Cloud Sofa XL', seq:['85x85','85x85','85x85'], build:{run:['85x85','85x85','85x85'], armCode:'106x32'}},
     {name:'Cloud Sofa P', seq:['106x106','106x106','106x106'], build:{type:'P'}},
     {name:'Cloud Sofa U', seq:['106x85','85x85','106x85','106x85','106x85'], build:{type:'U'}},
   ],
@@ -764,7 +764,7 @@ async function cloudLayout(r){
   const SF=(c,rot)=>({w:fpx(c,rot),d:fpz(c,rot)});
   const seat=(c,rot,cx,cz)=>{out.push({code:c,x:cx,z:cz,rot});const f=SF(c,rot);return{code:c,cx,cz,w:f.w,d:f.d};};
   const backOf=s=>{const bc=s.w>=0.95?'106x32':'85x32';out.push({code:bc,x:s.cx,z:s.cz-s.d/2-fpz(bc,1)/2+G,rot:1});}; // atlošas už sėdynės
-  const armOf=(s,side)=>{const ac=s.d>=0.95?'106x32':'85x32';const aw=fpx(ac,0),ad=fpz(ac,0);const ax=side<0?s.cx-s.w/2-aw/2+G:s.cx+s.w/2+aw/2-G;out.push({code:ac,x:ax,z:s.cz-s.d/2-BACKD+G+ad/2,rot:0});}; // porankis, galas ties atlošo linija
+  const armOf=(s,side,code)=>{const ac=code||(s.d>=0.95?'106x32':'85x32');const aw=fpx(ac,0),ad=fpz(ac,0);const ax=side<0?s.cx-s.w/2-aw/2+G:s.cx+s.w/2+aw/2-G;out.push({code:ac,x:ax,z:s.cz-s.d/2-BACKD+G+ad/2,rot:0});}; // porankis, galas ties atlošo linija
 
   if(r.type==='M'){const fa=SF('106x85',0),fb=SF('85x85',0); // kairė gili (106x85), dešinė (85x85), atlošai, be porankių
     const A=seat('106x85',0, fa.w/2, fa.d/2);
@@ -775,14 +775,14 @@ async function cloudLayout(r){
     const A=seat('106x85',1, fw.w/2, 0);
     const B=seat('106x85',1, fw.w-G+fw.w/2, 0);
     seat('106x85',1, A.cx, A.cz+A.d/2-G+fw.d/2); // šezlongas priešais A
-    backOf(A);backOf(B);armOf(A,-1);armOf(B,1);return out;}
+    backOf(A);backOf(B);armOf(A,-1,'106x32');armOf(B,1,'106x32');return out;}
 
   if(r.type==='P'){const fs=SF('106x106',0); // 3x 106x106 kampu, šezlongas priekyje kairėje; kairėje ištisinė porankių siena, dešinė atvira
     const A=seat('106x106',0, fs.w/2, 0);
     const B=seat('106x106',0, fs.w-G+fs.w/2, 0);
     const C=seat('106x106',0, A.cx, A.cz+A.d/2-G+fs.d/2); // šezlongas priešais A
     backOf(A);backOf(B);
-    armOf(A,-1); // kairysis porankis prie galinės kairės sėdynės (lygiuotas su nugara)
+    armOf(A,-1,'106x32'); // kairysis porankis prie galinės kairės sėdynės (lygiuotas su nugara)
     {const ac='106x32',aw=fpx(ac,0),ad=fpz(ac,0),aFront=A.cz-A.d/2-BACKD+G+ad; // šezlongo kairys porankis — tęsia sieną į priekį
      out.push({code:ac, x:C.cx-C.w/2-aw/2+G, z:aFront-G+ad/2, rot:0});}
     return out;}
@@ -793,14 +793,14 @@ async function cloudLayout(r){
     const C=seat('106x85',1, fw.w-G+fm.w-G+fw.w/2, 0);
     seat('106x85',1, A.cx, A.cz+A.d/2-G+fw.d/2); // kairys sparnas (atviras)
     seat('106x85',1, C.cx, C.cz+C.d/2-G+fw.d/2); // dešinys sparnas (atviras)
-    backOf(A);backOf(M);backOf(C);armOf(A,-1);armOf(C,1);return out;}
+    backOf(A);backOf(M);backOf(C);armOf(A,-1,'106x32');armOf(C,1,'106x32');return out;}
 
   // TIESI (run) — sėdynės eilėje + atlošai + porankiai galuose
   let cur=0; const seats=[];
   for(const c of r.run){if(!meas[c])continue;const rot=seatRot(c),f=SF(c,rot),cx=cur+f.w/2;seats.push(seat(c,rot,cx,0));cur+=f.w-G;}
   if(!seats.length)return out;
   seats.forEach(s=>backOf(s));
-  if(r.arms!==false){armOf(seats[0],-1);armOf(seats[seats.length-1],1);}
+  if(r.arms!==false){armOf(seats[0],-1,r.armCode);armOf(seats[seats.length-1],1,r.armCode);}
   return out;
 }
 async function buildCloudSet(r){clearAll();const fam=MANIFEST.families.cloud;const layout=await cloudLayout(r);
