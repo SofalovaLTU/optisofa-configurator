@@ -292,6 +292,36 @@
   /* "Užsakyti pavyzdžius" – žalvario spalva kaip pagrindiniame puslapyje */
   .om-submit{background:var(--brass)}
   .om-submit:hover{background:#876a3c}
+  /* ── Kategorijų akordeonas (kairė) ── */
+  .catnav{display:flex;flex-direction:column;gap:0}
+  .cat-hd{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:none;padding:14px 2px;font-family:var(--font);font-weight:800;font-size:15px;color:var(--ink);cursor:pointer;border-top:1px solid var(--line);letter-spacing:.01em}
+  .cat-hd:first-child{border-top:0}
+  .cat-hd .chev{transition:transform .2s;color:var(--muted);font-size:12px}
+  .cat-hd.active .chev{transform:rotate(180deg)}
+  .cat-body{display:none;padding-bottom:8px}
+  .cat-body.open{display:block}
+  /* ── Fotelių sąrašas ── */
+  .armlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px}
+  .armcard{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;background:#fff;transition:border-color .15s,box-shadow .15s}
+  .armcard:hover{border-color:var(--ink);box-shadow:var(--shadow)}
+  .armcard.active{border-color:var(--brass);box-shadow:0 0 0 1.5px var(--brass)}
+  .armcard .thumb{width:100%;padding-top:88%;background:var(--soft);background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;position:relative}
+  .armcard .thumb span{position:absolute}
+  .armcard .info{padding:8px 9px}
+  .armcard .nm{font-weight:700;font-size:12.5px}
+  .armcard .meta{font-size:11px;color:var(--muted);margin-top:2px}
+  /* ── Fotelio specifikacija ── */
+  .arm-spec{display:none;margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--soft)}
+  .arm-spec.show{display:block}
+  .arm-spec h3{margin:0 0 4px;font-size:15px}
+  .arm-spec .as-price{font-weight:800;color:var(--brass);font-size:15px;margin-bottom:8px}
+  .arm-spec .as-price small{font-weight:600;color:var(--muted);font-size:10.5px}
+  .arm-spec .as-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-top:1px solid var(--line)}
+  .arm-spec .as-row span{color:var(--muted)}
+  .arm-spec ul{margin:8px 0 0;padding-left:16px;font-size:12px;color:var(--ink)}
+  .arm-spec li{margin:2px 0}
+  .arm-spec .as-desc{font-size:12px;color:var(--ink);margin-top:10px;line-height:1.5}
+  .arm-spec .as-flag{font-size:10.5px;color:var(--muted);margin-top:8px;font-style:italic}
 </style>
 </head>
 <body>
@@ -313,15 +343,25 @@
   <div id="sampleBar"><button id="btnSampleTop" class="sample-cta">✄ Užsakyti nemokamus audinių pavyzdžius</button></div>
 
   <aside class="left">
-    <div class="sec-title">Kolekcija</div>
-    <div class="tabs" id="tabs"></div>
-    <div class="m-group" data-grp="presets">
-      <div class="sec-title">Greiti rinkiniai</div>
-      <div class="presets" id="presets"></div>
-    </div>
-    <div class="m-group" data-grp="modules">
-      <div class="sec-title">Moduliai</div>
-      <div id="modules"></div>
+    <div class="catnav" id="catNav">
+      <button class="cat-hd active" data-cat="modular">Modulinės sofos<span class="chev">▾</span></button>
+      <div class="cat-body open" data-cat="modular">
+        <div class="sec-title">Kolekcija</div>
+        <div class="tabs" id="tabs"></div>
+        <div class="m-group" data-grp="presets">
+          <div class="sec-title">Greiti rinkiniai</div>
+          <div class="presets" id="presets"></div>
+        </div>
+        <div class="m-group" data-grp="modules">
+          <div class="sec-title">Moduliai</div>
+          <div id="modules"></div>
+        </div>
+      </div>
+      <button class="cat-hd" data-cat="armchairs">Foteliai<span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="armchairs">
+        <div id="armList" class="armlist"></div>
+        <div id="armSpec" class="arm-spec"></div>
+      </div>
     </div>
   </aside>
 
@@ -424,7 +464,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 const ORDER_EMAIL='info@sofalova.lt';   // kur keliauja pavyzdžių užsakymai
 
 const $=s=>document.querySelector(s);
-let MANIFEST=null,FABRICS=[],curFamily=null,curFabric=null,curTex=null,ready=false;
+let MANIFEST=null,FABRICS=[],ARMCHAIRS=[],curFamily=null,curMode='modular',curFabric=null,curTex=null,ready=false;
 const placed=[]; let selected=null; let locked=false;
 
 /* SCENE */
@@ -630,6 +670,7 @@ function fabricParams(cat){cat=(cat||'').toLowerCase();
   return {rough:0.92,sheen:0.04,srough:0.90,bump:0.026};} // plain/weave/linen/outdoor
 function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const base=fab._avg||new THREE.Color(fab.hex);const tex=rec._tex||null;const P=fabricParams(fab.category);
   rec.root.traverse(o=>{if(o.isMesh){
+    if(rec.data&&rec.data.uvOnly&&!(o.geometry&&o.geometry.attributes&&o.geometry.attributes.uv)){return;} // foteliai: audinys tik ant audinio mesh'ų, kojos/rėmas lieka originalūs
     if(!o.userData.fabMat){o.material=new THREE.MeshPhysicalMaterial({metalness:0,side:THREE.DoubleSide,bumpMap:FABRIC_BUMP});o.material.envMapIntensity=0.30;o.userData.fabMat=true;}
     const m=o.material;m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=new THREE.Color(0xffffff);m.bumpScale=P.bump;
     if(!o.userData._rep){if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const gs=new THREE.Vector3();o.geometry.boundingBox.getSize(gs);const T=0.5;const cl=v=>Math.min(3,Math.max(0.4,(v||T)/T));o.userData._rep=[cl(gs.x),cl(Math.max(gs.y||0,gs.z||0))];} // vienodas audinio tankis pagal dydį
@@ -821,6 +862,42 @@ function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#mo
     else el.querySelector('.thumb').textContent='▢';});
   if(fam.modules&&!fam.modules.length&&fam.note){const n=document.createElement('div');n.className='note';n.textContent=fam.note;wrap.appendChild(n);}}
 
+/* ── FOTELIAI (single-product režimas) ── */
+function buildArmchairs(){
+  const wrap=$('#armList'); if(!wrap)return; wrap.innerHTML='';
+  ARMCHAIRS.forEach(a=>{
+    const el=document.createElement('div'); el.className='armcard'; el.dataset.code=a.code;
+    el.innerHTML=`<div class="thumb"><span>⏳</span></div><div class="info"><div class="nm">${a.name}</div><div class="meta">€${a.price_eur} · ${a.W}×${a.D} cm</div></div>`;
+    el.onclick=()=>loadArmchair(a); wrap.appendChild(el);
+    if(a.glb)thumbFor(a.glb).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.innerHTML='';}else t.innerHTML='<span>▢</span>';});
+  });
+}
+async function loadArmchair(a){
+  clearAll(); curMode='single';
+  document.querySelectorAll('.armcard').forEach(c=>c.classList.toggle('active',c.dataset.code===a.code));
+  const data=Object.assign({},a,{price_min:a.price_eur,price_max:a.price_eur,uvOnly:true,dims_cm:{W:a.W,D:a.D,H:a.H}});
+  await addModule(data,{raw:true,x:0,z:0});
+  buildArmSpec(a); setHint('Sukite pele · keiskite audinį dešinėje'); saveState();
+}
+function buildArmSpec(a){
+  const box=$('#armSpec'); if(!box)return;
+  const feats=(a.features&&a.features.length)?`<ul>${a.features.map(f=>`<li>${f}</li>`).join('')}</ul>`:'';
+  const seat=a.seat_h?`<div class="as-row"><span>Sėdynės aukštis</span><b>${a.seat_h} cm</b></div>`:'';
+  const flag=a.price_approx?`<div class="as-flag">Kaina apytikslė (perskaičiuota iš Optisofa).</div>`:'';
+  box.innerHTML=`<h3>${a.name}</h3>
+    <div class="as-price">€${a.price_eur} <small>arba ≈ €${Math.round(a.price_eur/12)}/mėn · 12 mėn.</small></div>
+    <div class="as-row"><span>Matmenys (P×G×A)</span><b>${a.W}×${a.D}×${a.H} cm</b></div>
+    ${seat}${feats}
+    ${a.desc?`<div class="as-desc">${a.desc}</div>`:''}${flag}`;
+  box.classList.add('show');
+}
+function openCat(cat){
+  document.querySelectorAll('.cat-hd').forEach(h=>h.classList.toggle('active',h.dataset.cat===cat));
+  document.querySelectorAll('.cat-body').forEach(b=>b.classList.toggle('open',b.dataset.cat===cat));
+  if(cat==='modular'&&curMode!=='modular'){curMode='modular';clearAll();$('#armSpec').classList.remove('show');document.querySelectorAll('.armcard').forEach(c=>c.classList.remove('active'));}
+}
+function initCatNav(){document.querySelectorAll('.cat-hd').forEach(h=>{h.onclick=()=>openCat(h.dataset.cat);});}
+
 /* FABRIC FILTERS (dešinė) */
 let activeColor=null,activeFeat=null;
 const COLOR_LT={beige:'smėlio',brown:'ruda',grey:'pilka',green:'žalia',blue:'mėlyna',pink:'rožinė',yellow:'geltona',orange:'oranžinė',red:'raudona'};
@@ -898,7 +975,7 @@ $('#btnLock').onclick=()=>{if(!placed.length){toast('Pirma sudėk sofą');return
 /* SUMMARY + PDF */
 function configSummary(){const groups={};placed.forEach(p=>{const k=p.data.name;groups[k]=groups[k]||{name:k,count:0,dims:p.data.dims_cm,pmin:p.data.price_min,pmax:p.data.price_max};groups[k].count++;});
   let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});const b=assemblyBox();
-  return{groups:Object.values(groups),min,max,monthly:Math.round(min/12),dims:b?`${Math.round(b.w*100)}×${Math.round(b.d*100)}×${Math.round(b.h*100)} cm`:'-',family:MANIFEST.families[curFamily]?.name||'-',fabric:curFabric};}
+  return{groups:Object.values(groups),min,max,monthly:Math.round(min/12),dims:b?`${Math.round(b.w*100)}×${Math.round(b.d*100)}×${Math.round(b.h*100)} cm`:'-',family:(curMode==='single'&&placed[0]&&placed[0].data)?placed[0].data.name:(MANIFEST.families[curFamily]?.name||'-'),fabric:curFabric};}
 function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 $('#btnPDF').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą');return;}toast('Ruošiamas PDF…');
   if(!window.jspdf)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
@@ -915,9 +992,10 @@ $('#btnPDF').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą')
   doc.setFontSize(10);doc.setTextColor(120);doc.text(`≈ €${s.monthly}/mėn · 12 mėn.`,W-14,y,{align:'right'});doc.save('sofalova-konfiguracija.pdf');toast('PDF parsisiųstas ✓');};
 
 /* SAVE & SHARE */
-function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>{const o={c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot};if(p._fab)o.fb=p._fab.name;if(p._row)o.rw=p._row;return o;})};return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
+function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>{const o={c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot};if(p._fab)o.fb=p._fab.name;if(p._row)o.rw=p._row;return o;})};if(curMode==='single'&&placed[0]&&placed[0].data){cfg.mode='single';cfg.ac=placed[0].data.code;cfg.m=[];}return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
 async function restoreConfig(str){let cfg;try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
   locked=false;
+  if(cfg.mode==='single'&&cfg.ac){const a=ARMCHAIRS.find(x=>x.code===cfg.ac);if(a){openCat('armchairs');if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}await loadArmchair(a);return;}}
   if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));buildPresets();buildModules();}
   if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}
   const fam=MANIFEST.families[curFamily];const all=[...(fam.modules||[]),...(fam.cushions||[])];
@@ -1045,7 +1123,9 @@ setMobTab('modules');
 /* INIT */
 (async function init(){
   try{const [m,f]=await Promise.all([fetch('manifest.json').then(r=>r.json()),fetch('fabrics.json').then(r=>r.json())]);
-    MANIFEST=m;FABRICS=f;buildTabs();buildPresets();buildModules();buildFabricFilters();
+    MANIFEST=m;FABRICS=f;
+    try{const ar=await fetch('armchairs.json').then(r=>r.json());ARMCHAIRS=(ar&&ar.items)||[];}catch(e){ARMCHAIRS=[];}
+    buildTabs();buildPresets();buildModules();buildFabricFilters();buildArmchairs();initCatNav();
     if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
     // atstatom IŠ KARTO ir LAUKIAM, kol baigs – tik tada slepiam loaderį (jokio tuščio blyksnio)
     if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
