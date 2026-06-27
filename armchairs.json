@@ -1,0 +1,105 @@
+{
+  "_note": "Foteliai (single-product). Kainos APYTIKSLĖS (zł × 0.233, 2026-06), pataisyti rankiniu būdu. Matmenys – iš 3D modelio bounding box. Specifikaciją iš Optisofa praturtinti palaipsniui.",
+  "items": [
+    {
+      "code": "fotelis-blues", "name": "Blues", "glb": "armchairs/fotelis-blues.glb",
+      "W": 77, "D": 89, "H": 84, "seat_h": 45,
+      "price_eur": 299, "price_zl": 1290, "price_approx": true,
+      "legs": "Plieninės kojos",
+      "features": ["Plieninės kojos", "Nugaros atrama", "Tiesūs šonai", "Tinka darbo kabinetui"],
+      "desc": "Kompaktiškas, paprastų linijų fotelis, kuris padeda atsipalaiduoti. Patogus tiek svetainėje, tiek darbo kabinete.",
+      "verified": true
+    },
+    {
+      "code": "fotelis-emilly", "name": "Emilly", "glb": "armchairs/fotelis-emilly.glb",
+      "W": 77, "D": 82, "H": 87, "seat_h": null,
+      "price_eur": 319, "price_zl": 1350, "price_approx": true,
+      "legs": null,
+      "features": [],
+      "desc": "Minkštas fotelis su aukštesniu atlošu – jauki vieta poilsiui.",
+      "verified": false
+    },
+    {
+      "code": "fotelis-esme", "name": "Esme", "glb": "armchairs/fotelis-esme.glb",
+      "W": 76, "D": 87, "H": 85, "seat_h": null,
+      "price_eur": 329, "price_zl": 1400, "price_approx": true,
+      "legs": null,
+      "features": ["Klasikinė geometrinė forma", "Dekoratyvus apvadas"],
+      "desc": "Klasikinės, geometrinės formos fotelis su kruopščiai apdorotomis detalėmis. Dekoratyvus apvadas suteikia kolekcijai išskirtinį charakterį.",
+      "verified": true
+    },
+    {
+      "code": "fotelis-harris", "name": "Harris", "glb": "armchairs/fotelis-harris.glb",
+      "W": 88, "D": 85, "H": 84, "seat_h": null,
+      "price_eur": 339, "price_zl": 1450, "price_approx": true,
+      "legs": "Ąžuolo kojos",
+      "features": ["Ąžuolo kojos", "Dygsniuotas atlošas", "Nugaros atrama", "Skandinaviškas dizainas"],
+      "desc": "Skandinaviško dizaino fotelis su dygsniuotu atlošu. Minkštas ir patogus – atsisėdus kūnas iškart atsipalaiduoja.",
+      "verified": true
+    },
+    {
+      "code": "fotelis-ines", "name": "Ines", "glb": "armchairs/fotelis-ines.glb",
+      "W": 88, "D": 106, "H": 88, "seat_h": null,
+      "price_eur": 359, "price_zl": 1550, "price_approx": true,
+      "legs": null,
+      "features": ["Erdvi sėdynė"],
+      "desc": "Erdvus, gilus fotelis ilgam, patogiam poilsiui.",
+      "verified": false
+    },
+    {
+      "code": "fotelis-joleen", "name": "Joleen", "glb": "armchairs/fotelis-joleen.glb",
+      "W": 85, "D": 84, "H": 92, "seat_h": null,
+      "price_eur": 349, "price_zl": 1490, "price_approx": true,
+      "legs": null,
+      "features": ["Aukštas atlošas"],
+      "desc": "Fotelis su aukštu atlošu, suteikiančiu gerą atramą nugarai.",
+      "verified": false
+    },
+    {
+      "code": "fotelis-mia", "name": "Mia", "glb": "armchairs/fotelis-mia.glb",
+      "W": 74, "D": 74, "H": 76, "seat_h": null,
+      "price_eur": 279, "price_zl": 1190, "price_approx": true,
+      "legs": null,
+      "features": ["Kompaktiškas"],
+      "desc": "Kompaktiškas fotelis, tinkantis ir mažesnėms erdvėms.",
+      "verified": false
+    },
+    {
+      "code": "fotelis-salma", "name": "Salma", "glb": "armchairs/fotelis-salma.glb",
+      "W": 78, "D": 88, "H": 84, "seat_h": null,
+      "price_eur": 319, "price_zl": 1350, "price_approx": true,
+      "legs": null,
+      "features": ["Sertifikuotos medienos rėmas", "5 m. rėmo garantija", "Purus, minkštas užpildas"],
+      "desc": "Fotelis su sertifikuotos medienos konstrukcijos rėmu (5 metų garantija). Purus, minkštas užpildas ir tvirtas pagrindas užtikrina ilgaamžiškumą.",
+      "verified": true
+    },
+    {
+      "code": "fotelis-juliett", "name": "Juliett", "glb": "armchairs/fotelis-juliett.glb",
+      "W": 76, "D": 64, "H": 75, "seat_h": null,
+      "price_eur": 299, "price_zl": 1290, "price_approx": true,
+      "legs": null,
+      "features": ["Kompaktiškas"],
+      "desc": "Elegantiškas, kompaktiškas fotelis švarių linijų mėgėjams.",
+      "verified": false
+    },
+    {
+      "code": "fotelis-juliett-ii", "name": "Juliett II", "glb": "armchairs/fotelis-juliett-ii.glb",
+      "W": 78, "D": 89, "H": 84, "seat_h": null,
+      "price_eur": 329, "price_zl": 1390, "price_approx": true,
+      "legs": null,
+      "features": [],
+      "desc": "Atnaujinta Juliett versija su platesne sėdyne.",
+      "verified": false,
+      "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack)."
+    },
+    {
+      "code": "fotelis-uma", "name": "Uma", "glb": "armchairs/fotelis-uma.glb",
+      "W": 96, "D": 87, "H": 82, "seat_h": null,
+      "price_eur": 349, "price_zl": 1490, "price_approx": true,
+      "legs": null,
+      "features": ["Platesnė sėdynė"],
+      "desc": "Platus, jaukus fotelis, kviečiantis pailsėti.",
+      "verified": false
+    }
+  ]
+}
