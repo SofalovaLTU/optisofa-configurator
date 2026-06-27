@@ -491,7 +491,16 @@ new ResizeObserver(resize).observe(stage);resize();
 
 /* GLB CACHE (kad miniatiūros nekrautų to paties failo daug kartų) */
 const gltf=new GLTFLoader(); const glbCache={};
-async function loadGLB(glb){const k=glb.replace(/^\//,'');if(!glbCache[k]){const g=await gltf.loadAsync(k);glbCache[k]=g.scene;}return glbCache[k].clone(true);}
+async function loadGLB(glb){const k=glb.replace(/^\//,'');
+  if(!glbCache[k]){
+    const base=k.split('/').pop();
+    const tries=[k,base,'armchairs/'+base,'models/'+base].filter((v,i,a)=>a.indexOf(v)===i); // atsparu: veikia ir jei GLB šaknyje, ir jei armchairs/ aplanke
+    let sc=null,lastErr=null;
+    for(const u of tries){try{const g=await gltf.loadAsync(u);sc=g.scene;break;}catch(e){lastErr=e;}}
+    if(!sc)throw lastErr||new Error('GLB nerastas: '+k);
+    glbCache[k]=sc;
+  }
+  return glbCache[k].clone(true);}
 function fitScaleRoot(root,rot,wd,dd){let b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3();b.getSize(s);
   if(s.x<1e-4||s.z<1e-4)return;const wantX=(rot%2===0)?wd:dd, wantZ=(rot%2===0)?dd:wd;
   const sx=wantX/s.x, sz=wantZ/s.z; root.scale.set(sx,(sx+sz)/2,sz);}
@@ -876,8 +885,11 @@ async function loadArmchair(a){
   clearAll(); curMode='single';
   document.querySelectorAll('.armcard').forEach(c=>c.classList.toggle('active',c.dataset.code===a.code));
   const data=Object.assign({},a,{price_min:a.price_eur,price_max:a.price_eur,uvOnly:true,dims_cm:{W:a.W,D:a.D,H:a.H}});
-  await addModule(data,{raw:true,x:0,z:0});
-  buildArmSpec(a); setHint('Sukite pele · keiskite audinį dešinėje'); saveState();
+  const rec=await addModule(data,{raw:true,x:0,z:0});
+  buildArmSpec(a);
+  if(!rec){const box=$('#armSpec');if(box)box.innerHTML='<h3>'+a.name+'</h3><div class="as-flag" style="color:#b4452f">⚠ Nepavyko įkelti 3D modelio: <b>'+a.glb+'</b>. Patikrink, ar failas įkeltas į repo (šaknyje arba armchairs/ aplanke).</div>';setHint('3D modelis nerastas: '+a.glb);}
+  else setHint('Sukite pele · keiskite audinį dešinėje');
+  saveState();
 }
 function buildArmSpec(a){
   const box=$('#armSpec'); if(!box)return;
