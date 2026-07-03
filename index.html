@@ -694,16 +694,21 @@ function applyLegColor(rec,leg){
     o.material.envMapIntensity=metal?0.8:0.3; o.userData.fabMat=false;
   }});
 }
-function ensureUV(o){ // mesh'ai be UV (cokolis, kai kurios pagalvės) gauna planarinį UV, kad tekstūra užsidėtų (ne baltą)
+function ensureUV(o){ // mesh'ai be UV gauna BOX (triplanar) UV — kiekviena viršūnė projektuojama pagal savo normalę, tad nėra tempimo ant apvalių/šoninių paviršių
   const g=o.geometry; if(g.attributes.uv)return;
-  if(!g.boundingBox)g.computeBoundingBox();
-  const bb=g.boundingBox,sz=new THREE.Vector3();bb.getSize(sz);
-  const d=[['x',sz.x],['y',sz.y],['z',sz.z]].sort((a,b)=>b[1]-a[1]);
-  const a1=d[0][0],a2=d[1][0],s1=Math.max(1e-4,sz[a1]),s2=Math.max(1e-4,sz[a2]);
-  const pos=g.attributes.position,uv=new Float32Array(pos.count*2);
-  const cmp=(i,ax)=>ax==='x'?pos.getX(i):ax==='y'?pos.getY(i):pos.getZ(i);
-  for(let i=0;i<pos.count;i++){uv[i*2]=(cmp(i,a1)-bb.min[a1])/s1;uv[i*2+1]=(cmp(i,a2)-bb.min[a2])/s2;}
+  if(!g.attributes.normal)g.computeVertexNormals();
+  const pos=g.attributes.position,nor=g.attributes.normal,n=pos.count,uv=new Float32Array(n*2),S=0.5;
+  for(let i=0;i<n;i++){
+    const ax=Math.abs(nor.getX(i)),ay=Math.abs(nor.getY(i)),az=Math.abs(nor.getZ(i));
+    const px=pos.getX(i),py=pos.getY(i),pz=pos.getZ(i);
+    let u,v;
+    if(ax>=ay&&ax>=az){u=pz;v=py;}      // šoninės plokštumos (YZ)
+    else if(ay>=ax&&ay>=az){u=px;v=pz;} // viršus/apačia (XZ)
+    else{u=px;v=py;}                     // priekis/galas (XY)
+    uv[i*2]=u/S; uv[i*2+1]=v/S;
+  }
   g.setAttribute('uv',new THREE.BufferAttribute(uv,2));
+  o.userData._rep=[1,1]; // tankis jau įskaičiuotas (1 kartojimas / 0.5 m), nebekartoti papildomai
 }
 function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const base=fab._avg||new THREE.Color(fab.hex);const tex=rec._tex||null;const P=fabricParams(fab.category);
   if(rec.data&&rec.data.legFilter&&!rec._legDone){classifyLegs(rec);rec._legDone=true;}
