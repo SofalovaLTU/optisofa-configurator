@@ -298,11 +298,11 @@
   .om-submit:hover{background:#876a3c}
   /* ── Kategorijų akordeonas (kairė) ── */
   .catnav{display:flex;flex-direction:column;gap:0}
-  .cat-hd{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:var(--soft);padding:16px 14px;margin-bottom:6px;border-radius:12px;font-family:var(--font);font-weight:800;font-size:16.5px;color:var(--ink);cursor:pointer;letter-spacing:.01em;transition:background .15s,box-shadow .15s}
+  .cat-hd{position:relative;display:flex;align-items:center;justify-content:center;width:100%;border:0;background:var(--soft);padding:16px 40px;margin-bottom:6px;border-radius:12px;font-family:var(--font);font-weight:800;font-size:16.5px;color:var(--ink);cursor:pointer;letter-spacing:.01em;transition:background .15s,box-shadow .15s}
   .cat-hd:hover{background:#efe9df}
   .cat-hd.active{background:var(--soft);box-shadow:inset 0 0 0 1.5px var(--brass)}
-  .cat-hd .chev{transition:transform .25s;color:var(--brass);font-size:20px;line-height:1;font-weight:700}
-  .cat-hd.active .chev{transform:rotate(180deg)}
+  .cat-hd .chev{position:absolute;right:16px;top:50%;transform:translateY(-50%);transition:transform .25s;color:var(--brass);font-size:20px;line-height:1;font-weight:700}
+  .cat-hd.active .chev{transform:translateY(-50%) rotate(180deg)}
   .cat-body{display:none;padding:2px 2px 10px}
   .cat-body.open{display:block}
   /* ── Fotelių sąrašas ── */
@@ -321,8 +321,10 @@
   .arm-spec h3{margin:0 0 4px;font-size:15px}
   .arm-spec .as-price{font-weight:800;color:var(--brass);font-size:15px;margin-bottom:8px}
   .arm-spec .as-price small{font-weight:600;color:var(--muted);font-size:10.5px}
-  .arm-spec .as-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-top:1px solid var(--line)}
-  .arm-spec .as-row span{color:var(--muted)}
+  .arm-spec .as-row{display:flex;justify-content:space-between;gap:12px;font-size:12px;padding:4px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .arm-spec .as-row span{color:var(--muted);flex-shrink:0}
+  .arm-spec .as-row b{text-align:right}
+  .arm-spec .as-tech{margin-top:6px}
   .arm-spec ul{margin:8px 0 0;padding-left:16px;font-size:12px;color:var(--ink)}
   .arm-spec li{margin:2px 0}
   .arm-spec .as-desc{font-size:12px;color:var(--ink);margin-top:10px;line-height:1.5}
@@ -963,23 +965,46 @@ async function loadArmchair(a){
   const rec=await addModule(data,{raw:true,x:0,z:0,frame:false});
   buildArmSpec(a);
   if(!rec){const box=$('#armSpec');if(box)box.innerHTML='<h3>'+a.name+'</h3><div class="as-flag" style="color:#b4452f">⚠ Nepavyko įkelti 3D modelio: <b>'+a.glb+'</b>. Patikrink, ar failas įkeltas į repo (šaknyje arba armchairs/ aplanke).</div>';setHint('3D modelis nerastas: '+a.glb);}
-  else{classifyLegs(rec);rec._legDone=true;applyLegColor(rec,a.leg);if(curFabric)applyFabricTo(rec);setHint(t('armHint'));frameAll(new THREE.Vector3(0.2,0.5,1.3));} // priekinis hero kampas (atlošas -Z)
+  else{classifyLegs(rec);rec._legDone=true;applyLegColor(rec,a.leg);if(curFabric)applyFabricTo(rec);setHint(t('armHint'));frameAll(new THREE.Vector3(0.55,0.32,1.0));} // 3/4 hero kampas akių lygyje // priekinis hero kampas (atlošas -Z)
   saveState();
 }
 function buildArmSpec(a){
   const box=$('#armSpec'); if(!box)return;
+  const row=(l,v)=>v?`<div class="as-row"><span>${l}</span><b>${v}</b></div>`:'';
   const feats=(a.features&&a.features.length)?`<ul>${a.features.map(f=>`<li>${f}</li>`).join('')}</ul>`:'';
-  const seat=a.seat_h?`<div class="as-row"><span>${t('armSeat')}</span><b>${a.seat_h} cm</b></div>`:'';
   const flag=a.price_approx?`<div class="as-flag">${t('priceApprox')}</div>`:'';
+  const dims=`${a.W}×${a.D}×${a.H} cm`;
   box.innerHTML=`<h3>${a.name}</h3>
     <div class="as-price">€${a.price_eur} <small>${t('or')} ≈ €${Math.round(a.price_eur/12)}${t('perMonth')}</small></div>
-    <div class="as-row"><span>${t('armDims')}</span><b>${a.W}×${a.D}×${a.H} cm</b></div>
-    ${seat}${feats}
-    ${a.desc?`<div class="as-desc">${a.desc}</div>`:''}${flag}`;
+    ${row(t('armDims'),dims)}
+    ${row('Sėdynės aukštis',a.seat_h?a.seat_h+' cm':'')}
+    ${row('Sėdynės gylis',a.seat_depth?a.seat_depth+' cm':'')}
+    ${row('Prošvaisa nuo grindų',a.clearance?a.clearance+' cm':'')}
+    ${row('Svoris',a.weight?a.weight+' kg':'')}
+    ${row('Kojos',a.leg&&a.leg.note?a.leg.note:'')}
+    ${feats}
+    ${a.desc?`<div class="as-desc">${a.desc}</div>`:''}
+    <div class="as-tech">
+      ${row('Sėdynės užpildas',a.seat_fill)}
+      ${row('Atlošo užpildas',a.back_fill)}
+      ${row('Rėmas',a.frame)}
+      ${row('Nuimamas užvalkalas',a.removable)}
+      ${row('Kietumas',a.firmness)}
+      ${row('Maks. apkrova',a.capacity?a.capacity+' kg':'')}
+      ${row('Garantija',a.warranty)}
+    </div>
+    ${a._note?`<div class="as-flag">${a._note}</div>`:''}${flag}`;
   box.classList.add('show');
   try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}
 }
-function openCat(cat){
+function openCat(cat,force){
+  const hd=document.querySelector('.cat-hd[data-cat="'+cat+'"]');
+  const isOpen=hd&&hd.classList.contains('active');
+  if(isOpen&&!force){ // antras paspaudimas – suskleisti
+    hd.classList.remove('active');
+    document.querySelector('.cat-body[data-cat="'+cat+'"]').classList.remove('open');
+    return;
+  }
   document.querySelectorAll('.cat-hd').forEach(h=>h.classList.toggle('active',h.dataset.cat===cat));
   document.querySelectorAll('.cat-body').forEach(b=>b.classList.toggle('open',b.dataset.cat===cat));
   if(cat==='modular'&&curMode!=='modular'){curMode='modular';clearAll();$('#armSpec').classList.remove('show');document.querySelectorAll('.armcard').forEach(c=>c.classList.remove('active'));}
@@ -1083,7 +1108,7 @@ $('#btnPDF').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą')
 function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>{const o={c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot};if(p._fab)o.fb=p._fab.name;if(p._row)o.rw=p._row;return o;})};if(curMode==='single'&&placed[0]&&placed[0].data){cfg.mode='single';cfg.ac=placed[0].data.code;cfg.m=[];}return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
 async function restoreConfig(str){let cfg;try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
   locked=false;
-  if(cfg.mode==='single'&&cfg.ac){const a=ARMCHAIRS.find(x=>x.code===cfg.ac);if(a){openCat('armchairs');if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}await loadArmchair(a);return;}}
+  if(cfg.mode==='single'&&cfg.ac){const a=ARMCHAIRS.find(x=>x.code===cfg.ac);if(a){openCat('armchairs',true);if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}await loadArmchair(a);return;}}
   if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));buildPresets();buildModules();}
   if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}
   const fam=MANIFEST.families[curFamily];const all=[...(fam.modules||[]),...(fam.cushions||[])];
