@@ -694,18 +694,22 @@ function applyLegColor(rec,leg){
     o.material.envMapIntensity=metal?0.8:0.3; o.userData.fabMat=false;
   }});
 }
-function boxUV(o,horiz){ // BOX (triplanar) UV pagal viršūnės normalę; horiz=true pasuka raštą 90° (ribas iš kairės į dešinę)
+function boxUV(o,horiz){ // BOX (triplanar) UV pasaulio (world) koordinatėse — teisingas tankis nepriklausomai nuo mesh'o lokalaus mastelio; horiz=true pasuka raštą 90°
   const g=o.geometry;
+  o.updateWorldMatrix(true,false);
+  const mw=o.matrixWorld, nm=new THREE.Matrix3().getNormalMatrix(mw);
   if(!g.attributes.normal)g.computeVertexNormals();
   const pos=g.attributes.position,nor=g.attributes.normal,n=pos.count,uv=new Float32Array(n*2),S=0.5;
+  const vp=new THREE.Vector3(),vn=new THREE.Vector3();
   for(let i=0;i<n;i++){
-    const ax=Math.abs(nor.getX(i)),ay=Math.abs(nor.getY(i)),az=Math.abs(nor.getZ(i));
-    const px=pos.getX(i),py=pos.getY(i),pz=pos.getZ(i);
+    vp.set(pos.getX(i),pos.getY(i),pos.getZ(i)).applyMatrix4(mw);
+    vn.set(nor.getX(i),nor.getY(i),nor.getZ(i)).applyMatrix3(nm).normalize();
+    const ax=Math.abs(vn.x),ay=Math.abs(vn.y),az=Math.abs(vn.z);
     let u,v;
-    if(ax>=ay&&ax>=az){u=pz;v=py;}      // šoninės plokštumos (YZ)
-    else if(ay>=ax&&ay>=az){u=px;v=pz;} // viršus/apačia (XZ)
-    else{u=px;v=py;}                     // priekis/galas (XY)
-    if(horiz){const t=u;u=v;v=t;}        // pasukti 90° -> raštas horizontaliai
+    if(ax>=ay&&ax>=az){u=vp.z;v=vp.y;}      // šoninės plokštumos (YZ)
+    else if(ay>=ax&&ay>=az){u=vp.x;v=vp.z;} // viršus/apačia (XZ)
+    else{u=vp.x;v=vp.y;}                     // priekis/galas (XY)
+    if(horiz){const t=u;u=v;v=t;}           // pasukti 90° -> raštas horizontaliai
     uv[i*2]=u/S; uv[i*2+1]=v/S;
   }
   g.setAttribute('uv',new THREE.BufferAttribute(uv,2));
@@ -713,7 +717,7 @@ function boxUV(o,horiz){ // BOX (triplanar) UV pagal viršūnės normalę; horiz
 }
 function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const base=fab._avg||new THREE.Color(fab.hex);const tex=rec._tex||null;const P=fabricParams(fab.category);
   if(rec.data&&rec.data.legFilter&&!rec._legDone){classifyLegs(rec);rec._legDone=true;}
-  const forceBox=!!(rec.data&&rec.data.forceBoxUV),horiz=!!(rec.data&&rec.data.uvHoriz);
+  const forceBox=!!(rec.data&&(rec.data.forceBoxUV||rec.data.legFilter)),horiz=!!(rec.data&&rec.data.uvHoriz);
   rec.root.traverse(o=>{if(o.isMesh){
     if(o.userData.noFab){return;} // kojos/pagrindas lieka originalūs
     if((forceBox||!o.geometry.attributes.uv)&&!o.userData._boxDone){boxUV(o,horiz);o.userData._boxDone=true;} // sugadintą arba trūkstamą UV perrašom box mapping'u
