@@ -312,9 +312,10 @@
   .armcard.active{border-color:var(--brass);box-shadow:0 0 0 1.5px var(--brass)}
   .armcard .thumb{width:100%;padding-top:88%;background:var(--soft);background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;position:relative}
   .armcard .thumb span{position:absolute}
-  .armcard .info{padding:8px 9px}
+  .armcard .info{padding:8px 9px;text-align:center}
   .armcard .nm{font-weight:700;font-size:12.5px}
   .armcard .meta{font-size:11px;color:var(--muted);margin-top:2px}
+  .arm-spec{grid-column:1/-1}
   /* ── Fotelio specifikacija ── */
   .arm-spec{display:none;margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--soft)}
   .arm-spec.show{display:block}
@@ -806,9 +807,9 @@ const thumbCam=new THREE.PerspectiveCamera(38,360/270,.01,100);
 function renderThumb(group,front){
   const box=new THREE.Box3().setFromObject(group),size=new THREE.Vector3(),c=new THREE.Vector3();box.getSize(size);box.getCenter(c);group.position.sub(c);
   group.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshPhysicalMaterial({color:0xccbda6,roughness:.9,metalness:0});o.material.envMapIntensity=0.7;}});
-  thumbScene.add(group);const md=Math.max(size.x,size.y,size.z)||1,dist=md*1.85;
-  if(front) thumbCam.position.set(dist*0.16,dist*0.42,dist); // veidu į sofą (priekis)
-  else      thumbCam.position.set(dist*0.82,dist*0.7,dist);  // 3/4 moduliams
+  thumbScene.add(group);const md=Math.max(size.x,size.y,size.z)||1;
+  if(front){const dist=md*2.15;thumbCam.position.set(dist*0.5,dist*0.3,dist*0.92);} // foteliai: 3/4 hero kampas akių lygyje, daugiau oro rėme
+  else{const dist=md*1.85;thumbCam.position.set(dist*0.82,dist*0.7,dist);}  // 3/4 moduliams
   thumbCam.lookAt(0,0,0);
   thumbRenderer.render(thumbScene,thumbCam);const url=thumbRenderer.domElement.toDataURL('image/png');thumbScene.remove(group);return url;
 }
@@ -953,7 +954,7 @@ function buildArmchairs(){
   const wrap=$('#armList'); if(!wrap)return; wrap.innerHTML='';
   ARMCHAIRS.forEach(a=>{
     const el=document.createElement('div'); el.className='armcard'; el.dataset.code=a.code;
-    el.innerHTML=`<div class="thumb"><span>⏳</span></div><div class="info"><div class="nm">${a.name}</div><div class="meta">€${a.price_eur} · ${a.W}×${a.D} cm</div></div>`;
+    el.innerHTML=`<div class="thumb"><span>⏳</span></div><div class="info"><div class="nm">${a.name}</div><div class="meta">€${a.price_eur}</div></div>`;
     el.onclick=()=>loadArmchair(a); wrap.appendChild(el);
     if(a.glb)thumbFor(a.glb,true).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.innerHTML='';}else t.innerHTML='<span>▢</span>';});
   });
@@ -964,6 +965,10 @@ async function loadArmchair(a){
   const data=Object.assign({},a,{price_min:a.price_eur,price_max:a.price_eur,legFilter:true,dims_cm:{W:a.W,D:a.D,H:a.H}});
   const rec=await addModule(data,{raw:true,x:0,z:0,frame:false});
   buildArmSpec(a);
+  // spec dedam į grid'ą iškart po paspaustos kortelės EILUTĖS (2 kortelės eilutėje)
+  const list=$('#armList'),spec=$('#armSpec');
+  if(list&&spec){const cards=[...list.querySelectorAll('.armcard')];const i=cards.findIndex(c=>c.dataset.code===a.code);
+    if(i>=0){const rowEnd=cards[Math.min(i|1,cards.length-1)];rowEnd.after(spec);}}
   if(!rec){const box=$('#armSpec');if(box)box.innerHTML='<h3>'+a.name+'</h3><div class="as-flag" style="color:#b4452f">⚠ Nepavyko įkelti 3D modelio: <b>'+a.glb+'</b>. Patikrink, ar failas įkeltas į repo (šaknyje arba armchairs/ aplanke).</div>';setHint('3D modelis nerastas: '+a.glb);}
   else{classifyLegs(rec);rec._legDone=true;applyLegColor(rec,a.leg);if(curFabric)applyFabricTo(rec);setHint(t('armHint'));frameAll(new THREE.Vector3(0.55,0.32,1.0));} // 3/4 hero kampas akių lygyje // priekinis hero kampas (atlošas -Z)
   saveState();

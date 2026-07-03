@@ -1,176 +1,244 @@
 {
-  "_note": "Foteliai (single-product). Kainos APYTIKSLĖS (zł × 0.233, 2026-06), pataisyti rankiniu būdu. Matmenys – iš 3D modelio bounding box. Specifikaciją iš Optisofa praturtinti palaipsniui. | Kojų spalvos iš Optisofa (oak/metal); tikslų atspalvį galima derinti.",
+  "_note": "Foteliai (single-product). Spec iš Optisofa (en-de/eu-en, EUR). Visi 11 patikrinti. Bendra konstrukcija: T30/HR putos, banginės spyruoklės, sertifikuotos medienos rėmas, 5 m. garantija, 120 kg.",
   "items": [
     {
       "code": "fotelis-blues",
       "name": "Blues",
       "glb": "armchairs/fotelis-blues.glb",
-      "W": 77,
+      "W": 75,
       "D": 89,
-      "H": 84,
-      "seat_h": 45,
-      "price_eur": 299,
-      "price_zl": 1290,
-      "price_approx": true,
-      "legs": "Plieninės kojos",
-      "features": [
-        "Plieninės kojos",
-        "Nugaros atrama",
-        "Tiesūs šonai",
-        "Tinka darbo kabinetui"
-      ],
-      "desc": "Kompaktiškas, paprastų linijų fotelis, kuris padeda atsipalaiduoti. Patogus tiek svetainėje, tiek darbo kabinete.",
-      "verified": true,
+      "H": 86,
+      "seat_h": 49,
+      "seat_depth": 52,
+      "weight": 25,
+      "clearance": 19.5,
+      "price_eur": 425,
+      "price_approx": false,
       "leg": {
         "finish": "metal",
         "color": "#3C3C3E",
-        "note": "Plieninės kojos"
-      }
+        "note": "Juodo plieno kojos"
+      },
+      "seat_fill": "T30 HR aukšto elastingumo putos, banginės spyruoklės su juostomis, viršutinis Owat sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės ir atlošo pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Juodo plieno kojos",
+        "Nugaros atrama",
+        "Tinka darbo kabinetui",
+        "Paprastos, švarios linijos"
+      ],
+      "desc": "Paprastų, švarių linijų fotelis su juodo plieno kojomis ir gera nugaros atrama. Kompaktiškas ir patogus — puikiai tinka tiek svetainei, tiek darbo kabinetui.",
+      "verified": true
     },
     {
       "code": "fotelis-emilly",
       "name": "Emilly",
       "glb": "armchairs/fotelis-emilly.glb",
-      "W": 77,
-      "D": 82,
-      "H": 87,
-      "seat_h": null,
-      "price_eur": 319,
-      "price_zl": 1350,
-      "price_approx": true,
-      "legs": null,
-      "features": [
-        "Ąžuolo kojos",
-        "Nugaros atrama",
-        "Klasikinis, geometrinis dizainas"
-      ],
-      "desc": "Klasikinės, geometrinės formos fotelis su ąžuolo kojomis. Kviečia atsipalaiduoti — kolekcija apgalvota iki smulkmenų.",
-      "verified": true,
+      "W": 75,
+      "D": 88,
+      "H": 86,
+      "seat_h": 46,
+      "seat_depth": 54,
+      "weight": 23,
+      "clearance": 18,
+      "price_eur": 370,
+      "price_approx": false,
       "leg": {
         "finish": "wood",
         "color": "#CBA97B",
-        "note": "Ąžuolo kojos"
-      }
+        "note": "Vaškuoto ąžuolo kojos (arba juodos)"
+      },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Ąžuolo kojos",
+        "Nugaros atrama",
+        "Klasikinis, geometrinis dizainas",
+        "Tinka darbo kabinetui"
+      ],
+      "desc": "Klasikinės, geometrinės formos fotelis su vaškuoto ąžuolo kojomis. Kviečia atsipalaiduoti — kolekcija apgalvota iki smulkmenų.",
+      "verified": true
     },
     {
       "code": "fotelis-esme",
       "name": "Esme",
       "glb": "armchairs/fotelis-esme.glb",
       "W": 76,
-      "D": 87,
-      "H": 85,
-      "seat_h": null,
-      "price_eur": 326,
-      "price_zl": 1400,
+      "D": 84,
+      "H": 86,
+      "seat_h": 47,
+      "seat_depth": 47,
+      "weight": 25,
+      "clearance": 15,
+      "price_eur": 440,
       "price_approx": false,
-      "legs": null,
-      "features": [
-        "Klasikinė geometrinė forma",
-        "Dekoratyvus apvadas"
-      ],
-      "desc": "Klasikinės, geometrinės formos fotelis su kruopščiai apdorotomis detalėmis. Dekoratyvus apvadas suteikia kolekcijai išskirtinį charakterį.",
-      "verified": true,
       "leg": {
         "finish": "wood",
         "color": "#CBA97B",
-        "note": "Ąžuolo kojos"
-      }
+        "note": "Vaškuoto ąžuolo kojos (arba juodos)"
+      },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Ąžuolo kojos",
+        "Nugaros atrama",
+        "Dekoratyvus apvadas",
+        "Klasikinis, geometrinis dizainas"
+      ],
+      "desc": "Klasikinės, geometrinės formos fotelis su ąžuolo kojomis. Dekoratyvus apvadas suteikia kolekcijai išskirtinį charakterį; apdorota iki smulkmenų.",
+      "verified": true
     },
     {
       "code": "fotelis-harris",
       "name": "Harris",
       "glb": "armchairs/fotelis-harris.glb",
       "W": 88,
-      "D": 85,
-      "H": 84,
-      "seat_h": null,
-      "price_eur": 339,
-      "price_zl": 1450,
-      "price_approx": true,
-      "legs": "Ąžuolo kojos",
-      "features": [
-        "Ąžuolo kojos",
-        "Dygsniuotas atlošas",
-        "Nugaros atrama",
-        "Skandinaviškas dizainas"
-      ],
-      "desc": "Skandinaviško dizaino fotelis su dygsniuotu atlošu. Minkštas ir patogus – atsisėdus kūnas iškart atsipalaiduoja.",
-      "verified": true,
+      "D": 84,
+      "H": 86,
+      "seat_h": 47,
+      "seat_depth": 60,
+      "weight": 24,
+      "clearance": 15,
+      "price_eur": 420,
+      "price_approx": false,
       "leg": {
         "finish": "wood",
         "color": "#CBA97B",
-        "note": "Ąžuolo kojos"
-      }
+        "note": "Vaškuoto ąžuolo kojos (arba juodos)"
+      },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Ąžuolo kojos",
+        "Nugaros atrama",
+        "Dygsniuotas atlošas",
+        "Skandinaviškas dizainas"
+      ],
+      "desc": "Skandinaviško dizaino fotelis su dygsniuotu atlošu ir ąžuolo kojomis. Minkštas ir patogus — atsisėdus kūnas iškart atsipalaiduoja.",
+      "verified": true
     },
     {
       "code": "fotelis-ines",
       "name": "Ines",
       "glb": "armchairs/fotelis-ines.glb",
-      "W": 88,
-      "D": 106,
-      "H": 88,
-      "seat_h": null,
-      "price_eur": 359,
-      "price_zl": 1550,
-      "price_approx": true,
-      "legs": null,
-      "features": [
-        "Erdvi sėdynė"
-      ],
-      "desc": "Erdvus, gilus fotelis ilgam, patogiam poilsiui.",
-      "verified": false,
+      "W": 85,
+      "D": 102,
+      "H": 81,
+      "seat_h": 45,
+      "seat_depth": 59,
+      "weight": 29,
+      "clearance": 19.5,
+      "price_eur": 500,
+      "price_approx": false,
       "leg": {
         "finish": "metal",
         "color": "#3C3C3E",
-        "note": "Juodos metalinės kojos"
-      }
+        "note": "Juodos plieninės kojos (arba auksinis metalas)"
+      },
+      "seat_fill": "HR35 aukšto elastingumo putos, banginės spyruoklės, juostos, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Metalinis atraminis karkasas, sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės ir atlošo pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Minkšta",
+      "features": [
+        "Metalinis karkasas",
+        "Milteliniu būdu dažytos kojos",
+        "Butiko dizainas",
+        "Padidintas komfortas",
+        "Erdvi, gili sėdynė"
+      ],
+      "desc": "Harmoningų, ramių linijų fotelis su metaliniu karkasu ir milteliniu būdu dažytomis kojomis. Erdvus ir minkštas — stilingas komfortas kasdienai.",
+      "verified": true
     },
     {
       "code": "fotelis-joleen",
       "name": "Joleen",
       "glb": "armchairs/fotelis-joleen.glb",
-      "W": 85,
-      "D": 84,
-      "H": 92,
-      "seat_h": null,
-      "price_eur": 349,
-      "price_zl": 1490,
-      "price_approx": true,
-      "legs": null,
-      "features": [
-        "Aukštas atlošas"
-      ],
-      "desc": "Fotelis su aukštu atlošu, suteikiančiu gerą atramą nugarai.",
-      "verified": false,
+      "W": 81,
+      "D": 79,
+      "H": 85,
+      "seat_h": 45,
+      "seat_depth": 48,
+      "weight": 23,
+      "clearance": 15,
+      "price_eur": 420,
+      "price_approx": false,
       "leg": {
         "finish": "wood",
         "color": "#CBA97B",
-        "note": "Ąžuolo kojos (numatyta — tikrinti Optisofa)"
-      }
+        "note": "Vaškuoto ąžuolo kojos (arba juodos)"
+      },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės ir atlošo pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Natūralaus ąžuolo kojos, vaškuotos",
+        "Aukštas pagrindas (patogu robotui dulkių siurbliui)",
+        "Nugaros atrama"
+      ],
+      "desc": "Fotelis su natūralaus ąžuolo, vašku dengtomis kojomis, suteikiančiomis charakterio. Aukštas pagrindas leidžia lengvai pravažiuoti robotui dulkių siurbliui.",
+      "verified": true
     },
     {
       "code": "fotelis-mia",
       "name": "Mia",
       "glb": "armchairs/fotelis-mia.glb",
-      "W": 74,
+      "W": 75,
       "D": 74,
       "H": 76,
-      "seat_h": null,
-      "price_eur": 279,
-      "price_zl": 1190,
-      "price_approx": true,
-      "legs": null,
-      "features": [
-        "Kompaktiškas"
-      ],
-      "desc": "Kompaktiškas fotelis, tinkantis ir mažesnėms erdvėms.",
-      "verified": false,
+      "seat_h": 42,
+      "seat_depth": 50,
+      "weight": null,
+      "clearance": 0,
+      "price_eur": 680,
+      "price_approx": false,
       "leg": {
         "finish": "metal",
         "color": "#3C3C3E",
-        "note": "Juodos metalinės kojos + rėmas"
+        "note": "Juodos metalinės kojos (milteliniu būdu dažytos)"
       },
-      "frameRods": true
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Plieninis rėmas + sertifikuota mediena (didesnis tvirtumas, mažesnė deformacija)",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Apvali forma, žema sėdynė",
+        "Plieninis rėmas",
+        "Juodos metalinės kojos",
+        "Butiko dizainas",
+        "Profiliuotas atlošas"
+      ],
+      "desc": "Apvalios formos fotelis su žema, minkšta sėdyne — tinka ir svetainei, ir biurui ar viešbučio fojė. Plieninis rėmas užtikrina stabilumą ir ilgaamžiškumą, profiliuotas atlošas kviečia užsibūti ilgiau.",
+      "verified": true
     },
     {
       "code": "fotelis-salma",
@@ -180,22 +248,32 @@
       "D": 88,
       "H": 84,
       "seat_h": null,
-      "price_eur": 319,
-      "price_zl": 1350,
-      "price_approx": true,
-      "legs": null,
-      "features": [
-        "Sertifikuotos medienos rėmas",
-        "5 m. rėmo garantija",
-        "Purus, minkštas užpildas"
-      ],
-      "desc": "Fotelis su sertifikuotos medienos konstrukcijos rėmu (5 metų garantija). Purus, minkštas užpildas ir tvirtas pagrindas užtikrina ilgaamžiškumą.",
-      "verified": true,
+      "seat_depth": null,
+      "weight": null,
+      "clearance": null,
+      "price_eur": 470,
+      "price_approx": false,
       "leg": {
         "finish": "metal",
         "color": "#3C3C3E",
-        "note": "Juodos metalinės kojos"
-      }
+        "note": "Juodos plieninės kojos"
+      },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Plieninės kojos",
+        "Nugaros atrama",
+        "Išgaubti šonai",
+        "Tinka biurui",
+        "5 m. rėmo garantija"
+      ],
+      "desc": "Fotelis išgaubtais šonais ir plieninėmis kojomis — padeda atsipalaiduoti ir namie, ir biure. Sertifikuotos medienos rėmas su 5 metų garantija; purus, deformacijai atsparus užpildas.",
+      "verified": true
     },
     {
       "code": "fotelis-juliett",
@@ -205,22 +283,32 @@
       "D": 64,
       "H": 75,
       "seat_h": null,
-      "price_eur": 345,
-      "price_zl": 1479,
+      "seat_depth": null,
+      "weight": null,
+      "clearance": null,
+      "price_eur": 480,
       "price_approx": false,
-      "legs": null,
-      "features": [
-        "Ąžuolo kojos",
-        "Išlenkti porankiai",
-        "Retro (5-ojo dešimtmečio) stilius"
-      ],
-      "desc": "Retro stiliaus fotelis su išlenktais porankiais ir ąžuolo kojomis — atneša penkto dešimtmečio dvasią.",
-      "verified": true,
       "leg": {
         "finish": "wood",
         "color": "#CBA97B",
-        "note": "Ąžuolo kojos, retro"
+        "note": "Vaškuoto ąžuolo kojos"
       },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Ąžuolo kojos",
+        "Išlenkti porankiai",
+        "Nesenstantis dizainas",
+        "Retro (50-ųjų) stilius",
+        "Gražus iš visų pusių"
+      ],
+      "desc": "Juliett fotelis puikiai atrodo iš visų pusių — atneškite į namus penkto dešimtmečio dvasią. Natūralaus ąžuolo kojos ir išlenkti porankiai; dera su kitais Juliett kolekcijos baldais.",
+      "verified": true,
       "forceBoxUV": true,
       "uvHoriz": true
     },
@@ -232,21 +320,34 @@
       "D": 89,
       "H": 84,
       "seat_h": null,
-      "price_eur": 329,
-      "price_zl": 1390,
-      "price_approx": true,
-      "legs": null,
-      "features": [],
-      "desc": "Atnaujinta Juliett versija su platesne sėdyne.",
-      "verified": false,
-      "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack).",
+      "seat_depth": null,
+      "weight": null,
+      "clearance": null,
+      "price_eur": 475,
+      "price_approx": false,
       "leg": {
         "finish": "wood",
         "color": "#CBA97B",
-        "note": "Ąžuolo kojos"
+        "note": "Vaškuoto ąžuolo kojos"
       },
+      "seat_fill": "T30120 aukšto elastingumo poliuretano putos, banginės spyruoklės su juostomis, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Sertifikuota masyvi spygliuočių mediena ir medienos plokštės",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Ąžuolo kojos",
+        "Platesnė sėdynė",
+        "Retro (50-ųjų) stilius",
+        "Juliett kolekcija"
+      ],
+      "desc": "Atnaujinta Juliett kolekcijos versija su platesne, gilesne sėdyne. Aukšta gamybos kokybė ir platus audinių pasirinkimas — norisi turėti ir namuose, ir kabinete.",
+      "verified": true,
       "forceBoxUV": true,
-      "uvHoriz": true
+      "uvHoriz": true,
+      "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack)."
     },
     {
       "code": "fotelis-uma",
@@ -256,22 +357,31 @@
       "D": 87,
       "H": 82,
       "seat_h": null,
-      "price_eur": 478,
-      "price_zl": 2050,
+      "seat_depth": null,
+      "weight": null,
+      "clearance": null,
+      "price_eur": 490,
       "price_approx": false,
-      "legs": null,
-      "features": [
-        "Metalinės kojos",
-        "Į vidų išlenkti šonai",
-        "Grakštus siluetas"
-      ],
-      "desc": "Uma išskirtinumas — į vidų išlenkti šonai ir grakščios metalinės kojos. Kviečianti forma poilsiui.",
-      "verified": true,
       "leg": {
         "finish": "metal",
         "color": "#3C3C3E",
-        "note": "Juodos metalinės kojos"
-      }
+        "note": "Grakščios metalinės kojos (milteliniu būdu dažytos)"
+      },
+      "seat_fill": "HR35 aukšto elastingumo putos, banginės spyruoklės, viršutinis vatino sluoksnis",
+      "back_fill": "Pagalvės kamera su silikoniniais rutuliukais",
+      "frame": "Metalinė konstrukcija + sertifikuota mediena",
+      "removable": "Taip (sėdynės pagalvės)",
+      "capacity": 120,
+      "warranty": "5 metų garantija",
+      "firmness": "Vidutiniškai kietas",
+      "features": [
+        "Metalinė konstrukcija",
+        "Milteliniu būdu dažytos kojos",
+        "Į vidų išgaubti šonai",
+        "HR35 putos"
+      ],
+      "desc": "Uma išskirtinumas — į vidų išgaubti šonai ir grakščios kojos. Nenugalimai kviečiančios formos; ideali vieta pabėgti nuo kasdienio šurmulio.",
+      "verified": true
     }
   ]
 }
