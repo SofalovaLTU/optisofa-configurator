@@ -219,7 +219,9 @@
         "finish": "wood",
         "color": "#CBA97B",
         "note": "Ąžuolo kojos, retro"
-      }
+      },
+      "forceBoxUV": true,
+      "uvHoriz": true
     },
     {
       "code": "fotelis-juliett-ii",
@@ -241,7 +243,9 @@
         "finish": "wood",
         "color": "#CBA97B",
         "note": "Ąžuolo kojos"
-      }
+      },
+      "forceBoxUV": true,
+      "uvHoriz": true
     },
     {
       "code": "fotelis-uma",
