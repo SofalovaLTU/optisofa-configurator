@@ -78,8 +78,8 @@
   .roompanel input{width:78px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-weight:700;color:var(--ink);font-family:var(--font)}
   .roompanel input:focus{outline:none;border-color:var(--ink)}
   .roompanel .apply{padding:9px 16px;border:0;background:var(--accent);color:#fff;border-radius:9px;font-weight:700;cursor:pointer;font-size:12px}
-  .bottombar{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:var(--shadow-lg);flex-wrap:wrap;justify-content:center;max-width:94%}
-  .bbtn{border:0;background:transparent;padding:9px 13px;border-radius:11px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px;transition:.14s;white-space:nowrap;letter-spacing:.01em}
+  .bottombar{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:0;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:4px;box-shadow:var(--shadow-lg);flex-wrap:wrap;justify-content:center;max-width:96%}
+  .bbtn{border:0;background:transparent;padding:6px 8px;border-radius:9px;font-size:11px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:4px;transition:.14s;white-space:nowrap;letter-spacing:0}
   .bbtn:hover{background:var(--soft)} .bbtn.on{background:var(--brass);color:#fff;border-color:var(--brass)}
   .bbtn[disabled]{opacity:.3;cursor:not-allowed} .bbtn.danger:hover{background:#f7e7e2;color:var(--bad)}
   /* AUDINIAI — 2 per eilutę, dideli, su pavadinimu */
@@ -326,6 +326,10 @@
   .arm-spec .as-row span{color:var(--muted);flex-shrink:0}
   .arm-spec .as-row b{text-align:right}
   .arm-spec .as-tech{margin-top:6px}
+  .as-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:none;padding:9px 0 4px;margin-top:4px;border-top:1px solid var(--line);font-family:var(--font);font-weight:800;font-size:12.5px;color:var(--ink);cursor:pointer}
+  .as-toggle b{color:var(--brass);font-size:17px;line-height:1}
+  .as-more{display:none}
+  .as-more.open{display:block}
   .arm-spec ul{margin:8px 0 0;padding-left:16px;font-size:12px;color:var(--ink)}
   .arm-spec li{margin:2px 0}
   .arm-spec .as-desc{font-size:12px;color:var(--ink);margin-top:10px;line-height:1.5}
@@ -495,9 +499,9 @@ const $=s=>document.querySelector(s);
 let MANIFEST=null,FABRICS=[],ARMCHAIRS=[],curFamily=null,curMode='modular',curFabric=null,curTex=null,ready=false;
 /* ── i18n (LT/EN/FR) ── */
 const I18N={
- lt:{brandSub:'Sofų konfigūratorius',order:'Užsakyti',priceNoteDefault:'pasirink modulius',upTo:'iki €',modulesWord:'moduliai',perMonth:'/mėn · 12 mėn.',or:'arba',catModular:'Modulinės sofos',catArm:'Foteliai',secCollection:'Kolekcija',secPresets:'Greiti rinkiniai',secModules:'Moduliai',hintDefault:'Spustelk modulį ar greitą rinkinį kairėje',armHint:'Sukite pele · keiskite audinį dešinėje',wLabel:'Plotis, cm',lLabel:'Ilgis, cm',show:'Rodyti',rotate:'⟳ Pasukti',remove:'🗑 Šalinti',lock:'🔒 Užrakinti',unlock:'🔓 Atrakinti',dims:'📐 Matmenys',room:'🏠 Kambarys',center:'🎯 Centruoti',arrange:'🧲 Sutvarkyti',link:'🔗 Nuoroda',fabTitle:'Audinys',fabPick:'Pasirink audinį',orderSamples:'✄ Užsakyti nemokamus pavyzdžius',allFeatures:'Visos savybės',allColors:'Visos spalvos',armDims:'Matmenys (P×G×A)',armSeat:'Sėdynės aukštis',priceApprox:'Kaina apytikslė (perskaičiuota iš Optisofa).'},
- en:{brandSub:'Sofa configurator',order:'Order',priceNoteDefault:'select modules',upTo:'up to €',modulesWord:'modules',perMonth:'/mo · 12 mo.',or:'or',catModular:'Modular sofas',catArm:'Armchairs',secCollection:'Collection',secPresets:'Quick sets',secModules:'Modules',hintDefault:'Click a module or quick set on the left',armHint:'Drag to rotate · change fabric on the right',wLabel:'Width, cm',lLabel:'Length, cm',show:'Show',rotate:'⟳ Rotate',remove:'🗑 Remove',lock:'🔒 Lock',unlock:'🔓 Unlock',dims:'📐 Dimensions',room:'🏠 Room',center:'🎯 Center',arrange:'🧲 Arrange',link:'🔗 Link',fabTitle:'Fabric',fabPick:'Select a fabric',orderSamples:'✄ Order free samples',allFeatures:'All features',allColors:'All colors',armDims:'Dimensions (W×D×H)',armSeat:'Seat height',priceApprox:'Approx. price (converted from Optisofa).'},
- fr:{brandSub:'Configurateur de canapés',order:'Commander',priceNoteDefault:'choisissez les modules',upTo:'jusqu’à €',modulesWord:'modules',perMonth:'/mois · 12 mois',or:'ou',catModular:'Canapés modulaires',catArm:'Fauteuils',secCollection:'Collection',secPresets:'Ensembles rapides',secModules:'Modules',hintDefault:'Cliquez sur un module ou un ensemble à gauche',armHint:'Faites pivoter · changez le tissu à droite',wLabel:'Largeur, cm',lLabel:'Longueur, cm',show:'Afficher',rotate:'⟳ Pivoter',remove:'🗑 Supprimer',lock:'🔒 Verrouiller',unlock:'🔓 Déverrouiller',dims:'📐 Dimensions',room:'🏠 Pièce',center:'🎯 Centrer',arrange:'🧲 Aligner',link:'🔗 Lien',fabTitle:'Tissu',fabPick:'Choisissez un tissu',orderSamples:'✄ Commander des échantillons gratuits',allFeatures:'Toutes les propriétés',allColors:'Toutes les couleurs',armDims:'Dimensions (L×P×H)',armSeat:'Hauteur d’assise',priceApprox:'Prix approximatif (converti depuis Optisofa).'}
+ lt:{brandSub:'Sofų konfigūratorius',order:'Užsakyti',priceNoteDefault:'pasirink modulius',upTo:'iki €',modulesWord:'moduliai',perMonth:'/mėn · 12 mėn.',or:'arba',catModular:'Modulinės sofos',catArm:'Foteliai',secCollection:'Kolekcija',secPresets:'Greiti rinkiniai',secModules:'Moduliai',hintDefault:'Spustelk modulį ar greitą rinkinį kairėje',armHint:'Sukite pele · keiskite audinį dešinėje',wLabel:'Plotis, cm',lLabel:'Ilgis, cm',show:'Rodyti',rotate:'⟳ Pasukti',remove:'🗑 Šalinti',lock:'🔒 Užrakinti',unlock:'🔓 Atrakinti',dims:'📐 Matmenys',room:'🏠 Kambarys',center:'🎯 Centruoti',arrange:'🧲 Sutvarkyti',link:'🔗 Nuoroda',fabTitle:'Audinys',fabPick:'Pasirink audinį',orderSamples:'✄ Užsakyti nemokamus pavyzdžius',allFeatures:'Visos savybės',allColors:'Visos spalvos',armDims:'Matmenys (P×G×A)',descWord:'Aprašymas',armSeat:'Sėdynės aukštis',priceApprox:'Kaina apytikslė (perskaičiuota iš Optisofa).'},
+ en:{brandSub:'Sofa configurator',order:'Order',priceNoteDefault:'select modules',upTo:'up to €',modulesWord:'modules',perMonth:'/mo · 12 mo.',or:'or',catModular:'Modular sofas',catArm:'Armchairs',secCollection:'Collection',secPresets:'Quick sets',secModules:'Modules',hintDefault:'Click a module or quick set on the left',armHint:'Drag to rotate · change fabric on the right',wLabel:'Width, cm',lLabel:'Length, cm',show:'Show',rotate:'⟳ Rotate',remove:'🗑 Remove',lock:'🔒 Lock',unlock:'🔓 Unlock',dims:'📐 Dimensions',room:'🏠 Room',center:'🎯 Center',arrange:'🧲 Arrange',link:'🔗 Link',fabTitle:'Fabric',fabPick:'Select a fabric',orderSamples:'✄ Order free samples',allFeatures:'All features',allColors:'All colors',armDims:'Dimensions (W×D×H)',descWord:'Description',armSeat:'Seat height',priceApprox:'Approx. price (converted from Optisofa).'},
+ fr:{brandSub:'Configurateur de canapés',order:'Commander',priceNoteDefault:'choisissez les modules',upTo:'jusqu’à €',modulesWord:'modules',perMonth:'/mois · 12 mois',or:'ou',catModular:'Canapés modulaires',catArm:'Fauteuils',secCollection:'Collection',secPresets:'Ensembles rapides',secModules:'Modules',hintDefault:'Cliquez sur un module ou un ensemble à gauche',armHint:'Faites pivoter · changez le tissu à droite',wLabel:'Largeur, cm',lLabel:'Longueur, cm',show:'Afficher',rotate:'⟳ Pivoter',remove:'🗑 Supprimer',lock:'🔒 Verrouiller',unlock:'🔓 Déverrouiller',dims:'📐 Dimensions',room:'🏠 Pièce',center:'🎯 Centrer',arrange:'🧲 Aligner',link:'🔗 Lien',fabTitle:'Tissu',fabPick:'Choisissez un tissu',orderSamples:'✄ Commander des échantillons gratuits',allFeatures:'Toutes les propriétés',allColors:'Toutes les couleurs',armDims:'Dimensions (L×P×H)',descWord:'Description',armSeat:'Hauteur d’assise',priceApprox:'Prix approximatif (converti depuis Optisofa).'}
 };
 let LANG='lt';
 function t(k){return (I18N[LANG]&&I18N[LANG][k])||(I18N.lt&&I18N.lt[k])||'';}
@@ -993,27 +997,31 @@ function buildArmSpec(a){
   const row=(l,v)=>v?`<div class="as-row"><span>${l}</span><b>${v}</b></div>`:'';
   const feats=(a.features&&a.features.length)?`<ul>${a.features.map(f=>`<li>${f}</li>`).join('')}</ul>`:'';
   const flag=a.price_approx?`<div class="as-flag">${t('priceApprox')}</div>`:'';
-  const dims=`${a.W}×${a.D}×${a.H} cm`;
   box.innerHTML=`<h3>${a.name}</h3>
     <div class="as-price">€${a.price_eur} <small>${t('or')} ≈ €${Math.round(a.price_eur/12)}${t('perMonth')}</small></div>
-    ${row(t('armDims'),dims)}
-    ${row('Sėdynės aukštis',a.seat_h?a.seat_h+' cm':'')}
-    ${row('Sėdynės gylis',a.seat_depth?a.seat_depth+' cm':'')}
-    ${row('Prošvaisa nuo grindų',a.clearance?a.clearance+' cm':'')}
-    ${row('Svoris',a.weight?a.weight+' kg':'')}
-    ${row('Kojos',a.leg&&a.leg.note?a.leg.note:'')}
-    ${feats}
-    ${a.desc?`<div class="as-desc">${a.desc}</div>`:''}
-    <div class="as-tech">
-      ${row('Sėdynės užpildas',a.seat_fill)}
-      ${row('Atlošo užpildas',a.back_fill)}
-      ${row('Rėmas',a.frame)}
-      ${row('Nuimamas užvalkalas',a.removable)}
-      ${row('Kietumas',a.firmness)}
-      ${row('Maks. apkrova',a.capacity?a.capacity+' kg':'')}
-      ${row('Garantija',a.warranty)}
-    </div>
-    ${a._note?`<div class="as-flag">${a._note}</div>`:''}${flag}`;
+    ${row(t('armDims'),`${a.W}×${a.D}×${a.H} cm`)}
+    <button class="as-toggle" id="asToggle"><span>${t('descWord')}</span><b>+</b></button>
+    <div class="as-more" id="asMore">
+      ${row('Sėdynės aukštis',a.seat_h?a.seat_h+' cm':'')}
+      ${row('Sėdynės gylis',a.seat_depth?a.seat_depth+' cm':'')}
+      ${row('Prošvaisa nuo grindų',a.clearance?a.clearance+' cm':'')}
+      ${row('Svoris',a.weight?a.weight+' kg':'')}
+      ${row('Kojos',a.leg&&a.leg.note?a.leg.note:'')}
+      ${feats}
+      ${a.desc?`<div class="as-desc">${a.desc}</div>`:''}
+      <div class="as-tech">
+        ${row('Sėdynės užpildas',a.seat_fill)}
+        ${row('Atlošo užpildas',a.back_fill)}
+        ${row('Rėmas',a.frame)}
+        ${row('Nuimamas užvalkalas',a.removable)}
+        ${row('Kietumas',a.firmness)}
+        ${row('Maks. apkrova',a.capacity?a.capacity+' kg':'')}
+        ${row('Garantija',a.warranty)}
+      </div>
+      ${a._note?`<div class="as-flag">${a._note}</div>`:''}${flag}
+    </div>`;
+  const tg=box.querySelector('#asToggle'),more=box.querySelector('#asMore');
+  tg.onclick=()=>{const open=more.classList.toggle('open');tg.querySelector('b').textContent=open?'−':'+';};
   box.classList.add('show');
   try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}
 }
