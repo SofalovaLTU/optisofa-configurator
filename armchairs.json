@@ -33,7 +33,8 @@
         "Paprastos, švarios linijos"
       ],
       "desc": "Paprastų, švarių linijų fotelis su juodo plieno kojomis ir gera nugaros atrama. Kompaktiškas ir patogus — puikiai tinka tiek svetainei, tiek darbo kabinetui.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-emilly",
@@ -67,7 +68,8 @@
         "Tinka darbo kabinetui"
       ],
       "desc": "Klasikinės, geometrinės formos fotelis su vaškuoto ąžuolo kojomis. Kviečia atsipalaiduoti — kolekcija apgalvota iki smulkmenų.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-esme",
@@ -101,7 +103,8 @@
         "Klasikinis, geometrinis dizainas"
       ],
       "desc": "Klasikinės, geometrinės formos fotelis su ąžuolo kojomis. Dekoratyvus apvadas suteikia kolekcijai išskirtinį charakterį; apdorota iki smulkmenų.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-harris",
@@ -135,7 +138,8 @@
         "Skandinaviškas dizainas"
       ],
       "desc": "Skandinaviško dizaino fotelis su dygsniuotu atlošu ir ąžuolo kojomis. Minkštas ir patogus — atsisėdus kūnas iškart atsipalaiduoja.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-ines",
@@ -170,7 +174,8 @@
         "Erdvi, gili sėdynė"
       ],
       "desc": "Harmoningų, ramių linijų fotelis su metaliniu karkasu ir milteliniu būdu dažytomis kojomis. Erdvus ir minkštas — stilingas komfortas kasdienai.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-joleen",
@@ -203,7 +208,8 @@
         "Nugaros atrama"
       ],
       "desc": "Fotelis su natūralaus ąžuolo, vašku dengtomis kojomis, suteikiančiomis charakterio. Aukštas pagrindas leidžia lengvai pravažiuoti robotui dulkių siurbliui.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-mia",
@@ -238,7 +244,8 @@
         "Profiliuotas atlošas"
       ],
       "desc": "Apvalios formos fotelis su žema, minkšta sėdyne — tinka ir svetainei, ir biurui ar viešbučio fojė. Plieninis rėmas užtikrina stabilumą ir ilgaamžiškumą, profiliuotas atlošas kviečia užsibūti ilgiau.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-salma",
@@ -273,7 +280,8 @@
         "5 m. rėmo garantija"
       ],
       "desc": "Fotelis išgaubtais šonais ir plieninėmis kojomis — padeda atsipalaiduoti ir namie, ir biure. Sertifikuotos medienos rėmas su 5 metų garantija; purus, deformacijai atsparus užpildas.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-juliett",
@@ -310,7 +318,8 @@
       "desc": "Juliett fotelis puikiai atrodo iš visų pusių — atneškite į namus penkto dešimtmečio dvasią. Natūralaus ąžuolo kojos ir išlenkti porankiai; dera su kitais Juliett kolekcijos baldais.",
       "verified": true,
       "forceBoxUV": true,
-      "uvHoriz": true
+      "uvHoriz": true,
+      "shopify_variant": null
     },
     {
       "code": "fotelis-juliett-ii",
@@ -347,7 +356,8 @@
       "verified": true,
       "forceBoxUV": true,
       "uvHoriz": true,
-      "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack)."
+      "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack).",
+      "shopify_variant": null
     },
     {
       "code": "fotelis-uma",
@@ -381,7 +391,9 @@
         "HR35 putos"
       ],
       "desc": "Uma išskirtinumas — į vidų išgaubti šonai ir grakščios kojos. Nenugalimai kviečiančios formos; ideali vieta pabėgti nuo kasdienio šurmulio.",
-      "verified": true
+      "verified": true,
+      "shopify_variant": null
     }
-  ]
+  ],
+  "_shopify": "KAIP ĮJUNGTI KREPŠELĮ: (1) index.html įrašyk SHOPIFY_DOMAIN. (2) Kiekvienam foteliui čia įrašyk shopify_variant — varianto ID iš Shopify Admin: Products → atidaryk produktą → pasirink variantą → naršyklės URL gale bus .../variants/1234567890 — tas skaičius ir yra ID. Fotelis be ID toliau naudos užsakymo formą."
 }

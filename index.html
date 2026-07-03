@@ -475,6 +475,21 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 /* ====== KONFIGŪRACIJA ====== */
 const ORDER_EMAIL='info@sofalova.lt';   // kur keliauja pavyzdžių užsakymai
+/* ── SHOPIFY (1 lygis: krepšelio permalink) ──
+   ĮJUNGIMAS: (1) įrašyk parduotuvės domeną žemiau, pvz. 'sofalova.lt' arba 'xxxx.myshopify.com';
+   (2) armchairs.json kiekvienam foteliui įrašyk "shopify_variant": <varianto ID skaičius>.
+   Kol domenas tuščias arba fotelis be variant ID — veikia sena užsakymo forma (niekas nesulūžta). */
+const SHOPIFY_DOMAIN='';               // <-- ĮRAŠYK, pvz. 'sofalova.lt'
+function shopifyCartURL(a){
+  if(!SHOPIFY_DOMAIN||!a||!a.shopify_variant)return null;
+  const link=location.origin+location.pathname+'#'+encodeConfig();
+  const p=new URLSearchParams();
+  p.set('id',String(a.shopify_variant));p.set('quantity','1');
+  if(curFabric)p.set('properties[Audinys]',curFabric.name);
+  if(a.leg&&a.leg.note)p.set('properties[Kojos]',a.leg.note);
+  p.set('properties[_Konfigūracija]',link); // _ = nematoma pirkėjui, matoma užsakyme
+  return 'https://'+SHOPIFY_DOMAIN+'/cart/add?'+p.toString();
+}
 
 const $=s=>document.querySelector(s);
 let MANIFEST=null,FABRICS=[],ARMCHAIRS=[],curFamily=null,curMode='modular',curFabric=null,curTex=null,ready=false;
@@ -1161,7 +1176,13 @@ function buySummaryText(){if(!placed.length)return 'Sofa dar nesukonfigūruota.'
   const fam=(MANIFEST.families[curFamily]&&MANIFEST.families[curFamily].name)||curFamily;
   const rows=Object.entries(buyCounts()).map(([n,c])=>c+' x '+n).join('\n');
   return fam+' ('+placed.length+' moduliai)\n'+rows+'\nAudinys: '+(curFabric?curFabric.name:'-')+'\nKaina: '+buyPrice();}
-function openBuy(){$('#buyBody').innerHTML=buyFormHTML();$('#buySummary').innerHTML=buySummaryHTML();$('#buySend').onclick=sendBuy;$('#buyModal').classList.add('show');}
+function openBuy(){
+  if(curMode==='single'&&placed[0]&&placed[0].data){
+    const a=ARMCHAIRS.find(x=>x.code===placed[0].data.code);
+    const cartURL=shopifyCartURL(a);
+    if(cartURL){window.location.href=cartURL;return;} // į Shopify krepšelį su audiniu/kojomis/konfigūracija
+  }
+  $('#buyBody').innerHTML=buyFormHTML();$('#buySummary').innerHTML=buySummaryHTML();$('#buySend').onclick=sendBuy;$('#buyModal').classList.add('show');}
 function sendBuy(){const v=$('#bVardas').value.trim(),tel=$('#bTel').value.trim(),em=$('#bEmail').value.trim();
   if(!v||(!tel&&!em)){toast('Įveskite vardą ir telefoną arba el. paštą');return;}
   const link=location.origin+location.pathname+'#'+encodeConfig();
@@ -1250,7 +1271,12 @@ setMobTab('modules');
     if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
     // atstatom IŠ KARTO ir LAUKIAM, kol baigs – tik tada slepiam loaderį (jokio tuščio blyksnio)
     if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
-    else{try{const s=localStorage.getItem('sofalova_cfg_v2');if(s)await restoreConfig(s);}catch(e){}}
+    else{
+      const pp=new URLSearchParams(location.search).get('p');
+      const a=pp?ARMCHAIRS.find(x=>x.code===pp||x.code==='fotelis-'+pp):null;
+      if(a){openCat('armchairs',true);await loadArmchair(a);} // gilioji nuoroda iš parduotuvės: ?p=fotelis-blues
+      else{try{const s=localStorage.getItem('sofalova_cfg_v2');if(s)await restoreConfig(s);}catch(e){}}
+    }
     ready=true;saveState();
     $('#loader').style.display='none';
   }catch(e){console.error(e);$('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';}
