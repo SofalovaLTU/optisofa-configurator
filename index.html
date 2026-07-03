@@ -681,9 +681,12 @@ function classifyLegs(rec){
   const box=new THREE.Box3().setFromObject(rec.root);
   const minY=box.min.y,H=Math.max(0.001,box.max.y-box.min.y);
   const CW=Math.max(0.001,box.max.x-box.min.x),CD=Math.max(0.001,box.max.z-box.min.z);
+  const wantFrame=!!(rec.data&&rec.data.frameRods);
   rec.root.traverse(o=>{if(o.isMesh){const b=new THREE.Box3().setFromObject(o);
-    const top=(b.max.y-minY)/H, wx=(b.max.x-b.min.x)/CW, dz=(b.max.z-b.min.z)/CD;
-    o.userData.isLeg=(top<0.34 && wx<0.4 && dz<0.4); // žema IR plona abiem kryptim = koja (ne platus apmuštas cokolis)
+    const top=(b.max.y-minY)/H, span=(b.max.y-b.min.y)/H, wx=(b.max.x-b.min.x)/CW, dz=(b.max.z-b.min.z)/CD;
+    const thin=wx<0.33&&dz<0.33;
+    const byName=/leg|glider|foot|kojel/i.test(o.name||''); // Uma: kojos – vienas platus mesh'as „Legs_Metal“
+    o.userData.isLeg=(thin&&top<0.34) || (wantFrame&&thin&&span>0.30) || byName; // koja (žema+plona) | rėmo strypas (plonas+aukštas, tik flaguotiems) | pagal pavadinimą
     o.userData.noFab=o.userData.isLeg;}});
 }
 function applyLegColor(rec,leg){

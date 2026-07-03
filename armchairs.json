@@ -120,9 +120,9 @@
       "desc": "Erdvus, gilus fotelis ilgam, patogiam poilsiui.",
       "verified": false,
       "leg": {
-        "finish": "wood",
-        "color": "#CBA97B",
-        "note": "Ąžuolo kojos (numatyta — tikrinti Optisofa)"
+        "finish": "metal",
+        "color": "#3C3C3E",
+        "note": "Juodos metalinės kojos"
       }
     },
     {
@@ -166,10 +166,11 @@
       "desc": "Kompaktiškas fotelis, tinkantis ir mažesnėms erdvėms.",
       "verified": false,
       "leg": {
-        "finish": "wood",
-        "color": "#CBA97B",
-        "note": "Ąžuolo kojos (numatyta — tikrinti Optisofa)"
-      }
+        "finish": "metal",
+        "color": "#3C3C3E",
+        "note": "Juodos metalinės kojos + rėmas"
+      },
+      "frameRods": true
     },
     {
       "code": "fotelis-salma",
@@ -191,9 +192,9 @@
       "desc": "Fotelis su sertifikuotos medienos konstrukcijos rėmu (5 metų garantija). Purus, minkštas užpildas ir tvirtas pagrindas užtikrina ilgaamžiškumą.",
       "verified": true,
       "leg": {
-        "finish": "wood",
-        "color": "#CBA97B",
-        "note": "Medienos kojos (tikrinti Optisofa)"
+        "finish": "metal",
+        "color": "#3C3C3E",
+        "note": "Juodos metalinės kojos"
       }
     },
     {
@@ -269,7 +270,7 @@
       "leg": {
         "finish": "metal",
         "color": "#3C3C3E",
-        "note": "Metalinės kojos"
+        "note": "Juodos metalinės kojos"
       }
     }
   ]
