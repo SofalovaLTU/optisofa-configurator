@@ -1,380 +1,1201 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Configurateur Boho — ELEVYT</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,360;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Sofalova.lt — konfigūratorius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#E7E4DE;--stage:#F3F1EC;--ink:#1B1A17;--muted:#8C867B;--line:#D7D3CB;--soft:#EDEAE4;}
-*{box-sizing:border-box}html,body{margin:0;height:100%}
-body{background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-.app{display:flex;flex-direction:column;height:100vh;max-width:1180px;margin:0 auto;padding:clamp(12px,2.2vw,24px)}
-header{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:12px}
-.mark{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(19px,3vw,27px)}
-.mark em{font-style:italic;color:var(--muted);font-weight:360}
-.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.work{display:flex;gap:14px;flex:1;min-height:0}
-.rail-models{width:236px;flex:0 0 236px;overflow-y:auto;border:1px solid var(--line);border-radius:5px;background:var(--stage);padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}
-.ml-group{grid-column:1 / -1;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:9px 4px 3px}
-.ml-group:first-child{padding-top:2px}
-.ml-item{display:block;width:100%;text-align:center;border:0;background:transparent;font:inherit;color:var(--ink);padding:4px;border-radius:6px;cursor:pointer}
-.ml-item:hover{background:var(--soft)}
-.ml-thumb{display:block;width:100%;aspect-ratio:1/1;border-radius:5px;background:#E7E1D3 center/cover no-repeat;border:1px solid var(--line)}
-.ml-item:hover .ml-thumb{border-color:var(--muted)}
-.ml-label{display:block;font-size:10.5px;line-height:1.2;margin-top:4px;color:var(--ink)}
-.stage{position:relative;flex:1;min-width:0;min-height:260px;border:1px solid var(--line);border-radius:5px;overflow:hidden;
- background:radial-gradient(120% 100% at 50% 0%, #FBFAF7 0%, var(--stage) 55%, #DED9D0 100%);touch-action:none}
-.stage canvas{display:block;width:100%;height:100%}
-.loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px;background:rgba(243,241,236,.55)}
-.hud{position:absolute;left:12px;top:12px;display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100% - 24px)}
-.iconbtn{border:1px solid var(--line);background:rgba(255,255,255,.82);backdrop-filter:blur(6px);border-radius:999px;padding:7px 13px;font:inherit;font-size:12px;color:var(--ink);cursor:pointer}
-.iconbtn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.selhint{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important;cursor:default}
-.hint{position:absolute;right:12px;bottom:12px;font-size:11px;color:var(--muted);background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:999px;padding:5px 11px;max-width:70%}
-.fabricbar{margin-top:14px}
-.fabric-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:10px}
-.now .lab{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.now .name{font-family:"Fraunces",serif;font-size:clamp(18px,2.6vw,23px);font-weight:500}
-.weavewrap{display:flex;align-items:center;gap:9px;font-size:11px;color:var(--muted);white-space:nowrap}
-.weavewrap input{accent-color:var(--ink)}
-.rail-fabrics{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x proximity}
-.rail-fabrics::-webkit-scrollbar{height:8px}.rail-fabrics::-webkit-scrollbar-track{background:transparent}
-.rail-fabrics::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
-.swatch{flex:0 0 auto;border:0;background:transparent;padding:0;cursor:pointer;text-align:center;scroll-snap-align:start}
-.swatch .pad{display:block;width:80px;height:80px;border-radius:4px;background-size:cover;background-position:center;border:1px solid rgba(0,0,0,.10);position:relative;box-shadow:inset 0 -8px 14px rgba(0,0,0,.08)}
-.swatch .pad::after{content:"";position:absolute;inset:0;border-radius:4px;box-shadow:0 0 0 0 var(--ink);transition:box-shadow .15s}
-.swatch[aria-pressed="true"] .pad::after{box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--paper)}
-.swatch.motif .pad{border-style:dashed}
-.swatch .t{display:block;margin-top:6px;font-size:11px;color:var(--muted);max-width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-footer{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);line-height:1.55}
-footer b{color:var(--ink);font-weight:500}
-@media(max-width:720px){.work{flex-direction:column}
- .rail-models{width:auto;flex:0 0 auto;max-height:128px;display:flex;flex-direction:row;gap:8px;overflow-x:auto;overflow-y:hidden;align-items:center}
- .ml-group{display:none}.ml-item{flex:0 0 auto;width:96px}}
-</style></head><body>  <div class="app">
-    <header><div class="mark">Boho <em>· configurateur</em></div><div class="eyebrow">ELEVYT · Aperçu temps réel</div></header>
-    <div class="work">
-      <aside class="rail-models" id="modelList"></aside>
-      <div class="stage" id="stage">
-        <div class="hud">
-          <button class="iconbtn" id="rotBtn" aria-pressed="false">Rotation auto</button>
-          <button class="iconbtn" id="resetBtn">Recadrer</button>
-          <button class="iconbtn" id="clearBtn">Vider</button>
-          <span class="iconbtn selhint" id="selHint" style="display:none">Coussin sélectionné — choisir un tissu</span>
+  :root{
+    --bg:#e6ded2; --panel:#ffffff; --ink:#1c1a17; --muted:#8b8377; --soft:#f1ece3;
+    --line:#e2dbcf; --accent:#1c1a17; --brass:#8a6a36; --brass-soft:#ece2d1; --ok:#4a7a55; --bad:#b15846;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(30,26,22,.07);
+    --shadow-lg:0 24px 60px rgba(30,26,22,.18);
+    --r:14px; --font:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  #app{display:grid;grid-template-columns:300px 1fr 340px;grid-template-rows:64px 1fr;height:100%}
+  header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 26px;background:var(--panel);border-bottom:1px solid var(--line);z-index:5}
+  .brand{font-weight:800;letter-spacing:.22em;font-size:16px;text-transform:uppercase}
+  .brand small{display:block;font-weight:500;letter-spacing:.18em;color:var(--muted);font-size:9.5px;margin-top:3px}
+  .price{text-align:right;display:flex;align-items:baseline;gap:16px}
+  .price .big{font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .price .mo{font-size:12px;color:var(--muted)} .price .mo b{color:var(--ink);font-weight:700}
+  .price small{display:block;color:var(--muted);font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;margin-top:2px}
+  aside{background:var(--panel);overflow-y:auto;padding:22px 20px}
+  aside.left{border-right:1px solid var(--line)}
+  aside.right{border-left:1px solid var(--line)}
+  aside::-webkit-scrollbar{width:8px} aside::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+  .sec-title{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-weight:700;margin:22px 0 12px;display:flex;justify-content:space-between;align-items:center}
+  .sec-title:first-child{margin-top:0}
+  .fabcount{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{flex:1;min-width:56px;padding:10px 6px;text-align:center;font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;transition:.18s;letter-spacing:.02em}
+  .tab:hover{border-color:var(--ink)}
+  .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tab[disabled]{opacity:.35;cursor:not-allowed}
+  .presets{display:flex;flex-direction:column;gap:10px}
+  .preset{border:1px solid var(--line);border-radius:var(--r);background:#fff;cursor:pointer;transition:.18s;overflow:hidden;text-align:left}
+  .preset:hover{border-color:var(--ink);box-shadow:var(--shadow);transform:translateY(-1px)}
+  .preset .pthumb{width:100%;height:124px;background:var(--soft) center/contain no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:16px}
+  .preset .pname{font-size:13px;font-weight:700;padding:11px 14px 4px;letter-spacing:.01em}
+  .pmods{font-size:10px;color:var(--muted);padding:0 14px 11px;font-weight:600;letter-spacing:.03em}
+  .mod-spec{border-top:1px solid var(--line)}
+  .mod-spec-btn{width:100%;text-align:left;background:#fff;border:0;padding:9px 14px;font:600 11.5px var(--font);color:var(--brass);cursor:pointer;display:flex;align-items:center;gap:7px}
+  .mod-spec-btn:hover{background:var(--soft)}
+  .mod-spec-btn .ms-ic{font-size:13px;width:12px;text-align:center}
+  .mod-spec-wrap{max-height:0;overflow:hidden;transition:max-height .35s ease;background:#fff}
+  .mod-spec-wrap.open{max-height:560px}
+  .mod-spec-in{padding:2px 14px 12px}
+  .ms-row{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:4px 0;border-bottom:1px dashed var(--line)}
+  .ms-row span{color:var(--muted)} .ms-row b{color:var(--ink);font-weight:700;text-align:right}
+  .ms-desc{font-size:12px;line-height:1.5;color:var(--ink);margin:9px 0 7px}
+  .ms-struct{font-size:10.5px;line-height:1.45;color:var(--muted);margin:0;background:var(--soft);border-radius:8px;padding:8px 10px}
+  .mod{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);margin-bottom:11px;cursor:pointer;transition:.18s;background:#fff;overflow:hidden;position:relative}
+  .mod:hover{border-color:var(--ink);transform:translateY(-1px);box-shadow:var(--shadow)}
+  .mod .thumb{width:100%;height:130px;background:var(--soft) center/contain no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px}
+  .mod .info{padding:11px 14px} .mod .nm{font-size:13.5px;font-weight:700;letter-spacing:.01em} .mod .meta{font-size:11.5px;color:var(--muted);margin-top:3px;font-weight:500}
+  .mod .add{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--ink);font-size:19px;font-weight:400;line-height:30px;text-align:center;box-shadow:var(--shadow);transition:.15s}
+  .mod:hover .add{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .note{font-size:11.5px;color:var(--muted);line-height:1.6;background:var(--soft);border-radius:10px;padding:12px 13px;margin-top:6px}
+  #stage{position:relative;overflow:hidden;background:var(--bg)}
+  #c{display:block;width:100%;height:100%}
+  #dimLabels{position:absolute;inset:0;pointer-events:none}
+  .dimlbl{position:absolute;transform:translate(-50%,-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:4px 9px;border-radius:7px;white-space:nowrap;box-shadow:var(--shadow)}
+  .hint{position:absolute;top:18px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:24px;padding:9px 18px;font-size:12px;font-weight:500;color:var(--ink);pointer-events:none;transition:.3s;backdrop-filter:blur(10px);max-width:74%;text-align:center;box-shadow:var(--shadow)}
+  .fitbadge{position:absolute;top:18px;right:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:12px;box-shadow:var(--shadow);display:none;line-height:1.6;font-weight:500}
+  .fitbadge.show{display:block} .fitbadge .ok{color:var(--ok);font-weight:800} .fitbadge .bad{color:var(--bad);font-weight:800}
+  .roompanel{position:absolute;top:74px;left:18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;box-shadow:var(--shadow);display:none;gap:12px;align-items:flex-end;z-index:4}
+  .roompanel.show{display:flex}
+  .roompanel label{display:flex;flex-direction:column;gap:5px;color:var(--muted);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+  .roompanel input{width:78px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-weight:700;color:var(--ink);font-family:var(--font)}
+  .roompanel input:focus{outline:none;border-color:var(--ink)}
+  .roompanel .apply{padding:9px 16px;border:0;background:var(--accent);color:#fff;border-radius:9px;font-weight:700;cursor:pointer;font-size:12px}
+  .bottombar{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:var(--shadow-lg);flex-wrap:wrap;justify-content:center;max-width:94%}
+  .bbtn{border:0;background:transparent;padding:9px 13px;border-radius:11px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px;transition:.14s;white-space:nowrap;letter-spacing:.01em}
+  .bbtn:hover{background:var(--soft)} .bbtn.on{background:var(--brass);color:#fff;border-color:var(--brass)}
+  .bbtn[disabled]{opacity:.3;cursor:not-allowed} .bbtn.danger:hover{background:#f7e7e2;color:var(--bad)}
+  /* AUDINIAI — 2 per eilutę, dideli, su pavadinimu */
+  .swatches{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-content:start}
+  .sw{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.16s;background:#fff}
+  .sw:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--ink)}
+  .sw.active{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass)}
+  .sw .sw-img{width:100%;height:140px;background-size:cover;background-position:center;background-repeat:no-repeat}
+  .sw .sw-name{font-size:11px;font-weight:600;padding:7px 9px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .filterrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
+  .chip{font-size:10.5px;padding:6px 11px;border:1px solid var(--line);border-radius:20px;cursor:pointer;background:#fff;text-transform:capitalize;transition:.14s;font-weight:600}
+  .chip:hover{border-color:var(--ink)}
+  .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .chip.feat.active{background:var(--brass);border-color:var(--brass)}
+  .fabname{font-size:15px;font-weight:700;margin-bottom:10px;letter-spacing:.01em}
+  .specbox{font-size:11.5px;color:var(--muted);background:var(--soft);border-radius:12px;padding:13px 14px;margin-bottom:13px;line-height:1.85;display:none}
+  .specbox.show{display:block}
+  .specbox .row{display:flex;justify-content:space-between;gap:10px} .specbox .row b{color:var(--ink);font-weight:700}
+  .specbox .feats{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px}
+  .specbox .badge{font-size:9.5px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:3px 8px;color:var(--ink);font-weight:600}
+  .specbox .stars{color:var(--brass);letter-spacing:1px}
+  .sample-btn{width:100%;margin-bottom:6px;padding:13px;border:0;background:var(--accent);color:#fff;border-radius:12px;font-weight:700;font-size:12.5px;cursor:pointer;transition:.15s;letter-spacing:.02em;font-family:var(--font)}
+  .sample-btn:hover{background:#000}
+  #loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:10;flex-direction:column;gap:16px;font-size:13px;color:var(--muted);font-weight:500}
+  .spin{width:32px;height:32px;border:2.5px solid var(--line);border-top-color:var(--brass);border-radius:50%;animation:s 1s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 22px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80;box-shadow:var(--shadow-lg)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  #mvWrap{position:fixed;inset:0;z-index:60;background:rgba(20,18,16,.62);display:none;align-items:center;justify-content:center}
+  #mvWrap.show{display:flex} #mvWrap model-viewer{width:90vw;height:80vh;background:var(--bg);border-radius:var(--r)}
+  #mvWrap .close{position:absolute;top:20px;right:24px;background:#fff;border:0;width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:var(--shadow)}
+  /* MODALAS */
+  .modal{position:fixed;inset:0;z-index:70;background:rgba(20,18,16,.55);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+  .modal.show{display:flex}
+  .modal-card{background:var(--panel);border-radius:18px;width:min(1000px,96vw);max-height:92vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}
+  .modal-head{padding:12px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start}
+  .modal-head h2{margin:0;font-size:19px;font-weight:800;letter-spacing:.01em} .modal-head .sub{margin:4px 0 0;font-size:12px;color:var(--muted);font-weight:500}
+  .modal-head .x{background:none;border:0;font-size:26px;cursor:pointer;color:var(--muted);line-height:1}
+  
+  .order-grid{display:grid;grid-template-columns:1fr 460px;flex:1;min-height:0}
+  .order-left{padding:18px 22px;overflow-y:auto;border-right:1px solid var(--line)}
+  .order-right{padding:18px 20px;overflow-y:auto;background:var(--soft);display:flex;flex-direction:column;gap:16px}
+  .order-right>*{flex:0 0 auto}
+  .om-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
+  .om-sw{position:relative;border-radius:11px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.14s;background:#fff;box-shadow:var(--shadow)}
+  .om-sw img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  
+  .om-sw .nm{font-size:11.5px;font-weight:600;text-align:center;padding:5px 3px;background:#fff;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .om-sw:hover{border-color:var(--brass)} .om-sw.sel{border-color:var(--brass)}
+  .om-sw .tick{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:50%;background:var(--brass);color:#fff;font-size:13px;display:none;align-items:center;justify-content:center}
+  .om-sw.sel .tick{display:flex}
+  .om-detail{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;flex:0 0 auto}
+  
+  .om-detail .big{display:block}
+  .om-detail .body{padding:14px 16px}
+  .om-detail h3{margin:0 0 4px;font-size:17px;font-weight:800} .om-detail .cat{font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:capitalize}
+  .om-detail .spec{font-size:11.5px;color:var(--muted);line-height:1.85} .om-detail .spec b{color:var(--ink);font-weight:700}
+  .om-detail .feats{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px} .om-detail .badge{font-size:9.5px;background:var(--soft);border-radius:12px;padding:3px 9px;color:var(--ink);font-weight:600}
+  .om-detail .row{display:flex;justify-content:space-between;gap:10px} .om-detail .stars{color:var(--brass)}
+  .om-chosen{display:flex;flex-wrap:wrap;gap:7px;min-height:30px}
+  .om-chip{font-size:10.5px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 9px 4px 11px;display:flex;align-items:center;gap:7px}
+  .om-chip b{cursor:pointer;color:var(--bad);font-size:14px}
+  .om-form{display:flex;flex-direction:column;gap:9px;margin-top:2px}
+  .om-form input{padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-family:var(--font)}
+  .om-form input:focus{outline:none;border-color:var(--ink)}
+  .om-submit{padding:13px;border:0;background:var(--accent);color:#fff;border-radius:11px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);letter-spacing:.02em}
+  .om-submit:hover{background:#000} .om-submit:disabled{opacity:.35;cursor:not-allowed}
+  /* canvas visada pagauna lietimą (kad puslapis neslinktų sukant) */
+  #c{touch-action:none}
+  /* MOBILE — slankus vientisas stulpelis, fiksuota 3D zona */
+  @media(max-width:900px){
+    html,body{height:auto;min-height:100%}
+    body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+    #app{display:flex;flex-direction:column;height:auto;min-height:100vh;grid-template-columns:none;grid-template-rows:none}
+    header{position:sticky;top:0;height:56px;padding:0 16px;order:0;z-index:20}
+    .brand{font-size:14px} .price .mo{display:none} .price .big{font-size:18px}
+    #stage{order:1;height:60vh;min-height:360px;flex:0 0 auto;width:100%}
+    aside.left{order:2;border-right:0;border-bottom:1px solid var(--line);max-height:none;height:auto;padding:18px 16px}
+    aside.right{order:3;border-left:0;border-top:1px solid var(--line);max-height:none;height:auto;padding:18px 16px}
+    /* apatinė juosta — viena slankiojama eilutė (telpa visi mygtukai) */
+    .bottombar{bottom:12px;gap:1px;padding:5px;flex-wrap:nowrap;overflow-x:auto;max-width:92%;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+    .bottombar::-webkit-scrollbar{display:none}
+    .bbtn{padding:11px 12px;font-size:13px;flex:0 0 auto}
+    .tab{padding:12px 6px;font-size:13px} .chip{padding:8px 13px;font-size:11.5px}
+    .roompanel{top:auto;bottom:62px;left:50%;transform:translateX(-50%)}
+    .swatches{grid-template-columns:repeat(2,1fr)}
+    .modal{padding:0} .modal-card{width:100vw;height:100vh;max-height:100vh;border-radius:0}
+    .order-grid{grid-template-columns:1fr;display:flex;flex-direction:column}
+    .order-right{order:-1;border-top:0;border-bottom:1px solid var(--line)} /* peržiūra+forma viršuje */
+    .om-swatches{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+    .om-frame{padding-top:100%}
+  }
+  @media(max-width:560px){
+    .swatches{grid-template-columns:repeat(2,1fr)}
+    .om-swatches{grid-template-columns:repeat(2,1fr)}
+    #stage{height:56vh;min-height:320px}
+  }
+
+  /* modalo audinio kortelė su Prideti mygtuku */
+  .om-sw{display:flex;flex-direction:column}
+  .om-sw img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  .om-sw .nm{font-size:12px;font-weight:700;text-align:center;padding:7px 4px 4px}
+  .om-add{margin:0 8px 8px;padding:8px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:var(--font);transition:.14s}
+  .om-add:hover{border-color:var(--ink)}
+  .om-add.on{background:var(--brass);border-color:var(--brass);color:#fff}
+  .om-detail-add{width:100%;margin-top:12px;padding:13px;border:0;border-radius:11px;background:var(--accent);color:#fff;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);letter-spacing:.02em}
+  .om-detail-add:hover{background:#000}
+  .om-detail-add.on{background:var(--brass)}
+  .more-btn{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:9px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-weight:600;font-size:12px;cursor:pointer;font-family:var(--font);transition:border-color .15s,color .15s}
+  .more-btn:hover{border-color:var(--brass);color:var(--brass)}
+  .more-btn .mb-ic{font-size:14px;line-height:1;width:14px;text-align:center;color:var(--brass)}
+  .more-wrap{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .more-wrap.open{max-height:460px}
+  .more-inner{padding-top:11px}
+  .more-desc{font-size:12.5px;line-height:1.58;color:var(--ink);margin:0 0 11px}
+  .more-care{font-size:11.5px;line-height:1.5;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .more-care-h{display:flex;align-items:center;gap:6px;font-weight:700;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);margin-bottom:5px}
+
+  /* mobilios skilčių juostos bazė (desktop — paslėpta) */
+  #mobileNav{display:none}
+  @media(max-width:900px){
+    #mobileNav{display:flex;gap:6px;padding:8px 12px}
+    #mobileNav button{flex:1;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 6px;font-weight:700;font-size:13px;font-family:var(--font);color:var(--ink);cursor:pointer;transition:.14s;letter-spacing:.01em}
+    #mobileNav button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+    html,body{height:auto;min-height:100%}
+    body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+    #app{display:block;height:auto;min-height:100vh}
+    header{position:fixed;top:0;left:0;right:0;height:54px;z-index:30}
+    #stage{position:fixed;top:54px;left:0;right:0;height:50vh;z-index:20;border-bottom:1px solid var(--line)}
+    #mobileNav{position:fixed;top:calc(54px + 50vh);left:0;right:0;height:54px;z-index:25;background:var(--panel);border-bottom:1px solid var(--line)}
+    aside.left,aside.right{margin-top:calc(54px + 50vh + 54px);padding-bottom:40px}
+
+    /* skilčių matomumas */
+    body[data-mobtab="presets"] .m-group[data-grp="modules"]{display:none}
+    body[data-mobtab="presets"] aside.right{display:none}
+    body[data-mobtab="modules"] .m-group[data-grp="presets"]{display:none}
+    body[data-mobtab="modules"] aside.right{display:none}
+    body[data-mobtab="fabric"] aside.left{display:none}
+  }
+
+  @media(max-width:900px){
+    /* 3) rinkiniai ir moduliai po 2 vienoje eilutėje (kaip audiniai) */
+    .presets{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    #modules{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .mod{margin-bottom:0}
+    .preset .pthumb{height:92px}
+    .mod .thumb{height:96px}
+    /* 4) pasirinkto audinio aprašymas lieka matomas viršuje slenkant */
+  }
+
+  /* header CTA */
+  .head-right{display:flex;align-items:center;gap:18px}
+  .order-cta{border:0;background:var(--brass);color:#fff;font-weight:700;font-size:13px;padding:11px 20px;border-radius:11px;cursor:pointer;font-family:var(--font);letter-spacing:.02em;white-space:nowrap;transition:.15s}
+  .order-cta:hover{background:#876a3c}
+  /* sticky pavyzdžių CTA */
+  #sampleBar{display:none}
+  .sample-cta{width:100%;border:0;background:var(--brass);color:#fff;font-weight:700;font-size:13px;padding:12px;border-radius:11px;cursor:pointer;font-family:var(--font);letter-spacing:.01em;transition:.15s}
+  .sample-cta:hover{background:#876a3c}
+  /* audinio aprašymas po eilute */
+  #fabInline{grid-column:1/-1;margin:2px 0 8px}
+  #fabInline .fi-name{font-weight:800;font-size:14px;margin-bottom:8px;color:var(--ink)}
+  /* pirkimo modalas */
+  .buy-body{padding:18px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:13px}
+  .buy-summary{background:var(--soft);border-radius:12px;padding:13px 15px;font-size:12.5px;line-height:1.95}
+  .buy-summary .bs-title{font-weight:800;margin-bottom:6px;font-size:13.5px}
+  .buy-summary .bs-row{display:flex;justify-content:space-between;gap:10px}
+  .buy-summary .bs-total{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:7px;padding-top:7px;font-weight:800}
+  .buy-summary .bs-empty{color:var(--muted)}
+  .buy-body .om-form{gap:10px}
+  .buy-body textarea{padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-family:var(--font);resize:vertical}
+  .buy-body textarea:focus{outline:none;border-color:var(--ink)}
+  .buy-thanks{text-align:center;padding:34px 16px}
+  .buy-thanks .bt-check{width:56px;height:56px;border-radius:50%;background:var(--brass);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .buy-thanks .bt-title{font-size:18px;font-weight:800;margin-bottom:6px}
+  .buy-thanks .bt-sub{color:var(--muted);font-size:13px}
+  @media(max-width:900px){
+    .order-cta{padding:9px 13px;font-size:12px}
+    .head-right{gap:10px}
+    #sampleBar{display:block;position:fixed;top:calc(54px + 50vh + 54px);left:0;right:0;z-index:24;background:var(--panel);border-bottom:1px solid var(--line);padding:8px 12px}
+    aside.left,aside.right{margin-top:calc(54px + 50vh + 54px + 56px)}
+    #btnSample{display:none}
+  }
+
+  /* dešinė panelė: paprastas slinkimas + prilimpantis viršus (sticky) */
+  aside.right{overflow-y:auto;padding:0}
+  .fabtop{position:sticky;top:0;z-index:5;background:var(--panel);padding:20px 20px 14px;border-bottom:1px solid var(--line)}
+  aside.right .swatches{padding:16px 20px}
+  .filters-dd{display:flex;gap:8px;margin-top:4px}
+  .fdrop{flex:1;min-width:0;padding:10px 11px;border:1px solid var(--line);border-radius:10px;font-size:12px;font-weight:600;font-family:var(--font);color:var(--ink);background:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23938d84' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:28px}
+  .fdrop:focus{outline:none;border-color:var(--ink)}
+  /* pavyzdžių mygtukas – žalvario spalva (dėmesiui) */
+  .sample-btn{background:var(--brass)}
+  .sample-btn:hover{background:#876a3c}
+  @media(max-width:900px){
+    aside.right{display:block;overflow:visible;padding:18px 16px}
+    .fabtop{position:static;padding:0;border-bottom:0}
+    aside.right .swatches{overflow:visible;padding:0}
+  }
+
+  /* pavyzdžių modalas – švaresnis */
+  .om-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;background:#fff}
+  .om-row .nm{font-size:12.5px;font-weight:700;text-align:left;padding:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+  .om-plus{flex:0 0 auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:17px;font-weight:400;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.14s;padding:0}
+  .om-plus:hover{border-color:var(--ink);background:var(--soft)}
+  .om-plus.on{background:var(--brass);border-color:var(--brass);color:#fff}
+
+  /* dropdown atstumas iki pirmos eilutės = toks pat kaip tarp audinių eilučių */
+  .order-left .filters-dd{margin-bottom:13px}
+  /* peržiūra – tikras kvadratas (plotis = aukštis) */
+
+  /* kvadratinė peržiūra – padding-top metodas (veikia visose naršyklėse) */
+  .om-frame{position:relative;width:100%;padding-top:100%;overflow:hidden;background-color:var(--soft);background-size:cover;background-position:center;background-repeat:no-repeat}
+  /* "Užsakyti pavyzdžius" – žalvario spalva kaip pagrindiniame puslapyje */
+  .om-submit{background:var(--brass)}
+  .om-submit:hover{background:#876a3c}
+  /* ── Kategorijų akordeonas (kairė) ── */
+  .catnav{display:flex;flex-direction:column;gap:0}
+  .cat-hd{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:none;padding:14px 2px;font-family:var(--font);font-weight:800;font-size:15px;color:var(--ink);cursor:pointer;border-top:1px solid var(--line);letter-spacing:.01em}
+  .cat-hd:first-child{border-top:0}
+  .cat-hd .chev{transition:transform .2s;color:var(--muted);font-size:12px}
+  .cat-hd.active .chev{transform:rotate(180deg)}
+  .cat-body{display:none;padding-bottom:8px}
+  .cat-body.open{display:block}
+  /* ── Fotelių sąrašas ── */
+  .armlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px}
+  .armcard{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;background:#fff;transition:border-color .15s,box-shadow .15s}
+  .armcard:hover{border-color:var(--ink);box-shadow:var(--shadow)}
+  .armcard.active{border-color:var(--brass);box-shadow:0 0 0 1.5px var(--brass)}
+  .armcard .thumb{width:100%;padding-top:88%;background:var(--soft);background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;position:relative}
+  .armcard .thumb span{position:absolute}
+  .armcard .info{padding:8px 9px}
+  .armcard .nm{font-weight:700;font-size:12.5px}
+  .armcard .meta{font-size:11px;color:var(--muted);margin-top:2px}
+  /* ── Fotelio specifikacija ── */
+  .arm-spec{display:none;margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--soft)}
+  .arm-spec.show{display:block}
+  .arm-spec h3{margin:0 0 4px;font-size:15px}
+  .arm-spec .as-price{font-weight:800;color:var(--brass);font-size:15px;margin-bottom:8px}
+  .arm-spec .as-price small{font-weight:600;color:var(--muted);font-size:10.5px}
+  .arm-spec .as-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-top:1px solid var(--line)}
+  .arm-spec .as-row span{color:var(--muted)}
+  .arm-spec ul{margin:8px 0 0;padding-left:16px;font-size:12px;color:var(--ink)}
+  .arm-spec li{margin:2px 0}
+  .arm-spec .as-desc{font-size:12px;color:var(--ink);margin-top:10px;line-height:1.5}
+  .arm-spec .as-flag{font-size:10.5px;color:var(--muted);margin-top:8px;font-style:italic}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">SOFALOVA.LT<small>Sofų konfigūratorius</small></div>
+    <div class="head-right">
+      <div class="price"><div class="mo" id="monthly"></div><div><span class="big" id="price">€0</span><small id="priceNote">pasirink modulius</small></div></div>
+      <button id="btnOrder" class="order-cta">Užsakyti</button>
+    </div>
+  </header>
+
+  <nav id="mobileNav">
+    <button data-t="presets">Rinkiniai</button>
+    <button data-t="modules">Moduliai</button>
+    <button data-t="fabric">Audiniai</button>
+  </nav>
+
+  <div id="sampleBar"><button id="btnSampleTop" class="sample-cta">✄ Užsakyti nemokamus audinių pavyzdžius</button></div>
+
+  <aside class="left">
+    <div class="catnav" id="catNav">
+      <button class="cat-hd active" data-cat="modular">Modulinės sofos<span class="chev">▾</span></button>
+      <div class="cat-body open" data-cat="modular">
+        <div class="sec-title">Kolekcija</div>
+        <div class="tabs" id="tabs"></div>
+        <div class="m-group" data-grp="presets">
+          <div class="sec-title">Greiti rinkiniai</div>
+          <div class="presets" id="presets"></div>
         </div>
-        <div class="hint">Ajouter un module (liste) · glisser un module pour le déplacer · aimantage auto</div>
-        <div class="loading" id="loading">Préparation…</div>
+        <div class="m-group" data-grp="modules">
+          <div class="sec-title">Moduliai</div>
+          <div id="modules"></div>
+        </div>
+      </div>
+      <button class="cat-hd" data-cat="armchairs">Foteliai<span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="armchairs">
+        <div id="armList" class="armlist"></div>
+        <div id="armSpec" class="arm-spec"></div>
       </div>
     </div>
-    <div class="fabricbar">
-      <div class="fabric-head">
-        <div class="now"><span class="lab">Tissu — Lin Stone Washed</span><br><span class="name" id="curFab">Ambre</span></div>
-        <label class="weavewrap">Grain du lin <input id="weave" type="range" min="1.5" max="8" step="0.5" value="3.5"></label>
-      </div>
-      <div class="rail-fabrics" id="rail"></div>
+  </aside>
+
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="dimLabels"></div>
+    <div class="hint" id="hint">Spustelk modulį ar greitą rinkinį kairėje</div>
+    <div class="fitbadge" id="fit"></div>
+    <div class="roompanel" id="roompanel">
+      <label>Plotis, cm<input id="roomW" type="number" value="350" min="100" max="1200"></label>
+      <label>Ilgis, cm<input id="roomD" type="number" value="300" min="100" max="1200"></label>
+      <button class="apply" id="roomApply">Rodyti</button>
     </div>
-    <footer><b>Version à déployer —</b> place /models et /fabrics à côté de ce fichier, puis pousse sur Netlify. Modules aimantés, recolorisation par coussin, lin sans couture.</footer>
+    <div class="bottombar">
+      <button class="bbtn" id="btnRotate" disabled>⟳ Pasukti</button>
+      <button class="bbtn danger" id="btnDelete" disabled>🗑 Šalinti</button>
+      <button class="bbtn" id="btnLock">🔒 Užrakinti</button>
+      <button class="bbtn" id="btnDims">📐 Matmenys</button>
+      <button class="bbtn" id="btnRoom">🏠 Kambarys</button>
+      <button class="bbtn" id="btnCenter">🎯 Centruoti</button>
+      <button class="bbtn" id="btnArrange">🧲 Sutvarkyti</button>
+      <button class="bbtn" id="btnZoomIn">🔍＋</button>
+      <button class="bbtn" id="btnZoomOut">🔍－</button>
+      <button class="bbtn" id="btnAR">📱 AR</button>
+      <button class="bbtn" id="btnPDF">📄 PDF</button>
+      <button class="bbtn" id="btnShare">🔗 Nuoroda</button>
+    </div>
   </div>
-<script src='https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js'></script>
-<script src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js'></script>
-<script src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js'></script>
-<script src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js'></script>
-<script>window.__FABRICS__=[{"name": "LIN_STONE_WASHED_BLANC", "label": "Blanc", "chip": "#F6F8F7", "url": "./fabrics/LIN_STONE_WASHED_BLANC.jpg"}, {"name": "LIN_STONE_WASHED_CREME", "label": "Creme", "chip": "#F2F3E1", "url": "./fabrics/LIN_STONE_WASHED_CREME.jpg"}, {"name": "LIN_STONE_WASHED_FIOR_DI_LATTE", "label": "Fior di Latte", "chip": "#CACEC0", "url": "./fabrics/LIN_STONE_WASHED_FIOR_DI_LATTE.jpg"}, {"name": "LIN_STONEWASHED_PERLE", "label": "Perle", "chip": "#B9C8B4", "url": "./fabrics/LIN_STONEWASHED_PERLE.jpg"}, {"name": "LIN_STONE_WASHED_NATUREL", "label": "Naturel", "chip": "#ABB6A4", "url": "./fabrics/LIN_STONE_WASHED_NATUREL.jpg"}, {"name": "LIN_STONE_WASHED_CIMENT", "label": "Ciment", "chip": "#9DA488", "url": "./fabrics/LIN_STONE_WASHED_CIMENT.jpg"}, {"name": "LIN_STONE_WASHED_SAUGE", "label": "Sauge", "chip": "#84A580", "url": "./fabrics/LIN_STONE_WASHED_SAUGE.jpg"}, {"name": "LIN_STONE_WASHED_SABLE", "label": "Sable", "chip": "#827A5F", "url": "./fabrics/LIN_STONE_WASHED_SABLE.jpg"}, {"name": "LIN_STONE_WASHED_BOIS_DE_ROSE", "label": "Bois de Rose", "chip": "#946778", "url": "./fabrics/LIN_STONE_WASHED_BOIS_DE_ROSE.jpg"}, {"name": "LIN_STONE_WASHED_TERRACOTTA", "label": "Terracotta", "chip": "#916159", "url": "./fabrics/LIN_STONE_WASHED_TERRACOTTA.jpg"}, {"name": "LIN_STONE_WASHED_BLUSH", "label": "Blush", "chip": "#766056", "url": "./fabrics/LIN_STONE_WASHED_BLUSH.jpg"}, {"name": "LIN_STONE_WASHED_OCRE", "label": "Ocre", "chip": "#7C6125", "url": "./fabrics/LIN_STONE_WASHED_OCRE.jpg"}, {"name": "LIN_STONE_WASHED_KAKI", "label": "Kaki", "chip": "#4E5741", "url": "./fabrics/LIN_STONE_WASHED_KAKI.jpg"}, {"name": "LIN_STONE_WASHED_HAVANE", "label": "Havane", "chip": "#645132", "url": "./fabrics/LIN_STONE_WASHED_HAVANE.jpg"}, {"name": "LIN_STONE_WASHED_CANARD", "label": "Canard", "chip": "#345B58", "url": "./fabrics/LIN_STONE_WASHED_CANARD.jpg"}, {"name": "LIN_STONE_WASHED_AMBRE", "label": "Ambre", "chip": "#814922", "url": "./fabrics/LIN_STONE_WASHED_AMBRE.jpg"}, {"name": "LIN_STONE_WASHED_ECORCE", "label": "Ecorce", "chip": "#4A5047", "url": "./fabrics/LIN_STONE_WASHED_ECORCE.jpg"}, {"name": "LIN_STONE_WASHED_ELEPHANT", "label": "Elephant", "chip": "#464F44", "url": "./fabrics/LIN_STONE_WASHED_ELEPHANT.jpg"}, {"name": "LIN_STONE_WASHED_HENNE_", "label": "Henne", "chip": "#A03535", "url": "./fabrics/LIN_STONE_WASHED_HENNE_.jpg"}, {"name": "LIN_STONE_WASHED_BRONZE", "label": "Bronze", "chip": "#54492E", "url": "./fabrics/LIN_STONE_WASHED_BRONZE.jpg"}, {"name": "LIN_STONE_WASHED_SIENNE", "label": "Sienne", "chip": "#703F38", "url": "./fabrics/LIN_STONE_WASHED_SIENNE.jpg"}, {"name": "LIN_STONE_WASHED_PAON", "label": "Paon", "chip": "#195349", "url": "./fabrics/LIN_STONE_WASHED_PAON.jpg"}, {"name": "LIN_STONE_WASHED_CACTUS", "label": "Cactus", "chip": "#2A4F30", "url": "./fabrics/LIN_STONE_WASHED_CACTUS.jpg"}, {"name": "LIN_STONE_WASHED_CROCODILE", "label": "Crocodile", "chip": "#3C4638", "url": "./fabrics/LIN_STONE_WASHED_CROCODILE.jpg"}, {"name": "LIN_STONE_WASHED_ENCRE", "label": "Encre", "chip": "#2B4645", "url": "./fabrics/LIN_STONE_WASHED_ENCRE.jpg"}, {"name": "LIN_STONE_WASHED_ARGILE", "label": "Argile", "chip": "#5E3233", "url": "./fabrics/LIN_STONE_WASHED_ARGILE.jpg"}, {"name": "LIN_STONE_WASHED_CASTOR", "label": "Castor", "chip": "#313435", "url": "./fabrics/LIN_STONE_WASHED_CASTOR.jpg"}, {"name": "LIN_STONE_WASHED_BLEU_NUIT", "label": "Bleu Nuit", "chip": "#1A3346", "url": "./fabrics/LIN_STONE_WASHED_BLEU_NUIT.jpg"}, {"name": "LIN_STONE_WASHED_CHARBON", "label": "Charbon", "chip": "#1F2C2E", "url": "./fabrics/LIN_STONE_WASHED_CHARBON.jpg"}, {"name": "LIN_STONE_WASHED_ASPHALTE", "label": "Asphalte", "chip": "#212623", "url": "./fabrics/LIN_STONE_WASHED_ASPHALTE.jpg"}, {"name": "LIN_STONE_WASHED_NOIR", "label": "Noir", "chip": "#111719", "url": "./fabrics/LIN_STONE_WASHED_NOIR.jpg"}];window.__MODELS__=[{"name": "Banquette_Boho_d_Angle_200_D_", "label": "Banquette d'angle 200 \u00b7 Droite", "group": "Banquettes d'angle", "url": "./models/Banquette_Boho_d_Angle_200_D_.glb"}, {"name": "Banquette_Boho_d_Angle_200_G_", "label": "Banquette d'angle 200 \u00b7 Gauche", "group": "Banquettes d'angle", "url": "./models/Banquette_Boho_d_Angle_200_G_.glb"}, {"name": "Chauffeuse_Boho_80", "label": "Chauffeuse 80", "group": "Chauffeuses", "url": "./models/Chauffeuse_Boho_80.glb"}, {"name": "Chauffeuse_Boho_120", "label": "Chauffeuse 120", "group": "Chauffeuses", "url": "./models/Chauffeuse_Boho_120.glb"}, {"name": "Chauffeuse_Boho_160", "label": "Chauffeuse 160", "group": "Chauffeuses", "url": "./models/Chauffeuse_Boho_160.glb"}, {"name": "Chauffeuse_Boho_200", "label": "Chauffeuse 200", "group": "Chauffeuses", "url": "./models/Chauffeuse_Boho_200.glb"}, {"name": "Chauffeuse_Boho_Hub_Angle_", "label": "Module d'angle (Hub)", "group": "Chauffeuses", "url": "./models/Chauffeuse_Boho_Hub_Angle_.glb"}, {"name": "Chauffeuse_Boho_Lounge_80", "label": "Chauffeuse Lounge 80", "group": "Chauffeuses", "url": "./models/Chauffeuse_Boho_Lounge_80.glb"}, {"name": "Me_ridienne_Boho_80_D_", "label": "M\u00e9ridienne 80 \u00b7 Droite", "group": "M\u00e9ridiennes", "url": "./models/Me_ridienne_Boho_80_D_.glb"}, {"name": "Me_ridienne_Boho_80_G_", "label": "M\u00e9ridienne 80 \u00b7 Gauche", "group": "M\u00e9ridiennes", "url": "./models/Me_ridienne_Boho_80_G_.glb"}];window.__DRACO_PATH__='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/';</script>
-<script>/* ELEVYT · Configurateur Boho — core v2 (three.js r128 global)
-   - seamless triplanar linen (mirrored wrap)
-   - multi-module assembly with magnetic snapping (no overlap)
-   - per-cushion individual recolour
-   - client-side module thumbnails */
-(function(){
-const FABRICS = window.__FABRICS__;
-const MODELS  = window.__MODELS__;
-const SNAP = 0.18;          // snap distance ~18 cm
-const ALIGN = 0.14;         // edge alignment tolerance
 
-const stage=document.getElementById('stage'), loading=document.getElementById('loading');
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.15;
-renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-stage.appendChild(renderer.domElement);
+  <aside class="right">
+    <div class="fabtop">
+      <div class="sec-title">Audinys <span class="fabcount" id="fabCount"></span></div>
+      <div id="fabHead">
+        <div class="fabname" id="fabName">Pasirink audinį</div>
+        <div class="specbox" id="specBox"></div>
+      </div>
+      <button class="sample-btn" id="btnSample">✄ Užsakyti nemokamus pavyzdžius</button>
+      <div class="filters-dd">
+        <select id="featSel" class="fdrop"></select>
+        <select id="colorSel" class="fdrop"></select>
+      </div>
+    </div>
+    <div class="swatches" id="swatches"></div>
+  </aside>
+</div>
 
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(38,1,0.01,200); camera.position.set(2.6,1.7,3.6);
+<div id="loader"><div class="spin"></div><div id="loadtxt">Kraunama…</div></div>
+<div class="toast" id="toast"></div>
+<div id="mvWrap"><button class="close" id="mvClose">×</button></div>
 
-function studioEnv(rend){
-  const c=document.createElement('canvas');c.width=16;c.height=256;const g=c.getContext('2d');
-  const grd=g.createLinearGradient(0,0,0,256);grd.addColorStop(0,'#ffffff');grd.addColorStop(.35,'#eceae4');grd.addColorStop(.7,'#cfccc4');grd.addColorStop(1,'#9c988f');
-  g.fillStyle=grd;g.fillRect(0,0,16,256);
-  const tex=new THREE.CanvasTexture(c);tex.mapping=THREE.EquirectangularReflectionMapping;
-  const p=new THREE.PMREMGenerator(rend);const e=p.fromEquirectangular(tex).texture;tex.dispose();p.dispose();return e;
-}
-scene.environment=studioEnv(renderer);
-scene.add(new THREE.HemisphereLight(0xffffff,0x9a948a,0.55));
-const key=new THREE.DirectionalLight(0xffffff,2.1);key.position.set(3,5.5,3.2);key.castShadow=true;
-key.shadow.mapSize.set(2048,2048);key.shadow.camera.near=0.5;key.shadow.camera.far=30;
-key.shadow.camera.left=-6;key.shadow.camera.right=6;key.shadow.camera.top=6;key.shadow.camera.bottom=-6;
-key.shadow.bias=-0.0003;key.shadow.normalBias=0.02;scene.add(key);
-const fill=new THREE.DirectionalLight(0xffffff,0.5);fill.position.set(-4,2,-2);scene.add(fill);
-const ground=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.ShadowMaterial({opacity:0.22}));
-ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+<!-- AUDINIŲ PAVYZDŽIŲ UŽSAKYMAS -->
+<div class="modal" id="orderModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div><h2>Nemokami audinių pavyzdžiai</h2><p class="sub">Bakstelėk audinį peržiūrai, „＋“ įdeda jį į užsakymą. Iki 10 nemokamų pavyzdžių.</p></div>
+      <button class="x" id="omClose">×</button>
+    </div>
+    <div class="order-grid">
+      <div class="order-left">
+        <div class="filters-dd">
+          <select id="omFeatSel" class="fdrop"></select>
+          <select id="omColorSel" class="fdrop"></select>
+        </div>
+        <div class="om-swatches" id="omSwatches"></div>
+      </div>
+      <div class="order-right">
+        <div class="om-detail" id="omDetail"><div class="body" style="color:var(--muted);font-size:12px">Spustelk audinį kairėje — matysi nuotrauką ir techninę informaciją.</div></div>
+        <div>
+          <div class="sec-title" style="margin-top:0">Pasirinkti pavyzdžiai: <span id="omCount">0</span> / 10</div>
+          <div class="om-chosen" id="omChosen"></div>
+        </div>
+        <form class="om-form" id="omForm">
+          <input name="firstName" placeholder="Vardas" required>
+          <input name="lastName" placeholder="Pavardė" required>
+          <input name="address" placeholder="Pristatymo adresas" required>
+          <input name="phone" placeholder="Telefonas" required>
+          <input name="email" type="email" placeholder="El. paštas" required>
+          <button type="submit" class="om-submit" id="omSubmit" disabled>Užsakyti pavyzdžius</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-const controls=new THREE.OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true;controls.dampingFactor=0.08;controls.maxPolarAngle=Math.PI/2-0.02;controls.minPolarAngle=0.12;controls.autoRotateSpeed=1.1;
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
 
-/* ---------- fabrics ---------- */
-const texLoader=new THREE.TextureLoader(); const maxAniso=renderer.capabilities.getMaxAnisotropy(); const fabricTex={};
-function loadFabric(f){return new Promise(res=>{ if(fabricTex[f.name])return res(fabricTex[f.name]);
-  texLoader.load(f.url,t=>{t.wrapS=t.wrapT=THREE.MirroredRepeatWrapping;t.anisotropy=maxAniso;t.needsUpdate=true;fabricTex[f.name]=t;res(t);});});}
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-/* triplanar injection — shared for body & cushions; each target has its own uniforms */
-function applyTriplanar(mat,uniforms){
-  mat.metalness=0.0; mat.roughness=0.9; mat.envMapIntensity=0.95;
-  mat.onBeforeCompile=(sh)=>{
-    sh.uniforms.fabricMap=uniforms.fabricMap; sh.uniforms.fabricScale=uniforms.fabricScale;
-    sh.vertexShader=sh.vertexShader
-      .replace('#include <common>','#include <common>\nvarying vec3 vWPos;\nvarying vec3 vWN;')
-      .replace('#include <worldpos_vertex>','#include <worldpos_vertex>\n vWPos=(modelMatrix*vec4(transformed,1.0)).xyz;\n vWN=normalize(mat3(modelMatrix)*objectNormal);');
-    sh.fragmentShader=sh.fragmentShader
-      .replace('#include <common>','#include <common>\nuniform sampler2D fabricMap;\nuniform float fabricScale;\nvarying vec3 vWPos;\nvarying vec3 vWN;\n'+
-        'vec3 triplanar(vec3 p,vec3 n){ vec3 b=pow(abs(n),vec3(3.0)); b/=(b.x+b.y+b.z);\n'+
-        ' vec3 cx=texture2D(fabricMap,p.zy*fabricScale).rgb;\n vec3 cy=texture2D(fabricMap,p.xz*fabricScale).rgb;\n vec3 cz=texture2D(fabricMap,p.xy*fabricScale).rgb;\n'+
-        ' return cx*b.x+cy*b.y+cz*b.z; }')
-      .replace('#include <map_fragment>','#include <map_fragment>\n if(fabricScale>0.0){ vec3 f=triplanar(vWPos,normalize(vWN)); diffuseColor.rgb=pow(f,vec3(2.2)); }');
-    mat.userData.shader=sh;
-  };
-  mat.needsUpdate=true;
-}
+/* ====== KONFIGŪRACIJA ====== */
+const ORDER_EMAIL='info@sofalova.lt';   // kur keliauja pavyzdžių užsakymai
 
-/* ---------- module assembly ---------- */
-const gltfLoader=new THREE.GLTFLoader();
-if(THREE.DRACOLoader){
-  const dl=new THREE.DRACOLoader();
-  if(window.__DRACO_INLINE__){
-    const wrap=new TextDecoder().decode(Uint8Array.from(atob(window.__DRACO_INLINE__.wrapperB64),c=>c.charCodeAt(0)));
-    const wasm=Uint8Array.from(atob(window.__DRACO_INLINE__.wasmB64),c=>c.charCodeAt(0)).buffer;
-    dl.setDecoderConfig({type:'wasm'}); dl._loadLibrary=(u,t)=>Promise.resolve(t==='arraybuffer'?wasm:wrap);
-    gltfLoader.setDRACOLoader(dl);
-  } else if(window.__DRACO_PATH__){ dl.setDecoderPath(window.__DRACO_PATH__); gltfLoader.setDRACOLoader(dl); }
-}
+const $=s=>document.querySelector(s);
+let MANIFEST=null,FABRICS=[],ARMCHAIRS=[],curFamily=null,curMode='modular',curFabric=null,curTex=null,ready=false;
+const placed=[]; let selected=null; let locked=false;
 
-const bodyUniforms={fabricMap:{value:null},fabricScale:{value:3.5}};
-const modules=[];            // {root, box, cushions:[{mesh,uniforms}]}
-let curFabIdx=0, selectedCushion=null, selBox=null;
-
-function bboxXZ(root){ const b=new THREE.Box3().setFromObject(root); return b; }
-function sitOnGround(root){ const b=new THREE.Box3().setFromObject(root); root.position.y-=b.min.y; }
-
-function addModule(mIdx){
-  const m=MODELS[mIdx]; loading.style.display='grid'; loading.textContent='Ajout du module…';
-  gltfLoader.load(m.url,(gltf)=>{
-    const root=gltf.scene; const mod={root,cushions:[]};
-    root.traverse(o=>{
-      if(!o.isMesh)return; o.castShadow=true;o.receiveShadow=true;
-      const mat=o.material, nm=(mat&&mat.name)||'', hasTex=!!(mat&&mat.map);
-      if(hasTex){ // cushion (printed motif) — own material + own uniforms (scale 0 keeps motif)
-        o.material=mat.clone();
-        const u={fabricMap:{value:null},fabricScale:{value:0.0}};
-        applyTriplanar(o.material,u);
-        const cu={mesh:o,uniforms:u}; mod.cushions.push(cu);
-        o.userData.kind='cushion'; o.userData.cushion=cu; o.userData.mod=mod;
-      } else if(nm==='*1'){ // metal legs
-        o.material=mat.clone(); o.material.color.setHex(0x2c2d30);o.material.metalness=0.75;o.material.roughness=0.34;
-        o.userData.kind='leg';
-      } else { // everything else = upholstered body (Matière2 / Matière / <auto> ...)
-        applyTriplanar(o.material,bodyUniforms);
-        if(bodyMats.indexOf(o.material)<0) bodyMats.push(o.material);
-        o.userData.kind='body'; o.userData.mod=mod;
-      }
-    });
-    // center on origin footprint, sit on ground
-    const b=new THREE.Box3().setFromObject(root); const c=b.getCenter(new THREE.Vector3());
-    root.position.x-=c.x; root.position.z-=c.z; scene.add(root); sitOnGround(root);
-    // place flush to the right of existing assembly
-    if(modules.length){ const all=new THREE.Box3(); modules.forEach(mm=>all.expandByObject(mm.root));
-      const nb=new THREE.Box3().setFromObject(root);
-      root.position.x += (all.max.x - nb.min.x) + 0.001;         // touch right edge
-      root.position.z += (all.min.z - nb.min.z);                  // align back edges
-    }
-    mod.box=new THREE.Box3().setFromObject(root); modules.push(mod);
-    // apply current fabric to the new body
-    if(fabricTex[FABRICS[curFabIdx].name]) bodyUniforms.fabricMap.value=fabricTex[FABRICS[curFabIdx].name];
-    fitAll(); loading.style.display='none';
-  },undefined,(e)=>{loading.textContent='Erreur';console.error(e);});
-}
-function refreshBoxes(){ modules.forEach(m=>m.box=new THREE.Box3().setFromObject(m.root)); }
-function fitAll(){
-  if(!modules.length)return; const all=new THREE.Box3(); modules.forEach(m=>all.expandByObject(m.root));
-  const size=all.getSize(new THREE.Vector3()), ctr=all.getCenter(new THREE.Vector3());
-  controls.target.set(ctr.x, all.min.y+size.y*0.45, ctr.z);
-  const r=Math.max(size.x,size.z), dist=Math.max(r,size.y)*1.7+0.6;
-  camera.position.set(ctr.x+dist*0.55, all.min.y+size.y*0.9+0.5, ctr.z+dist);
-  controls.minDistance=dist*0.4; controls.maxDistance=dist*3; controls.update();
-}
-function clearScene(){ modules.forEach(m=>scene.remove(m.root)); modules.length=0; deselectCushion(); }
-
-/* magnetic snap on drag release: flush faces + align, no overlap */
-function snapModule(mod){
-  const A=new THREE.Box3().setFromObject(mod.root);
-  let best=null;
-  function consider(cost,axis,delta,align,B){ if(cost<SNAP && (!best||cost<best.cost)) best={cost,axis,delta,align,B}; }
-  modules.forEach(function(other){
-    if(other===mod) return;
-    const B=new THREE.Box3().setFromObject(other.root);
-    const ovX=Math.min(A.max.x,B.max.x)-Math.max(A.min.x,B.min.x);
-    const ovZ=Math.min(A.max.z,B.max.z)-Math.max(A.min.z,B.min.z);
-    if(ovZ>-ALIGN){
-      const gapR=A.min.x-B.max.x;
-      const gapL=B.min.x-A.max.x;
-      consider(Math.abs(gapR),'x',-gapR,'z',B);
-      consider(Math.abs(gapL),'x', gapL,'z',B);
-    }
-    if(ovX>-ALIGN){
-      const gapF=A.min.z-B.max.z;
-      const gapB=B.min.z-A.max.z;
-      consider(Math.abs(gapF),'z',-gapF,'x',B);
-      consider(Math.abs(gapB),'z', gapB,'x',B);
-    }
-  });
-  if(best){
-    if(best.axis==='x') mod.root.position.x+=best.delta; else mod.root.position.z+=best.delta;
-    const A2=new THREE.Box3().setFromObject(mod.root);
-    if(best.align==='z'){ const d=best.B.min.z-A2.min.z; if(Math.abs(d)<ALIGN*2) mod.root.position.z+=d; }
-    else { const d=best.B.min.x-A2.min.x; if(Math.abs(d)<ALIGN*2) mod.root.position.x+=d; }
-    resolveOverlap(mod);
-  }
-  refreshBoxes();
-}
-function resolveOverlap(mod){
-  const A=new THREE.Box3().setFromObject(mod.root);
-  modules.forEach(other=>{ if(other===mod)return; const B=new THREE.Box3().setFromObject(other.root);
-    const ox=Math.min(A.max.x,B.max.x)-Math.max(A.min.x,B.min.x);
-    const oz=Math.min(A.max.z,B.max.z)-Math.max(A.min.z,B.min.z);
-    if(ox>0.002 && oz>0.002){ // overlapping -> push out along least penetration
-      if(ox<oz){ mod.root.position.x += (A.getCenter(new THREE.Vector3()).x < B.getCenter(new THREE.Vector3()).x ? -ox : ox); }
-      else { mod.root.position.z += (A.getCenter(new THREE.Vector3()).z < B.getCenter(new THREE.Vector3()).z ? -oz : oz); }
-    }
-  });
-}
-
-/* ---------- pointer: rotate (empty) / drag module / select cushion ---------- */
-const ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), groundPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
-let drag=null;
-function setNDC(ev){ const r=renderer.domElement.getBoundingClientRect(); ndc.x=((ev.clientX-r.left)/r.width)*2-1; ndc.y=-((ev.clientY-r.top)/r.height)*2+1; }
-function pickModule(){ ray.setFromCamera(ndc,camera); const meshes=[]; modules.forEach(m=>m.root.traverse(o=>{if(o.isMesh)meshes.push(o);}));
-  const hit=ray.intersectObjects(meshes,false)[0]; return hit?hit.object:null; }
-function groundPoint(){ ray.setFromCamera(ndc,camera); const p=new THREE.Vector3(); ray.ray.intersectPlane(groundPlane,p); return p; }
-
-renderer.domElement.addEventListener('pointerdown',(ev)=>{
-  setNDC(ev); const obj=pickModule();
-  if(obj){ controls.enabled=false; const gp=groundPoint(); const mod=obj.userData.mod;
-    drag={mod,obj,moved:false,cushion:obj.userData.cushion||null,off:new THREE.Vector3(mod.root.position.x-gp.x,0,mod.root.position.z-gp.z),start:{x:ev.clientX,y:ev.clientY}}; }
-});
-renderer.domElement.addEventListener('pointermove',(ev)=>{
-  if(!drag)return; setNDC(ev);
-  if(!drag.moved && Math.hypot(ev.clientX-drag.start.x,ev.clientY-drag.start.y)>4) drag.moved=true;
-  if(drag.moved){ const gp=groundPoint(); drag.mod.root.position.x=gp.x+drag.off.x; drag.mod.root.position.z=gp.z+drag.off.z; sitOnGround(drag.mod.root);
-    if(selBox) selBox.update(); }
-});
-window.addEventListener('pointerup',(ev)=>{
-  if(!drag){return;} controls.enabled=true;
-  if(drag.moved){ snapModule(drag.mod); }
-  else if(drag.cushion){ toggleCushion(drag.cushion); }
-  drag=null;
-});
-renderer.domElement.addEventListener('dblclick',(ev)=>{ setNDC(ev); const obj=pickModule(); if(obj){ const mod=obj.userData.mod;
-  scene.remove(mod.root); const i=modules.indexOf(mod); if(i>=0)modules.splice(i,1); deselectCushion(); fitAll(); }});
-
-/* ---------- cushion selection & recolour ---------- */
-function toggleCushion(cu){ if(selectedCushion===cu){ deselectCushion(); return; } deselectCushion();
-  selectedCushion=cu; selBox=new THREE.BoxHelper(cu.mesh,0x1b1a17); scene.add(selBox);
-  document.getElementById('selHint').style.display='inline-flex'; }
-function deselectCushion(){ if(selBox){scene.remove(selBox);selBox=null;} selectedCushion=null;
-  const s=document.getElementById('selHint'); if(s)s.style.display='none'; }
-
-/* ---------- fabric rail (squares, horizontal) ---------- */
-function buildFabricRail(){
-  const rail=document.getElementById('rail');
-  // special motif chip (only affects a selected cushion)
-  const mo=document.createElement('button'); mo.className='swatch motif'; mo.dataset.motif='1';
-  mo.innerHTML='<span class="pad" style="background:repeating-linear-gradient(45deg,#efe9db 0 6px,#ded3b8 6px 12px)"></span><span class="t">Motif Boho</span>';
-  mo.onclick=()=>{ if(selectedCushion){ selectedCushion.uniforms.fabricScale.value=0.0; } };
-  rail.appendChild(mo);
-  FABRICS.forEach((f,i)=>{ const b=document.createElement('button'); b.className='swatch'; b.dataset.i=i;
-    b.setAttribute('aria-pressed', i===0?'true':'false');
-    b.innerHTML='<span class="pad" style="background-color:'+f.chip+';background-image:url('+f.url+')"></span><span class="t">'+f.label+'</span>';
-    b.onclick=()=>selectFabric(i); rail.appendChild(b); });
-}
-function selectFabric(i){ curFabIdx=i; const f=FABRICS[i];
-  loadFabric(f).then(tex=>{
-    if(selectedCushion){ selectedCushion.uniforms.fabricMap.value=tex; selectedCushion.uniforms.fabricScale.value=parseFloat(document.getElementById('weave').value); }
-    else { bodyUniforms.fabricMap.value=tex; }
-    document.getElementById('curFab').textContent=f.label + (selectedCushion?' · coussin':'');
-    [...document.querySelectorAll('.swatch')].forEach(s=>s.setAttribute('aria-pressed', s.dataset.i==i?'true':'false'));
-  });
-}
-
-/* ---------- left menu (thumbnails via client render) ---------- */
-function buildModelList(){
-  const list=document.getElementById('modelList'); let lastG=null;
-  MODELS.forEach((m,i)=>{ if(m.group&&m.group!==lastG){const h=document.createElement('div');h.className='ml-group';h.textContent=m.group;list.appendChild(h);lastG=m.group;}
-    const b=document.createElement('button'); b.className='ml-item'; b.dataset.i=i;
-    b.innerHTML='<span class="ml-thumb" id="thumb'+i+'"></span><span class="ml-label">'+m.label+'</span>';
-    b.onclick=()=>addModule(i); list.appendChild(b); });
-}
-function generateThumbnails(){
-  const tR=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
-  tR.setPixelRatio(2); tR.setSize(384,384);
-  tR.outputEncoding=THREE.sRGBEncoding; tR.toneMapping=THREE.ACESFilmicToneMapping; tR.toneMappingExposure=1.2;
-  tR.shadowMap.enabled=true; tR.shadowMap.type=THREE.PCFSoftShadowMap;
-  const tS=new THREE.Scene(); tS.environment=studioEnv(tR);
-  tS.add(new THREE.HemisphereLight(0xffffff,0x9a9089,0.6));
-  const dl=new THREE.DirectionalLight(0xffffff,2.1); dl.position.set(2.4,4.5,3); dl.castShadow=true;
-  dl.shadow.mapSize.set(1024,1024);
-  dl.shadow.camera.left=-3;dl.shadow.camera.right=3;dl.shadow.camera.top=3;dl.shadow.camera.bottom=-3;
-  dl.shadow.bias=-0.0004; tS.add(dl);
-  const gp=new THREE.Mesh(new THREE.PlaneGeometry(30,30),new THREE.ShadowMaterial({opacity:0.16}));
-  gp.rotation.x=-Math.PI/2; gp.receiveShadow=true; tS.add(gp);
-  const tC=new THREE.PerspectiveCamera(33,1,0.01,100);
-  const thumbFab = FABRICS.find(function(f){return /AMBRE/i.test(f.name);}) || FABRICS[Math.min(9,FABRICS.length-1)];
-  const tUni={fabricMap:{value:null},fabricScale:{value:3.5}};
-  loadFabric(thumbFab).then(function(tex){ tUni.fabricMap.value=tex; runThumbs(); });
-  function runThumbs(){
-  let i=0;
-  (function next(){ if(i>=MODELS.length){ tR.dispose(); return; } const idx=i++;
-    gltfLoader.load(MODELS[idx].url,(g)=>{ const root=g.scene;
-      root.traverse(o=>{ if(!o.isMesh)return; o.castShadow=true;o.receiveShadow=true;
-        const mat=o.material, nm=(mat&&mat.name)||'', hasTex=!!(mat&&mat.map);
-        if(hasTex){ /* keep cushion motif */ }
-        else if(nm==='*1'){ o.material=mat.clone(); o.material.color.setHex(0x2c2d30);o.material.metalness=0.7;o.material.roughness=0.35; }
-        else { o.material=mat.clone(); applyTriplanar(o.material,tUni); }
-      });
-      const b=new THREE.Box3().setFromObject(root); const c=b.getCenter(new THREE.Vector3()); const s2=b.getSize(new THREE.Vector3());
-      root.position.x-=c.x; root.position.z-=c.z; root.position.y-=b.min.y; tS.add(root);
-      const r=Math.max(s2.x,s2.z), d=Math.max(r,s2.y)*1.3+0.3;
-      tC.position.set(d*0.62, s2.y*0.7+d*0.34, d); tC.lookAt(0,s2.y*0.42,0);
-      tR.render(tS,tC); const url=tR.domElement.toDataURL('image/png');
-      const el=document.getElementById('thumb'+idx); if(el){ el.style.backgroundImage='url('+url+')'; }
-      tS.remove(root); setTimeout(next,30);
-    },undefined,function(){ setTimeout(next,10); });
-  })();
-  }
-}
-
-document.getElementById('rotBtn').onclick=(e)=>{controls.autoRotate=!controls.autoRotate;e.currentTarget.setAttribute('aria-pressed',controls.autoRotate?'true':'false');};
-document.getElementById('resetBtn').onclick=()=>fitAll();
-document.getElementById('clearBtn').onclick=()=>clearScene();
-const weave=document.getElementById('weave');
-if(weave) weave.oninput=(e)=>{ const v=parseFloat(e.target.value); if(selectedCushion&&selectedCushion.uniforms.fabricScale.value>0) selectedCushion.uniforms.fabricScale.value=v; else bodyUniforms.fabricScale.value=v; };
-
+/* SCENE */
+const stage=$('#stage');
+const renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=0.95;
+const scene=new THREE.Scene();(function(){const c=document.createElement('canvas');c.width=2;c.height=512;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,0,512);g.addColorStop(0,'#e7e0d3');g.addColorStop(0.5,'#dcd2c3');g.addColorStop(1,'#c7bca8');x.fillStyle=g;x.fillRect(0,0,2,512);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;scene.background=t;})();
+const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new RoomEnvironment(),0.04).texture;scene.environment=ENV;
+const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
+renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIEŠ OrbitControls → mūsų handleris vykdomas pirmas
+const orbit=new OrbitControls(camera,renderer.domElement);
+orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.75;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
+scene.add(new THREE.HemisphereLight(0xffffff,0xdad2c5,0.40));
+const keyL=new THREE.DirectionalLight(0xffffff,1.35);keyL.position.set(3.5,6.5,4);keyL.castShadow=true;keyL.shadow.mapSize.set(2048,2048);keyL.shadow.radius=4;
+keyL.shadow.camera.left=-6;keyL.shadow.camera.right=6;keyL.shadow.camera.top=6;keyL.shadow.camera.bottom=-6;keyL.shadow.bias=-0.0003;scene.add(keyL);
+const fillL=new THREE.DirectionalLight(0xffffff,0.28);fillL.position.set(-4,3,-3);scene.add(fillL);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandardMaterial({color:0xcec4b2,roughness:0.92,metalness:0}));floor.material.envMapIntensity=0.4;
+floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
+const grid=new THREE.GridHelper(40,40,0xc2b6a1,0xcabfab);grid.material.opacity=0.16;grid.material.transparent=true;grid.position.y=0.002;scene.add(grid);
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
-window.addEventListener('resize',resize);
-function tick(){controls.update();renderer.render(scene,camera);requestAnimationFrame(tick);}
+new ResizeObserver(resize).observe(stage);resize();
 
-(async function(){
-  buildModelList(); buildFabricRail();
-  const defFab = Math.max(0, FABRICS.findIndex(function(f){return /NATUREL/i.test(f.name);}));
-  resize(); addModule(0); tick(); setTimeout(generateThumbnails,400);
-  selectFabric(defFab);
-})();
+/* GLB CACHE (kad miniatiūros nekrautų to paties failo daug kartų) */
+const gltf=new GLTFLoader(); const glbCache={};
+async function loadGLB(glb){const k=glb.replace(/^\//,'');
+  if(!glbCache[k]){
+    const base=k.split('/').pop();
+    const tries=[k,base,'armchairs/'+base,'models/'+base].filter((v,i,a)=>a.indexOf(v)===i); // atsparu: veikia ir jei GLB šaknyje, ir jei armchairs/ aplanke
+    let sc=null,lastErr=null;
+    for(const u of tries){try{const g=await gltf.loadAsync(u);sc=g.scene;break;}catch(e){lastErr=e;}}
+    if(!sc)throw lastErr||new Error('GLB nerastas: '+k);
+    glbCache[k]=sc;
+  }
+  return glbCache[k].clone(true);}
+function fitScaleRoot(root,rot,wd,dd){let b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3();b.getSize(s);
+  if(s.x<1e-4||s.z<1e-4)return;const wantX=(rot%2===0)?wd:dd, wantZ=(rot%2===0)?dd:wd;
+  const sx=wantX/s.x, sz=wantZ/s.z; root.scale.set(sx,(sx+sz)/2,sz);}
+function normScale(root,Wcm){let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);
+  if(Wcm>0&&size.x>1e-4){const r=(Wcm/100)/size.x;if(r>1.7||r<0.6){root.scale.setScalar(r);}}}
+
+/* GEOMETRY HELPERS */
+function extOf(rec){return(rec.rot%2===0)?{x:rec.box.x,z:rec.box.z}:{x:rec.box.z,z:rec.box.x};}
+function aabb(rec){const cx=rec.root.position.x,cz=rec.root.position.z,e=extOf(rec);return{minX:cx-e.x/2,maxX:cx+e.x/2,minZ:cz-e.z/2,maxZ:cz+e.z/2,cx,cz,ex:e.x,ez:e.z};}
+function assemblyBox(){if(!placed.length)return null;let minX=Infinity,maxX=-Infinity,minZ=Infinity,maxZ=-Infinity,maxY=0;
+  placed.forEach(p=>{const a=aabb(p);minX=Math.min(minX,a.minX);maxX=Math.max(maxX,a.maxX);minZ=Math.min(minZ,a.minZ);maxZ=Math.max(maxZ,a.maxZ);maxY=Math.max(maxY,p.box.y);});
+  return{minX,maxX,minZ,maxZ,cx:(minX+maxX)/2,cz:(minZ+maxZ)/2,w:maxX-minX,d:maxZ-minZ,h:maxY};}
+
+/* SNAP */
+function gridSnap(rec){const g=0.025;rec.root.position.x=Math.round(rec.root.position.x/g)*g;rec.root.position.z=Math.round(rec.root.position.z/g)*g;}
+const SNAP_RANGE=0.40;  // pritraukimo zona (m)
+const SNAP_GAP=-0.03;   // didesnis persidengimas – tarpai tarp modulių dingsta
+function isBackArm(d){return !!(d&&/x32$/.test(d.code||''));}
+function setOri(rec,ori){const wide=rec.box.x>=rec.box.z;rec.rot=((ori==='wide')?(wide?0:1):(wide?1:0));rec.root.rotation.y=rec.rot*Math.PI/2;}
+function autoOrientBackArm(rec){if(!isBackArm(rec.data))return;const seats=placed.filter(p=>p!==rec&&!isBackArm(p.data));if(!seats.length)return;let near=null,nd=Infinity;seats.forEach(s=>{const d=Math.hypot(s.root.position.x-rec.root.position.x,s.root.position.z-rec.root.position.z);if(d<nd){nd=d;near=s;}});const dx=rec.root.position.x-near.root.position.x,dz=rec.root.position.z-near.root.position.z;setOri(rec,(Math.abs(dz)>=Math.abs(dx))?'wide':'deep');}
+function isCushion(d){return !!(d&&(((MANIFEST.families[curFamily]||{}).cushions)||[]).some(c=>c.code===d.code));}
+const CUSH_GAP=0.04;const CUSH_DROP=0.13; // kiek nuleisti pagalves, kad gulėtų ties sėdynės linija
+function cushionRail(){
+  const seats=placed.filter(p=>!isCushion(p.data)&&!isBackArm(p.data));
+  const backs=placed.filter(p=>isBackArm(p.data)&&extOf(p).x>=extOf(p).z); // tik atlošai (platūs), ne porankiai
+  let y=0.37; if(seats.length)y=Math.max(...seats.map(s=>s.box.y)); y=Math.max(0,y-CUSH_DROP); // ties sėdynės linija, ne pakibę
+  if(backs.length){let mz=-Infinity,mn=Infinity,mx=-Infinity;backs.forEach(p=>{const a=aabb(p);mz=Math.max(mz,a.maxZ);mn=Math.min(mn,a.minX);mx=Math.max(mx,a.maxX);});return{zFront:mz,railMinX:mn,railMaxX:mx,y};}
+  if(seats.length){let mz=Infinity,mn=Infinity,mx=-Infinity;seats.forEach(p=>{const a=aabb(p);mz=Math.min(mz,a.minZ);mn=Math.min(mn,a.minX);mx=Math.max(mx,a.maxX);});return{zFront:mz,railMinX:mn,railMaxX:mx,y};}
+  return null;}
+function clampCushionX(rec,x){const rail=cushionRail();if(!rail)return x;const hw=extOf(rec).x/2;
+  let lo=rail.railMinX+hw, hi=rail.railMaxX-hw;
+  placed.filter(p=>p!==rec&&isCushion(p.data)&&(p._row||0)===(rec._row||0)).forEach(o=>{const sep=extOf(o).x/2+hw+CUSH_GAP;
+    if(o.root.position.x<rec.root.position.x)lo=Math.max(lo,o.root.position.x+sep); // kaimynas kairėje – apatinė riba
+    else hi=Math.min(hi,o.root.position.x-sep);});                                   // kaimynas dešinėje – viršutinė riba
+  if(lo>hi)return (lo+hi)/2; return Math.min(hi,Math.max(lo,x));}
+const CUSH_PER_ROW=3;
+function cushionRowBackStop(row,rail){if(row<=0)return rail.zFront;
+  const prev=placed.filter(p=>isCushion(p.data)&&(p._row||0)===row-1);
+  if(!prev.length)return rail.zFront;
+  return Math.max(...prev.map(c=>c.root.position.z+extOf(c).z/2));} // ankstesnės eilės priekis = nematomas atlošas
+function placeNewCushion(rec){const rail=cushionRail();const e=extOf(rec);
+  if(!rail){rec.root.position.set(0,0.37,0);return;}
+  const others=placed.filter(p=>p!==rec&&isCushion(p.data));
+  let row=0;while(others.filter(p=>(p._row||0)===row).length>=CUSH_PER_ROW)row++; rec._row=row; // >3 -> nauja eilė priekyje
+  const same=others.filter(p=>(p._row||0)===row);
+  const z=cushionRowBackStop(row,rail)+e.z/2-0.04;let x;
+  if(!same.length)x=(rail.railMinX+rail.railMaxX)/2;
+  else{const right=Math.max(...same.map(o=>aabb(o).maxX));x=right+e.x/2+CUSH_GAP;
+    if(x>rail.railMaxX-e.x/2){const left=Math.min(...same.map(o=>aabb(o).minX));x=left-e.x/2-CUSH_GAP;}}
+  x=Math.min(rail.railMaxX-e.x/2,Math.max(rail.railMinX+e.x/2,x));
+  rec.root.position.set(x,rail.y,z);updateSelBox();}
+function snapToNeighbors(rec){
+  if(placed.length<2){gridSnap(rec);return;}
+  const A=aabb(rec);let best=null;
+  const add=(dx,dz)=>{const cost=Math.hypot(dx,dz);if(!best||cost<best.cost)best={cost,dx,dz};};
+  placed.forEach(p=>{if(p===rec)return;const B=aabb(p);
+    // skersinės ašies sulygiavimai: kraštas-prie-krašto (kampui / V / U) arba centras (tiesiai eilei)
+    const zAlign=[B.minZ-A.minZ, B.maxZ-A.maxZ, B.cz-A.cz];
+    const xAlign=[B.minX-A.minX, B.maxX-A.maxX, B.cx-A.cx];
+    const rightX=B.maxX-A.minX+SNAP_GAP, leftX=B.minX-A.maxX-SNAP_GAP;   // A dešinėje / kairėje nuo B
+    const backZ=B.maxZ-A.minZ+SNAP_GAP,  frontZ=B.minZ-A.maxZ-SNAP_GAP;  // A už / priekyje B
+    zAlign.forEach(dz=>{add(rightX,dz);add(leftX,dz);});                 // jungimas per X – kraštai lygiuojasi per Z
+    xAlign.forEach(dx=>{add(dx,backZ);add(dx,frontZ);});                 // jungimas per Z – kraštai lygiuojasi per X
+  });
+  if(best&&best.cost<SNAP_RANGE){rec.root.position.x+=best.dx;rec.root.position.z+=best.dz;}else gridSnap(rec);
+}
+
+/* SELECT + DRAG — robustas: geometrinė patikra + stopPropagation prieš OrbitControls */
+let selBox=null;
+function updateSelBox(){if(selBox){scene.remove(selBox);selBox=null;}if(selected){const b=new THREE.Box3().setFromObject(selected.root);selBox=new THREE.Box3Helper(b,0xc08a3e);scene.add(selBox);}}
+function select(p){selected=p||null;placed.forEach(q=>setEmissive(q,false));if(selected)setEmissive(selected,true);updateSelBox();$('#btnRotate').disabled=!selected;$('#btnDelete').disabled=!selected;
+  if(selected&&isCushion(selected.data)&&curFamily==='cloud'){setHint('Pasirink audinį – jis keisis tik šiai pagalvei');const fn=selected._fab||curFabric;document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',fn&&s.dataset.name===fn.name));}
+  else{document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',curFabric&&s.dataset.name===curFabric.name));}}
+function setEmissive(p,on){p.root.traverse(o=>{if(o.isMesh&&o.material&&o.material.emissive){o.material.emissive.setHex(on?0x4a3614:0x000000);}});}
+const _ray=new THREE.Raycaster(),_floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+let _dragRec=null;const _grab=new THREE.Vector3();
+function _ndc(ev){const r=renderer.domElement.getBoundingClientRect();return new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);}
+function _floorPoint(ev){_ray.setFromCamera(_ndc(ev),camera);const p=new THREE.Vector3();return _ray.ray.intersectPlane(_floorPlane,p)?p:null;}
+function _inCanvas(ev){const r=renderer.domElement.getBoundingClientRect();return ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom;}
+function onDragMove(ev){if(!_dragRec)return;ev.stopPropagation();const fp=_floorPoint(ev);if(!fp)return;if(isCushion(_dragRec.data)&&curFamily==='cloud'){const rail=cushionRail(),e=extOf(_dragRec);_dragRec.root.position.x=clampCushionX(_dragRec,fp.x+_grab.x);if(rail){_dragRec.root.position.z=cushionRowBackStop(_dragRec._row||0,rail)+e.z/2-0.04;_dragRec.root.position.y=rail.y;}updateSelBox();return;}_dragRec.root.position.x=fp.x+_grab.x;_dragRec.root.position.z=fp.z+_grab.z;_dragRec.root.position.y=0;updateSelBox();}
+function onDragUp(ev){if(!_dragRec)return;ev.stopPropagation();if(!(isCushion(_dragRec.data)&&curFamily==='cloud')){autoOrientBackArm(_dragRec);snapToNeighbors(_dragRec);}updateSelBox();_dragRec=null;orbit.enabled=true;updateRoom();saveState();
+  window.removeEventListener('pointermove',onDragMove,true);window.removeEventListener('pointerup',onDragUp,true);}
+function onCanvasPointerDown(ev){
+  if(locked)return;            // užrakinta – modulių neliečiam, OrbitControls suka visą sofą
+  _ray.setFromCamera(_ndc(ev),camera);
+  const hit=_ray.intersectObjects(placed.map(p=>p.root),true)[0];
+  if(hit){
+    let o=hit.object;while(o&&!o.userData.isModule)o=o.parent;const rec=placed.find(p=>p.root===o);select(rec);
+    const fp=_floorPoint(ev);
+    if(rec&&fp){
+      ev.stopImmediatePropagation();ev.preventDefault();      // OrbitControls (registruotas vėliau) negaus šio paspaudimo
+      _dragRec=rec;_grab.set(rec.root.position.x-fp.x,0,rec.root.position.z-fp.z);orbit.enabled=false;
+      window.addEventListener('pointermove',onDragMove,true);
+      window.addEventListener('pointerup',onDragUp,true);
+      setHint('Tempk — modulis seks paskui pelę');
+    }
+  } else select(null);
+}
+
+/* ADD MODULE */
+async function addModule(data,opts={}){
+  setHint('Kraunamas modulis…');
+  try{
+    const root=await loadGLB(data.glb);root.userData.data=data;
+    let mc=0;root.traverse(o=>{if(o.isMesh)mc++;});if(!mc){setHint('Modelis tuščias: '+data.glb);return null;}
+    if(!opts.raw)normScale(root,parseFloat((data.dims_cm||{}).W));
+    let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;
+    root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);
+    const wrap=new THREE.Group();wrap.userData.isModule=true;wrap.userData.data=data;wrap.add(root);
+    const rec={root:wrap,data,box:{x:size.x,y:size.y,z:size.z},rot:0,_tex:curTex};
+    if(opts.ori){const wide=size.x>=size.z;opts.rot=(opts.ori==='wide')?(wide?0:1):(wide?1:0);}
+    rec.rot=((opts.rot||0)%4+4)%4;wrap.rotation.y=rec.rot*Math.PI/2;
+    wrap.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+    scene.add(wrap);placed.push(rec);
+    if(opts.x!==undefined)wrap.position.set(opts.x,0,opts.z||0);
+    else if(isCushion(data)&&curFamily==='cloud'){placeNewCushion(rec);}
+    else if(opts.flushRight){placeFlushRight(rec);if(placed.length>1)snapToNeighbors(rec);}
+    else placeInFront(rec);
+    applyFabricTo(rec);updatePrice();select(rec);
+    if(opts.frame!==false)frameAll();
+    updateRoom();setHint(opts.flushRight||(isCushion(data)&&curFamily==='cloud')?'':'Naujas modulis priekyje — nutempk pele į vietą');
+    return rec;
+  }catch(e){console.error(e);setHint('Nepavyko įkelti modelio');return null;}
+}
+function placeFlushRight(rec){if(placed.length===1){rec.root.position.set(0,0,0);return;}let maxX=-Infinity,refZ=0;placed.forEach(p=>{if(p===rec)return;const a=aabb(p);if(a.maxX>maxX){maxX=a.maxX;refZ=a.cz;}});const e=extOf(rec);rec.root.position.set(maxX+e.x/2+SNAP_GAP,0,refZ);}
+function placeInFront(rec){const b=assemblyBox(),e=extOf(rec);if(!b||placed.length===1){rec.root.position.set(0,0,0);return;}rec.root.position.set(b.cx,0,b.maxZ+e.z/2+0.3);}
+function arrangeAll(){
+  if(placed.length<2){frameAll();return;}
+  const order=[...placed].sort((a,b)=>a.root.position.x-b.root.position.x); // kairė -> dešinė
+  const z0=order[0].root.position.z;
+  order[0].root.position.z=z0;
+  let edge=aabb(order[0]).maxX;
+  for(let i=1;i<order.length;i++){const rec=order[i],e=extOf(rec);
+    rec.root.position.set(edge+e.x/2+SNAP_GAP,0,z0);edge=aabb(rec).maxX;}
+  updateRoom();updateSelBox();saveState();frameAll();setHint('Sutvarkyta į vieną sofą');}
+function frameAll(customDir){const b=assemblyBox();if(!b)return;
+  const center=new THREE.Vector3(b.cx,b.h*0.45,b.cz);
+  const dir=(customDir?customDir.clone():new THREE.Vector3(1,0.6,1.25)).normalize();
+  const right=new THREE.Vector3().crossVectors(new THREE.Vector3(0,1,0),dir).normalize();
+  const camUp=new THREE.Vector3().crossVectors(dir,right).normalize();
+  const vTan=Math.tan(THREE.MathUtils.degToRad(camera.fov)/2),hTan=vTan*camera.aspect;
+  let dist=0;
+  for(const X of [b.minX,b.maxX])for(const Y of [0,b.h])for(const Z of [b.minZ,b.maxZ]){
+    const w=new THREE.Vector3(X,Y,Z).sub(center);const dz=w.dot(dir);
+    dist=Math.max(dist,dz+Math.abs(w.dot(right))/hTan,dz+Math.abs(w.dot(camUp))/vTan);}
+  dist=THREE.MathUtils.clamp(dist*1.16,1.1,22);
+  orbit.target.copy(center);
+  camera.position.copy(center.clone().add(dir.multiplyScalar(dist)));
+  camera.near=Math.max(0.02,dist*0.08);camera.far=dist*4+40;camera.updateProjectionMatrix();
+  orbit.update();}
+
+/* PRICE */
+function saveState(){if(!ready)return;try{localStorage.setItem('sofalova_cfg_v2',encodeConfig());}catch(e){}}
+function updatePrice(){saveState();let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});
+  $('#price').textContent='€'+min;$('#priceNote').textContent=placed.length?(min!==max?('iki €'+max):(placed.length+' moduliai')):'pasirink modulius';
+  $('#monthly').innerHTML=placed.length?('≈ <b>€'+Math.round(min/12)+'</b>/mėn · 12 mėn.'):'';}
+
+/* FABRIC (HD + tiksli vidutinė spalva iš nuotraukos) */
+const texLoader=new THREE.TextureLoader();texLoader.setCrossOrigin('anonymous');
+function proxied(url,w){return 'https://images.weserv.nl/?url='+encodeURIComponent('ssl:'+url.replace(/^https?:\/\//,''))+'&w='+w;}
+function avgColor(img){try{const c=document.createElement('canvas');c.width=c.height=20;const x=c.getContext('2d');x.drawImage(img,0,0,20,20);
+  const d=x.getImageData(0,0,20,20).data;let r=0,g=0,b=0,n=0;for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++;}
+  return new THREE.Color(r/n/255,g/n/255,b/n/255);}catch(e){return null;}}
+function makeFabricBump(){const s=128,c=document.createElement('canvas');c.width=c.height=s;const x=c.getContext('2d');
+  const im=x.createImageData(s,s);
+  for(let j=0;j<s;j++)for(let i=0;i<s;i++){const u=i/s*Math.PI*2,v=j/s*Math.PI*2;
+    let n=Math.sin(u*8)*Math.sin(v*8)*0.5+Math.sin(u*16+1.1)*0.25+Math.sin(v*14+0.5)*0.25;
+    const g=128+n*42,k=(j*s+i)*4;im.data[k]=im.data[k+1]=im.data[k+2]=Math.max(0,Math.min(255,g));im.data[k+3]=255;}
+  x.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(9,9);return t;}
+const FABRIC_BUMP=makeFabricBump();
+function fabricParams(cat){cat=(cat||'').toLowerCase();
+  if(cat.indexOf('matte')>=0)   return {rough:0.85,sheen:0.18,srough:0.85,bump:0.010};
+  if(cat.indexOf('velvet')>=0)  return {rough:0.55,sheen:0.55,srough:0.45,bump:0.008};
+  if(cat.indexOf('boucle')>=0)  return {rough:0.97,sheen:0.06,srough:0.90,bump:0.060};
+  if(cat.indexOf('corduroy')>=0)return {rough:0.88,sheen:0.06,srough:0.80,bump:0.040};
+  return {rough:0.92,sheen:0.04,srough:0.90,bump:0.026};} // plain/weave/linen/outdoor
+function classifyLegs(rec){
+  const box=new THREE.Box3().setFromObject(rec.root);
+  const minY=box.min.y,H=Math.max(0.001,box.max.y-box.min.y);
+  const CW=Math.max(0.001,box.max.x-box.min.x),CD=Math.max(0.001,box.max.z-box.min.z);
+  const wantFrame=!!(rec.data&&rec.data.frameRods);
+  rec.root.traverse(o=>{if(o.isMesh){const b=new THREE.Box3().setFromObject(o);
+    const top=(b.max.y-minY)/H, span=(b.max.y-b.min.y)/H, wx=(b.max.x-b.min.x)/CW, dz=(b.max.z-b.min.z)/CD;
+    const thin=wx<0.33&&dz<0.33;
+    const byName=/leg|glider|foot|kojel/i.test(o.name||''); // Uma: kojos – vienas platus mesh'as „Legs_Metal“
+    o.userData.isLeg=(thin&&top<0.34) || (wantFrame&&thin&&span>0.30) || byName; // koja (žema+plona) | rėmo strypas (plonas+aukštas, tik flaguotiems) | pagal pavadinimą
+    o.userData.noFab=o.userData.isLeg;}});
+}
+function applyLegColor(rec,leg){
+  if(!leg||!leg.color)return;
+  const metal=leg.finish==='metal';
+  rec.root.traverse(o=>{if(o.isMesh&&o.userData.isLeg){
+    o.material=new THREE.MeshStandardMaterial({color:new THREE.Color(leg.color),roughness:metal?0.35:0.62,metalness:metal?0.85:0.05});
+    o.material.envMapIntensity=metal?0.8:0.3; o.userData.fabMat=false;
+  }});
+}
+function boxUV(o,horiz){ // BOX (triplanar) UV pasaulio (world) koordinatėse — teisingas tankis nepriklausomai nuo mesh'o lokalaus mastelio; horiz=true pasuka raštą 90°
+  const g=o.geometry;
+  o.updateWorldMatrix(true,false);
+  const mw=o.matrixWorld, nm=new THREE.Matrix3().getNormalMatrix(mw);
+  if(!g.attributes.normal)g.computeVertexNormals();
+  const pos=g.attributes.position,nor=g.attributes.normal,n=pos.count,uv=new Float32Array(n*2),S=0.5;
+  const vp=new THREE.Vector3(),vn=new THREE.Vector3();
+  for(let i=0;i<n;i++){
+    vp.set(pos.getX(i),pos.getY(i),pos.getZ(i)).applyMatrix4(mw);
+    vn.set(nor.getX(i),nor.getY(i),nor.getZ(i)).applyMatrix3(nm).normalize();
+    const ax=Math.abs(vn.x),ay=Math.abs(vn.y),az=Math.abs(vn.z);
+    let u,v;
+    if(ax>=ay&&ax>=az){u=vp.z;v=vp.y;}      // šoninės plokštumos (YZ)
+    else if(ay>=ax&&ay>=az){u=vp.x;v=vp.z;} // viršus/apačia (XZ)
+    else{u=vp.x;v=vp.y;}                     // priekis/galas (XY)
+    if(horiz){const t=u;u=v;v=t;}           // pasukti 90° -> raštas horizontaliai
+    uv[i*2]=u/S; uv[i*2+1]=v/S;
+  }
+  g.setAttribute('uv',new THREE.BufferAttribute(uv,2));
+  o.userData._rep=[1,1]; // tankis įskaičiuotas
+}
+function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const base=fab._avg||new THREE.Color(fab.hex);const tex=rec._tex||null;const P=fabricParams(fab.category);
+  if(rec.data&&rec.data.legFilter&&!rec._legDone){classifyLegs(rec);rec._legDone=true;}
+  const forceBox=!!(rec.data&&(rec.data.forceBoxUV||rec.data.legFilter)),horiz=!!(rec.data&&rec.data.uvHoriz);
+  rec.root.traverse(o=>{if(o.isMesh){
+    if(o.userData.noFab){return;} // kojos/pagrindas lieka originalūs
+    if((forceBox||!o.geometry.attributes.uv)&&!o.userData._boxDone){boxUV(o,horiz);o.userData._boxDone=true;} // sugadintą arba trūkstamą UV perrašom box mapping'u
+    if(!o.userData.fabMat){o.material=new THREE.MeshPhysicalMaterial({metalness:0,side:THREE.DoubleSide,bumpMap:FABRIC_BUMP});o.material.envMapIntensity=0.30;o.userData.fabMat=true;}
+    const m=o.material;m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=new THREE.Color(0xffffff);m.bumpScale=P.bump;
+    if(!o.userData._rep){if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();const gs=new THREE.Vector3();o.geometry.boundingBox.getSize(gs);const T=0.5;const cl=v=>Math.min(3,Math.max(0.4,(v||T)/T));o.userData._rep=[cl(gs.x),cl(Math.max(gs.y||0,gs.z||0))];} // vienodas audinio tankis pagal dydį
+    const rp=o.userData._rep;
+    if(tex){const t=tex.clone();t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rp[0],rp[1]);t.needsUpdate=true;m.map=t;m.color.set(0xffffff);
+      const bm=FABRIC_BUMP.clone();bm.wrapS=bm.wrapT=THREE.RepeatWrapping;bm.repeat.set(rp[0],rp[1]);bm.needsUpdate=true;m.bumpMap=bm;}
+    else{m.map=null;m.bumpMap=FABRIC_BUMP;m.color.copy(base);}m.needsUpdate=true;}});}
+function loadFabricTexture(f,onOk){
+  const url=f.image;
+  const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}
+    if(t.image && !f._avg){const c=avgColor(t.image);if(c)f._avg=c;}onOk(t);};
+  // proxy iš karto (patikimas CORS + galima nuskaityti vidutinę spalvą)
+  texLoader.load(proxied(url,1536),setup,undefined,()=>{
+    texLoader.load(url+(url.includes('?')?'&':'?')+'width=1200',setup,undefined,()=>{onOk(null);}); // atsarginis tiesioginis
+  });
+}
+function abrasionStars(a){if(!a)return '';const n=Math.round(parseFloat((''+a).split('-').pop()));return '★'.repeat(n)+'☆'.repeat(Math.max(0,5-n));}
+const FEAT_LT={'easy-cleaning':'Lengvai valoma','waterproof':'Atspari vandeniui','pet-friendly':'Augintiniams draugiška'};
+function specHTML(f){let r='';if(f.comp)r+=`<div class="row"><span>Sudėtis</span><b>${f.comp}</b></div>`;if(f.gsm)r+=`<div class="row"><span>Tankis</span><b>${f.gsm}</b></div>`;
+  r+=`<div class="row"><span>Kategorija</span><b>${f.category}</b></div>`;if(f.abrasion)r+=`<div class="row"><span>Atsparumas dilimui</span><b><span class="stars">${abrasionStars(f.abrasion)}</span> ${f.abrasion}/5 kl.</b></div>`;
+  const feats=(f.features||[]).map(x=>`<span class="badge">${FEAT_LT[x]||x}</span>`).join('');if(feats)r+=`<div class="feats">${feats}</div>`;return r;}
+function extraHTML(f){if(!f.desc&&!f.care)return '';let inner='';
+  if(f.desc)inner+=`<p class="more-desc">${f.desc}</p>`;
+  if(f.care)inner+=`<div class="more-care"><span class="more-care-h">\uD83E\uDDFC Priežiūra ir valymas</span>${f.care}</div>`;
+  return `<button type="button" class="more-btn" onclick="toggleMore(this)"><span class="mb-ic">\uFF0B</span><span class="mb-tx">Audinio aprašymas ir priežiūra</span></button><div class="more-wrap"><div class="more-inner">${inner}</div></div>`;}
+window.toggleMore=function(btn){const w=btn.nextElementSibling;const open=w.classList.toggle('open');
+  btn.querySelector('.mb-ic').textContent=open?'\u2212':'\uFF0B';
+  btn.querySelector('.mb-tx').textContent=open?'Slėpti informaciją':'Audinio aprašymas ir priežiūra';};
+function setFabric(f){
+  if(selected&&isCushion(selected.data)&&curFamily==='cloud'){const rec=selected;rec._fab=f;rec._tex=null;
+    document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
+    $('#fabName').innerHTML='<b>'+f.name+'</b> · tik pagalvei';applyFabricTo(rec);
+    loadFabricTexture(f,t=>{if(rec._fab!==f)return;rec._tex=t;applyFabricTo(rec);});saveState();return;}
+  curFabric=f;curTex=null;$('#fabName').innerHTML='<b>'+f.name+'</b>';
+  document.querySelectorAll('.sw').forEach(s=>s.classList.toggle('active',s.dataset.name===f.name));
+  placed.forEach(p=>{if(p._fab)return;p._tex=null;applyFabricTo(p);});
+  loadFabricTexture(f,t=>{if(curFabric!==f)return;curTex=t;placed.forEach(p=>{if(p._fab)return;p._tex=t;applyFabricTo(p);});});saveState();}
+
+/* THUMBNAILS (HQ) */
+const thumbRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+thumbRenderer.setPixelRatio(2);thumbRenderer.setSize(360,270);thumbRenderer.outputColorSpace=THREE.SRGBColorSpace;thumbRenderer.toneMapping=THREE.ACESFilmicToneMapping;thumbRenderer.toneMappingExposure=1.0;
+const thumbScene=new THREE.Scene();thumbScene.environment=ENV;
+thumbScene.add(new THREE.HemisphereLight(0xffffff,0xd8d0c4,1.4));
+const td1=new THREE.DirectionalLight(0xffffff,2.0);td1.position.set(3,5,4);thumbScene.add(td1);
+const td2=new THREE.DirectionalLight(0xffffff,0.5);td2.position.set(-3,2,-2);thumbScene.add(td2);
+const thumbCam=new THREE.PerspectiveCamera(38,360/270,.01,100);
+function renderThumb(group,front){
+  const box=new THREE.Box3().setFromObject(group),size=new THREE.Vector3(),c=new THREE.Vector3();box.getSize(size);box.getCenter(c);group.position.sub(c);
+  group.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshPhysicalMaterial({color:0xccbda6,roughness:.9,metalness:0});o.material.envMapIntensity=0.7;}});
+  thumbScene.add(group);const md=Math.max(size.x,size.y,size.z)||1,dist=md*1.85;
+  if(front) thumbCam.position.set(dist*0.16,dist*0.42,dist); // veidu į sofą (priekis)
+  else      thumbCam.position.set(dist*0.82,dist*0.7,dist);  // 3/4 moduliams
+  thumbCam.lookAt(0,0,0);
+  thumbRenderer.render(thumbScene,thumbCam);const url=thumbRenderer.domElement.toDataURL('image/png');thumbScene.remove(group);return url;
+}
+const thumbCache={};
+async function thumbFor(glb){if(thumbCache[glb])return thumbCache[glb];try{const g=await loadGLB(glb);const u=renderThumb(g,false);thumbCache[glb]=u;return u;}catch(e){return null;}}
+async function presetThumb(codes,layout,build){const key=curFamily+':'+(build?'B'+JSON.stringify(build):layout?'L'+layout.map(i=>i.code+i.x+i.z+i.rot).join(','):codes.join(','));if(thumbCache[key])return thumbCache[key];
+  try{const fam=MANIFEST.families[curFamily];const group=new THREE.Group();let x=0;
+    if(build){const L=await cloudLayout(build);
+      for(const it of L){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);const box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;const wrp=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrp.add(root);wrp.rotation.y=(it.rot||0)*Math.PI/2;wrp.position.set(it.x,0,it.z);group.add(wrp);}
+      if(!group.children.length)return null;const ub=renderThumb(group,true);thumbCache[key]=ub;return ub;}
+    const items=layout||codes.map(c=>({code:c,_row:true}));
+    for(const it of items){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;const root=await loadGLB(d.glb);
+      normScale(root,parseFloat((d.dims_cm||{}).W));let box=new THREE.Box3().setFromObject(root),size=new THREE.Vector3();box.getSize(size);const min=box.min;
+      if(it._row){root.position.set(x-min.x,-min.y,-min.z-size.z/2);group.add(root);x+=size.x;}
+      else{const wrap=new THREE.Group();root.position.set(-min.x-size.x/2,-min.y,-min.z-size.z/2);wrap.add(root);let _rt=it.rot||0;if(it.ori){const wide=size.x>=size.z;_rt=(it.ori==='wide')?(wide?0:1):(wide?1:0);}wrap.rotation.y=_rt*Math.PI/2;wrap.position.set(it.x/100,0,it.z/100);group.add(wrap);}}
+    if(!group.children.length)return null;const u=renderThumb(group,true);thumbCache[key]=u;return u;}catch(e){return null;}}
+
+/* UI: tabs/presets/modules */
+function setHint(t){const h=$('#hint');h.textContent=t||'';h.style.opacity=t?1:0;}
+function buildTabs(){const t=$('#tabs');t.innerHTML='';
+  Object.entries(MANIFEST.families).forEach(([key,fam])=>{const b=document.createElement('button');b.className='tab';b.textContent=fam.name;
+    const has=(fam.modules&&fam.modules.length);if(!has)b.disabled=true;
+    b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curFamily=key;buildPresets();buildModules();};
+    t.appendChild(b);if(!curFamily&&has){curFamily=key;b.classList.add('active');}});}
+
+/* presetai: Hug — TIKRAS Optisofa receptas (MCL+MSN+MCR). Slay/Cloud — logiški (TODO: tikslūs receptai) */
+const HUG_STRUCTURE='Karkasas \u2014 kietmedžio fanera. Užpildas \u2014 kintamo tankio poliuretano puta su perdirbto poliesterio pluošto sluoksniu. Sėdynė: medinis karkasas, elastinės spyruoklės, juosmenė ir Pocket Bonell. Atlošas ir ranktūris (40 cm pločio) \u2014 kintamo tankio poliuretanas su minkštu gaubtu. Kojos \u2014 juodos plastikinės su veltinio pagalvėlėmis. Užvalkalai nenuimami. Matmenų tolerancija \u00b12 cm.';
+const MODULE_INFO={
+  MCL:{type:'Kampinis kairinis modulis',dim:'103 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'37 kg',desc:'Kairysis kampinis elementas su ranktūriu ir suapvalintu atlošu kairėje \u2014 sofos kairysis galas.'},
+  MCR:{type:'Kampinis dešininis modulis',dim:'103 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'37 kg',desc:'Dešinysis kampinis elementas su ranktūriu ir suapvalintu atlošu dešinėje \u2014 sofos dešinysis galas.'},
+  MSW:{type:'Plati vidurinė sėdynė',dim:'90 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'29 kg',desc:'Vidurinis sėdimasis modulis be ranktūrių; platesnė sėdimoji dalis.'},
+  MSN:{type:'Siaura vidurinė sėdynė',dim:'65 \u00d7 103 \u00d7 70 cm',seat:'42 cm',weight:'23 kg',desc:'Vidurinis sėdimasis modulis be ranktūrių; siauresnis \u2014 kompaktiškoms kompozicijoms.'},
+  OTN:{type:'Siauras pufas',dim:'65 \u00d7 103 \u00d7 42 cm',seat:'42 cm',weight:'19 kg',desc:'Pufas / kojų atrama; tinka šezlongui suformuoti arba kaip atskira sėdynė.'},
+  OTW:{type:'Platus pufas',dim:'90 \u00d7 75 \u00d7 42 cm',seat:'42 cm',weight:'19 kg',desc:'Platus pufas / kojų atrama; dažnai naudojamas šezlongo galui.'}
+};
+function modBreakdown(codes){const c={};codes.forEach(k=>{c[k]=(c[k]||0)+1;});return Object.keys(c).map(k=>c[k]+'\u00d7 '+k).join(' \u00b7 ');}
+window.toggleMod=function(btn,ev){if(ev)ev.stopPropagation();const w=btn.nextElementSibling;const open=w.classList.toggle('open');const ic=btn.querySelector('.ms-ic');if(ic)ic.textContent=open?'\u2212':'\uFF0B';};
+const PRESETS={
+  hug:[
+    {name:'2 vietų \u00b7 206 cm',seq:['MCL','MCR']},
+    {name:'3 vietų siaura \u00b7 271 cm',seq:['MCL','MSN','MCR']},
+    {name:'3 vietų su pufu \u00b7 271 cm',seq:['MCL','OTN','MCR']},
+    {name:'3 vietų plati \u00b7 296 cm',seq:['MCL','MSW','MCR']},
+    {name:'Suolas su pufais \u00b7 310 cm',seq:['OTN','MSW','MSW','OTN']},
+    {name:'3 vietų + pufas \u00b7 258 cm',seq:['MCL','MSW','OTN']},
+    {name:'4 vietų \u00b7 361 cm',seq:['MCL','MSW','MSN','MCR']},
+    {name:'4 vietų siaura \u00b7 336 cm',seq:['MCL','MSN','MSN','MCR']},
+    {name:'4 vietų plati \u00b7 386 cm',seq:['MCL','MSW','MSW','MCR']}
+  ],
+  slay:[{name:'Sofa 2v',seq:['ML','MR']},{name:'Sofa 3v',seq:['ML','MS','MR']},{name:'Su šezlongu',seq:['ML','MS','OTMR']},{name:'Kampinė U',seq:['OTML','MS','MS','OTMR']}],
+  cloud:[
+    {name:'Cloud Sofa XS', seq:['85x85','85x85'], build:{run:['85x85','85x85'], armCode:'85x32'}},
+    {name:'Cloud Sofa S', seq:['106x85','106x85'], build:{run:['106x85','106x85'], armCode:'106x32'}},
+    {name:'Cloud Sofa M', seq:['106x85','85x85'], build:{type:'M'}},
+    {name:'Cloud Sofa L', seq:['106x85','106x85','106x85'], build:{type:'L'}},
+    {name:'Cloud Sofa XL', seq:['85x85','85x85','85x85'], build:{run:['85x85','85x85','85x85'], armCode:'106x32'}},
+    {name:'Cloud Sofa P', seq:['106x106','106x106','106x106'], build:{type:'P'}},
+    {name:'Cloud Sofa U', seq:['106x85','85x85','106x85','106x85','106x85'], build:{type:'U'}},
+  ],
+  loft:[
+    {name:'3 vietų \u00b7 252 cm',seq:['ML','MR']},
+    {name:'4 vietų \u00b7 347 cm',seq:['ML','MS','MR']},
+    {name:'Su šezlongu (kairė)',seq:['OTML','MR']},
+    {name:'Su šezlongu (dešinė)',seq:['ML','OTMR']},
+    {name:'Didelė su šezlongu',seq:['OTML','MS','MR']},
+    {name:'4 vietų + šezlongas',seq:['ML','MS','OTMR']}
+  ],
+};
+function buildPresets(){const wrap=$('#presets');wrap.innerHTML='';const fam=MANIFEST.families[curFamily];
+  const list=(PRESETS[curFamily]||[]).map(p=>({name:p.name,codes:p.seq.filter(c=>fam.modules.some(m=>m.code===c)),layout:p.layout,build:p.build})).filter(p=>p.codes.length);
+  if(!list.length){wrap.innerHTML='<div class="note">Šiai kolekcijai presetų nėra.</div>';return;}
+  list.forEach(p=>{const b=document.createElement('button');b.className='preset';b.innerHTML=`<div class="pthumb">⏳</div><div class="pname">${p.name}</div><div class="pmods">${modBreakdown(p.codes)}</div>`;b.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}applyPreset(p);};wrap.appendChild(b);
+    presetThumb(p.codes,p.layout,p.build).then(u=>{const t=b.querySelector('.pthumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});});}
+async function cloudLayout(r){
+  const fam=MANIFEST.families.cloud, mod=c=>fam.modules.find(m=>m.code===c);
+  const meas={}; for(const c of ['85x85','106x85','106x106','106x32','85x32']){const d=mod(c);if(!d)continue;const root=await loadGLB(d.glb);const b=new THREE.Box3().setFromObject(root),s=new THREE.Vector3();b.getSize(s);meas[c]={x:s.x,z:s.z};}
+  const fpx=(c,rot)=>(rot%2?meas[c].z:meas[c].x), fpz=(c,rot)=>(rot%2?meas[c].x:meas[c].z);
+  const seatRot=c=>(meas[c].z>meas[c].x?1:0);
+  const G=0.03, BACKD=(meas['85x32']?meas['85x32'].x:0.32), out=[];
+  const SF=(c,rot)=>({w:fpx(c,rot),d:fpz(c,rot)});
+  const seat=(c,rot,cx,cz)=>{out.push({code:c,x:cx,z:cz,rot});const f=SF(c,rot);return{code:c,cx,cz,w:f.w,d:f.d};};
+  const backOf=s=>{const bc=s.w>=0.95?'106x32':'85x32';out.push({code:bc,x:s.cx,z:s.cz-s.d/2-fpz(bc,1)/2+G,rot:1});}; // atlošas už sėdynės
+  const armOf=(s,side,code)=>{const ac=code||(s.d>=0.95?'106x32':'85x32');const aw=fpx(ac,0),ad=fpz(ac,0);const ax=side<0?s.cx-s.w/2-aw/2+G:s.cx+s.w/2+aw/2-G;out.push({code:ac,x:ax,z:s.cz-s.d/2-BACKD+G+ad/2,rot:0});}; // porankis, galas ties atlošo linija
+
+  if(r.type==='M'){const fa=SF('106x85',0),fb=SF('85x85',0); // kairė gili (106x85), dešinė (85x85), atlošai, be porankių
+    const A=seat('106x85',0, fa.w/2, fa.d/2);
+    const B=seat('85x85',0, fa.w-G+fb.w/2, fb.d/2);
+    backOf(A);backOf(B);return out;}
+
+  if(r.type==='L'){const fw=SF('106x85',1); // 2 sėdynės gale + šezlongas priekyje kairėje
+    const A=seat('106x85',1, fw.w/2, 0);
+    const B=seat('106x85',1, fw.w-G+fw.w/2, 0);
+    seat('106x85',1, A.cx, A.cz+A.d/2-G+fw.d/2); // šezlongas priešais A
+    backOf(A);backOf(B);armOf(A,-1,'106x32');armOf(B,1,'106x32');return out;}
+
+  if(r.type==='P'){const fs=SF('106x106',0); // 3x 106x106 kampu, šezlongas priekyje kairėje; kairėje ištisinė porankių siena, dešinė atvira
+    const A=seat('106x106',0, fs.w/2, 0);
+    const B=seat('106x106',0, fs.w-G+fs.w/2, 0);
+    const C=seat('106x106',0, A.cx, A.cz+A.d/2-G+fs.d/2); // šezlongas priešais A
+    backOf(A);backOf(B);
+    armOf(A,-1,'106x32'); // kairysis porankis prie galinės kairės sėdynės (lygiuotas su nugara)
+    {const ac='106x32',aw=fpx(ac,0),ad=fpz(ac,0),aFront=A.cz-A.d/2-BACKD+G+ad; // šezlongo kairys porankis — tęsia sieną į priekį
+     out.push({code:ac, x:C.cx-C.w/2-aw/2+G, z:aFront-G+ad/2, rot:0});}
+    return out;}
+
+  if(r.type==='U'){const fw=SF('106x85',1),fm=SF('85x85',0); // 3 gale + 2 sparnai priekyje = U
+    const A=seat('106x85',1, fw.w/2, 0);
+    const M=seat('85x85',0, fw.w-G+fm.w/2, 0);
+    const C=seat('106x85',1, fw.w-G+fm.w-G+fw.w/2, 0);
+    seat('106x85',1, A.cx, A.cz+A.d/2-G+fw.d/2); // kairys sparnas (atviras)
+    seat('106x85',1, C.cx, C.cz+C.d/2-G+fw.d/2); // dešinys sparnas (atviras)
+    backOf(A);backOf(M);backOf(C);armOf(A,-1,'106x32');armOf(C,1,'106x32');return out;}
+
+  // TIESI (run) — sėdynės eilėje + atlošai + porankiai galuose
+  let cur=0; const seats=[];
+  for(const c of r.run){if(!meas[c])continue;const rot=seatRot(c),f=SF(c,rot),cx=cur+f.w/2;seats.push(seat(c,rot,cx,0));cur+=f.w-G;}
+  if(!seats.length)return out;
+  seats.forEach(s=>backOf(s));
+  if(r.arms!==false){armOf(seats[0],-1,r.armCode);armOf(seats[seats.length-1],1,r.armCode);}
+  return out;
+}
+async function buildCloudSet(r){clearAll();const fam=MANIFEST.families.cloud;const layout=await cloudLayout(r);
+  for(const it of layout){const d=fam.modules.find(m=>m.code===it.code);if(d)await addModule(d,{x:it.x,z:it.z,rot:it.rot,raw:true,frame:false});}
+  frameAll();updateRoom();saveState();}
+async function applyPreset(p){if(p.build){await buildCloudSet(p.build);return;}clearAll();const fam=MANIFEST.families[curFamily];if(p.layout){for(const it of p.layout){const d=fam.modules.find(m=>m.code===it.code);if(!d)continue;await addModule(d,{x:it.x/100,z:it.z/100,rot:it.rot||0,ori:it.ori,frame:false});}}else{for(const code of p.codes){const d=fam.modules.find(m=>m.code===code);if(!d)continue;await addModule(d,{flushRight:true,frame:false});}}frameAll();updateRoom();}
+
+function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#modules');wrap.innerHTML='';
+  const items=[...(fam.modules||[]),...(fam.cushions||[])];
+  items.forEach(d=>{const el=document.createElement('div');el.className='mod';
+    const price=d.price_min===d.price_max?('€'+d.price_min):('€'+d.price_min+'–'+d.price_max);
+    const dim=d.dims_cm?`${d.dims_cm.W||'?'}×${d.dims_cm.D||'?'}×${d.dims_cm.H||'?'} cm`:'';
+    const mi=MODULE_INFO[d.code];
+    const spec=mi?`<div class="mod-spec"><button type="button" class="mod-spec-btn" onclick="toggleMod(this,event)"><span class="ms-ic">\uFF0B</span> Specifikacija</button><div class="mod-spec-wrap"><div class="mod-spec-in"><div class="ms-row"><span>Tipas</span><b>${mi.type}</b></div><div class="ms-row"><span>Matmenys</span><b>${mi.dim}</b></div><div class="ms-row"><span>Sėdynės aukštis</span><b>${mi.seat}</b></div><div class="ms-row"><span>Svoris</span><b>${mi.weight}</b></div><p class="ms-desc">${mi.desc}</p><p class="ms-struct">${HUG_STRUCTURE}</p></div></div></div>`:'';
+    el.innerHTML=`<div class="thumb">⏳</div><div class="info"><div class="nm">${d.name}</div><div class="meta">${price} · ${dim}</div></div>${spec}<div class="add">＋</div>`;
+    el.onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}addModule(d);};wrap.appendChild(el);
+    if(d.glb)thumbFor(d.glb).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.textContent='';}else t.textContent='▢';});
+    else el.querySelector('.thumb').textContent='▢';});
+  if(fam.modules&&!fam.modules.length&&fam.note){const n=document.createElement('div');n.className='note';n.textContent=fam.note;wrap.appendChild(n);}}
+
+/* ── FOTELIAI (single-product režimas) ── */
+function buildArmchairs(){
+  const wrap=$('#armList'); if(!wrap)return; wrap.innerHTML='';
+  ARMCHAIRS.forEach(a=>{
+    const el=document.createElement('div'); el.className='armcard'; el.dataset.code=a.code;
+    el.innerHTML=`<div class="thumb"><span>⏳</span></div><div class="info"><div class="nm">${a.name}</div><div class="meta">€${a.price_eur} · ${a.W}×${a.D} cm</div></div>`;
+    el.onclick=()=>loadArmchair(a); wrap.appendChild(el);
+    if(a.glb)thumbFor(a.glb).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.innerHTML='';}else t.innerHTML='<span>▢</span>';});
+  });
+}
+async function loadArmchair(a){
+  clearAll(); curMode='single';
+  document.querySelectorAll('.armcard').forEach(c=>c.classList.toggle('active',c.dataset.code===a.code));
+  const data=Object.assign({},a,{price_min:a.price_eur,price_max:a.price_eur,legFilter:true,dims_cm:{W:a.W,D:a.D,H:a.H}});
+  const rec=await addModule(data,{raw:true,x:0,z:0,frame:false});
+  buildArmSpec(a);
+  if(!rec){const box=$('#armSpec');if(box)box.innerHTML='<h3>'+a.name+'</h3><div class="as-flag" style="color:#b4452f">⚠ Nepavyko įkelti 3D modelio: <b>'+a.glb+'</b>. Patikrink, ar failas įkeltas į repo (šaknyje arba armchairs/ aplanke).</div>';setHint('3D modelis nerastas: '+a.glb);}
+  else{classifyLegs(rec);rec._legDone=true;applyLegColor(rec,a.leg);if(curFabric)applyFabricTo(rec);setHint('Sukite pele · keiskite audinį dešinėje');frameAll(new THREE.Vector3(0.2,0.5,1.3));} // priekinis hero kampas (atlošas -Z)
+  saveState();
+}
+function buildArmSpec(a){
+  const box=$('#armSpec'); if(!box)return;
+  const feats=(a.features&&a.features.length)?`<ul>${a.features.map(f=>`<li>${f}</li>`).join('')}</ul>`:'';
+  const seat=a.seat_h?`<div class="as-row"><span>Sėdynės aukštis</span><b>${a.seat_h} cm</b></div>`:'';
+  const flag=a.price_approx?`<div class="as-flag">Kaina apytikslė (perskaičiuota iš Optisofa).</div>`:'';
+  box.innerHTML=`<h3>${a.name}</h3>
+    <div class="as-price">€${a.price_eur} <small>arba ≈ €${Math.round(a.price_eur/12)}/mėn · 12 mėn.</small></div>
+    <div class="as-row"><span>Matmenys (P×G×A)</span><b>${a.W}×${a.D}×${a.H} cm</b></div>
+    ${seat}${feats}
+    ${a.desc?`<div class="as-desc">${a.desc}</div>`:''}${flag}`;
+  box.classList.add('show');
+}
+function openCat(cat){
+  document.querySelectorAll('.cat-hd').forEach(h=>h.classList.toggle('active',h.dataset.cat===cat));
+  document.querySelectorAll('.cat-body').forEach(b=>b.classList.toggle('open',b.dataset.cat===cat));
+  if(cat==='modular'&&curMode!=='modular'){curMode='modular';clearAll();$('#armSpec').classList.remove('show');document.querySelectorAll('.armcard').forEach(c=>c.classList.remove('active'));}
+}
+function initCatNav(){document.querySelectorAll('.cat-hd').forEach(h=>{h.onclick=()=>openCat(h.dataset.cat);});}
+
+/* FABRIC FILTERS (dešinė) */
+let activeColor=null,activeFeat=null;
+const COLOR_LT={beige:'smėlio',brown:'ruda',grey:'pilka',green:'žalia',blue:'mėlyna',pink:'rožinė',yellow:'geltona',orange:'oranžinė',red:'raudona'};
+function buildFabricFilters(){
+  const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):s;
+  const fs=$('#featSel');fs.innerHTML='<option value="">Visos savybės</option>';
+  [...new Set(FABRICS.flatMap(f=>f.features||[]))].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=FEAT_LT[v]||v;fs.appendChild(o);});
+  fs.value=activeFeat||'';fs.onchange=()=>{activeFeat=fs.value||null;renderSwatches();};
+  const cs=$('#colorSel');cs.innerHTML='<option value="">Visos spalvos</option>';
+  [...new Set(FABRICS.map(f=>f.color))].filter(c=>c&&c!=='-').forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=cap(COLOR_LT[c]||c);cs.appendChild(o);});
+  cs.value=activeColor||'';cs.onchange=()=>{activeColor=cs.value||null;renderSwatches();};
+  renderSwatches();}
+function filteredFabrics(){return FABRICS.filter(f=>(!activeColor||f.color===activeColor)&&(!activeFeat||(f.features||[]).includes(activeFeat)));}
+function renderSwatches(){const list=filteredFabrics();const w=$('#swatches');w.innerHTML='';$('#fabCount').textContent=list.length+' / '+FABRICS.length;
+  list.forEach(f=>{const s=document.createElement('div');s.className='sw';s.dataset.name=f.name;s.title=f.name;
+    const im=document.createElement('div');im.className='sw-img';im.style.background=f.hex;
+    if(f.image){im.style.backgroundImage=`url("${f.image}&width=500")`;}
+    const nm=document.createElement('div');nm.className='sw-name';nm.textContent=f.name;
+    s.appendChild(im);s.appendChild(nm);
+    s.onclick=()=>{setFabric(f);showFabDesc(s,f);};if(curFabric&&curFabric.name===f.name)s.classList.add('active');w.appendChild(s);});}
+
+
+function showFabDesc(el,f){const w=$('#swatches');let d=document.getElementById('fabInline');
+  if(!d){d=document.createElement('div');d.id='fabInline';d.className='specbox show';}
+  d.innerHTML='<div class="fi-name">'+f.name+'</div>'+specHTML(f)+extraHTML(f);
+  const cards=[...w.querySelectorAll('.sw')];const idx=cards.indexOf(el);
+  if(idx<0){w.appendChild(d);return;}
+  const rowEnd=cards[Math.min(idx-(idx%2)+1,cards.length-1)];rowEnd.after(d);}
+/* ROOM */
+let roomOn=false,roomGroup=null;
+function clearRoom(){if(roomGroup){scene.remove(roomGroup);roomGroup=null;}$('#fit').classList.remove('show');}
+function updateRoom(){if(!roomOn){clearRoom();return;}clearRoom();
+  const W=Math.max(1,(parseFloat($('#roomW').value)||350)/100),D=Math.max(1,(parseFloat($('#roomD').value)||300)/100);
+  const b=assemblyBox();const cx=b?b.cx:0,cz=b?b.cz:0;roomGroup=new THREE.Group();
+  const rf=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshStandardMaterial({color:0xfbf8f3,roughness:1}));rf.rotation.x=-Math.PI/2;rf.position.set(cx,0.002,cz);rf.receiveShadow=true;roomGroup.add(rf);
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(W,D)),new THREE.LineBasicMaterial({color:0xc08a3e}));edge.rotation.x=-Math.PI/2;edge.position.set(cx,0.004,cz);roomGroup.add(edge);
+  const wm=new THREE.MeshStandardMaterial({color:0xece6dc,roughness:1,transparent:true,opacity:0.45,side:THREE.DoubleSide}),wh=1.2;
+  const back=new THREE.Mesh(new THREE.PlaneGeometry(W,wh),wm);back.position.set(cx,wh/2,cz-D/2);roomGroup.add(back);
+  const left=new THREE.Mesh(new THREE.PlaneGeometry(D,wh),wm);left.rotation.y=Math.PI/2;left.position.set(cx-W/2,wh/2,cz);roomGroup.add(left);scene.add(roomGroup);
+  const badge=$('#fit');if(!b){badge.classList.remove('show');return;}
+  const fw=Math.round((W-b.w)*100),fd=Math.round((D-b.d)*100);const sofaTxt=`Sofa: ${Math.round(b.w*100)}×${Math.round(b.d*100)} cm`;
+  if(fw>=0&&fd>=0)badge.innerHTML=`<span class="ok">✓ Telpa</span><br>${sofaTxt}<br>Lieka: ${fw}×${fd} cm`;
+  else{const miss=[];if(fw<0)miss.push(`pločio ${-fw} cm`);if(fd<0)miss.push(`ilgio ${-fd} cm`);badge.innerHTML=`<span class="bad">✗ Netelpa</span><br>${sofaTxt}<br>Trūksta: ${miss.join(', ')}`;}badge.classList.add('show');}
+$('#btnRoom').onclick=()=>{roomOn=!roomOn;$('#btnRoom').classList.toggle('on',roomOn);$('#roompanel').classList.toggle('show',roomOn);updateRoom();};
+$('#roomApply').onclick=()=>{updateRoom();$('#roompanel').classList.remove('show');};$('#roomW').onchange=updateRoom;$('#roomD').onchange=updateRoom;
+
+/* DIMENSIONS */
+let dimsOn=false,dimBox=null;
+function clearDimLabels(){$('#dimLabels').innerHTML='';}
+function project(v){const p=v.clone().project(camera);return{x:(p.x*0.5+0.5)*stage.clientWidth,y:(-p.y*0.5+0.5)*stage.clientHeight,vis:p.z<1};}
+function updateDimLabels(){if(!dimsOn){clearDimLabels();return;}const b=assemblyBox();const cont=$('#dimLabels');if(!b){cont.innerHTML='';return;}
+  const data=[[new THREE.Vector3(b.cx,0.02,b.maxZ),Math.round(b.w*100)+' cm'],[new THREE.Vector3(b.maxX,0.02,b.cz),Math.round(b.d*100)+' cm'],[new THREE.Vector3(b.maxX,b.h,b.maxZ),'H '+Math.round(b.h*100)+' cm']];
+  cont.innerHTML='';data.forEach(([v,txt])=>{const s=project(v);if(!s.vis)return;const d=document.createElement('div');d.className='dimlbl';d.style.left=s.x+'px';d.style.top=s.y+'px';d.textContent=txt;cont.appendChild(d);});}
+$('#btnDims').onclick=()=>{dimsOn=!dimsOn;$('#btnDims').classList.toggle('on',dimsOn);if(dimBox){scene.remove(dimBox);dimBox=null;}const b=assemblyBox();
+  if(dimsOn&&b){const box=new THREE.Box3(new THREE.Vector3(b.minX,0,b.minZ),new THREE.Vector3(b.maxX,b.h,b.maxZ));dimBox=new THREE.Box3Helper(box,0xc08a3e);scene.add(dimBox);}else clearDimLabels();};
+
+orbit.enableZoom=true; orbit.zoomSpeed=1.1;
+function zoomBy(factor){const dir=new THREE.Vector3().subVectors(camera.position,orbit.target);let len=dir.length()*factor;len=THREE.MathUtils.clamp(len,orbit.minDistance,orbit.maxDistance);dir.setLength(len);camera.position.copy(orbit.target).add(dir);orbit.update();}
+$('#btnCenter').onclick=()=>{if(!placed.length){toast('Pirma sudėk sofą');return;}frameAll();};
+$('#btnArrange').onclick=()=>{if(locked){toast('Atrakink, kad keistum sudėtį');return;}if(placed.length<2){toast('Reikia bent 2 modulių');return;}arrangeAll();};
+$('#btnZoomIn').onclick=()=>zoomBy(0.82);
+$('#btnZoomOut').onclick=()=>zoomBy(1.22);
+
+/* BUTTONS */
+$('#btnRotate').onclick=()=>{if(locked)return;if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;snapToNeighbors(selected);updateRoom();saveState();}};
+$('#btnDelete').onclick=()=>{if(locked)return;if(selected){scene.remove(selected.root);placed.splice(placed.indexOf(selected),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint('Spustelk modulį ar greitą rinkinį kairėje');}};
+function clearAll(){placed.forEach(p=>scene.remove(p.root));placed.length=0;updatePrice();select(null);updateRoom();setHint('Spustelk modulį ar greitą rinkinį kairėje');}
+function applyLockUI(){if(!placed.length)locked=false;const b=$('#btnLock');if(b){b.textContent=locked?'🔓 Atrakinti':'🔒 Užrakinti';b.classList.toggle('on',locked);}
+  if(locked)select(null);
+  $('#btnRotate').disabled=locked||!selected;$('#btnDelete').disabled=locked||!selected;
+  document.body.classList.toggle('locked',locked);}
+$('#btnLock').onclick=()=>{if(!placed.length){toast('Pirma sudėk sofą');return;}locked=!locked;applyLockUI();saveState();
+  setHint(locked?'Sofa užrakinta · audinį, matmenis ir AR keisti vis tiek gali':'Atrakinta · gali redaguoti modulius');};
+
+/* SUMMARY + PDF */
+function configSummary(){const groups={};placed.forEach(p=>{const k=p.data.name;groups[k]=groups[k]||{name:k,count:0,dims:p.data.dims_cm,pmin:p.data.price_min,pmax:p.data.price_max};groups[k].count++;});
+  let min=0,max=0;placed.forEach(p=>{min+=p.data.price_min||0;max+=p.data.price_max||p.data.price_min||0;});const b=assemblyBox();
+  return{groups:Object.values(groups),min,max,monthly:Math.round(min/12),dims:b?`${Math.round(b.w*100)}×${Math.round(b.d*100)}×${Math.round(b.h*100)} cm`:'-',family:(curMode==='single'&&placed[0]&&placed[0].data)?placed[0].data.name:(MANIFEST.families[curFamily]?.name||'-'),fabric:curFabric};}
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+$('#btnPDF').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą');return;}toast('Ruošiamas PDF…');
+  if(!window.jspdf)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});const W=210;let y=16;
+  doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text('Sofalova.lt — Jūsų konfigūracija',14,y);y+=7;
+  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(120);doc.text(new Date().toLocaleDateString('lt-LT')+'  ·  Kolekcija: '+(MANIFEST.families[curFamily]?.name||'-'),14,y);y+=6;
+  try{renderer.render(scene,camera);const img=renderer.domElement.toDataURL('image/jpeg',0.92);const iw=W-28,ih=iw*0.5;doc.addImage(img,'JPEG',14,y,iw,ih);y+=ih+6;}catch(e){}
+  const s=configSummary();doc.setTextColor(30);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text('Moduliai',14,y);y+=6;doc.setFont('helvetica','normal');doc.setFontSize(10);
+  s.groups.forEach(g=>{const dim=g.dims?`${g.dims.W}×${g.dims.D}×${g.dims.H} cm`:'';const pr=g.pmin===g.pmax?`€${g.pmin}`:`€${g.pmin}-${g.pmax}`;doc.text(`• ${g.count}x ${g.name}`,16,y);doc.text(`${dim}   ${pr}`,W-14,y,{align:'right'});y+=5.5;});
+  y+=3;doc.setDrawColor(210);doc.line(14,y,W-14,y);y+=7;doc.setFont('helvetica','bold');doc.text('Bendri matmenys:',16,y);doc.setFont('helvetica','normal');doc.text(s.dims,W-14,y,{align:'right'});y+=6;
+  if(s.fabric){doc.setFont('helvetica','bold');doc.text('Audinys:',16,y);doc.setFont('helvetica','normal');doc.text(`${s.fabric.name} · ${s.fabric.category}${s.fabric.abrasion?' · atspar. '+s.fabric.abrasion+'/5':''}`,W-14,y,{align:'right'});y+=6;
+    if(s.fabric.comp){doc.setTextColor(120);doc.text(`${s.fabric.comp}${s.fabric.gsm?' · '+s.fabric.gsm:''}`,16,y);doc.setTextColor(30);y+=6;}}
+  y+=2;doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('Kaina:',16,y);doc.text(s.min!==s.max?`€${s.min}-${s.max}`:`€${s.min}`,W-14,y,{align:'right'});y+=6;
+  doc.setFontSize(10);doc.setTextColor(120);doc.text(`≈ €${s.monthly}/mėn · 12 mėn.`,W-14,y,{align:'right'});doc.save('sofalova-konfiguracija.pdf');toast('PDF parsisiųstas ✓');};
+
+/* SAVE & SHARE */
+function encodeConfig(){const cfg={f:curFamily,fab:curFabric?curFabric.name:null,lk:locked,m:placed.map(p=>{const o={c:p.data.code||p.data.name,x:+p.root.position.x.toFixed(3),z:+p.root.position.z.toFixed(3),r:p.rot};if(p._fab)o.fb=p._fab.name;if(p._row)o.rw=p._row;return o;})};if(curMode==='single'&&placed[0]&&placed[0].data){cfg.mode='single';cfg.ac=placed[0].data.code;cfg.m=[];}return btoa(unescape(encodeURIComponent(JSON.stringify(cfg))));}
+async function restoreConfig(str){let cfg;try{cfg=JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return;}
+  locked=false;
+  if(cfg.mode==='single'&&cfg.ac){const a=ARMCHAIRS.find(x=>x.code===cfg.ac);if(a){openCat('armchairs');if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}await loadArmchair(a);return;}}
+  if(cfg.f&&MANIFEST.families[cfg.f]){curFamily=cfg.f;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.textContent===MANIFEST.families[cfg.f].name));buildPresets();buildModules();}
+  if(cfg.fab){const f=FABRICS.find(x=>x.name===cfg.fab);if(f)setFabric(f);}
+  const fam=MANIFEST.families[curFamily];const all=[...(fam.modules||[]),...(fam.cushions||[])];
+  for(const it of(cfg.m||[])){const d=all.find(x=>(x.code&&x.code===it.c)||x.name===it.c);if(!d)continue;const rec=await addModule(d,{x:it.x,z:it.z,rot:it.r,frame:false});if(rec){if(it.rw!==undefined)rec._row=it.rw;if(it.fb){const ff=FABRICS.find(x=>x.name===it.fb);if(ff){rec._fab=ff;applyFabricTo(rec);loadFabricTexture(ff,t=>{if(rec._fab===ff){rec._tex=t;applyFabricTo(rec);}});}}}}
+  if(curFamily==='cloud'){const rl=cushionRail();if(rl)placed.filter(p=>isCushion(p.data)).forEach(c=>{c.root.position.y=rl.y;});}
+  frameAll();updateRoom();locked=placed.length?!!cfg.lk:false;applyLockUI();}
+$('#btnShare').onclick=()=>{if(!placed.length){toast('Pirma sudėliok sofą');return;}const url=location.origin+location.pathname+'#'+encodeConfig();history.replaceState(null,'',url);navigator.clipboard?.writeText(url).then(()=>toast('Nuoroda nukopijuota ✓'),()=>toast('Nuoroda URL juostoje'));};
+
+/* AR */
+let mvLoaded=false;
+function loadModelViewer(){return new Promise(res=>{if(mvLoaded)return res();const s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js';s.onload=()=>{mvLoaded=true;res();};document.head.appendChild(s);});}
+$('#btnAR').onclick=async()=>{if(!placed.length){toast('Pirma sudėliok sofą');return;}toast('Ruošiama AR…');await loadModelViewer();
+  const grp=new THREE.Group();placed.forEach(p=>grp.add(p.root.clone(true)));
+  new GLTFExporter().parse(grp,(buf)=>{const blob=new Blob([buf],{type:'model/gltf-binary'}),url=URL.createObjectURL(blob);
+    const wrap=$('#mvWrap');wrap.querySelectorAll('model-viewer').forEach(e=>e.remove());const mv=document.createElement('model-viewer');
+    mv.setAttribute('src',url);mv.setAttribute('camera-controls','');mv.setAttribute('shadow-intensity','1');mv.setAttribute('ar','');mv.setAttribute('ar-modes','webxr scene-viewer quick-look');mv.setAttribute('ar-scale','fixed');
+    wrap.appendChild(mv);wrap.classList.add('show');mv.addEventListener('load',()=>{try{mv.activateAR&&mv.activateAR();}catch(e){}});},(err)=>{console.error(err);toast('AR eksportas nepavyko');},{binary:true});};
+$('#mvClose').onclick=()=>{$('#mvWrap').classList.remove('show');$('#mvWrap').querySelectorAll('model-viewer').forEach(e=>e.remove());};
+
+/* ============ AUDINIŲ PAVYZDŽIŲ UŽSAKYMAS (#7) ============ */
+const omSel=new Set(); let omActiveColor=null,omActiveFeat=null;
+function omOpen(){buildOmFilters();renderOmSwatches();if(curFabric)omDetail(curFabric);$('#orderModal').classList.add('show');}
+function omClose(){$('#orderModal').classList.remove('show');}
+$('#btnSample').onclick=omOpen;$('#omClose').onclick=omClose;
+$('#orderModal').addEventListener('click',e=>{if(e.target.id==='orderModal')omClose();});
+/* PIRKIMO modalas (Užsakyti) */
+function buyFormHTML(){return '<div class="buy-summary" id="buySummary"></div>'
+  +'<div class="om-form">'
+  +'<input id="bVardas" placeholder="Vardas *">'
+  +'<input id="bPavarde" placeholder="Pavardė">'
+  +'<input id="bAdresas" placeholder="Pristatymo adresas">'
+  +'<input id="bTel" placeholder="Kontaktinis telefonas">'
+  +'<input id="bEmail" placeholder="El. paštas">'
+  +'<textarea id="bPastabos" rows="3" placeholder="Papildomos pastabos"></textarea>'
+  +'</div><button class="om-submit" id="buySend">Siųsti</button>';}
+function buyCounts(){const c={};placed.forEach(p=>{const n=p.data.name||p.data.code;c[n]=(c[n]||0)+1;});return c;}
+function buyPrice(){let mn=0,mx=0;placed.forEach(p=>{mn+=p.data.price_min||0;mx+=p.data.price_max||p.data.price_min||0;});return mn===mx?('€'+mn):('€'+mn+'–'+mx);}
+function buySummaryHTML(){if(!placed.length)return '<div class="bs-empty">Sofa dar nesukonfigūruota — galite užsakyti, susisieksime dėl detalių.</div>';
+  const fam=(MANIFEST.families[curFamily]&&MANIFEST.families[curFamily].name)||curFamily;
+  const rows=Object.entries(buyCounts()).map(([n,c])=>'<div class="bs-row"><span>'+n+'</span><b>'+c+'×</b></div>').join('');
+  return '<div class="bs-title">'+fam+' · '+placed.length+' moduliai</div>'+rows
+    +'<div class="bs-row"><span>Audinys</span><b>'+(curFabric?curFabric.name:'—')+'</b></div>'
+    +'<div class="bs-total"><span>Kaina</span><b>'+buyPrice()+'</b></div>';}
+function buySummaryText(){if(!placed.length)return 'Sofa dar nesukonfigūruota.';
+  const fam=(MANIFEST.families[curFamily]&&MANIFEST.families[curFamily].name)||curFamily;
+  const rows=Object.entries(buyCounts()).map(([n,c])=>c+' x '+n).join('\n');
+  return fam+' ('+placed.length+' moduliai)\n'+rows+'\nAudinys: '+(curFabric?curFabric.name:'-')+'\nKaina: '+buyPrice();}
+function openBuy(){$('#buyBody').innerHTML=buyFormHTML();$('#buySummary').innerHTML=buySummaryHTML();$('#buySend').onclick=sendBuy;$('#buyModal').classList.add('show');}
+function sendBuy(){const v=$('#bVardas').value.trim(),tel=$('#bTel').value.trim(),em=$('#bEmail').value.trim();
+  if(!v||(!tel&&!em)){toast('Įveskite vardą ir telefoną arba el. paštą');return;}
+  const link=location.origin+location.pathname+'#'+encodeConfig();
+  const body='UZSAKYMAS\n\n'+buySummaryText()+'\n\nVardas: '+v+'\nPavarde: '+$('#bPavarde').value+'\nPristatymo adresas: '+$('#bAdresas').value+'\nTelefonas: '+tel+'\nEl. pastas: '+em+'\nPastabos: '+$('#bPastabos').value+'\n\nKonfiguracija: '+link;
+  try{window.location.href='mailto:'+ORDER_EMAIL+'?subject='+encodeURIComponent('Sofalova uzsakymas')+'&body='+encodeURIComponent(body);}catch(e){}
+  $('#buyBody').innerHTML='<div class="buy-thanks"><div class="bt-check">✓</div><div class="bt-title">Dėkojame už Jūsų užsakymą!</div><div class="bt-sub">Netrukus su jumis susisieksime dėl patvirtinimo.</div></div>';}
+$('#btnOrder').onclick=openBuy;
+$('#buyX').onclick=()=>$('#buyModal').classList.remove('show');
+$('#buyModal').addEventListener('click',e=>{if(e.target.id==='buyModal')$('#buyModal').classList.remove('show');});
+$('#btnSampleTop').onclick=omOpen;
+function buildOmFilters(){
+  const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):s;
+  const fs=$('#omFeatSel');fs.innerHTML='<option value="">Visos savybės</option>';
+  [...new Set(FABRICS.flatMap(f=>f.features||[]))].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=FEAT_LT[v]||v;fs.appendChild(o);});
+  fs.value=omActiveFeat||'';fs.onchange=()=>{omActiveFeat=fs.value||null;renderOmSwatches();};
+  const cs=$('#omColorSel');cs.innerHTML='<option value="">Visos spalvos</option>';
+  [...new Set(FABRICS.map(f=>f.color))].filter(c=>c&&c!=='-').forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=cap(COLOR_LT[c]||c);cs.appendChild(o);});
+  cs.value=omActiveColor||'';cs.onchange=()=>{omActiveColor=cs.value||null;renderOmSwatches();};
+}
+function omFiltered(){return FABRICS.filter(f=>(!omActiveColor||f.color===omActiveColor)&&(!omActiveFeat||(f.features||[]).includes(omActiveFeat)));}
+function renderOmSwatches(){const w=$('#omSwatches');w.innerHTML='';
+  omFiltered().forEach(f=>{
+    const d=document.createElement('div');d.className='om-sw'+(omSel.has(f.name)?' sel':'');d.style.background=f.hex;
+    const img=document.createElement('img');img.src=f.image+'&width=320';img.alt=f.name;
+    img.onerror=()=>{img.style.display='none';};
+    img.onclick=(e)=>{e.stopPropagation();omDetail(f);};
+    const row=document.createElement('div');row.className='om-row';
+    const nm=document.createElement('div');nm.className='nm';nm.textContent=f.name;
+    const plus=document.createElement('button');plus.className='om-plus'+(omSel.has(f.name)?' on':'');plus.textContent=omSel.has(f.name)?'\u2713':'\uFF0B';plus.title='Pridėti į užsakymą';
+    plus.onclick=(e)=>{e.stopPropagation();omToggle(f,d,plus);};
+    row.appendChild(nm);row.appendChild(plus);
+    d.appendChild(img);d.appendChild(row);
+    d.onclick=()=>omDetail(f);
+    w.appendChild(d);});}
+function omToggle(f,card,btn){
+  if(omSel.has(f.name)){omSel.delete(f.name);}
+  else{if(omSel.size>=10){toast('Daugiausiai 10 pavyzdžių');return;}omSel.add(f.name);}
+  const on=omSel.has(f.name);
+  if(card)card.classList.toggle('sel',on);
+  if(btn){btn.classList.toggle('on',on);btn.textContent=on?'\u2713':'\uFF0B';}
+  renderOmChosen();
+}
+function squareOmFrame(){const fr=document.getElementById('omFrame');if(!fr)return;const w=fr.clientWidth||fr.offsetWidth;if(w>0){fr.style.setProperty('padding-top','0','important');fr.style.setProperty('height',w+'px','important');}}
+function omDetail(f){const on=omSel.has(f.name);
+  $('#omDetail').innerHTML=`<div class="om-frame" id="omFrame"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Pridėta prie užsakymo':'\uFF0B Pridėti į užsakymą'}</button>${extraHTML(f)}</div>`;
+  const fr=document.getElementById('omFrame');if(fr)fr.style.backgroundImage=`url("${f.image}&width=1200")`;
+  requestAnimationFrame(squareOmFrame);setTimeout(squareOmFrame,100);setTimeout(squareOmFrame,300);
+  const b=$('#omDetailAdd');if(b)b.onclick=()=>{omToggle(f,null,null);renderOmSwatches();omDetail(f);};}
+window.addEventListener('resize',squareOmFrame);
+function renderOmChosen(){const c=$('#omChosen');c.innerHTML='';$('#omCount').textContent=omSel.size;
+  [...omSel].forEach(name=>{const el=document.createElement('span');el.className='om-chip';el.innerHTML=`${name} <b title="Pašalinti">×</b>`;
+    el.querySelector('b').onclick=()=>{omSel.delete(name);renderOmChosen();renderOmSwatches();};c.appendChild(el);});
+  $('#omSubmit').disabled=omSel.size===0;}
+$('#omForm').addEventListener('submit',e=>{
+  e.preventDefault();if(!omSel.size){toast('Pasirink bent vieną audinį');return;}
+  const fd=new FormData(e.target);const g=k=>(fd.get(k)||'').toString().trim();
+  const lines=['Nemokamų audinių pavyzdžių užsakymas','',
+    'Vardas: '+g('firstName'),'Pavardė: '+g('lastName'),'Adresas: '+g('address'),'Telefonas: '+g('phone'),'El. paštas: '+g('email'),'',
+    'Pasirinkti audiniai ('+omSel.size+'):',...[...omSel].map(n=>'• '+n)];
+  const subject=encodeURIComponent('Audinių pavyzdžių užsakymas — '+g('firstName')+' '+g('lastName'));
+  const body=encodeURIComponent(lines.join('\n'));
+  location.href=`mailto:${ORDER_EMAIL}?subject=${subject}&body=${body}`;
+  toast('Atidaromas el. laiškas — paspausk „Siųsti"');
+});
+
+/* TOAST */
+let toastT=null;function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2400);}
+
+/* LOOP */
+(function loop(){requestAnimationFrame(loop);orbit.update();updateDimLabels();renderer.render(scene,camera);})();
+
+/* MOBILE skilčių perjungimas (Rinkiniai / Moduliai / Audiniai) */
+function setMobTab(t){document.body.dataset.mobtab=t;document.querySelectorAll('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.t===t));}
+document.querySelectorAll('#mobileNav button').forEach(b=>b.onclick=()=>setMobTab(b.dataset.t));
+setMobTab('modules');
+
+/* INIT */
+(async function init(){
+  try{const [m,f]=await Promise.all([fetch('manifest.json').then(r=>r.json()),fetch('fabrics.json').then(r=>r.json())]);
+    MANIFEST=m;FABRICS=f;
+    try{const ar=await fetch('armchairs.json').then(r=>r.json());ARMCHAIRS=(ar&&ar.items)||[];}catch(e){ARMCHAIRS=[];}
+    buildTabs();buildPresets();buildModules();buildFabricFilters();buildArmchairs();initCatNav();
+    if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
+    // atstatom IŠ KARTO ir LAUKIAM, kol baigs – tik tada slepiam loaderį (jokio tuščio blyksnio)
+    if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
+    else{try{const s=localStorage.getItem('sofalova_cfg_v2');if(s)await restoreConfig(s);}catch(e){}}
+    ready=true;saveState();
+    $('#loader').style.display='none';
+  }catch(e){console.error(e);$('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';}
 })();
 </script>
-</body></html>
+<div class="modal" id="buyModal">
+  <div class="modal-card" style="width:min(560px,96vw)">
+    <div class="modal-head"><div><h2>Užsakymas</h2><p class="sub">Užpildykite duomenis — susisieksime dėl patvirtinimo.</p></div><button class="x" id="buyX">×</button></div>
+    <div class="buy-body" id="buyBody"></div>
+  </div>
+</div>
+</body>
+</html>
