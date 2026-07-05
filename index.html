@@ -1030,10 +1030,13 @@ function buildProductList(items,listId){
   (items||[]).forEach(a=>{
     const el=document.createElement('div'); el.className='armcard'; el.dataset.code=a.code;
     el.innerHTML=`<div class="thumb"><span>⏳</span></div><div class="info"><div class="nm">${a.name}</div><div class="meta">€${a.price_eur}</div></div>`;
-    el.onclick=()=>loadProduct(a); wrap.appendChild(el);
-    if(a.glb)thumbFor(a.glb,true).then(u=>{const t=el.querySelector('.thumb');if(u){t.style.backgroundImage=`url("${u}")`;t.innerHTML='';}else t.innerHTML='<span>▢</span>';});
+    el._glb=a.glb; el.onclick=()=>loadProduct(a); wrap.appendChild(el); // miniatiūra generuojama LAZY (atidarius kategoriją)
   });
 }
+// generuoja miniatiūras tik matomos kategorijos sąrašui — kad paleidžiant nesigrūstų visų 180 Draco dekodų
+function genThumbs(listId){const wrap=$('#'+listId);if(!wrap)return;
+  wrap.querySelectorAll('.armcard').forEach(el=>{if(el._thumbDone||!el._glb)return;el._thumbDone=true;
+    thumbFor(el._glb,true).then(u=>{const t=el.querySelector('.thumb');if(!t)return;if(u){t.style.backgroundImage=`url("${u}")`;t.innerHTML='';}else t.innerHTML='<span>▢</span>';});});}
 function buildArmchairs(){buildProductList(ARMCHAIRS,'armList');}
 async function loadProduct(a,showAlt){
   const cx=catOf(a);
@@ -1106,6 +1109,9 @@ function openCat(cat,force){
   document.querySelectorAll('.cat-hd').forEach(h=>h.classList.toggle('active',h.dataset.cat===cat));
   document.querySelectorAll('.cat-body').forEach(b=>b.classList.toggle('open',b.dataset.cat===cat));
   if(cat==='modular'&&curMode!=='modular'){curMode='modular';clearAll();document.querySelectorAll('.arm-spec').forEach(s=>s.classList.remove('show'));document.querySelectorAll('.armcard').forEach(c=>c.classList.remove('active'));}
+  // sugeneruojam miniatiūras atidarytai kategorijai (lazy)
+  const lm={armchairs:'armList'};PRODUCT_CATS.forEach(c=>lm[c.key]=c.list);
+  if(lm[cat])genThumbs(lm[cat]);
 }
 function initCatNav(){document.querySelectorAll('.cat-hd').forEach(h=>{h.onclick=()=>openCat(h.dataset.cat);});}
 
