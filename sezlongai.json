@@ -19,7 +19,9 @@
     "finish": "wood",
     "color": "#CBA97B",
     "note": "Ąžuolo kojos"
-   }
+   },
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-harris-1",
@@ -39,7 +41,10 @@
     "finish": "wood",
     "color": "#CBA97B",
     "note": "Ąžuolo kojos"
-   }
+   },
+   "default_state": "sofa",
+   "glb_alt": "sezlongas-harris-1-open.glb",
+   "sleep_mech": "Dolphin (DL)"
   },
   {
    "code": "sezlongas-joleen-chaise",
@@ -59,7 +64,9 @@
     "finish": "wood",
     "color": "#CBA97B",
     "note": "Ąžuolo kojos"
-   }
+   },
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-mood",
@@ -80,7 +87,9 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-mood-chaise",
@@ -101,7 +110,9 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-nora-chaise",
@@ -122,7 +133,10 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "default_state": "sofa",
+   "glb_alt": "sezlongas-nora-chaise-open.glb",
+   "sleep_mech": "Dolphin (DL)"
   },
   {
    "code": "sezlongas-salma-chaise",
@@ -142,7 +156,10 @@
     "finish": "metal",
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
-   }
+   },
+   "default_state": "sofa",
+   "glb_alt": "sezlongas-salma-chaise-open.glb",
+   "sleep_mech": "Dolphin (DL)"
   },
   {
    "code": "sezlongas-slay",
@@ -163,7 +180,9 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-slay-chaise",
@@ -184,7 +203,9 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-slay-2v",
@@ -205,7 +226,9 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "default_state": "sofa",
+   "glb_alt": null
   },
   {
    "code": "sezlongas-uma-chaise",
@@ -225,7 +248,9 @@
     "finish": "metal",
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
-   }
+   },
+   "default_state": "sofa",
+   "glb_alt": null
   }
  ]
 }

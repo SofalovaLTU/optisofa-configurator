@@ -728,6 +728,26 @@
    "uvHoriz": true,
    "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack).",
    "shopify_variant": null
+  },
+  {
+   "code": "fotelis-harris-rxl",
+   "name": "Harris RXL",
+   "glb": "fotelis-harris-rxl.glb",
+   "W": 170,
+   "D": 69,
+   "H": 89,
+   "price_eur": 1500,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris RXL elementas.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
   }
  ]
 }
