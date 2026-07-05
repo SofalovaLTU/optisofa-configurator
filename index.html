@@ -1348,16 +1348,19 @@ setMobTab('modules');
     let sl='lt';try{sl=localStorage.getItem('sofalova_lang')||'lt';}catch(e){}
     setLang(I18N[sl]?sl:'lt');
     if(FABRICS.length)setFabric(FABRICS.find(x=>x.color==='beige')||FABRICS[0]);
-    // atstatom IŠ KARTO ir LAUKIAM, kol baigs – tik tada slepiam loaderį (jokio tuščio blyksnio)
-    if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
-    else{
-      const pp=new URLSearchParams(location.search).get('p');
-      const a=pp?(findProduct(pp)||findProduct('fotelis-'+pp)):null;
-      if(a){openCat(catOf(a).key,true);await loadProduct(a);} // gilioji nuoroda iš parduotuvės: ?p=fotelis-blues / ?p=pufas-slay
-      else{try{const s=localStorage.getItem('sofalova_cfg_v2');if(s)await restoreConfig(s);}catch(e){}}
-    }
-    ready=true;saveState();
-    $('#loader').style.display='none';
+    ready=true;
+    $('#loader').style.display='none'; // pasislepia iškart, kai UI paruoštas — modelio įkėlimas (Draco ir kt.) nebeblokuoja loaderio
+    // atstatymas SAUGIAI (jei modelis nepavyksta/kabo — konfigūratorius vis tiek naudojamas)
+    try{
+      if(location.hash.length>1){await restoreConfig(location.hash.slice(1));}
+      else{
+        const pp=new URLSearchParams(location.search).get('p');
+        const a=pp?(findProduct(pp)||findProduct('fotelis-'+pp)):null;
+        if(a){openCat(catOf(a).key,true);await loadProduct(a);} // gilioji nuoroda: ?p=fotelis-blues / ?p=pufas-slay
+        else{const s=localStorage.getItem('sofalova_cfg_v2');if(s)await restoreConfig(s);}
+      }
+    }catch(e){console.error('restore',e);}
+    saveState();
   }catch(e){console.error(e);$('#loadtxt').textContent='Nepavyko įkelti duomenų (manifest.json / fabrics.json).';}
 })();
 </script>
