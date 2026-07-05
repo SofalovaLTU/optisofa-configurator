@@ -4,7 +4,7 @@
     {
       "code": "fotelis-blues",
       "name": "Blues",
-      "glb": "armchairs/fotelis-blues.glb",
+      "glb": "fotelis-blues.glb",
       "W": 75,
       "D": 89,
       "H": 86,
@@ -39,7 +39,7 @@
     {
       "code": "fotelis-emilly",
       "name": "Emilly",
-      "glb": "armchairs/fotelis-emilly.glb",
+      "glb": "fotelis-emilly.glb",
       "W": 75,
       "D": 88,
       "H": 86,
@@ -74,7 +74,7 @@
     {
       "code": "fotelis-esme",
       "name": "Esme",
-      "glb": "armchairs/fotelis-esme.glb",
+      "glb": "fotelis-esme.glb",
       "W": 76,
       "D": 84,
       "H": 86,
@@ -109,7 +109,7 @@
     {
       "code": "fotelis-harris",
       "name": "Harris",
-      "glb": "armchairs/fotelis-harris.glb",
+      "glb": "fotelis-harris.glb",
       "W": 88,
       "D": 84,
       "H": 86,
@@ -144,7 +144,7 @@
     {
       "code": "fotelis-ines",
       "name": "Ines",
-      "glb": "armchairs/fotelis-ines.glb",
+      "glb": "fotelis-ines.glb",
       "W": 85,
       "D": 102,
       "H": 81,
@@ -180,7 +180,7 @@
     {
       "code": "fotelis-joleen",
       "name": "Joleen",
-      "glb": "armchairs/fotelis-joleen.glb",
+      "glb": "fotelis-joleen.glb",
       "W": 81,
       "D": 79,
       "H": 85,
@@ -214,7 +214,7 @@
     {
       "code": "fotelis-mia",
       "name": "Mia",
-      "glb": "armchairs/fotelis-mia.glb",
+      "glb": "fotelis-mia.glb",
       "W": 75,
       "D": 74,
       "H": 76,
@@ -250,7 +250,7 @@
     {
       "code": "fotelis-salma",
       "name": "Salma",
-      "glb": "armchairs/fotelis-salma.glb",
+      "glb": "fotelis-salma.glb",
       "W": 78,
       "D": 88,
       "H": 84,
@@ -286,7 +286,7 @@
     {
       "code": "fotelis-juliett",
       "name": "Juliett",
-      "glb": "armchairs/fotelis-juliett.glb",
+      "glb": "fotelis-juliett.glb",
       "W": 76,
       "D": 64,
       "H": 75,
@@ -324,7 +324,7 @@
     {
       "code": "fotelis-juliett-ii",
       "name": "Juliett II",
-      "glb": "armchairs/fotelis-juliett-ii.glb",
+      "glb": "fotelis-juliett-ii.glb",
       "W": 78,
       "D": 89,
       "H": 84,
@@ -362,7 +362,7 @@
     {
       "code": "fotelis-uma",
       "name": "Uma",
-      "glb": "armchairs/fotelis-uma.glb",
+      "glb": "fotelis-uma.glb",
       "W": 96,
       "D": 87,
       "H": 82,

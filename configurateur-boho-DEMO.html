@@ -5408,7 +5408,7 @@ if(THREE.DRACOLoader){
 }
 
 const bodyUniforms={fabricMap:{value:null},fabricScale:{value:3.5}};
-const modules=[];            // {root, box, cushions:[{mesh,uniforms}]}
+const modules=[];const bodyMats=[];/* deklaruota: naudojama applyTriplanar body medžiagų rinkinyje */            // {root, box, cushions:[{mesh,uniforms}]}
 let curFabIdx=0, selectedCushion=null, selBox=null;
 
 function bboxXZ(root){ const b=new THREE.Box3().setFromObject(root); return b; }

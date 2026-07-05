@@ -1,0 +1,186 @@
+diff --git a/CONFIGURATOR.md b/CONFIGURATOR.md
+index 4f80c6e..5ca06d6 100644
+--- a/CONFIGURATOR.md
++++ b/CONFIGURATOR.md
+@@ -333,3 +333,9 @@ Cloud turi atskirą, sudėtingesnę logiką nei kitos šeimos:
+ - **2026-06-26 (17)** — **SPRENDIMAS #12 PRIIMTAS: Shopify, 1 lygis (krepšelio permalink).** Parduotuvė jau veikia Shopify; konfigūratorius lieka Netlify kaip įrankis, bet „Užsakyti" single režime veda tiesiai į Shopify krepšelį. Implementuota: (a) `SHOPIFY_DOMAIN` konstanta + `shopifyCartURL()` — `GET /cart/add?id=<variant>&properties[Audinys]=...&properties[Kojos]=...&properties[_Konfigūracija]=<share URL>` (line item properties; `_` prefiksas slepia nuo pirkėjo, matoma užsakyme); (b) `armchairs.json` — `shopify_variant:null` laukai + instrukcija kaip rasti varianto ID (Shopify Admin → Products → variantas → ID iš URL); (c) **fallback**: kol domenas/ID neįrašyti — sena užsakymo forma, niekas nesulūžta; (d) **gilioji nuoroda Į konfigūratorių**: `?p=fotelis-blues` — parduotuvės produkto puslapio mygtukas „Konfigūruoti 3D" atidaro su pasirinktu foteliu (seka: hash → ?p= → localStorage). Pastaba: GET /cart/add su properties — ilgametis stabilus Shopify elgesys, bet nedokumentuotas kaip API; jei kada nustotų veikti, atsarginis kelias — cart permalink + note. Moduliniai (sofos) kol kas per formą — jiems Shopify produktų dar nėra.
+ - **2026-06-26 (18)** — **Shopify produktų CSV** (`shopify-foteliai.csv`): 11 fotelių sugeneruota iš `armchairs.json` — pavadinimai, HTML aprašymai (desc + savybės + spec lentelė), kainos EUR, SKU (FOT-*), svoris, made-to-order (be inventoriaus sekimo), handle = mūsų kodai (`fotelis-blues` — sutampa su giliosios nuorodos `?p=` formatu). Importas: Shopify Admin → Products → Import. Po importo: variantų ID paimami iš `https://<domenas>/products/<handle>.json` (laukas `variants[0].id`) ir surašomi į `armchairs.json` `shopify_variant`. Nuotraukos į CSV neįtrauktos — kelti ranka arba iš Optisofa dilerio medžiagos (teisės — per tiekėjo santykį). SVARBU: kainos vientisumas — nuo šiol Shopify tampa kainos šaltiniu; keičiant kainą Shopify būtina atnaujinti ir armchairs.json.
+ - **2026-06-26 (19)** — **Spec kortelės akordeonas + kompaktiška įrankių juosta:** (a) fotelio spec kortelė pasirinkus rodo tik **pavadinimą, kainą (+mėnesinę) ir matmenis**; žemiau — „Aprašymas +" mygtukas (i18n: `descWord` LT/EN/FR), kurį paspaudus išsiskleidžia visa likusi informacija (sėdynė, kojos, savybės, aprašymas, techninė), „+" tampa „−", paspaudus „−" susiskleidžia atgal; (b) apatinė įrankių juosta sumažinta (mygtukai 6×8px / 11px šriftas, tarpai 0, padding 4px) + **permatomas fonas su backdrop blur** — net persidengdama nebeuždengia fotelio, nuleista prie 12px nuo apačios.
++- **2026-07-05 (1)** — **Audito pataisos + naršyklės verifikacija (repo klonas, lokalus http serveris + visi GLB/JSON).** Padaryta ir realiai patikrinta naršyklėje:
++  - **`index.html` (3):** (a) **audinių nuotraukų URL** — pridėta `fimg(url,w)`, kuri teisingai prijungia `width` su `?`/`&`; pataisyti 3 iškvietimai (renderSwatches, om swatch img, om detail). *Patikslinimas: gyvas `fabrics.json` turi **75** įrašus ir **visi** `image` jau su `?`, tad tai **apsauginė** pataisa (ateities OUTDOOR audiniams be `?` + logika suvienodinta su `loadFabricTexture`), ne gyvo bug'o taisymas. Ankstesnis „120 įrašų / dalis be ?" buvo WebFetch klaida.* (b) **`boxUV` bendros geometrijos apsauga** — prieš perrašant world-space UV, `o.geometry=o.geometry.clone()`, kad kelių to paties GLB egzempliorių (klonai dalijasi cache geometriją) UV nesikorumpuotų. (c) **pinch-zoom a11y** — pašalintas `maximum-scale=1`.
++  - **`armchairs.json` — realus radinys:** `glb` keliai buvo `armchairs/fotelis-*.glb`, bet failai guli repo **šaknyje** (nėra `armchairs/` aplanko). `loadGLB` fallback tai išgelbėdavo, bet **kiekvienas fotelis pirma gaudavo 404, po to sėkmę** (bereikalingas round-trip + triukšmas, ir gyvame Netlify). Keliai pataisyti į šakninius (`fotelis-*.glb`) → įkėlimas iš karto 200 (patvirtinta: `HEAD fotelis-blues.glb` → 200, jokių naujų 404).
++  - **Verifikuota naršyklėje:** modulinė sofa (Hug) įkelia + audinys dedasi; 75 audinių swatch'ai rodo realias nuotraukas; foteliai įkelia iš šaknies (Blues — korpusas su audiniu + juodos metalinės kojos); konsolė be klaidų.
++  - **Neliesta (reikia tavo sprendimo):** mėnesinės kainos rodymas be realaus finansavimo (verslo/atitikties klausimas); pilnas i18n modalams/PDF/spec etiketėms; negyvas/dubliuotas mobilus CSS.
++- **2026-07-05 (2)** — **Boho demo (`configurateur-boho-DEMO.html`) — kritinė klaida IŠTAISYTA.** `bodyMats` buvo naudojamas (`if(bodyMats.indexOf(...))` ties body mesh'u `addModule` viduje), bet **niekur nedeklaruotas** → `ReferenceError: bodyMats is not defined` → `traverse` nutrūkdavo, `scene.add(root)` neįvykdavo, pirmas modulis neužsikraudavo, „Préparation…" pakibdavo. Pataisa: prie deklaracijų pridėta `const bodyMats=[];`. **Verifikuota naršyklėje:** demo dabar įkelia 3D modulį ir generuoja miniatiūras, konsolė be `bodyMats` klaidos. Pastaba: `_headers` `X-Frame-Options: DENY` prieštarauja dokumentuotam Shopify-iframe embed tikslui — paliktas `DENY` (saugiau); keisti į `SAMEORIGIN`/`frame-ancestors` tik jei embed realiai prireiks.
+diff --git a/armchairs.json b/armchairs.json
+index 67c0980..ccdf934 100644
+--- a/armchairs.json
++++ b/armchairs.json
+@@ -4,7 +4,7 @@
+     {
+       "code": "fotelis-blues",
+       "name": "Blues",
+-      "glb": "armchairs/fotelis-blues.glb",
++      "glb": "fotelis-blues.glb",
+       "W": 75,
+       "D": 89,
+       "H": 86,
+@@ -39,7 +39,7 @@
+     {
+       "code": "fotelis-emilly",
+       "name": "Emilly",
+-      "glb": "armchairs/fotelis-emilly.glb",
++      "glb": "fotelis-emilly.glb",
+       "W": 75,
+       "D": 88,
+       "H": 86,
+@@ -74,7 +74,7 @@
+     {
+       "code": "fotelis-esme",
+       "name": "Esme",
+-      "glb": "armchairs/fotelis-esme.glb",
++      "glb": "fotelis-esme.glb",
+       "W": 76,
+       "D": 84,
+       "H": 86,
+@@ -109,7 +109,7 @@
+     {
+       "code": "fotelis-harris",
+       "name": "Harris",
+-      "glb": "armchairs/fotelis-harris.glb",
++      "glb": "fotelis-harris.glb",
+       "W": 88,
+       "D": 84,
+       "H": 86,
+@@ -144,7 +144,7 @@
+     {
+       "code": "fotelis-ines",
+       "name": "Ines",
+-      "glb": "armchairs/fotelis-ines.glb",
++      "glb": "fotelis-ines.glb",
+       "W": 85,
+       "D": 102,
+       "H": 81,
+@@ -180,7 +180,7 @@
+     {
+       "code": "fotelis-joleen",
+       "name": "Joleen",
+-      "glb": "armchairs/fotelis-joleen.glb",
++      "glb": "fotelis-joleen.glb",
+       "W": 81,
+       "D": 79,
+       "H": 85,
+@@ -214,7 +214,7 @@
+     {
+       "code": "fotelis-mia",
+       "name": "Mia",
+-      "glb": "armchairs/fotelis-mia.glb",
++      "glb": "fotelis-mia.glb",
+       "W": 75,
+       "D": 74,
+       "H": 76,
+@@ -250,7 +250,7 @@
+     {
+       "code": "fotelis-salma",
+       "name": "Salma",
+-      "glb": "armchairs/fotelis-salma.glb",
++      "glb": "fotelis-salma.glb",
+       "W": 78,
+       "D": 88,
+       "H": 84,
+@@ -286,7 +286,7 @@
+     {
+       "code": "fotelis-juliett",
+       "name": "Juliett",
+-      "glb": "armchairs/fotelis-juliett.glb",
++      "glb": "fotelis-juliett.glb",
+       "W": 76,
+       "D": 64,
+       "H": 75,
+@@ -324,7 +324,7 @@
+     {
+       "code": "fotelis-juliett-ii",
+       "name": "Juliett II",
+-      "glb": "armchairs/fotelis-juliett-ii.glb",
++      "glb": "fotelis-juliett-ii.glb",
+       "W": 78,
+       "D": 89,
+       "H": 84,
+@@ -362,7 +362,7 @@
+     {
+       "code": "fotelis-uma",
+       "name": "Uma",
+-      "glb": "armchairs/fotelis-uma.glb",
++      "glb": "fotelis-uma.glb",
+       "W": 96,
+       "D": 87,
+       "H": 82,
+diff --git a/configurateur-boho-DEMO.html b/configurateur-boho-DEMO.html
+index f481d2e..2f82569 100644
+--- a/configurateur-boho-DEMO.html
++++ b/configurateur-boho-DEMO.html
+@@ -5408,7 +5408,7 @@ if(THREE.DRACOLoader){
+ }
+ 
+ const bodyUniforms={fabricMap:{value:null},fabricScale:{value:3.5}};
+-const modules=[];            // {root, box, cushions:[{mesh,uniforms}]}
++const modules=[];const bodyMats=[];/* deklaruota: naudojama applyTriplanar body medžiagų rinkinyje */            // {root, box, cushions:[{mesh,uniforms}]}
+ let curFabIdx=0, selectedCushion=null, selBox=null;
+ 
+ function bboxXZ(root){ const b=new THREE.Box3().setFromObject(root); return b; }
+diff --git a/index.html b/index.html
+index 72e20fb..c97ceac 100644
+--- a/index.html
++++ b/index.html
+@@ -2,7 +2,7 @@
+ <html lang="lt">
+ <head>
+ <meta charset="utf-8">
+-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
++<meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Sofalova.lt — konfigūratorius</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+@@ -714,6 +714,7 @@ function updatePrice(){saveState();let min=0,max=0;placed.forEach(p=>{min+=p.dat
+ /* FABRIC (HD + tiksli vidutinė spalva iš nuotraukos) */
+ const texLoader=new THREE.TextureLoader();texLoader.setCrossOrigin('anonymous');
+ function proxied(url,w){return 'https://images.weserv.nl/?url='+encodeURIComponent('ssl:'+url.replace(/^https?:\/\//,''))+'&w='+w;}
++function fimg(url,w){if(!url)return url;return url+(url.includes('?')?'&':'?')+'width='+w;} // saugiai prideda width — veikia ir kai URL be „?"
+ function avgColor(img){try{const c=document.createElement('canvas');c.width=c.height=20;const x=c.getContext('2d');x.drawImage(img,0,0,20,20);
+   const d=x.getImageData(0,0,20,20).data;let r=0,g=0,b=0,n=0;for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++;}
+   return new THREE.Color(r/n/255,g/n/255,b/n/255);}catch(e){return null;}}
+@@ -751,6 +752,7 @@ function applyLegColor(rec,leg){
+   }});
+ }
+ function boxUV(o,horiz){ // BOX (triplanar) UV pasaulio (world) koordinatėse — teisingas tankis nepriklausomai nuo mesh'o lokalaus mastelio; horiz=true pasuka raštą 90°
++  o.geometry=o.geometry.clone(); // atskira geometrija šiam egzemplioriui — kad world-space UV perrašymas nesugadintų bendros (cache) geometrijos kituose egzemplioriuose
+   const g=o.geometry;
+   o.updateWorldMatrix(true,false);
+   const mw=o.matrixWorld, nm=new THREE.Matrix3().getNormalMatrix(mw);
+@@ -1055,7 +1057,7 @@ function filteredFabrics(){return FABRICS.filter(f=>(!activeColor||f.color===act
+ function renderSwatches(){const list=filteredFabrics();const w=$('#swatches');w.innerHTML='';$('#fabCount').textContent=list.length+' / '+FABRICS.length;
+   list.forEach(f=>{const s=document.createElement('div');s.className='sw';s.dataset.name=f.name;s.title=f.name;
+     const im=document.createElement('div');im.className='sw-img';im.style.background=f.hex;
+-    if(f.image){im.style.backgroundImage=`url("${f.image}&width=500")`;}
++    if(f.image){im.style.backgroundImage=`url("${fimg(f.image,500)}")`;}
+     const nm=document.createElement('div');nm.className='sw-name';nm.textContent=f.name;
+     s.appendChild(im);s.appendChild(nm);
+     s.onclick=()=>{setFabric(f);showFabDesc(s,f);};if(curFabric&&curFabric.name===f.name)s.classList.add('active');w.appendChild(s);});}
+@@ -1214,7 +1216,7 @@ function omFiltered(){return FABRICS.filter(f=>(!omActiveColor||f.color===omActi
+ function renderOmSwatches(){const w=$('#omSwatches');w.innerHTML='';
+   omFiltered().forEach(f=>{
+     const d=document.createElement('div');d.className='om-sw'+(omSel.has(f.name)?' sel':'');d.style.background=f.hex;
+-    const img=document.createElement('img');img.src=f.image+'&width=320';img.alt=f.name;
++    const img=document.createElement('img');img.src=fimg(f.image,320);img.alt=f.name;
+     img.onerror=()=>{img.style.display='none';};
+     img.onclick=(e)=>{e.stopPropagation();omDetail(f);};
+     const row=document.createElement('div');row.className='om-row';
+@@ -1236,7 +1238,7 @@ function omToggle(f,card,btn){
+ function squareOmFrame(){const fr=document.getElementById('omFrame');if(!fr)return;const w=fr.clientWidth||fr.offsetWidth;if(w>0){fr.style.setProperty('padding-top','0','important');fr.style.setProperty('height',w+'px','important');}}
+ function omDetail(f){const on=omSel.has(f.name);
+   $('#omDetail').innerHTML=`<div class="om-frame" id="omFrame"></div><div class="body"><h3>${f.name}</h3><div class="cat">${f.category}${f.color!=='-'?' · '+(COLOR_LT[f.color]||f.color):''}</div><div class="spec">${specHTML(f)}</div><button class="om-detail-add ${on?'on':''}" id="omDetailAdd">${on?'\u2713 Pridėta prie užsakymo':'\uFF0B Pridėti į užsakymą'}</button>${extraHTML(f)}</div>`;
+-  const fr=document.getElementById('omFrame');if(fr)fr.style.backgroundImage=`url("${f.image}&width=1200")`;
++  const fr=document.getElementById('omFrame');if(fr)fr.style.backgroundImage=`url("${fimg(f.image,1200)}")`;
+   requestAnimationFrame(squareOmFrame);setTimeout(squareOmFrame,100);setTimeout(squareOmFrame,300);
+   const b=$('#omDetailAdd');if(b)b.onclick=()=>{omToggle(f,null,null);renderOmSwatches();omDetail(f);};}
+ window.addEventListener('resize',squareOmFrame);
