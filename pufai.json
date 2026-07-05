@@ -1,0 +1,65 @@
+{
+  "_note": "Optisofa pufai (single-product). Kainos iš optisofa.com en-de (min='nuo'). Matmenys iš 3D bbox. Detalės tikslintinos.",
+  "items": [
+    {
+      "code": "pufas-blow",
+      "name": "Blow",
+      "glb": "pufas-blow.glb",
+      "W": 81,
+      "D": 73,
+      "H": 42,
+      "price_eur": 280,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Blow kolekcijos pufas – minkštas, apvalių formų.",
+      "shopify_variant": null
+    },
+    {
+      "code": "pufas-juliett",
+      "name": "Juliett",
+      "glb": "pufas-juliett.glb",
+      "W": 52,
+      "D": 54,
+      "H": 47,
+      "price_eur": 184,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Juliett kolekcijos pufas.",
+      "shopify_variant": null
+    },
+    {
+      "code": "pufas-slay",
+      "name": "Slay",
+      "glb": "pufas-slay.glb",
+      "W": 61,
+      "D": 61,
+      "H": 41,
+      "price_eur": 245,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Slay kolekcijos pufas.",
+      "shopify_variant": null
+    },
+    {
+      "code": "pufas-tilda",
+      "name": "Tilda",
+      "glb": "pufas-tilda.glb",
+      "W": 54,
+      "D": 39,
+      "H": 38,
+      "price_eur": 250,
+      "price_approx": true,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Tilda kolekcijos pufas.",
+      "shopify_variant": null
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "_note": "Optisofa lovos (single-product). Kainos iš optisofa.com en-de (min='nuo'). Matmenys iš 3D bbox. Detalės tikslintinos.",
+  "items": [
+    {
+      "code": "lova-slay-140",
+      "name": "Slay 140×200",
+      "glb": "lova-slay-140.glb",
+      "W": 161,
+      "D": 225,
+      "H": 83,
+      "price_eur": 800,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Slay dvigulė lova, 140×200 čiužiniui.",
+      "shopify_variant": null
+    },
+    {
+      "code": "lova-slay-160",
+      "name": "Slay 160×200",
+      "glb": "lova-slay-160.glb",
+      "W": 181,
+      "D": 225,
+      "H": 83,
+      "price_eur": 855,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Slay lova, 160×200 čiužiniui.",
+      "shopify_variant": null
+    },
+    {
+      "code": "lova-slay-180",
+      "name": "Slay 180×200",
+      "glb": "lova-slay-180.glb",
+      "W": 202,
+      "D": 225,
+      "H": 83,
+      "price_eur": 890,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Slay lova, 180×200 čiužiniui.",
+      "shopify_variant": null
+    },
+    {
+      "code": "lova-uma-daybed",
+      "name": "Uma daybed",
+      "glb": "lova-uma-daybed.glb",
+      "W": 84,
+      "D": 194,
+      "H": 53,
+      "price_eur": 1540,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Uma dieninė lova (daybed).",
+      "shopify_variant": null
+    }
+  ]
+}
