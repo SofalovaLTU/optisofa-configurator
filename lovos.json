@@ -1,65 +1,255 @@
 {
-  "_note": "Optisofa lovos (single-product). Kainos iš optisofa.com en-de (min='nuo'). Matmenys iš 3D bbox. Detalės tikslintinos.",
-  "items": [
-    {
-      "code": "lova-slay-140",
-      "name": "Slay 140×200",
-      "glb": "lova-slay-140.glb",
-      "W": 161,
-      "D": 225,
-      "H": 83,
-      "price_eur": 800,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Slay dvigulė lova, 140×200 čiužiniui.",
-      "shopify_variant": null
-    },
-    {
-      "code": "lova-slay-160",
-      "name": "Slay 160×200",
-      "glb": "lova-slay-160.glb",
-      "W": 181,
-      "D": 225,
-      "H": 83,
-      "price_eur": 855,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Slay lova, 160×200 čiužiniui.",
-      "shopify_variant": null
-    },
-    {
-      "code": "lova-slay-180",
-      "name": "Slay 180×200",
-      "glb": "lova-slay-180.glb",
-      "W": 202,
-      "D": 225,
-      "H": 83,
-      "price_eur": 890,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Slay lova, 180×200 čiužiniui.",
-      "shopify_variant": null
-    },
-    {
-      "code": "lova-uma-daybed",
-      "name": "Uma daybed",
-      "glb": "lova-uma-daybed.glb",
-      "W": 84,
-      "D": 194,
-      "H": 53,
-      "price_eur": 1540,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Uma dieninė lova (daybed).",
-      "shopify_variant": null
-    }
-  ]
+ "_note": "Optisofa lovos. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
+ "items": [
+  {
+   "code": "lova-elvi",
+   "name": "Elvi 140x200",
+   "glb": "lova-elvi.glb",
+   "W": 158,
+   "D": 236,
+   "H": 75,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Elvi kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-elvi-1",
+   "name": "Elvi 160x200",
+   "glb": "lova-elvi-1.glb",
+   "W": 178,
+   "D": 236,
+   "H": 75,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Elvi kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-elvi-2",
+   "name": "Elvi 180x200",
+   "glb": "lova-elvi-2.glb",
+   "W": 198,
+   "D": 236,
+   "H": 75,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Elvi kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-elvi-3",
+   "name": "Elvi lova",
+   "glb": "lova-elvi-3.glb",
+   "W": 108,
+   "D": 236,
+   "H": 75,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Elvi kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-slay",
+   "name": "Slay 140x200",
+   "glb": "lova-slay.glb",
+   "W": 161,
+   "D": 225,
+   "H": 82,
+   "price_eur": 800,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-slay-1",
+   "name": "Slay 160x200",
+   "glb": "lova-slay-1.glb",
+   "W": 180,
+   "D": 225,
+   "H": 82,
+   "price_eur": 800,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-slay-2",
+   "name": "Slay 180x200",
+   "glb": "lova-slay-2.glb",
+   "W": 201,
+   "D": 225,
+   "H": 82,
+   "price_eur": 800,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-uma",
+   "name": "Uma lova",
+   "glb": "lova-uma.glb",
+   "W": 83,
+   "D": 193,
+   "H": 53,
+   "price_eur": 1540,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Uma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "lova-slay-140",
+   "name": "Slay 140×200",
+   "glb": "lova-slay-140.glb",
+   "W": 161,
+   "D": 225,
+   "H": 83,
+   "price_eur": 800,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay dvigulė lova, 140×200 čiužiniui.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-slay-160",
+   "name": "Slay 160×200",
+   "glb": "lova-slay-160.glb",
+   "W": 181,
+   "D": 225,
+   "H": 83,
+   "price_eur": 855,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay lova, 160×200 čiužiniui.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-slay-180",
+   "name": "Slay 180×200",
+   "glb": "lova-slay-180.glb",
+   "W": 202,
+   "D": 225,
+   "H": 83,
+   "price_eur": 890,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay lova, 180×200 čiužiniui.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "lova-uma-daybed",
+   "name": "Uma daybed",
+   "glb": "lova-uma-daybed.glb",
+   "W": 84,
+   "D": 194,
+   "H": 53,
+   "price_eur": 1540,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Uma dieninė lova (daybed).",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  }
+ ]
 }
