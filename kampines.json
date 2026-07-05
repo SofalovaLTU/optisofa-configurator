@@ -1,65 +1,205 @@
 {
-  "_note": "Optisofa kampines (single-product). Kainos iš optisofa.com en-de (min='nuo'). Matmenys iš 3D bbox. Detalės tikslintinos.",
-  "items": [
-    {
-      "code": "kampine-esme",
-      "name": "Esme",
-      "glb": "kampine-esme.glb",
-      "W": 249,
-      "D": 199,
-      "H": 89,
-      "price_eur": 1330,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Esme kampinė sofa-lova.",
-      "shopify_variant": null
-    },
-    {
-      "code": "kampine-harris",
-      "name": "Harris",
-      "glb": "kampine-harris.glb",
-      "W": 243,
-      "D": 207,
-      "H": 72,
-      "price_eur": 1500,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Harris kampinė sofa-lova.",
-      "shopify_variant": null
-    },
-    {
-      "code": "kampine-harris-rxl",
-      "name": "Harris RXL",
-      "glb": "kampine-harris-rxl.glb",
-      "W": 170,
-      "D": 69,
-      "H": 89,
-      "price_eur": 1500,
-      "price_approx": true,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Harris RXL elementas.",
-      "shopify_variant": null
-    },
-    {
-      "code": "kampine-slay",
-      "name": "Slay",
-      "glb": "kampine-slay.glb",
-      "W": 274,
-      "D": 258,
-      "H": 67,
-      "price_eur": 1630,
-      "price_approx": false,
-      "legFilter": true,
-      "verified": false,
-      "features": [],
-      "desc": "Slay kampinė sofa.",
-      "shopify_variant": null
-    }
-  ]
+ "_note": "Optisofa kampines. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
+ "items": [
+  {
+   "code": "kampine-esme",
+   "name": "Esme",
+   "glb": "kampine-esme.glb",
+   "W": 249,
+   "D": 199,
+   "H": 89,
+   "price_eur": 1330,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Esme kampinė sofa-lova.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "kampine-flow",
+   "name": "Flow",
+   "glb": "kampine-flow.glb",
+   "W": 92,
+   "D": 94,
+   "H": 68,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Flow kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "kampine-harris",
+   "name": "Harris",
+   "glb": "kampine-harris.glb",
+   "W": 243,
+   "D": 207,
+   "H": 72,
+   "price_eur": 1500,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kampinė sofa-lova.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "kampine-harris-1",
+   "name": "Harris RXL",
+   "glb": "kampine-harris-1.glb",
+   "W": 169,
+   "D": 68,
+   "H": 89,
+   "price_eur": 1500,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "kampine-jane",
+   "name": "Jane",
+   "glb": "kampine-jane.glb",
+   "W": 254,
+   "D": 207,
+   "H": 87,
+   "price_eur": 1370,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Jane kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "kampine-karin",
+   "name": "Karin",
+   "glb": "kampine-karin.glb",
+   "W": 230,
+   "D": 252,
+   "H": 86,
+   "price_eur": 1690,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Karin kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "kampine-mood",
+   "name": "Mood",
+   "glb": "kampine-mood.glb",
+   "W": 242,
+   "D": 157,
+   "H": 71,
+   "price_eur": 1360,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Mood kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "kampine-slay",
+   "name": "Slay",
+   "glb": "kampine-slay.glb",
+   "W": 274,
+   "D": 258,
+   "H": 67,
+   "price_eur": 1630,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kampinė sofa.",
+   "shopify_variant": null
+  },
+  {
+   "code": "kampine-yoko",
+   "name": "Yoko",
+   "glb": "kampine-yoko.glb",
+   "W": 286,
+   "D": 165,
+   "H": 80,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Yoko kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "kampine-harris-rxl",
+   "name": "Harris RXL",
+   "glb": "kampine-harris-rxl.glb",
+   "W": 170,
+   "D": 69,
+   "H": 89,
+   "price_eur": 1500,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris RXL elementas.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  }
+ ]
 }
