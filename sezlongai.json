@@ -1,0 +1,231 @@
+{
+ "_note": "Optisofa sezlongai. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
+ "items": [
+  {
+   "code": "sezlongas-harris",
+   "name": "Harris su šezlongu",
+   "glb": "sezlongas-harris.glb",
+   "W": 177,
+   "D": 90,
+   "H": 85,
+   "price_eur": 1260,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sezlongas-harris-1",
+   "name": "Harris su šezlongu",
+   "glb": "sezlongas-harris-1.glb",
+   "W": 240,
+   "D": 159,
+   "H": 84,
+   "price_eur": 1260,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sezlongas-joleen-chaise",
+   "name": "Joleen su šezlongu",
+   "glb": "sezlongas-joleen-chaise.glb",
+   "W": 240,
+   "D": 165,
+   "H": 74,
+   "price_eur": 1275,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Joleen kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sezlongas-mood",
+   "name": "Mood su šezlongu",
+   "glb": "sezlongas-mood.glb",
+   "W": 95,
+   "D": 157,
+   "H": 71,
+   "price_eur": 780,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Mood kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sezlongas-mood-chaise",
+   "name": "Mood su šezlongu",
+   "glb": "sezlongas-mood-chaise.glb",
+   "W": 247,
+   "D": 157,
+   "H": 71,
+   "price_eur": 780,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Mood kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sezlongas-nora-chaise",
+   "name": "Nora su šezlongu",
+   "glb": "sezlongas-nora-chaise.glb",
+   "W": 222,
+   "D": 162,
+   "H": 86,
+   "price_eur": 1610,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Nora kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sezlongas-salma-chaise",
+   "name": "Salma su šezlongu",
+   "glb": "sezlongas-salma-chaise.glb",
+   "W": 223,
+   "D": 163,
+   "H": 83,
+   "price_eur": 1330,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Salma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sezlongas-slay",
+   "name": "Slay su šezlongu",
+   "glb": "sezlongas-slay.glb",
+   "W": 271,
+   "D": 95,
+   "H": 67,
+   "price_eur": 980,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sezlongas-slay-chaise",
+   "name": "Slay su šezlongu",
+   "glb": "sezlongas-slay-chaise.glb",
+   "W": 256,
+   "D": 136,
+   "H": 67,
+   "price_eur": 980,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sezlongas-slay-2v",
+   "name": "Slay su šezlongu",
+   "glb": "sezlongas-slay-2v.glb",
+   "W": 183,
+   "D": 136,
+   "H": 67,
+   "price_eur": 980,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sezlongas-uma-chaise",
+   "name": "Uma su šezlongu",
+   "glb": "sezlongas-uma-chaise.glb",
+   "W": 257,
+   "D": 157,
+   "H": 82,
+   "price_eur": 1430,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Uma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  }
+ ]
+}
