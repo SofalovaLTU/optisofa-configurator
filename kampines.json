@@ -1,0 +1,65 @@
+{
+  "_note": "Optisofa kampines (single-product). Kainos iš optisofa.com en-de (min='nuo'). Matmenys iš 3D bbox. Detalės tikslintinos.",
+  "items": [
+    {
+      "code": "kampine-esme",
+      "name": "Esme",
+      "glb": "kampine-esme.glb",
+      "W": 249,
+      "D": 199,
+      "H": 89,
+      "price_eur": 1330,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Esme kampinė sofa-lova.",
+      "shopify_variant": null
+    },
+    {
+      "code": "kampine-harris",
+      "name": "Harris",
+      "glb": "kampine-harris.glb",
+      "W": 243,
+      "D": 207,
+      "H": 72,
+      "price_eur": 1500,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Harris kampinė sofa-lova.",
+      "shopify_variant": null
+    },
+    {
+      "code": "kampine-harris-rxl",
+      "name": "Harris RXL",
+      "glb": "kampine-harris-rxl.glb",
+      "W": 170,
+      "D": 69,
+      "H": 89,
+      "price_eur": 1500,
+      "price_approx": true,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Harris RXL elementas.",
+      "shopify_variant": null
+    },
+    {
+      "code": "kampine-slay",
+      "name": "Slay",
+      "glb": "kampine-slay.glb",
+      "W": 274,
+      "D": 258,
+      "H": 67,
+      "price_eur": 1630,
+      "price_approx": false,
+      "legFilter": true,
+      "verified": false,
+      "features": [],
+      "desc": "Slay kampinė sofa.",
+      "shopify_variant": null
+    }
+  ]
+}
