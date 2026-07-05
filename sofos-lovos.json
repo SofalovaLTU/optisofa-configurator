@@ -47,7 +47,7 @@
    "leg_approx": true,
    "sleep_mech": "Dolphin (DL)",
    "default_state": "sofa",
-   "glb_alt": null
+   "glb_alt": "sofa-lova-amy-open.glb"
   },
   {
    "code": "sofa-lova-blues",
@@ -165,7 +165,7 @@
    "leg_approx": true,
    "sleep_mech": "Dolphin (DL)",
    "default_state": "sofa",
-   "glb_alt": null
+   "glb_alt": "sofa-lova-clara-open.glb"
   },
   {
    "code": "sofa-lova-emilly",
@@ -234,7 +234,7 @@
    },
    "sleep_mech": "Dolphin (DL)",
    "default_state": "sofa",
-   "glb_alt": null
+   "glb_alt": "sofa-lova-harris-open.glb"
   },
   {
    "code": "sofa-lova-jane",
@@ -305,7 +305,7 @@
    },
    "sleep_mech": "Dolphin (DL)",
    "default_state": "sofa",
-   "glb_alt": null
+   "glb_alt": "sofa-lova-joleen-open.glb"
   },
   {
    "code": "sofa-lova-juliett",
@@ -328,7 +328,7 @@
    },
    "sleep_mech": "Dolphin (DL)",
    "default_state": "sofa",
-   "glb_alt": null
+   "glb_alt": "sofa-lova-juliett-open.glb"
   },
   {
    "code": "sofa-lova-juliett-2",
@@ -351,7 +351,7 @@
    },
    "sleep_mech": "Dolphin (DL)",
    "default_state": "sofa",
-   "glb_alt": null
+   "glb_alt": "sofa-lova-juliett-2-open.glb"
   },
   {
    "code": "sofa-lova-nora",
