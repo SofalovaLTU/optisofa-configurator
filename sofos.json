@@ -1,0 +1,825 @@
+{
+ "_note": "Optisofa sofos. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
+ "items": [
+  {
+   "code": "sofa-abbe",
+   "name": "Abbe ",
+   "glb": "sofa-abbe.glb",
+   "W": 192,
+   "D": 93,
+   "H": 89,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Abbe  kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-abbe-2v",
+   "name": "Abbe  2 vietų",
+   "glb": "sofa-abbe-2v.glb",
+   "W": 146,
+   "D": 93,
+   "H": 89,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Abbe  kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-amelie",
+   "name": "Amelie",
+   "glb": "sofa-amelie.glb",
+   "W": 195,
+   "D": 84,
+   "H": 98,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Amelie kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-amelie-2v",
+   "name": "Amelie 2 vietų",
+   "glb": "sofa-amelie-2v.glb",
+   "W": 139,
+   "D": 85,
+   "H": 98,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Amelie kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-amy",
+   "name": "Amy",
+   "glb": "sofa-amy.glb",
+   "W": 191,
+   "D": 87,
+   "H": 87,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Amy kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-amy-2v",
+   "name": "Amy 2 vietų",
+   "glb": "sofa-amy-2v.glb",
+   "W": 141,
+   "D": 87,
+   "H": 88,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Amy kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-blow",
+   "name": "Blow",
+   "glb": "sofa-blow.glb",
+   "W": 206,
+   "D": 104,
+   "H": 70,
+   "price_eur": 1100,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Blow kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-blow-1",
+   "name": "Blow",
+   "glb": "sofa-blow-1.glb",
+   "W": 291,
+   "D": 104,
+   "H": 70,
+   "price_eur": 1100,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Blow kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-blues",
+   "name": "Blues",
+   "glb": "sofa-blues.glb",
+   "W": 191,
+   "D": 94,
+   "H": 83,
+   "price_eur": 780,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Blues kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-blues-2v",
+   "name": "Blues 2 vietų",
+   "glb": "sofa-blues-2v.glb",
+   "W": 141,
+   "D": 94,
+   "H": 83,
+   "price_eur": 780,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Blues kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-clara",
+   "name": "Clara",
+   "glb": "sofa-clara.glb",
+   "W": 209,
+   "D": 91,
+   "H": 90,
+   "price_eur": 740,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Clara kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-clara-2v",
+   "name": "Clara 2 vietų",
+   "glb": "sofa-clara-2v.glb",
+   "W": 163,
+   "D": 91,
+   "H": 90,
+   "price_eur": 740,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Clara kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-emilly",
+   "name": "Emilly",
+   "glb": "sofa-emilly.glb",
+   "W": 191,
+   "D": 87,
+   "H": 87,
+   "price_eur": 760,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Emilly kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-emilly-2v",
+   "name": "Emilly 2 vietų",
+   "glb": "sofa-emilly-2v.glb",
+   "W": 141,
+   "D": 87,
+   "H": 87,
+   "price_eur": 760,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Emilly kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-esme",
+   "name": "Esme",
+   "glb": "sofa-esme.glb",
+   "W": 193,
+   "D": 94,
+   "H": 86,
+   "price_eur": 790,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Esme kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-esme-2v",
+   "name": "Esme 2 vietų",
+   "glb": "sofa-esme-2v.glb",
+   "W": 147,
+   "D": 94,
+   "H": 86,
+   "price_eur": 790,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Esme kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-harris",
+   "name": "Harris",
+   "glb": "sofa-harris.glb",
+   "W": 206,
+   "D": 91,
+   "H": 84,
+   "price_eur": 566,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-harris-2v",
+   "name": "Harris 2 vietų",
+   "glb": "sofa-harris-2v.glb",
+   "W": 162,
+   "D": 91,
+   "H": 84,
+   "price_eur": 566,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-ines",
+   "name": "Ines",
+   "glb": "sofa-ines.glb",
+   "W": 214,
+   "D": 106,
+   "H": 88,
+   "price_eur": 940,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Ines kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-ines-2v",
+   "name": "Ines",
+   "glb": "sofa-ines-2v.glb",
+   "W": 159,
+   "D": 106,
+   "H": 88,
+   "price_eur": 940,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Ines kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-jane",
+   "name": "Jane",
+   "glb": "sofa-jane.glb",
+   "W": 208,
+   "D": 85,
+   "H": 87,
+   "price_eur": 740,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Jane kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-jane-2v",
+   "name": "Jane",
+   "glb": "sofa-jane-2v.glb",
+   "W": 162,
+   "D": 85,
+   "H": 87,
+   "price_eur": 740,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Jane kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-joleen",
+   "name": "Joleen",
+   "glb": "sofa-joleen.glb",
+   "W": 200,
+   "D": 91,
+   "H": 89,
+   "price_eur": 730,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Joleen kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-joleen-2v",
+   "name": "Joleen 2 vietų",
+   "glb": "sofa-joleen-2v.glb",
+   "W": 154,
+   "D": 91,
+   "H": 89,
+   "price_eur": 730,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Joleen kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-juliett",
+   "name": "Juliett",
+   "glb": "sofa-juliett.glb",
+   "W": 197,
+   "D": 89,
+   "H": 84,
+   "price_eur": 860,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Juliett kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-juliett-2v",
+   "name": "Juliett 2 vietų",
+   "glb": "sofa-juliett-2v.glb",
+   "W": 151,
+   "D": 89,
+   "H": 84,
+   "price_eur": 623,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Juliett kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-juliett-2",
+   "name": "Juliett 2",
+   "glb": "sofa-juliett-2.glb",
+   "W": 197,
+   "D": 89,
+   "H": 84,
+   "price_eur": 860,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Juliett 2 kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-juliett-2-2v",
+   "name": "Juliett 2 2 vietų",
+   "glb": "sofa-juliett-2-2v.glb",
+   "W": 151,
+   "D": 89,
+   "H": 84,
+   "price_eur": 623,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Juliett 2 kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
+  },
+  {
+   "code": "sofa-karin",
+   "name": "Karin",
+   "glb": "sofa-karin.glb",
+   "W": 236,
+   "D": 95,
+   "H": 86,
+   "price_eur": 1005,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Karin kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-karin-2v",
+   "name": "Karin 2 vietų",
+   "glb": "sofa-karin-2v.glb",
+   "W": 181,
+   "D": 96,
+   "H": 85,
+   "price_eur": 1005,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Karin kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-mood",
+   "name": "Mood",
+   "glb": "sofa-mood.glb",
+   "W": 211,
+   "D": 96,
+   "H": 71,
+   "price_eur": 1000,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Mood kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-mood-1",
+   "name": "Mood",
+   "glb": "sofa-mood-1.glb",
+   "W": 302,
+   "D": 96,
+   "H": 71,
+   "price_eur": 1000,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Mood kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-salma",
+   "name": "Salma",
+   "glb": "sofa-salma.glb",
+   "W": 192,
+   "D": 94,
+   "H": 84,
+   "price_eur": 850,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Salma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-salma-2v",
+   "name": "Salma 2 vietų",
+   "glb": "sofa-salma-2v.glb",
+   "W": 142,
+   "D": 94,
+   "H": 84,
+   "price_eur": 735,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Salma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-slay",
+   "name": "Slay",
+   "glb": "sofa-slay.glb",
+   "W": 256,
+   "D": 95,
+   "H": 67,
+   "price_eur": 230,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-slay-2v",
+   "name": "Slay 2 vietų",
+   "glb": "sofa-slay-2v.glb",
+   "W": 183,
+   "D": 95,
+   "H": 67,
+   "price_eur": 650,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Slay kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-uma-2v",
+   "name": "Uma 2 vietų",
+   "glb": "sofa-uma-2v.glb",
+   "W": 177,
+   "D": 87,
+   "H": 82,
+   "price_eur": 790,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Uma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-uma",
+   "name": "Uma",
+   "glb": "sofa-uma.glb",
+   "W": 210,
+   "D": 87,
+   "H": 82,
+   "price_eur": 890,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Uma kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   }
+  },
+  {
+   "code": "sofa-yoko",
+   "name": "Yoko",
+   "glb": "sofa-yoko.glb",
+   "W": 219,
+   "D": 100,
+   "H": 80,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Yoko kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  },
+  {
+   "code": "sofa-yoko-2v",
+   "name": "Yoko 2 vietų",
+   "glb": "sofa-yoko-2v.glb",
+   "W": 179,
+   "D": 100,
+   "H": 80,
+   "price_eur": 0,
+   "price_approx": true,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Yoko kolekcija.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Juodos metalinės kojos"
+   },
+   "leg_approx": true
+  }
+ ]
+}
