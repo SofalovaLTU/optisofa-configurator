@@ -22,27 +22,6 @@
    }
   },
   {
-   "code": "kampine-flow",
-   "name": "Flow",
-   "glb": "kampine-flow.glb",
-   "W": 92,
-   "D": 94,
-   "H": 68,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Flow kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "kampine-harris",
    "name": "Harris",
    "glb": "kampine-harris.glb",
@@ -159,27 +138,6 @@
    "features": [],
    "desc": "Slay kampinė sofa.",
    "shopify_variant": null
-  },
-  {
-   "code": "kampine-yoko",
-   "name": "Yoko",
-   "glb": "kampine-yoko.glb",
-   "W": 286,
-   "D": 165,
-   "H": 80,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Yoko kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
   }
  ]
 }

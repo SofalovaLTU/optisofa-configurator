@@ -2,90 +2,6 @@
  "_note": "Optisofa lovos. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
  "items": [
   {
-   "code": "lova-elvi",
-   "name": "Elvi 140x200",
-   "glb": "lova-elvi.glb",
-   "W": 158,
-   "D": 236,
-   "H": 75,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Elvi kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "lova-elvi-1",
-   "name": "Elvi 160x200",
-   "glb": "lova-elvi-1.glb",
-   "W": 178,
-   "D": 236,
-   "H": 75,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Elvi kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "lova-elvi-2",
-   "name": "Elvi 180x200",
-   "glb": "lova-elvi-2.glb",
-   "W": 198,
-   "D": 236,
-   "H": 75,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Elvi kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "lova-elvi-3",
-   "name": "Elvi lova",
-   "glb": "lova-elvi-3.glb",
-   "W": 108,
-   "D": 236,
-   "H": 75,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Elvi kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "lova-slay-140",
    "name": "Slay 140×200",
    "glb": "lova-slay-140.glb",
@@ -147,26 +63,6 @@
     "note": "Juodos metalinės kojos"
    },
    "leg_approx": true
-  },
-  {
-   "code": "lova-uma-daybed",
-   "name": "Uma daybed",
-   "glb": "lova-uma-daybed.glb",
-   "W": 84,
-   "D": 194,
-   "H": 53,
-   "price_eur": 1540,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Uma dieninė lova (daybed).",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   }
   }
  ]
 }

@@ -86,27 +86,6 @@
    "leg_approx": true
   },
   {
-   "code": "pufas-flow",
-   "name": "Flow pufas",
-   "glb": "pufas-flow.glb",
-   "W": 81,
-   "D": 86,
-   "H": 39,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Flow kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "pufas-juliett",
    "name": "Juliett",
    "glb": "pufas-juliett.glb",
@@ -147,27 +126,6 @@
    }
   },
   {
-   "code": "pufas-lottie",
-   "name": "Lottie pufas",
-   "glb": "pufas-lottie.glb",
-   "W": 57,
-   "D": 57,
-   "H": 44,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Lottie kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "pufas-slay",
    "name": "Slay",
    "glb": "pufas-slay.glb",
@@ -195,42 +153,6 @@
    "verified": false,
    "features": [],
    "desc": "Slay kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "pufas-tilda",
-   "name": "Tilda",
-   "glb": "pufas-tilda.glb",
-   "W": 54,
-   "D": 39,
-   "H": 38,
-   "price_eur": 250,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Tilda kolekcijos pufas.",
-   "shopify_variant": null
-  },
-  {
-   "code": "pufas-tilda-2",
-   "name": "Tilda 2 pufas",
-   "glb": "pufas-tilda-2.glb",
-   "W": 54,
-   "D": 38,
-   "H": 37,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Tilda 2 kolekcija.",
    "shopify_variant": null,
    "leg": {
     "finish": "metal",
@@ -273,27 +195,6 @@
    "verified": false,
    "features": [],
    "desc": "Vibe kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "pufas-yoko",
-   "name": "Yoko pufas",
-   "glb": "pufas-yoko.glb",
-   "W": 142,
-   "D": 69,
-   "H": 47,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Yoko kolekcija.",
    "shopify_variant": null,
    "leg": {
     "finish": "metal",

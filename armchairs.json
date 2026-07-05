@@ -2,90 +2,6 @@
  "_note": "Optisofa armchairs. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
  "items": [
   {
-   "code": "fotelis-abbe",
-   "name": "Abbe ",
-   "glb": "fotelis-abbe.glb",
-   "W": 73,
-   "D": 86,
-   "H": 89,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Abbe  kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "fotelis-ahne",
-   "name": "Ahne",
-   "glb": "fotelis-ahne.glb",
-   "W": 76,
-   "D": 91,
-   "H": 110,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Ahne kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "fotelis-amelie",
-   "name": "Amelie",
-   "glb": "fotelis-amelie.glb",
-   "W": 83,
-   "D": 83,
-   "H": 98,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Amelie kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "fotelis-amy",
-   "name": "Amy",
-   "glb": "fotelis-amy.glb",
-   "W": 76,
-   "D": 81,
-   "H": 85,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Amy kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "fotelis-blow",
    "name": "Blow",
    "glb": "fotelis-blow.glb",
@@ -154,27 +70,6 @@
    "verified": false,
    "features": [],
    "desc": "Bonnie kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "fotelis-clara",
-   "name": "Clara",
-   "glb": "fotelis-clara.glb",
-   "W": 89,
-   "D": 91,
-   "H": 90,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Clara kolekcija.",
    "shopify_variant": null,
    "leg": {
     "finish": "metal",
@@ -273,27 +168,6 @@
    "desc": "Klasikinės, geometrinės formos fotelis su ąžuolo kojomis. Dekoratyvus apvadas suteikia kolekcijai išskirtinį charakterį; apdorota iki smulkmenų.",
    "verified": true,
    "shopify_variant": null
-  },
-  {
-   "code": "fotelis-flow",
-   "name": "Flow",
-   "glb": "fotelis-flow.glb",
-   "W": 80,
-   "D": 95,
-   "H": 68,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Flow kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
   },
   {
    "code": "fotelis-harris",
@@ -460,47 +334,6 @@
    "shopify_variant": null
   },
   {
-   "code": "fotelis-juliett-2",
-   "name": "Juliett 2",
-   "glb": "fotelis-juliett-2.glb",
-   "W": 76,
-   "D": 63,
-   "H": 75,
-   "price_eur": 412,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Juliett 2 kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "wood",
-    "color": "#CBA97B",
-    "note": "Ąžuolo kojos"
-   }
-  },
-  {
-   "code": "fotelis-lottie",
-   "name": "Lottie",
-   "glb": "fotelis-lottie.glb",
-   "W": 86,
-   "D": 81,
-   "H": 76,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Lottie kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "fotelis-mia",
    "name": "Mia",
    "glb": "fotelis-mia.glb",
@@ -594,48 +427,6 @@
    "shopify_variant": null
   },
   {
-   "code": "fotelis-tilda",
-   "name": "Tilda",
-   "glb": "fotelis-tilda.glb",
-   "W": 70,
-   "D": 82,
-   "H": 91,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Tilda kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
-   "code": "fotelis-tilda-2",
-   "name": "Tilda 2",
-   "glb": "fotelis-tilda-2.glb",
-   "W": 70,
-   "D": 82,
-   "H": 91,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Tilda 2 kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
-  },
-  {
    "code": "fotelis-uma",
    "name": "Uma",
    "glb": "fotelis-uma.glb",
@@ -669,27 +460,6 @@
    "desc": "Uma išskirtinumas — į vidų išgaubti šonai ir grakščios kojos. Nenugalimai kviečiančios formos; ideali vieta pabėgti nuo kasdienio šurmulio.",
    "verified": true,
    "shopify_variant": null
-  },
-  {
-   "code": "fotelis-yoko",
-   "name": "Yoko",
-   "glb": "fotelis-yoko.glb",
-   "W": 144,
-   "D": 99,
-   "H": 79,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Yoko kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
   },
   {
    "code": "fotelis-juliett-ii",
@@ -728,26 +498,6 @@
    "uvHoriz": true,
    "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack).",
    "shopify_variant": null
-  },
-  {
-   "code": "fotelis-harris-rxl",
-   "name": "Harris RXL",
-   "glb": "fotelis-harris-rxl.glb",
-   "W": 170,
-   "D": 69,
-   "H": 89,
-   "price_eur": 1500,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Harris RXL elementas.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "wood",
-    "color": "#CBA97B",
-    "note": "Ąžuolo kojos"
-   }
   }
  ]
 }

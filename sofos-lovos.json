@@ -2,54 +2,6 @@
  "_note": "Optisofa sofos-lovos. Kainos iš optisofa.com (min). Matmenys iš 3D. Dalis tikslintina.",
  "items": [
   {
-   "code": "sofa-lova-abbe-chaise",
-   "name": "Abbe  su šezlongu",
-   "glb": "sofa-lova-abbe-chaise.glb",
-   "W": 224,
-   "D": 163,
-   "H": 73,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Abbe  kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true,
-   "sleep_mech": "Dolphin (DL)",
-   "default_state": "sofa",
-   "glb_alt": null
-  },
-  {
-   "code": "sofa-lova-amy",
-   "name": "Amy",
-   "glb": "sofa-lova-amy.glb",
-   "W": 211,
-   "D": 95,
-   "H": 87,
-   "price_eur": 0,
-   "price_approx": true,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Amy kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true,
-   "sleep_mech": "Dolphin (DL)",
-   "default_state": "sofa",
-   "glb_alt": "sofa-lova-amy-open.glb"
-  },
-  {
    "code": "sofa-lova-blues",
    "name": "Blues",
    "glb": "sofa-lova-blues.glb",
