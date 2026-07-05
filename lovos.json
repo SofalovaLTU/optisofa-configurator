@@ -63,6 +63,126 @@
     "note": "Juodos metalinės kojos"
    },
    "leg_approx": true
+  },
+  {
+   "code": "lova-molly-90",
+   "name": "Molly 90×200",
+   "glb": "lova-molly-90.glb",
+   "W": 101,
+   "D": 212,
+   "H": 89,
+   "price_eur": 440,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Molly lova su atlošu.",
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   },
+   "shopify_variant": null
+  },
+  {
+   "code": "lova-molly-140",
+   "name": "Molly 140×200",
+   "glb": "lova-molly-140.glb",
+   "W": 152,
+   "D": 212,
+   "H": 89,
+   "price_eur": 510,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Molly lova su atlošu.",
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   },
+   "shopify_variant": null
+  },
+  {
+   "code": "lova-molly-160",
+   "name": "Molly 160×200",
+   "glb": "lova-molly-160.glb",
+   "W": 171,
+   "D": 212,
+   "H": 89,
+   "price_eur": 530,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Molly lova su atlošu.",
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   },
+   "shopify_variant": null
+  },
+  {
+   "code": "lova-molly-180",
+   "name": "Molly 180×200",
+   "glb": "lova-molly-180.glb",
+   "W": 191,
+   "D": 212,
+   "H": 89,
+   "price_eur": 560,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Molly lova su atlošu.",
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   },
+   "shopify_variant": null
+  },
+  {
+   "code": "lova-spark-160",
+   "name": "Spark 160×200",
+   "glb": "lova-spark-160.glb",
+   "W": 179,
+   "D": 222,
+   "H": 92,
+   "price_eur": 780,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Spark lova su atlošu.",
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Metalinės kojos"
+   },
+   "shopify_variant": null
+  },
+  {
+   "code": "lova-spark-180",
+   "name": "Spark 180×200",
+   "glb": "lova-spark-180.glb",
+   "W": 198,
+   "D": 222,
+   "H": 92,
+   "price_eur": 840,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Spark lova su atlošu.",
+   "leg": {
+    "finish": "metal",
+    "color": "#3C3C3E",
+    "note": "Metalinės kojos"
+   },
+   "shopify_variant": null
   }
  ]
 }

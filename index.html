@@ -859,17 +859,25 @@ thumbScene.add(new THREE.HemisphereLight(0xffffff,0xd8d0c4,1.4));
 const td1=new THREE.DirectionalLight(0xffffff,2.0);td1.position.set(3,5,4);thumbScene.add(td1);
 const td2=new THREE.DirectionalLight(0xffffff,0.5);td2.position.set(-3,2,-2);thumbScene.add(td2);
 const thumbCam=new THREE.PerspectiveCamera(38,360/270,.01,100);
-function renderThumb(group,front){
+function renderThumb(group,front,glb){
   const box=new THREE.Box3().setFromObject(group),size=new THREE.Vector3(),c=new THREE.Vector3();box.getSize(size);box.getCenter(c);group.position.sub(c);
   group.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshPhysicalMaterial({color:0xccbda6,roughness:.9,metalness:0});o.material.envMapIntensity=0.7;}});
   thumbScene.add(group);const md=Math.max(size.x,size.y,size.z)||1;
+  let matMesh=null;
+  if(glb&&glb.indexOf('lova-')===0){ // lovai — čiužinys ir miniatiūroje
+    const m=/-(\d{2,3})$/.exec(glb.replace('.glb','')); const mw=m?parseInt(m[1])/100:1.6, mdd=2.0;
+    const ray=new THREE.Raycaster(new THREE.Vector3(0,size.y/2+0.3,0),new THREE.Vector3(0,-1,0));
+    const hit=ray.intersectObject(group,true)[0]; const topY=hit?hit.point.y:(-size.y/2+0.30); const th=0.19;
+    matMesh=new THREE.Mesh(new THREE.BoxGeometry(mw-0.02,th,mdd-0.02),new THREE.MeshPhysicalMaterial({color:0xd8ccb6,roughness:.95,metalness:0}));
+    matMesh.position.set(0,topY+th/2,0);thumbScene.add(matMesh);
+  }
   if(front){const dist=md*2.15;thumbCam.position.set(dist*0.5,dist*0.3,dist*0.92);} // foteliai: 3/4 hero kampas akių lygyje, daugiau oro rėme
   else{const dist=md*1.85;thumbCam.position.set(dist*0.82,dist*0.7,dist);}  // 3/4 moduliams
   thumbCam.lookAt(0,0,0);
-  thumbRenderer.render(thumbScene,thumbCam);const url=thumbRenderer.domElement.toDataURL('image/png');thumbScene.remove(group);return url;
+  thumbRenderer.render(thumbScene,thumbCam);const url=thumbRenderer.domElement.toDataURL('image/png');thumbScene.remove(group);if(matMesh)thumbScene.remove(matMesh);return url;
 }
 const thumbCache={};
-async function thumbFor(glb,front){const ck=glb+(front?'#f':'');if(thumbCache[ck])return thumbCache[ck];try{const g=await loadGLB(glb);const u=renderThumb(g,!!front);thumbCache[ck]=u;return u;}catch(e){return null;}}
+async function thumbFor(glb,front){const ck=glb+(front?'#f':'');if(thumbCache[ck])return thumbCache[ck];try{const g=await loadGLB(glb);const u=renderThumb(g,!!front,glb);thumbCache[ck]=u;return u;}catch(e){return null;}}
 async function presetThumb(codes,layout,build){const key=curFamily+':'+(build?'B'+JSON.stringify(build):layout?'L'+layout.map(i=>i.code+i.x+i.z+i.rot).join(','):codes.join(','));if(thumbCache[key])return thumbCache[key];
   try{const fam=MANIFEST.families[curFamily];const group=new THREE.Group();let x=0;
     if(build){const L=await cloudLayout(build);
@@ -1052,8 +1060,25 @@ async function loadProduct(a,showAlt){
   if(list&&spec){const cards=[...list.querySelectorAll('.armcard')];const i=cards.findIndex(c=>c.dataset.code===a.code);
     if(i>=0){const rowEnd=cards[Math.min(i|1,cards.length-1)];rowEnd.after(spec);}}
   if(!rec){const box=$('#'+cx.spec);if(box){box.innerHTML='<h3>'+a.name+'</h3><div class="as-flag" style="color:#b4452f">⚠ Nepavyko įkelti 3D modelio: <b>'+a.glb+'</b>.</div>';box.classList.add('show');}setHint('3D modelis nerastas: '+a.glb);}
-  else{classifyLegs(rec);rec._legDone=true;applyLegColor(rec,a.leg);if(curFabric)applyFabricTo(rec);setHint(t('armHint'));frameAll(new THREE.Vector3(0.55,0.32,1.0));} // 3/4 hero kampas akių lygyje
+  else{classifyLegs(rec);rec._legDone=true;applyLegColor(rec,a.leg);if(curFabric)applyFabricTo(rec);if(a.code&&a.code.indexOf('lova-')===0)addMattress(rec,a);setHint(t('armHint'));frameAll(new THREE.Vector3(0.55,0.32,1.0));} // 3/4 hero kampas akių lygyje
   saveState();
+}
+// LOVOMS: procedūrinis čiužinys ant slat'ų (kad atrodytų kaip Optisofa, ne tuščias rėmas)
+function addMattress(rec,a){
+  const m=/(\d{2,3})[x×](\d{3})/.exec(a.name||''); if(!m)return;
+  const mw=parseInt(m[1])/100, md=parseInt(m[2])/100;
+  const box=new THREE.Box3().setFromObject(rec.root), c=box.getCenter(new THREE.Vector3());
+  // raycast žemyn nuo centro viršaus -> slat/rėmo viršus
+  const ray=new THREE.Raycaster(new THREE.Vector3(c.x,box.max.y+0.2,c.z), new THREE.Vector3(0,-1,0));
+  const hit=ray.intersectObject(rec.root,true)[0];
+  const topY=hit?hit.point.y:(box.min.y+0.30);
+  const th=0.19;
+  const g=new THREE.BoxGeometry(mw-0.02, th, md-0.02, 1,1,1);
+  const mat=new THREE.MeshPhysicalMaterial({color:0xf3efe8, roughness:0.96, metalness:0, sheen:0.25, sheenColor:new THREE.Color(0xffffff)});
+  mat.envMapIntensity=0.18;
+  const mesh=new THREE.Mesh(g,mat); mesh.castShadow=true; mesh.receiveShadow=true; mesh.name='Mattress'; mesh.userData.noFab=true;
+  mesh.position.set(c.x, topY+th/2, c.z);
+  rec.root.add(mesh);
 }
 const loadArmchair=loadProduct; // suderinamumas su deep-link / restore
 function buildArmSpec(a,specSel){
