@@ -401,6 +401,16 @@
         <div id="kampinesList" class="armlist"></div>
         <div id="kampinesSpec" class="arm-spec"></div>
       </div>
+      <button class="cat-hd" data-cat="sofos"><span data-i18n="catSofos">Sofos</span><span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="sofos">
+        <div id="sofosList" class="armlist"></div>
+        <div id="sofosSpec" class="arm-spec"></div>
+      </div>
+      <button class="cat-hd" data-cat="sezlongai"><span data-i18n="catSezlongai">Sofos su šezlongu</span><span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="sezlongai">
+        <div id="sezlongaiList" class="armlist"></div>
+        <div id="sezlongaiSpec" class="arm-spec"></div>
+      </div>
     </div>
   </aside>
 
@@ -495,6 +505,7 @@
 <script type="module">
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -521,9 +532,9 @@ const $=s=>document.querySelector(s);
 let MANIFEST=null,FABRICS=[],ARMCHAIRS=[],curFamily=null,curMode='modular',curFabric=null,curTex=null,ready=false;
 /* ── i18n (LT/EN/FR) ── */
 const I18N={
- lt:{brandSub:'Sofų konfigūratorius',order:'Užsakyti',priceNoteDefault:'pasirink modulius',upTo:'iki €',modulesWord:'moduliai',perMonth:'/mėn · 12 mėn.',or:'arba',catModular:'Modulinės sofos',catArm:'Foteliai',secCollection:'Kolekcija',secPresets:'Greiti rinkiniai',secModules:'Moduliai',hintDefault:'Spustelk modulį ar greitą rinkinį kairėje',armHint:'Sukite pele · keiskite audinį dešinėje',wLabel:'Plotis, cm',lLabel:'Ilgis, cm',show:'Rodyti',rotate:'⟳ Pasukti',remove:'🗑 Šalinti',lock:'🔒 Užrakinti',unlock:'🔓 Atrakinti',dims:'📐 Matmenys',room:'🏠 Kambarys',center:'🎯 Centruoti',arrange:'🧲 Sutvarkyti',link:'🔗 Nuoroda',fabTitle:'Audinys',fabPick:'Pasirink audinį',orderSamples:'✄ Užsakyti nemokamus pavyzdžius',allFeatures:'Visos savybės',allColors:'Visos spalvos',armDims:'Matmenys (P×G×A)',descWord:'Aprašymas',armSeat:'Sėdynės aukštis',priceApprox:'Kaina apytikslė (perskaičiuota iš Optisofa).',catPufai:'Pufai',catLovos:'Lovos',catSlovos:'Sofos-lovos',catKampines:'Kampinės sofos',sleepFn:'Miego funkcija',openBed:'🛏 Atidaryti į lovą',closeSofa:'🛋 Sudėti į sofą',bedOnly:'Rodoma atidaryta lova · sofos vaizdas ruošiamas'},
- en:{brandSub:'Sofa configurator',order:'Order',priceNoteDefault:'select modules',upTo:'up to €',modulesWord:'modules',perMonth:'/mo · 12 mo.',or:'or',catModular:'Modular sofas',catArm:'Armchairs',secCollection:'Collection',secPresets:'Quick sets',secModules:'Modules',hintDefault:'Click a module or quick set on the left',armHint:'Drag to rotate · change fabric on the right',wLabel:'Width, cm',lLabel:'Length, cm',show:'Show',rotate:'⟳ Rotate',remove:'🗑 Remove',lock:'🔒 Lock',unlock:'🔓 Unlock',dims:'📐 Dimensions',room:'🏠 Room',center:'🎯 Center',arrange:'🧲 Arrange',link:'🔗 Link',fabTitle:'Fabric',fabPick:'Select a fabric',orderSamples:'✄ Order free samples',allFeatures:'All features',allColors:'All colors',armDims:'Dimensions (W×D×H)',descWord:'Description',armSeat:'Seat height',priceApprox:'Approx. price (converted from Optisofa).',catPufai:'Poufs',catLovos:'Beds',catSlovos:'Sofa beds',catKampines:'Corner sofas',sleepFn:'Sleep function',openBed:'🛏 Open to bed',closeSofa:'🛋 Fold to sofa',bedOnly:'Showing open bed · sofa view coming'},
- fr:{brandSub:'Configurateur de canapés',order:'Commander',priceNoteDefault:'choisissez les modules',upTo:'jusqu’à €',modulesWord:'modules',perMonth:'/mois · 12 mois',or:'ou',catModular:'Canapés modulaires',catArm:'Fauteuils',secCollection:'Collection',secPresets:'Ensembles rapides',secModules:'Modules',hintDefault:'Cliquez sur un module ou un ensemble à gauche',armHint:'Faites pivoter · changez le tissu à droite',wLabel:'Largeur, cm',lLabel:'Longueur, cm',show:'Afficher',rotate:'⟳ Pivoter',remove:'🗑 Supprimer',lock:'🔒 Verrouiller',unlock:'🔓 Déverrouiller',dims:'📐 Dimensions',room:'🏠 Pièce',center:'🎯 Centrer',arrange:'🧲 Aligner',link:'🔗 Lien',fabTitle:'Tissu',fabPick:'Choisissez un tissu',orderSamples:'✄ Commander des échantillons gratuits',allFeatures:'Toutes les propriétés',allColors:'Toutes les couleurs',armDims:'Dimensions (L×P×H)',descWord:'Description',armSeat:'Hauteur d’assise',priceApprox:'Prix approximatif (converti depuis Optisofa).',catPufai:'Poufs',catLovos:'Lits',catSlovos:'Canapés-lits',catKampines:'Canapés d’angle',sleepFn:'Fonction couchage',openBed:'🛏 Ouvrir en lit',closeSofa:'🛋 Replier en canapé',bedOnly:'Lit ouvert affiché · vue canapé à venir'}
+ lt:{brandSub:'Sofų konfigūratorius',order:'Užsakyti',priceNoteDefault:'pasirink modulius',upTo:'iki €',modulesWord:'moduliai',perMonth:'/mėn · 12 mėn.',or:'arba',catModular:'Modulinės sofos',catArm:'Foteliai',secCollection:'Kolekcija',secPresets:'Greiti rinkiniai',secModules:'Moduliai',hintDefault:'Spustelk modulį ar greitą rinkinį kairėje',armHint:'Sukite pele · keiskite audinį dešinėje',wLabel:'Plotis, cm',lLabel:'Ilgis, cm',show:'Rodyti',rotate:'⟳ Pasukti',remove:'🗑 Šalinti',lock:'🔒 Užrakinti',unlock:'🔓 Atrakinti',dims:'📐 Matmenys',room:'🏠 Kambarys',center:'🎯 Centruoti',arrange:'🧲 Sutvarkyti',link:'🔗 Nuoroda',fabTitle:'Audinys',fabPick:'Pasirink audinį',orderSamples:'✄ Užsakyti nemokamus pavyzdžius',allFeatures:'Visos savybės',allColors:'Visos spalvos',armDims:'Matmenys (P×G×A)',descWord:'Aprašymas',armSeat:'Sėdynės aukštis',priceApprox:'Kaina apytikslė (perskaičiuota iš Optisofa).',catPufai:'Pufai',catLovos:'Lovos',catSlovos:'Sofos-lovos',catKampines:'Kampinės sofos',sleepFn:'Miego funkcija',openBed:'🛏 Atidaryti į lovą',closeSofa:'🛋 Sudėti į sofą',bedOnly:'Rodoma atidaryta lova · sofos vaizdas ruošiamas',catSofos:'Sofos',catSezlongai:'Sofos su šezlongu'},
+ en:{brandSub:'Sofa configurator',order:'Order',priceNoteDefault:'select modules',upTo:'up to €',modulesWord:'modules',perMonth:'/mo · 12 mo.',or:'or',catModular:'Modular sofas',catArm:'Armchairs',secCollection:'Collection',secPresets:'Quick sets',secModules:'Modules',hintDefault:'Click a module or quick set on the left',armHint:'Drag to rotate · change fabric on the right',wLabel:'Width, cm',lLabel:'Length, cm',show:'Show',rotate:'⟳ Rotate',remove:'🗑 Remove',lock:'🔒 Lock',unlock:'🔓 Unlock',dims:'📐 Dimensions',room:'🏠 Room',center:'🎯 Center',arrange:'🧲 Arrange',link:'🔗 Link',fabTitle:'Fabric',fabPick:'Select a fabric',orderSamples:'✄ Order free samples',allFeatures:'All features',allColors:'All colors',armDims:'Dimensions (W×D×H)',descWord:'Description',armSeat:'Seat height',priceApprox:'Approx. price (converted from Optisofa).',catPufai:'Poufs',catLovos:'Beds',catSlovos:'Sofa beds',catKampines:'Corner sofas',sleepFn:'Sleep function',openBed:'🛏 Open to bed',closeSofa:'🛋 Fold to sofa',bedOnly:'Showing open bed · sofa view coming',catSofos:'Sofas',catSezlongai:'Sofas with chaise'},
+ fr:{brandSub:'Configurateur de canapés',order:'Commander',priceNoteDefault:'choisissez les modules',upTo:'jusqu’à €',modulesWord:'modules',perMonth:'/mois · 12 mois',or:'ou',catModular:'Canapés modulaires',catArm:'Fauteuils',secCollection:'Collection',secPresets:'Ensembles rapides',secModules:'Modules',hintDefault:'Cliquez sur un module ou un ensemble à gauche',armHint:'Faites pivoter · changez le tissu à droite',wLabel:'Largeur, cm',lLabel:'Longueur, cm',show:'Afficher',rotate:'⟳ Pivoter',remove:'🗑 Supprimer',lock:'🔒 Verrouiller',unlock:'🔓 Déverrouiller',dims:'📐 Dimensions',room:'🏠 Pièce',center:'🎯 Centrer',arrange:'🧲 Aligner',link:'🔗 Lien',fabTitle:'Tissu',fabPick:'Choisissez un tissu',orderSamples:'✄ Commander des échantillons gratuits',allFeatures:'Toutes les propriétés',allColors:'Toutes les couleurs',armDims:'Dimensions (L×P×H)',descWord:'Description',armSeat:'Hauteur d’assise',priceApprox:'Prix approximatif (converti depuis Optisofa).',catPufai:'Poufs',catLovos:'Lits',catSlovos:'Canapés-lits',catKampines:'Canapés d’angle',sleepFn:'Fonction couchage',openBed:'🛏 Ouvrir en lit',closeSofa:'🛋 Replier en canapé',bedOnly:'Lit ouvert affiché · vue canapé à venir',catSofos:'Canapés',catSezlongai:'Canapés avec méridienne'}
 };
 let LANG='lt';
 function t(k){return (I18N[LANG]&&I18N[LANG][k])||(I18N.lt&&I18N.lt[k])||'';}
@@ -545,7 +556,7 @@ const placed=[]; let selected=null; let locked=false;
 /* SCENE */
 const stage=$('#stage');
 const renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true,preserveDrawingBuffer:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setPixelRatio(Math.min(devicePixelRatio,2.5)); // HD
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=0.95;
 const scene=new THREE.Scene();(function(){const c=document.createElement('canvas');c.width=2;c.height=512;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,0,512);g.addColorStop(0,'#e7e0d3');g.addColorStop(0.5,'#dcd2c3');g.addColorStop(1,'#c7bca8');x.fillStyle=g;x.fillRect(0,0,2,512);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;scene.background=t;})();
@@ -555,7 +566,7 @@ renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIE
 const orbit=new OrbitControls(camera,renderer.domElement);
 orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.75;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
 scene.add(new THREE.HemisphereLight(0xffffff,0xdad2c5,0.40));
-const keyL=new THREE.DirectionalLight(0xffffff,1.35);keyL.position.set(3.5,6.5,4);keyL.castShadow=true;keyL.shadow.mapSize.set(2048,2048);keyL.shadow.radius=4;
+const keyL=new THREE.DirectionalLight(0xffffff,1.35);keyL.position.set(3.5,6.5,4);keyL.castShadow=true;keyL.shadow.mapSize.set(4096,4096);keyL.shadow.radius=4; // HD šešėliai
 keyL.shadow.camera.left=-6;keyL.shadow.camera.right=6;keyL.shadow.camera.top=6;keyL.shadow.camera.bottom=-6;keyL.shadow.bias=-0.0003;scene.add(keyL);
 const fillL=new THREE.DirectionalLight(0xffffff,0.28);fillL.position.set(-4,3,-3);scene.add(fillL);
 const floor=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandardMaterial({color:0xcec4b2,roughness:0.92,metalness:0}));floor.material.envMapIntensity=0.4;
@@ -566,6 +577,7 @@ new ResizeObserver(resize).observe(stage);resize();
 
 /* GLB CACHE (kad miniatiūros nekrautų to paties failo daug kartų) */
 const gltf=new GLTFLoader(); const glbCache={};
+const _draco=new DRACOLoader();_draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/');gltf.setDRACOLoader(_draco); // Draco suspausti GLB
 async function loadGLB(glb){const k=glb.replace(/^\//,'');
   if(!glbCache[k]){
     const base=k.split('/').pop();
@@ -813,7 +825,7 @@ function loadFabricTexture(f,onOk){
   const setup=t=>{t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,1);try{t.anisotropy=renderer.capabilities.getMaxAnisotropy();}catch(e){}
     if(t.image && !f._avg){const c=avgColor(t.image);if(c)f._avg=c;}onOk(t);};
   // proxy iš karto (patikimas CORS + galima nuskaityti vidutinę spalvą)
-  texLoader.load(proxied(url,1536),setup,undefined,()=>{
+  texLoader.load(proxied(url,2048),setup,undefined,()=>{
     texLoader.load(url+(url.includes('?')?'&':'?')+'width=1200',setup,undefined,()=>{onOk(null);}); // atsarginis tiesioginis
   });
 }
@@ -841,7 +853,7 @@ function setFabric(f){
 
 /* THUMBNAILS (HQ) */
 const thumbRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
-thumbRenderer.setPixelRatio(2);thumbRenderer.setSize(360,270);thumbRenderer.outputColorSpace=THREE.SRGBColorSpace;thumbRenderer.toneMapping=THREE.ACESFilmicToneMapping;thumbRenderer.toneMappingExposure=1.0;
+thumbRenderer.setPixelRatio(2);thumbRenderer.setSize(480,360);thumbRenderer.outputColorSpace=THREE.SRGBColorSpace;thumbRenderer.toneMapping=THREE.ACESFilmicToneMapping;thumbRenderer.toneMappingExposure=1.0;
 const thumbScene=new THREE.Scene();thumbScene.environment=ENV;
 thumbScene.add(new THREE.HemisphereLight(0xffffff,0xd8d0c4,1.4));
 const td1=new THREE.DirectionalLight(0xffffff,2.0);td1.position.set(3,5,4);thumbScene.add(td1);
@@ -999,6 +1011,8 @@ const PRODUCT_CATS=[
   {key:'lovos',       file:'lovos.json',       list:'lovosList',    spec:'lovosSpec'},
   {key:'sofos-lovos', file:'sofos-lovos.json', list:'slovosList',   spec:'slovosSpec'},
   {key:'kampines',    file:'kampines.json',    list:'kampinesList', spec:'kampinesSpec'},
+  {key:'sofos',       file:'sofos.json',       list:'sofosList',    spec:'sofosSpec'},
+  {key:'sezlongai',   file:'sezlongai.json',   list:'sezlongaiList', spec:'sezlongaiSpec'},
 ];
 const PRODUCTS={}; // key -> [items]
 function catOf(a){ // grąžina {key,list,spec} produktui pagal kategoriją
