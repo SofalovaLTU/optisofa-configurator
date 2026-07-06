@@ -569,7 +569,7 @@ THREE.ShaderChunk.tonemapping_pars_fragment=THREE.ShaderChunk.tonemapping_pars_f
   '  color *= newPeak / peak;\n'+
   '  float g = 1.0 - 1.0 / (desaturation * (peak - newPeak) + 1.0);\n'+
   '  return mix(color, vec3(newPeak), g); }');
-renderer.toneMapping=THREE.CustomToneMapping;renderer.toneMappingExposure=0.82; // kalibruota: apšviestas audinys = nuotraukos ryškumas
+renderer.toneMapping=THREE.CustomToneMapping;renderer.toneMappingExposure=1.02; // vientisa vidutinė spalva; kalibruota pagal swatch ryškumą
 const scene=new THREE.Scene();(function(){const c=document.createElement('canvas');c.width=2;c.height=512;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,0,512);g.addColorStop(0,'#e7e0d3');g.addColorStop(0.5,'#dcd2c3');g.addColorStop(1,'#c7bca8');x.fillStyle=g;x.fillRect(0,0,2,512);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;scene.background=t;})();
 const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new RoomEnvironment(),0.02).texture;scene.environment=ENV; // aštresnis IBL
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
@@ -875,10 +875,10 @@ function boxUV(o,horiz){ // BOX (triplanar) UV pasaulio (world) koordinatėse �
   g.setAttribute('uv',new THREE.BufferAttribute(uv,2));
   o.userData._rep=[1,1]; // tankis įskaičiuotas
 }
-const FAB_TILE=0.26; // kiek metrų dengia viena audinio nuotrauka (mažesnis = smulkesnis, ryškesnis weave priartinus)
+const FAB_TILE=0.5; // didesnis tile = mažiau kartojimosi/raštų (spalva vientisa iš uBaseCol, tekstūra tik subtili)
 function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
-  // TIKSLINĖ spalva = fabrics.json „hex" (Optisofa kuruota swatch spalva), NE žalio foto vidurkis (jame yra šešėlių)
-  const base=fab.hex?new THREE.Color(fab.hex):(fab._avg||new THREE.Color(0xcbbfa8));const tex=rec._tex||null;const P=fabricParams(fab.category);
+  // VIENTISA spalva = nuotraukos vidurkis (be tiling raštų); tekstūra tik subtiliai
+  const base=fab._avg||(fab.hex?new THREE.Color(fab.hex):new THREE.Color(0xcbbfa8));const tex=rec._tex||null;const P=fabricParams(fab.category);
   if(rec.data&&rec.data.legFilter&&!rec._legDone){classifyLegs(rec);rec._legDone=true;}
   rec.root.traverse(o=>{if(o.isMesh){
     if(o.userData.noFab){return;} // kojos/pagrindas lieka originalūs
@@ -904,7 +904,7 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
             'vec3 triS(vec3 p,vec3 n){vec3 b=pow(abs(n),vec3(4.0));b/=max(b.x+b.y+b.z,1e-4);\n'+
             ' vec3 cx=texture2D(fMap,p.zy*fScale).rgb;\n vec3 cy=texture2D(fMap,p.xz*fScale).rgb;\n vec3 cz=texture2D(fMap,p.xy*fScale).rgb;\n'+
             ' return cx*b.x+cy*b.y+cz*b.z;}')
-          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ diffuseColor.rgb=pow(triS(vWP,normalize(vWNn)),vec3(2.2)); }\n if(vWP.y<uLegY){ diffuseColor.rgb=uLegCol; }')
+          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ vec3 tx=pow(triS(vWP,normalize(vWNn)),vec3(2.2)); float L=dot(tx,vec3(0.2126,0.7152,0.0722)); float La=max(dot(uTexAvg,vec3(0.2126,0.7152,0.0722)),0.002); float wv=clamp(1.0+(L/La-1.0)*0.28,0.9,1.11); diffuseColor.rgb=uBaseCol*wv; }\n if(vWP.y<uLegY){ diffuseColor.rgb=uLegCol; }')
           .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\n if(fScale>0.0){ float lm=dot(triS(vWP,normalize(vWNn)),vec3(0.299,0.587,0.114)); roughnessFactor=clamp(roughnessFactor+(lm-0.5)*fBump,0.35,1.0); }\n if(vWP.y<uLegY){ roughnessFactor=uLegRough; }')
           .replace('#include <metalnessmap_fragment>','#include <metalnessmap_fragment>\n if(vWP.y<uLegY){ metalnessFactor=uLegMetal; }');
         mat.userData.shader=sh;};
@@ -912,7 +912,7 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
     }
     const m=o.material,u=m.userData.u;
     m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=new THREE.Color(0xffffff);
-    u.fBump.value=P.bump*3.0;
+    u.fBump.value=P.bump*1.1;
     if(tex){u.fMap.value=tex;u.fScale.value=1.0/FAB_TILE;m.color.set(0xffffff);
       u.uBaseCol.value.copy(base);u.uTexAvg.value.copy(fab._texLin||base);}
     else{u.fMap.value=null;u.fScale.value=0.0;m.color.copy(base);}
