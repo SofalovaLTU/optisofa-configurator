@@ -69,29 +69,6 @@
    "glb_alt": null
   },
   {
-   "code": "sezlongas-mood",
-   "name": "Mood su šezlongu",
-   "glb": "sezlongas-mood.glb",
-   "W": 95,
-   "D": 157,
-   "H": 71,
-   "price_eur": 780,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Mood kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true,
-   "default_state": "sofa",
-   "glb_alt": null
-  },
-  {
    "code": "sezlongas-mood-chaise",
    "name": "Mood su šezlongu",
    "glb": "sezlongas-mood-chaise.glb",

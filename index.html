@@ -770,12 +770,46 @@ function classifyLegs(rec){
   const minY=box.min.y,H=Math.max(0.001,box.max.y-box.min.y);
   const CW=Math.max(0.001,box.max.x-box.min.x),CD=Math.max(0.001,box.max.z-box.min.z);
   const wantFrame=!!(rec.data&&rec.data.frameRods);
+  const nameRe=(rec.data&&rec.data.legNames)?new RegExp(rec.data.legNames,'i'):null; // Mia: metalinis rėmas – Line*/Cylinder*
+  let foundLeg=false;
   rec.root.traverse(o=>{if(o.isMesh){const b=new THREE.Box3().setFromObject(o);
     const top=(b.max.y-minY)/H, span=(b.max.y-b.min.y)/H, wx=(b.max.x-b.min.x)/CW, dz=(b.max.z-b.min.z)/CD;
     const thin=wx<0.33&&dz<0.33;
-    const byName=/leg|glider|foot|kojel/i.test(o.name||''); // Uma: kojos – vienas platus mesh'as „Legs_Metal“
+    const byName=/leg|glider|foot|kojel/i.test(o.name||'') || (nameRe&&nameRe.test(o.name||'')); // Uma: kojos – vienas platus mesh'as „Legs_Metal“; Mia: Line/Cylinder rėmas
     o.userData.isLeg=(thin&&top<0.34) || (wantFrame&&thin&&span>0.30) || byName; // koja (žema+plona) | rėmo strypas (plonas+aukštas, tik flaguotiems) | pagal pavadinimą
-    o.userData.noFab=o.userData.isLeg;}});
+    o.userData.noFab=o.userData.isLeg; if(o.userData.isLeg)foundLeg=true;}});
+  // FUSED kojos: modeliai su viena „Body“ mesh'a (Karin, Uma...) — kojų atskirai nudažyti negalima.
+  // Aptinkam TUŠČIĄ tarpą tarp kojų (apačia) ir apmušalo → nudažom kojų zoną per fabric shader'į (vWP.y).
+  const leg=rec.data&&rec.data.leg;
+  if(!foundLeg && leg && leg.color){
+    const legY=computeLegY(rec.root,minY,H);
+    if(legY!==null){
+      const col=new THREE.Color(leg.color), metal=leg.finish==='metal';
+      rec.root.traverse(o=>{if(o.isMesh && !o.userData.isLeg){
+        o.userData.legY=legY; o.userData.legCol=col;
+        o.userData.legMetalV=metal?0.9:0.05; o.userData.legRoughV=metal?0.4:0.62;
+      }});
+    }
+  }
+}
+// Randa pasaulio-Y ribą, žemiau kurios yra kojos (tuščio tarpo viršus). null jei kojų zonos nėra.
+function computeLegY(root,minY,H){
+  const N=32; const cnt=new Array(N).fill(0);
+  const x0=new Array(N).fill(1e9),x1=new Array(N).fill(-1e9),z0=new Array(N).fill(1e9),z1=new Array(N).fill(-1e9);
+  root.updateWorldMatrix(true,true); const v=new THREE.Vector3(); let maxCnt=0;
+  root.traverse(o=>{if(o.isMesh && !o.userData.isLeg){const p=o.geometry.attributes.position; if(!p)return;
+    for(let i=0;i<p.count;i++){v.set(p.getX(i),p.getY(i),p.getZ(i)).applyMatrix4(o.matrixWorld);
+      let bi=((v.y-minY)/H*N)|0; if(bi<0)bi=0; if(bi>=N)bi=N-1; cnt[bi]++;
+      if(v.x<x0[bi])x0[bi]=v.x; if(v.x>x1[bi])x1[bi]=v.x; if(v.z<z0[bi])z0[bi]=v.z; if(v.z>z1[bi])z1[bi]=v.z;}}});
+  for(let i=0;i<N;i++)if(cnt[i]>maxCnt)maxCnt=cnt[i];
+  if(maxCnt<=0 || cnt[0]===0) return null;                 // reikia geometrijos pačioje apačioje (kojų galai)
+  const zoneTop=Math.max(2,Math.round(0.22*N));            // kojos – tik apatiniai ~22% aukščio
+  let gtop=-1;                                             // aukščiausias „tuščias“ tarpo bandas zonoje
+  for(let i=1;i<=zoneTop;i++){ if(cnt[i] < 0.02*maxCnt) gtop=i; }
+  if(gtop<1) return null;                                  // nėra tuščio tarpo → nėra aiškių kojų (pvz. Blow skydas)
+  // patikra: virš tarpo turi būti apmušalas (platesnė footprint)
+  let aGap=(x1[0]-x0[0])*(z1[0]-z0[0]); if(!isFinite(aGap))aGap=0;
+  return minY + ((gtop+1)/N)*H;                            // riba = tarpo viršus (apmušalo apačia)
 }
 function applyLegColor(rec,leg){
   if(!leg||!leg.color)return;
@@ -815,18 +849,26 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const b
     if(!o.userData.fabMat){
       const mat=new THREE.MeshPhysicalMaterial({metalness:0,roughness:P.rough,side:THREE.DoubleSide});
       mat.envMapIntensity=0.55;
-      mat.userData.u={fMap:{value:null},fScale:{value:1.0/FAB_TILE},fBump:{value:0.05}};
+      // uLegY: pasaulio-Y riba (žemiau = kojos); -1e9 = nėra kojų zonos
+      const hasLeg=(o.userData.legY!==undefined);
+      mat.userData.u={fMap:{value:null},fScale:{value:1.0/FAB_TILE},fBump:{value:0.05},
+        uLegY:{value:hasLeg?o.userData.legY:-1e9},
+        uLegCol:{value:hasLeg?o.userData.legCol.clone():new THREE.Color(0,0,0)},
+        uLegMetal:{value:hasLeg?o.userData.legMetalV:0.0},
+        uLegRough:{value:hasLeg?o.userData.legRoughV:0.6}};
       mat.onBeforeCompile=(sh)=>{const U=mat.userData.u;sh.uniforms.fMap=U.fMap;sh.uniforms.fScale=U.fScale;sh.uniforms.fBump=U.fBump;
+        sh.uniforms.uLegY=U.uLegY;sh.uniforms.uLegCol=U.uLegCol;sh.uniforms.uLegMetal=U.uLegMetal;sh.uniforms.uLegRough=U.uLegRough;
         sh.vertexShader=sh.vertexShader
           .replace('#include <common>','#include <common>\nvarying vec3 vWP;\nvarying vec3 vWNn;')
           .replace('#include <worldpos_vertex>','#include <worldpos_vertex>\n vWP=(modelMatrix*vec4(transformed,1.0)).xyz;\n vWNn=normalize(mat3(modelMatrix)*objectNormal);');
         sh.fragmentShader=sh.fragmentShader
-          .replace('#include <common>','#include <common>\nuniform sampler2D fMap;\nuniform float fScale;\nuniform float fBump;\nvarying vec3 vWP;\nvarying vec3 vWNn;\n'+
+          .replace('#include <common>','#include <common>\nuniform sampler2D fMap;\nuniform float fScale;\nuniform float fBump;\nuniform float uLegY;\nuniform vec3 uLegCol;\nuniform float uLegMetal;\nuniform float uLegRough;\nvarying vec3 vWP;\nvarying vec3 vWNn;\n'+
             'vec3 triS(vec3 p,vec3 n){vec3 b=pow(abs(n),vec3(4.0));b/=max(b.x+b.y+b.z,1e-4);\n'+
             ' vec3 cx=texture2D(fMap,p.zy*fScale).rgb;\n vec3 cy=texture2D(fMap,p.xz*fScale).rgb;\n vec3 cz=texture2D(fMap,p.xy*fScale).rgb;\n'+
             ' return cx*b.x+cy*b.y+cz*b.z;}')
-          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ vec3 fc=triS(vWP,normalize(vWNn)); diffuseColor.rgb=pow(fc,vec3(2.2)); }')
-          .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\n if(fScale>0.0){ float lm=dot(triS(vWP,normalize(vWNn)),vec3(0.299,0.587,0.114)); roughnessFactor=clamp(roughnessFactor+(lm-0.5)*fBump,0.35,1.0); }');
+          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ vec3 fc=triS(vWP,normalize(vWNn)); diffuseColor.rgb=pow(fc,vec3(2.2)); }\n if(vWP.y<uLegY){ diffuseColor.rgb=pow(uLegCol,vec3(2.2)); }')
+          .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\n if(fScale>0.0){ float lm=dot(triS(vWP,normalize(vWNn)),vec3(0.299,0.587,0.114)); roughnessFactor=clamp(roughnessFactor+(lm-0.5)*fBump,0.35,1.0); }\n if(vWP.y<uLegY){ roughnessFactor=uLegRough; }')
+          .replace('#include <metalnessmap_fragment>','#include <metalnessmap_fragment>\n if(vWP.y<uLegY){ metalnessFactor=uLegMetal; }');
         mat.userData.shader=sh;};
       o.material=mat;o.userData.fabMat=true;
     }

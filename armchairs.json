@@ -16,9 +16,9 @@
    "desc": "Blow kolekcija.",
    "shopify_variant": null,
    "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
    },
    "leg_approx": true
   },
@@ -367,7 +367,8 @@
    ],
    "desc": "Apvalios formos fotelis su žema, minkšta sėdyne — tinka ir svetainei, ir biurui ar viešbučio fojė. Plieninis rėmas užtikrina stabilumą ir ilgaamžiškumą, profiliuotas atlošas kviečia užsibūti ilgiau.",
    "verified": true,
-   "shopify_variant": null
+   "shopify_variant": null,
+   "legNames": "^(Line|Cylinder)"
   },
   {
    "code": "fotelis-nora",
@@ -498,6 +499,26 @@
    "uvHoriz": true,
    "_heavy": "15MB / 539k trik. – reikia optimizacijos (gltfpack).",
    "shopify_variant": null
+  },
+  {
+   "code": "fotelis-harris-rxl",
+   "name": "Harris RXL",
+   "glb": "kampine-harris-1.glb",
+   "W": 169,
+   "D": 68,
+   "H": 89,
+   "price_eur": 1500,
+   "price_approx": false,
+   "legFilter": true,
+   "verified": false,
+   "features": [],
+   "desc": "Harris kolekcijos RXL modulis.",
+   "shopify_variant": null,
+   "leg": {
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
+   }
   }
  ]
 }

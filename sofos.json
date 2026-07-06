@@ -16,9 +16,9 @@
    "desc": "Blow kolekcija.",
    "shopify_variant": null,
    "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
    },
    "leg_approx": true
   },
@@ -37,9 +37,9 @@
    "desc": "Blow kolekcija.",
    "shopify_variant": null,
    "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
    },
    "leg_approx": true
   },

@@ -106,26 +106,6 @@
    }
   },
   {
-   "code": "pufas-juliett-2",
-   "name": "Juliett 2 pufas",
-   "glb": "pufas-juliett-2.glb",
-   "W": 52,
-   "D": 54,
-   "H": 47,
-   "price_eur": 183,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Juliett 2 kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "wood",
-    "color": "#CBA97B",
-    "note": "Ąžuolo kojos"
-   }
-  },
-  {
    "code": "pufas-slay",
    "name": "Slay",
    "glb": "pufas-slay.glb",
@@ -139,27 +119,6 @@
    "features": [],
    "desc": "Slay kolekcijos pufas.",
    "shopify_variant": null
-  },
-  {
-   "code": "pufas-slay-1",
-   "name": "Slay pufas",
-   "glb": "pufas-slay-1.glb",
-   "W": 60,
-   "D": 60,
-   "H": 40,
-   "price_eur": 245,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Slay kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Juodos metalinės kojos"
-   },
-   "leg_approx": true
   },
   {
    "code": "pufas-toby",

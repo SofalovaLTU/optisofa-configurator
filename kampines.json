@@ -42,26 +42,6 @@
    }
   },
   {
-   "code": "kampine-harris-1",
-   "name": "Harris RXL",
-   "glb": "kampine-harris-1.glb",
-   "W": 169,
-   "D": 68,
-   "H": 89,
-   "price_eur": 1500,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Harris kolekcija.",
-   "shopify_variant": null,
-   "leg": {
-    "finish": "wood",
-    "color": "#CBA97B",
-    "note": "Ąžuolo kojos"
-   }
-  },
-  {
    "code": "kampine-jane",
    "name": "Jane",
    "glb": "kampine-jane.glb",
@@ -123,21 +103,6 @@
     "note": "Juodos metalinės kojos"
    },
    "leg_approx": true
-  },
-  {
-   "code": "kampine-slay",
-   "name": "Slay",
-   "glb": "kampine-slay.glb",
-   "W": 274,
-   "D": 258,
-   "H": 67,
-   "price_eur": 1630,
-   "price_approx": false,
-   "legFilter": true,
-   "verified": false,
-   "features": [],
-   "desc": "Slay kampinė sofa.",
-   "shopify_variant": null
   }
  ]
 }
