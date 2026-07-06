@@ -158,9 +158,9 @@
    "features": [],
    "desc": "Spark lova su atlošu.",
    "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Metalinės kojos"
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
    },
    "shopify_variant": null
   },
@@ -178,9 +178,9 @@
    "features": [],
    "desc": "Spark lova su atlošu.",
    "leg": {
-    "finish": "metal",
-    "color": "#3C3C3E",
-    "note": "Metalinės kojos"
+    "finish": "wood",
+    "color": "#CBA97B",
+    "note": "Ąžuolo kojos"
    },
    "shopify_variant": null
   }
