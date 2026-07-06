@@ -558,7 +558,20 @@ const stage=$('#stage');
 const renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2.5)); // HD
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=0.92; // studijinė ekspozicija
+// KHR PBR NEUTRAL tone mapping — spalvos ištikimybė (e-commerce standartas). ACES tamsindavo/nublunkindavo → audinys per tamsus.
+THREE.ShaderChunk.tonemapping_pars_fragment=THREE.ShaderChunk.tonemapping_pars_fragment.replace(
+  'vec3 CustomToneMapping( vec3 color ) { return color; }',
+  'vec3 CustomToneMapping( vec3 color ) {\n'+
+  '  const float startCompression = 0.76; const float desaturation = 0.15;\n'+
+  '  float x = min(color.r, min(color.g, color.b));\n'+
+  '  float offset = x < 0.08 ? x - 6.25 * x * x : 0.04; color -= offset;\n'+
+  '  float peak = max(color.r, max(color.g, color.b));\n'+
+  '  if (peak < startCompression) return color;\n'+
+  '  float d = 1.0 - startCompression; float newPeak = 1.0 - d * d / (peak + d - startCompression);\n'+
+  '  color *= newPeak / peak;\n'+
+  '  float g = 1.0 - 1.0 / (desaturation * (peak - newPeak) + 1.0);\n'+
+  '  return mix(color, vec3(newPeak), g); }');
+renderer.toneMapping=THREE.CustomToneMapping;renderer.toneMappingExposure=1.15; // spalva jau = swatch (uBaseCol); saikinga ekspozicija
 const scene=new THREE.Scene();(function(){const c=document.createElement('canvas');c.width=2;c.height=512;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,0,512);g.addColorStop(0,'#e7e0d3');g.addColorStop(0.5,'#dcd2c3');g.addColorStop(1,'#c7bca8');x.fillStyle=g;x.fillRect(0,0,2,512);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;scene.background=t;})();
 const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new RoomEnvironment(),0.02).texture;scene.environment=ENV; // aštresnis IBL
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
@@ -566,8 +579,8 @@ renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIE
 const orbit=new OrbitControls(camera,renderer.domElement);
 orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.75;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
 // STUDIJINIS 3-taškų apšvietimas (key + fill + rim) + soft hemi
-scene.add(new THREE.HemisphereLight(0xfff6ec,0xcdc2b0,0.55));
-const keyL=new THREE.DirectionalLight(0xfff4e6,1.7);keyL.position.set(4.5,7.5,5);keyL.castShadow=true;
+scene.add(new THREE.HemisphereLight(0xffffff,0xd7cfc2,0.6)); // neutrali — kad audinio atspalvis nepasislinktų
+const keyL=new THREE.DirectionalLight(0xffffff,1.75);keyL.position.set(4.5,7.5,5);keyL.castShadow=true;
 keyL.shadow.mapSize.set(4096,4096);keyL.shadow.radius=8;keyL.shadow.blurSamples=24; // minkšti HD šešėliai
 keyL.shadow.camera.near=0.4;keyL.shadow.camera.far=42;keyL.shadow.bias=-0.00018;keyL.shadow.normalBias=0.022;
 scene.add(keyL);scene.add(keyL.target); // target seka modelį (updateGroundShadow)
@@ -766,9 +779,10 @@ function updatePrice(){saveState();let min=0,max=0;placed.forEach(p=>{min+=p.dat
 const texLoader=new THREE.TextureLoader();texLoader.setCrossOrigin('anonymous');
 function proxied(url,w){return 'https://images.weserv.nl/?url='+encodeURIComponent('ssl:'+url.replace(/^https?:\/\//,''))+'&w='+w;}
 function fimg(url,w){if(!url)return url;return url+(url.includes('?')?'&':'?')+'width='+w;} // saugiai prideda width — veikia ir kai URL be „?"
-function avgColor(img){try{const c=document.createElement('canvas');c.width=c.height=20;const x=c.getContext('2d');x.drawImage(img,0,0,20,20);
-  const d=x.getImageData(0,0,20,20).data;let r=0,g=0,b=0,n=0;for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++;}
-  return new THREE.Color(r/n/255,g/n/255,b/n/255);}catch(e){return null;}}
+function avgColor(img){try{const c=document.createElement('canvas');c.width=c.height=24;const x=c.getContext('2d');x.drawImage(img,0,0,24,24);
+  const d=x.getImageData(0,0,24,24).data;let r=0,g=0,b=0,n=0;for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];n++;}
+  // sRGB pikselių vidurkis -> TEISINGA linijinė spalva (setRGB su SRGBColorSpace)
+  return new THREE.Color().setRGB(r/n/255,g/n/255,b/n/255,THREE.SRGBColorSpace);}catch(e){return null;}}
 function makeFabricBump(){const s=128,c=document.createElement('canvas');c.width=c.height=s;const x=c.getContext('2d');
   const im=x.createImageData(s,s);
   for(let j=0;j<s;j++)for(let i=0;i<s;i++){const u=i/s*Math.PI*2,v=j/s*Math.PI*2;
@@ -870,21 +884,23 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const b
       // uLegY: pasaulio-Y riba (žemiau = kojos); -1e9 = nėra kojų zonos
       const hasLeg=(o.userData.legY!==undefined);
       mat.userData.u={fMap:{value:null},fScale:{value:1.0/FAB_TILE},fBump:{value:0.05},
+        uBaseCol:{value:new THREE.Color(1,1,1)},uTexAvgL:{value:0.5},
         uLegY:{value:hasLeg?o.userData.legY:-1e9},
         uLegCol:{value:hasLeg?o.userData.legCol.clone():new THREE.Color(0,0,0)},
         uLegMetal:{value:hasLeg?o.userData.legMetalV:0.0},
         uLegRough:{value:hasLeg?o.userData.legRoughV:0.6}};
       mat.onBeforeCompile=(sh)=>{const U=mat.userData.u;sh.uniforms.fMap=U.fMap;sh.uniforms.fScale=U.fScale;sh.uniforms.fBump=U.fBump;
+        sh.uniforms.uBaseCol=U.uBaseCol;sh.uniforms.uTexAvgL=U.uTexAvgL;
         sh.uniforms.uLegY=U.uLegY;sh.uniforms.uLegCol=U.uLegCol;sh.uniforms.uLegMetal=U.uLegMetal;sh.uniforms.uLegRough=U.uLegRough;
         sh.vertexShader=sh.vertexShader
           .replace('#include <common>','#include <common>\nvarying vec3 vWP;\nvarying vec3 vWNn;')
           .replace('#include <worldpos_vertex>','#include <worldpos_vertex>\n vWP=(modelMatrix*vec4(transformed,1.0)).xyz;\n vWNn=normalize(mat3(modelMatrix)*objectNormal);');
         sh.fragmentShader=sh.fragmentShader
-          .replace('#include <common>','#include <common>\nuniform sampler2D fMap;\nuniform float fScale;\nuniform float fBump;\nuniform float uLegY;\nuniform vec3 uLegCol;\nuniform float uLegMetal;\nuniform float uLegRough;\nvarying vec3 vWP;\nvarying vec3 vWNn;\n'+
+          .replace('#include <common>','#include <common>\nuniform sampler2D fMap;\nuniform float fScale;\nuniform float fBump;\nuniform vec3 uBaseCol;\nuniform float uTexAvgL;\nuniform float uLegY;\nuniform vec3 uLegCol;\nuniform float uLegMetal;\nuniform float uLegRough;\nvarying vec3 vWP;\nvarying vec3 vWNn;\n'+
             'vec3 triS(vec3 p,vec3 n){vec3 b=pow(abs(n),vec3(4.0));b/=max(b.x+b.y+b.z,1e-4);\n'+
             ' vec3 cx=texture2D(fMap,p.zy*fScale).rgb;\n vec3 cy=texture2D(fMap,p.xz*fScale).rgb;\n vec3 cz=texture2D(fMap,p.xy*fScale).rgb;\n'+
             ' return cx*b.x+cy*b.y+cz*b.z;}')
-          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ vec3 fc=triS(vWP,normalize(vWNn)); diffuseColor.rgb=pow(fc,vec3(2.2)); }\n if(vWP.y<uLegY){ diffuseColor.rgb=pow(uLegCol,vec3(2.2)); }')
+          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ vec3 tl=pow(triS(vWP,normalize(vWNn)),vec3(2.2)); float lum=dot(tl,vec3(0.2126,0.7152,0.0722)); float wv=clamp(lum/max(uTexAvgL,0.002),0.66,1.5); diffuseColor.rgb=uBaseCol*wv; }\n if(vWP.y<uLegY){ diffuseColor.rgb=uLegCol; }')
           .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\n if(fScale>0.0){ float lm=dot(triS(vWP,normalize(vWNn)),vec3(0.299,0.587,0.114)); roughnessFactor=clamp(roughnessFactor+(lm-0.5)*fBump,0.35,1.0); }\n if(vWP.y<uLegY){ roughnessFactor=uLegRough; }')
           .replace('#include <metalnessmap_fragment>','#include <metalnessmap_fragment>\n if(vWP.y<uLegY){ metalnessFactor=uLegMetal; }');
         mat.userData.shader=sh;};
@@ -893,7 +909,8 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;const b
     const m=o.material,u=m.userData.u;
     m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=new THREE.Color(0xffffff);
     u.fBump.value=P.bump*3.0;
-    if(tex){u.fMap.value=tex;u.fScale.value=1.0/FAB_TILE;m.color.set(0xffffff);}
+    if(tex){u.fMap.value=tex;u.fScale.value=1.0/FAB_TILE;m.color.set(0xffffff);
+      u.uBaseCol.value.copy(base);u.uTexAvgL.value=Math.max(0.002,0.2126*base.r+0.7152*base.g+0.0722*base.b);}
     else{u.fMap.value=null;u.fScale.value=0.0;m.color.copy(base);}
     m.needsUpdate=true;}});}
 function loadFabricTexture(f,onOk){
