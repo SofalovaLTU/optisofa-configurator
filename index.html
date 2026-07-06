@@ -558,20 +558,36 @@ const stage=$('#stage');
 const renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2.5)); // HD
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=0.82; // mažiau šviesos — tikslesnė audinio spalva
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=0.92; // studijinė ekspozicija
 const scene=new THREE.Scene();(function(){const c=document.createElement('canvas');c.width=2;c.height=512;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,0,512);g.addColorStop(0,'#e7e0d3');g.addColorStop(0.5,'#dcd2c3');g.addColorStop(1,'#c7bca8');x.fillStyle=g;x.fillRect(0,0,2,512);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;scene.background=t;})();
-const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new RoomEnvironment(),0.04).texture;scene.environment=ENV;
+const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new RoomEnvironment(),0.02).texture;scene.environment=ENV; // aštresnis IBL
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
 renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIEŠ OrbitControls → mūsų handleris vykdomas pirmas
 const orbit=new OrbitControls(camera,renderer.domElement);
 orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.75;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
-scene.add(new THREE.HemisphereLight(0xffffff,0xdad2c5,0.30));
-const keyL=new THREE.DirectionalLight(0xffffff,1.05);keyL.position.set(3.5,6.5,4);keyL.castShadow=true;keyL.shadow.mapSize.set(4096,4096);keyL.shadow.radius=4; // HD šešėliai
-keyL.shadow.camera.left=-6;keyL.shadow.camera.right=6;keyL.shadow.camera.top=6;keyL.shadow.camera.bottom=-6;keyL.shadow.bias=-0.0003;scene.add(keyL);
-const fillL=new THREE.DirectionalLight(0xffffff,0.20);fillL.position.set(-4,3,-3);scene.add(fillL);
-const floor=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandardMaterial({color:0xcec4b2,roughness:0.92,metalness:0}));floor.material.envMapIntensity=0.4;
+// STUDIJINIS 3-taškų apšvietimas (key + fill + rim) + soft hemi
+scene.add(new THREE.HemisphereLight(0xfff6ec,0xcdc2b0,0.50));
+const keyL=new THREE.DirectionalLight(0xfff4e6,2.15);keyL.position.set(4.5,7.5,5);keyL.castShadow=true;
+keyL.shadow.mapSize.set(4096,4096);keyL.shadow.radius=8;keyL.shadow.blurSamples=24; // minkšti HD šešėliai
+keyL.shadow.camera.near=0.4;keyL.shadow.camera.far=42;keyL.shadow.bias=-0.00018;keyL.shadow.normalBias=0.022;
+scene.add(keyL);scene.add(keyL.target); // target seka modelį (updateGroundShadow)
+const fillL=new THREE.DirectionalLight(0xe9eeff,0.55);fillL.position.set(-5.5,3.2,2.5);scene.add(fillL); // vėsus fill
+const rimL=new THREE.DirectionalLight(0xffffff,1.25);rimL.position.set(-3,4.5,-6);scene.add(rimL); // rim/back — atskiria nuo fono
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(120,120),new THREE.MeshStandardMaterial({color:0xd2c8b7,roughness:0.97,metalness:0}));floor.material.envMapIntensity=0.35;
 floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
-const grid=new THREE.GridHelper(40,40,0xc2b6a1,0xcabfab);grid.material.opacity=0.16;grid.material.transparent=true;grid.position.y=0.002;scene.add(grid);
+const grid=new THREE.GridHelper(40,40,0xc2b6a1,0xcabfab);grid.material.opacity=0.05;grid.material.transparent=true;grid.position.y=0.002;scene.add(grid); // vos matomas
+// MINKŠTAS kontaktinis šešėlis (grounding blob) — produkto foto pojūtis
+const _csTex=(function(){const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+  const g=x.createRadialGradient(128,128,6,128,128,128);g.addColorStop(0,'rgba(30,26,20,0.42)');g.addColorStop(0.45,'rgba(30,26,20,0.22)');g.addColorStop(0.75,'rgba(30,26,20,0.07)');g.addColorStop(1,'rgba(0,0,0,0)');
+  x.fillStyle=g;x.fillRect(0,0,256,256);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;})();
+const contactShadow=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:_csTex,transparent:true,depthWrite:false,opacity:0.9}));
+contactShadow.rotation.x=-Math.PI/2;contactShadow.position.y=0.006;contactShadow.renderOrder=2;contactShadow.visible=false;scene.add(contactShadow);
+function updateGroundShadow(){const b=assemblyBox();if(!b){contactShadow.visible=false;return;}
+  const w=Math.max(0.4,b.maxX-b.minX),d=Math.max(0.4,b.maxZ-b.minZ);
+  contactShadow.visible=true;contactShadow.scale.set(w*1.7,d*1.9,1);contactShadow.position.set(b.cx,0.006,b.cz);
+  const r=Math.max(w,d)*0.72+0.6;const sc=keyL.shadow.camera; // tight frustum -> aštresni šešėliai
+  sc.left=-r;sc.right=r;sc.top=r;sc.bottom=-r;sc.updateProjectionMatrix();
+  keyL.position.set(b.cx+4.5,7.5,b.cz+5);keyL.target.position.set(b.cx,0.1,b.cz);keyL.target.updateMatrixWorld();}
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
 new ResizeObserver(resize).observe(stage);resize();
 
@@ -738,7 +754,7 @@ function frameAll(customDir){const b=assemblyBox();if(!b)return;
   orbit.target.copy(center);
   camera.position.copy(center.clone().add(dir.multiplyScalar(dist)));
   camera.near=Math.max(0.02,dist*0.08);camera.far=dist*4+40;camera.updateProjectionMatrix();
-  orbit.update();}
+  orbit.update();updateGroundShadow();}
 
 /* PRICE */
 function saveState(){if(!ready)return;try{localStorage.setItem('sofalova_cfg_v2',encodeConfig());}catch(e){}}
@@ -776,7 +792,7 @@ function classifyLegs(rec){
   rec.root.traverse(o=>{if(o.isMesh){const b=new THREE.Box3().setFromObject(o);
     const top=(b.max.y-minY)/H, span=(b.max.y-b.min.y)/H, wx=(b.max.x-b.min.x)/CW, dz=(b.max.z-b.min.z)/CD;
     const thin=wx<0.33&&dz<0.33;
-    const byName=/leg|glid|foot|kojel|koj/i.test(o.name||'') || (nameRe&&nameRe.test(o.name||'')); // kojos/glides pagal pavadinimą; „frame" NEbendrai (Molly/Spark cokolis vadinasi Frame ir yra apmuštas) — tik per legNames (Dope)
+    const byName=/leg|glid|foot|feet|kojel|koj/i.test(o.name||'') || (nameRe&&nameRe.test(o.name||'')); // kojos/glides/feet pagal pavadinimą; „frame"/„plinth" NEbendrai (cokolis apmuštas) — tik per legNames (Dope)
     o.userData.isLeg=(thin&&top<0.34) || (wantFrame&&thin&&span>0.30) || byName; // koja (žema+plona) | rėmo strypas (plonas+aukštas, tik flaguotiems) | pagal pavadinimą
     o.userData.noFab=o.userData.isLeg; if(o.userData.isLeg)foundLeg=true;}});
   // FUSED kojos: modeliai su viena „Body“ mesh'a (Karin, Uma...) — kojų atskirai nudažyti negalima.
