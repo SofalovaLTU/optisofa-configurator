@@ -776,7 +776,7 @@ function classifyLegs(rec){
   rec.root.traverse(o=>{if(o.isMesh){const b=new THREE.Box3().setFromObject(o);
     const top=(b.max.y-minY)/H, span=(b.max.y-b.min.y)/H, wx=(b.max.x-b.min.x)/CW, dz=(b.max.z-b.min.z)/CD;
     const thin=wx<0.33&&dz<0.33;
-    const byName=/leg|glid|foot|frame|crossbar|black_metal|kojel|koj/i.test(o.name||'') || (nameRe&&nameRe.test(o.name||'')); // kojos/rėmas/glides pagal pavadinimą (Dope Frame, Blow legs/crossbar, Uma Legs_Metal); Mia: Line/Cylinder
+    const byName=/leg|glid|foot|kojel|koj/i.test(o.name||'') || (nameRe&&nameRe.test(o.name||'')); // kojos/glides pagal pavadinimą; „frame" NEbendrai (Molly/Spark cokolis vadinasi Frame ir yra apmuštas) — tik per legNames (Dope)
     o.userData.isLeg=(thin&&top<0.34) || (wantFrame&&thin&&span>0.30) || byName; // koja (žema+plona) | rėmo strypas (plonas+aukštas, tik flaguotiems) | pagal pavadinimą
     o.userData.noFab=o.userData.isLeg; if(o.userData.isLeg)foundLeg=true;}});
   // FUSED kojos: modeliai su viena „Body“ mesh'a (Karin, Uma...) — kojų atskirai nudažyti negalima.
@@ -925,7 +925,8 @@ function renderThumb(group,front,glb){
   group.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshPhysicalMaterial({color:0xccbda6,roughness:.9,metalness:0});o.material.envMapIntensity=0.7;}});
   thumbScene.add(group);const md=Math.max(size.x,size.y,size.z)||1;
   let matMesh=null;
-  if(glb&&glb.indexOf('lova-')===0){ // lovai — čiužinys ir miniatiūroje
+  let ownMat=false; group.traverse(o=>{if(o.isMesh&&/mattress|[čc]iu[žz]/i.test(o.name||''))ownMat=true;});
+  if(glb&&glb.indexOf('lova-')===0 && !ownMat){ // lovai BE savo čiužinio — pridedam procedūrinį (perkonvertuotos lovos turi savą)
     const m=/-(\d{2,3})$/.exec(glb.replace('.glb','')); const mw=m?parseInt(m[1])/100:1.6, mdd=2.0;
     const ray=new THREE.Raycaster(new THREE.Vector3(0,size.y/2+0.3,0),new THREE.Vector3(0,-1,0));
     const hit=ray.intersectObject(group,true)[0]; const topY=hit?hit.point.y:(-size.y/2+0.30); const th=0.19;

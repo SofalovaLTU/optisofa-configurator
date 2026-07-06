@@ -97,7 +97,8 @@
     "color": "#3C3C3E",
     "note": "Juodos metalinės kojos"
    },
-   "leg_approx": true
+   "leg_approx": true,
+   "legNames": "frame"
   },
   {
    "code": "fotelis-emilly",
