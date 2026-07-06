@@ -562,16 +562,14 @@ renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;r
 THREE.ShaderChunk.tonemapping_pars_fragment=THREE.ShaderChunk.tonemapping_pars_fragment.replace(
   'vec3 CustomToneMapping( vec3 color ) { return color; }',
   'vec3 CustomToneMapping( vec3 color ) {\n'+
-  '  const float startCompression = 0.76; const float desaturation = 0.15;\n'+
-  '  float x = min(color.r, min(color.g, color.b));\n'+
-  '  float offset = x < 0.08 ? x - 6.25 * x * x : 0.04; color -= offset;\n'+
-  '  float peak = max(color.r, max(color.g, color.b));\n'+
+  '  const float startCompression = 0.82; const float desaturation = 0.12;\n'+
+  '  float peak = max(color.r, max(color.g, color.b));\n'+   // BE juodo taško offset (jis crushindavo mėlyną → šiltas cast)
   '  if (peak < startCompression) return color;\n'+
   '  float d = 1.0 - startCompression; float newPeak = 1.0 - d * d / (peak + d - startCompression);\n'+
   '  color *= newPeak / peak;\n'+
   '  float g = 1.0 - 1.0 / (desaturation * (peak - newPeak) + 1.0);\n'+
   '  return mix(color, vec3(newPeak), g); }');
-renderer.toneMapping=THREE.CustomToneMapping;renderer.toneMappingExposure=1.06; // bazė = hex swatch spalva; saikinga ekspozicija
+renderer.toneMapping=THREE.CustomToneMapping;renderer.toneMappingExposure=0.82; // kalibruota: apšviestas audinys = nuotraukos ryškumas
 const scene=new THREE.Scene();(function(){const c=document.createElement('canvas');c.width=2;c.height=512;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,0,512);g.addColorStop(0,'#e7e0d3');g.addColorStop(0.5,'#dcd2c3');g.addColorStop(1,'#c7bca8');x.fillStyle=g;x.fillRect(0,0,2,512);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;scene.background=t;})();
 const _pmrem=new THREE.PMREMGenerator(renderer);const ENV=_pmrem.fromScene(new RoomEnvironment(),0.02).texture;scene.environment=ENV; // aštresnis IBL
 const camera=new THREE.PerspectiveCamera(45,1,.05,100);camera.position.set(2.6,2.0,3.2);
@@ -579,13 +577,14 @@ renderer.domElement.addEventListener('pointerdown',onCanvasPointerDown); // PRIE
 const orbit=new OrbitControls(camera,renderer.domElement);
 orbit.enableDamping=true;orbit.maxPolarAngle=Math.PI*0.49;orbit.minDistance=0.75;orbit.maxDistance=24;orbit.target.set(0,0.35,0);
 // STUDIJINIS 3-taškų apšvietimas (key + fill + rim) + soft hemi
-scene.add(new THREE.HemisphereLight(0xffffff,0xcecece,0.6)); // neutrali (pilkas ground bounce) — kad atspalvis nepasislinktų į šiltą
-const keyL=new THREE.DirectionalLight(0xffffff,1.75);keyL.position.set(4.5,7.5,5);keyL.castShadow=true;
+// NEUTRALUS, ŠVIESUS, TOLYGUS apšvietimas — kad audinys atrodytų kaip plokščia nuotrauka (spalva = swatch), su švelnia forma
+scene.add(new THREE.HemisphereLight(0xffffff,0xdedede,1.15)); // stiprus tolygus ambient (neutralus)
+const keyL=new THREE.DirectionalLight(0xffffff,1.0);keyL.position.set(4.5,7.5,5);keyL.castShadow=true;
 keyL.shadow.mapSize.set(4096,4096);keyL.shadow.radius=8;keyL.shadow.blurSamples=24; // minkšti HD šešėliai
 keyL.shadow.camera.near=0.4;keyL.shadow.camera.far=42;keyL.shadow.bias=-0.00018;keyL.shadow.normalBias=0.022;
 scene.add(keyL);scene.add(keyL.target); // target seka modelį (updateGroundShadow)
-const fillL=new THREE.DirectionalLight(0xe9eeff,0.5);fillL.position.set(-5.5,3.2,2.5);scene.add(fillL); // vėsus fill
-const rimL=new THREE.DirectionalLight(0xffffff,0.75);rimL.position.set(-3,4.5,-6);scene.add(rimL); // rim/back — atskiria nuo fono
+const fillL=new THREE.DirectionalLight(0xffffff,0.55);fillL.position.set(-5.5,3.2,2.5);scene.add(fillL); // neutralus fill
+const rimL=new THREE.DirectionalLight(0xffffff,0.4);rimL.position.set(-3,4.5,-6);scene.add(rimL); // rim/back — atskiria nuo fono
 const floor=new THREE.Mesh(new THREE.PlaneGeometry(120,120),new THREE.MeshStandardMaterial({color:0xd2c8b7,roughness:0.97,metalness:0}));floor.material.envMapIntensity=0.35;
 floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;scene.add(floor);
 const grid=new THREE.GridHelper(40,40,0xc2b6a1,0xcabfab);grid.material.opacity=0.05;grid.material.transparent=true;grid.position.y=0.002;scene.add(grid); // vos matomas
@@ -885,7 +884,7 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
     if(o.userData.noFab){return;} // kojos/pagrindas lieka originalūs
     if(!o.userData.fabMat){
       const mat=new THREE.MeshPhysicalMaterial({metalness:0,roughness:P.rough,side:THREE.DoubleSide});
-      mat.envMapIntensity=0.35;mat.specularIntensity=0.28;mat.clearcoat=0; // mažiau veidrodinio atspindžio — matinis audinys
+      mat.envMapIntensity=0.08;mat.specularIntensity=0.22;mat.clearcoat=0; // min env (RoomEnv šiltina) — spalva iš neutralių šviesų
       // uLegY: pasaulio-Y riba (žemiau = kojos); -1e9 = nėra kojų zonos
       const hasLeg=(o.userData.legY!==undefined);
       mat.userData.u={fMap:{value:null},fScale:{value:1.0/FAB_TILE},fBump:{value:0.05},
@@ -905,7 +904,7 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
             'vec3 triS(vec3 p,vec3 n){vec3 b=pow(abs(n),vec3(4.0));b/=max(b.x+b.y+b.z,1e-4);\n'+
             ' vec3 cx=texture2D(fMap,p.zy*fScale).rgb;\n vec3 cy=texture2D(fMap,p.xz*fScale).rgb;\n vec3 cz=texture2D(fMap,p.xy*fScale).rgb;\n'+
             ' return cx*b.x+cy*b.y+cz*b.z;}')
-          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ vec3 tx=pow(triS(vWP,normalize(vWNn)),vec3(2.2)); float L=dot(tx,vec3(0.2126,0.7152,0.0722)); float La=max(dot(uTexAvg,vec3(0.2126,0.7152,0.0722)),0.002); float wv=clamp(pow(L/La,1.15),0.45,1.9); diffuseColor.rgb=uBaseCol*wv; }\n if(vWP.y<uLegY){ diffuseColor.rgb=uLegCol; }')
+          .replace('#include <map_fragment>','#include <map_fragment>\n if(fScale>0.0){ diffuseColor.rgb=pow(triS(vWP,normalize(vWNn)),vec3(2.2)); }\n if(vWP.y<uLegY){ diffuseColor.rgb=uLegCol; }')
           .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\n if(fScale>0.0){ float lm=dot(triS(vWP,normalize(vWNn)),vec3(0.299,0.587,0.114)); roughnessFactor=clamp(roughnessFactor+(lm-0.5)*fBump,0.35,1.0); }\n if(vWP.y<uLegY){ roughnessFactor=uLegRough; }')
           .replace('#include <metalnessmap_fragment>','#include <metalnessmap_fragment>\n if(vWP.y<uLegY){ metalnessFactor=uLegMetal; }');
         mat.userData.shader=sh;};
