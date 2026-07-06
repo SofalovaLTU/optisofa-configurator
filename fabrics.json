@@ -1106,5 +1106,59 @@
   "abrasion": null,
   "desc": "Tankus ir patvarus apmušalų audinys, sukurtas naudoti lauke. Puikiai atsparus oro sąlygoms ir UV spinduliams. Malonus liesti, šiek tiek minkštas, o modernali faktūra suteikia lauko baldams elegantišką ir gaivų vaizdą.",
   "care": "Skalbti rankomis 60°C. Nedžiovinti būgninėje džiovyklėje. Nebalinti. Nevalyti chemiškai. Lyginti žemoje temperatūroje (iki 110°C)."
+ },
+ {
+  "name": "Aqua",
+  "category": "plain",
+  "color": "blue",
+  "hex": "#7fa8b0",
+  "image": "https://optisofa.com/cdn/shop/files/twinbru_Terraform_25-Cactus_20a4aab4dfe344d9ae2f41ffbc4b4830_col.jpg?v=1781773429",
+  "features": [],
+  "desc": ""
+ },
+ {
+  "name": "Blush",
+  "category": "plain",
+  "color": "pink",
+  "hex": "#e3c3c0",
+  "image": "https://optisofa.com/cdn/shop/files/twinbru_Substructure_32-Nostalgia_6ab2bd8f6aa340959a5908dc5feb25cc_col.jpg?v=1781771754",
+  "features": [],
+  "desc": ""
+ },
+ {
+  "name": "Brick",
+  "category": "plain",
+  "color": "red",
+  "hex": "#a5553f",
+  "image": "https://optisofa.com/cdn/shop/files/twinbru_Earthcore_30-Crimson_8dbea4b6f6564793a3f6b0db62b9a5ac_col.jpg?v=1781774267",
+  "features": [],
+  "desc": ""
+ },
+ {
+  "name": "Desert",
+  "category": "plain",
+  "color": "beige",
+  "hex": "#c9a97e",
+  "image": "https://optisofa.com/cdn/shop/files/twinbru_Earthcore_26-Harvest_542ec6a550ce4e34817b287460b944c1_col.jpg?v=1781773812",
+  "features": [],
+  "desc": ""
+ },
+ {
+  "name": "Natural",
+  "category": "plain",
+  "color": "beige",
+  "hex": "#d8cbb2",
+  "image": "https://optisofa.com/cdn/shop/files/twinbru_Substructure_12-Linen_907fb94b3d7b4976a7f1903926900071_col.jpg?v=1781771140",
+  "features": [],
+  "desc": ""
+ },
+ {
+  "name": "Teddy",
+  "category": "boucle",
+  "color": "brown",
+  "hex": "#b79b7a",
+  "image": "https://optisofa.com/cdn/shop/files/twinbru_Substructure_28-Autumn_c4137574ab894a6db4c2e41826395466_col.jpg?v=1781771541",
+  "features": [],
+  "desc": ""
  }
 ]
