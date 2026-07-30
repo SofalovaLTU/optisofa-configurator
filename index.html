@@ -615,7 +615,7 @@ new ResizeObserver(resize).observe(stage);resize();
 /* GLB CACHE (kad miniatiūros nekrautų to paties failo daug kartų) */
 const gltf=new GLTFLoader(); const glbCache={};
 const _draco=new DRACOLoader();_draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/');gltf.setDRACOLoader(_draco); // Draco suspausti GLB
-const GLB_V='?v=20260706e'; // versijos cache-bust: atnaujinus GLB po įkėlimo, naršyklė paims naują failą
+const GLB_V='?v=20260719a'; // versijos cache-bust: atnaujinus GLB po įkėlimo, naršyklė paims naują failą
 async function loadGLB(glb){const k=glb.replace(/^\//,'');
   if(!glbCache[k]){
     const base=k.split('/').pop();
