@@ -305,6 +305,27 @@
   .cat-hd.active .chev{transform:translateY(-50%) rotate(180deg)}
   .cat-body{display:none;padding:2px 2px 10px}
   .cat-body.open{display:block}
+  /* ── Manufacturer content block (official photos + verified copy) ── */
+  .mf-block{margin:10px 0 2px;padding:10px 0 0;border-top:1px solid #efe9dd}
+  .mf-gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .mf-thumb{aspect-ratio:1;border-radius:9px;border:1px solid #e6e0d4;background:#faf7f1 center/cover no-repeat;
+    cursor:zoom-in;padding:0;transition:.15s}
+  .mf-thumb:hover{transform:translateY(-1px);border-color:#c9bda6}
+  .mf-thumb.active{border-color:var(--brass,#c08a3e);box-shadow:0 0 0 2px rgba(192,138,62,.18)}
+  .mf-desc{margin:9px 0 6px;font-size:12.5px;line-height:1.55;color:#5f584c}
+  .mf-src{display:inline-block;font-size:12px;font-weight:600;color:#8a6a2f;text-decoration:none}
+  .mf-src:hover{text-decoration:underline}
+  .thumb.has-photo{background-size:cover;background-position:center}
+  .mf-lb{position:fixed;inset:0;background:rgba(28,25,20,.82);display:none;align-items:center;justify-content:center;
+    z-index:9999;cursor:zoom-out;padding:24px}
+  .mf-lb.show{display:flex}
+  .mf-lb img{max-width:min(92vw,1200px);max-height:90vh;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  /* ── Sub-type filter (chips) ── */
+  .subfilter{display:flex;gap:6px;padding:8px 10px 4px;flex-wrap:wrap}
+  .subfilter .sf{font:600 12px/1 var(--font);padding:7px 12px;border-radius:999px;cursor:pointer;
+    border:1px solid #e2dcd0;background:#fff;color:#6b6357;transition:.15s}
+  .subfilter .sf:hover{border-color:#c9bda6}
+  .subfilter .sf.active{background:var(--ink);color:#fff;border-color:var(--ink)}
   /* ── Fotelių sąrašas ── */
   .armlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px}
   .armcard{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;background:#fff;transition:border-color .15s,box-shadow .15s}
@@ -337,6 +358,7 @@
   .arm-spec .as-desc{font-size:12px;color:var(--ink);margin-top:10px;line-height:1.5}
   .arm-spec .as-flag{font-size:10.5px;color:var(--muted);margin-top:8px;font-style:italic}
 </style>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23c08a3e%27/%3E%3Cpath d=%27M6 19h20v5H6z%27 fill=%27%23fff%27/%3E%3Cpath d=%27M8 11h16v7H8z%27 fill=%27%23fff%27 opacity=%27.75%27/%3E%3C/svg%3E">
 </head>
 <body>
 <div id="app">
@@ -376,40 +398,40 @@
           <div id="modules"></div>
         </div>
       </div>
-      <button class="cat-hd" data-cat="armchairs"><span data-i18n="catArm">Foteliai</span><span class="chev">▾</span></button>
-      <div class="cat-body" data-cat="armchairs">
-        <div id="armList" class="armlist"></div>
-        <div id="armSpec" class="arm-spec"></div>
+      <button class="cat-hd" data-cat="sofos"><span data-i18n="catSofos">Sofos</span><span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="sofos">
+        <div id="sofosList" class="armlist"></div>
+        <div id="sofosSpec" class="arm-spec"></div>
       </div>
-      <button class="cat-hd" data-cat="pufai"><span data-i18n="catPufai">Pufai</span><span class="chev">▾</span></button>
-      <div class="cat-body" data-cat="pufai">
-        <div id="pufaiList" class="armlist"></div>
-        <div id="pufaiSpec" class="arm-spec"></div>
-      </div>
-      <button class="cat-hd" data-cat="lovos"><span data-i18n="catLovos">Lovos</span><span class="chev">▾</span></button>
-      <div class="cat-body" data-cat="lovos">
-        <div id="lovosList" class="armlist"></div>
-        <div id="lovosSpec" class="arm-spec"></div>
+      <button class="cat-hd" data-cat="corner-chaise"><span data-i18n="catCorner">Kampinės ir šezlongo sofos</span><span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="corner-chaise">
+        <div class="subfilter" data-for="corner-chaise">
+          <button class="sf active" data-sub="all"   data-i18n="subAll">Visos</button>
+          <button class="sf"        data-sub="corner" data-i18n="subCorner">Kampinės</button>
+          <button class="sf"        data-sub="chaise" data-i18n="subChaise">Su šezlongu</button>
+        </div>
+        <div id="cornerList" class="armlist"></div>
+        <div id="cornerSpec" class="arm-spec"></div>
       </div>
       <button class="cat-hd" data-cat="sofos-lovos"><span data-i18n="catSlovos">Sofos-lovos</span><span class="chev">▾</span></button>
       <div class="cat-body" data-cat="sofos-lovos">
         <div id="slovosList" class="armlist"></div>
         <div id="slovosSpec" class="arm-spec"></div>
       </div>
-      <button class="cat-hd" data-cat="kampines"><span data-i18n="catKampines">Kampinės sofos</span><span class="chev">▾</span></button>
-      <div class="cat-body" data-cat="kampines">
-        <div id="kampinesList" class="armlist"></div>
-        <div id="kampinesSpec" class="arm-spec"></div>
+      <button class="cat-hd" data-cat="seating"><span data-i18n="catSeating">Foteliai ir pufai</span><span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="seating">
+        <div class="subfilter" data-for="seating">
+          <button class="sf active" data-sub="all"      data-i18n="subAll">Visi</button>
+          <button class="sf"        data-sub="armchair" data-i18n="subArmchair">Foteliai</button>
+          <button class="sf"        data-sub="pouffe"   data-i18n="subPouffe">Pufai</button>
+        </div>
+        <div id="seatingList" class="armlist"></div>
+        <div id="seatingSpec" class="arm-spec"></div>
       </div>
-      <button class="cat-hd" data-cat="sofos"><span data-i18n="catSofos">Sofos</span><span class="chev">▾</span></button>
-      <div class="cat-body" data-cat="sofos">
-        <div id="sofosList" class="armlist"></div>
-        <div id="sofosSpec" class="arm-spec"></div>
-      </div>
-      <button class="cat-hd" data-cat="sezlongai"><span data-i18n="catSezlongai">Sofos su šezlongu</span><span class="chev">▾</span></button>
-      <div class="cat-body" data-cat="sezlongai">
-        <div id="sezlongaiList" class="armlist"></div>
-        <div id="sezlongaiSpec" class="arm-spec"></div>
+      <button class="cat-hd" data-cat="lovos"><span data-i18n="catLovos">Lovos</span><span class="chev">▾</span></button>
+      <div class="cat-body" data-cat="lovos">
+        <div id="lovosList" class="armlist"></div>
+        <div id="lovosSpec" class="arm-spec"></div>
       </div>
     </div>
   </aside>
@@ -532,9 +554,9 @@ const $=s=>document.querySelector(s);
 let MANIFEST=null,FABRICS=[],ARMCHAIRS=[],curFamily=null,curMode='modular',curFabric=null,curTex=null,ready=false;
 /* ── i18n (LT/EN/FR) ── */
 const I18N={
- lt:{brandSub:'Sofų konfigūratorius',order:'Užsakyti',priceNoteDefault:'pasirink modulius',upTo:'iki €',modulesWord:'moduliai',perMonth:'/mėn · 12 mėn.',or:'arba',catModular:'Modulinės sofos',catArm:'Foteliai',secCollection:'Kolekcija',secPresets:'Greiti rinkiniai',secModules:'Moduliai',hintDefault:'Spustelk modulį ar greitą rinkinį kairėje',armHint:'Sukite pele · keiskite audinį dešinėje',wLabel:'Plotis, cm',lLabel:'Ilgis, cm',show:'Rodyti',rotate:'⟳ Pasukti',remove:'🗑 Šalinti',lock:'🔒 Užrakinti',unlock:'🔓 Atrakinti',dims:'📐 Matmenys',room:'🏠 Kambarys',center:'🎯 Centruoti',arrange:'🧲 Sutvarkyti',link:'🔗 Nuoroda',fabTitle:'Audinys',fabPick:'Pasirink audinį',orderSamples:'✄ Užsakyti nemokamus pavyzdžius',allFeatures:'Visos savybės',allColors:'Visos spalvos',armDims:'Matmenys (P×G×A)',descWord:'Aprašymas',armSeat:'Sėdynės aukštis',priceApprox:'Kaina apytikslė (perskaičiuota iš Optisofa).',catPufai:'Pufai',catLovos:'Lovos',catSlovos:'Sofos-lovos',catKampines:'Kampinės sofos',sleepFn:'Miego funkcija',openBed:'🛏 Atidaryti į lovą',closeSofa:'🛋 Sudėti į sofą',bedOnly:'Rodoma atidaryta lova · sofos vaizdas ruošiamas',catSofos:'Sofos',catSezlongai:'Sofos su šezlongu'},
- en:{brandSub:'Sofa configurator',order:'Order',priceNoteDefault:'select modules',upTo:'up to €',modulesWord:'modules',perMonth:'/mo · 12 mo.',or:'or',catModular:'Modular sofas',catArm:'Armchairs',secCollection:'Collection',secPresets:'Quick sets',secModules:'Modules',hintDefault:'Click a module or quick set on the left',armHint:'Drag to rotate · change fabric on the right',wLabel:'Width, cm',lLabel:'Length, cm',show:'Show',rotate:'⟳ Rotate',remove:'🗑 Remove',lock:'🔒 Lock',unlock:'🔓 Unlock',dims:'📐 Dimensions',room:'🏠 Room',center:'🎯 Center',arrange:'🧲 Arrange',link:'🔗 Link',fabTitle:'Fabric',fabPick:'Select a fabric',orderSamples:'✄ Order free samples',allFeatures:'All features',allColors:'All colors',armDims:'Dimensions (W×D×H)',descWord:'Description',armSeat:'Seat height',priceApprox:'Approx. price (converted from Optisofa).',catPufai:'Poufs',catLovos:'Beds',catSlovos:'Sofa beds',catKampines:'Corner sofas',sleepFn:'Sleep function',openBed:'🛏 Open to bed',closeSofa:'🛋 Fold to sofa',bedOnly:'Showing open bed · sofa view coming',catSofos:'Sofas',catSezlongai:'Sofas with chaise'},
- fr:{brandSub:'Configurateur de canapés',order:'Commander',priceNoteDefault:'choisissez les modules',upTo:'jusqu’à €',modulesWord:'modules',perMonth:'/mois · 12 mois',or:'ou',catModular:'Canapés modulaires',catArm:'Fauteuils',secCollection:'Collection',secPresets:'Ensembles rapides',secModules:'Modules',hintDefault:'Cliquez sur un module ou un ensemble à gauche',armHint:'Faites pivoter · changez le tissu à droite',wLabel:'Largeur, cm',lLabel:'Longueur, cm',show:'Afficher',rotate:'⟳ Pivoter',remove:'🗑 Supprimer',lock:'🔒 Verrouiller',unlock:'🔓 Déverrouiller',dims:'📐 Dimensions',room:'🏠 Pièce',center:'🎯 Centrer',arrange:'🧲 Aligner',link:'🔗 Lien',fabTitle:'Tissu',fabPick:'Choisissez un tissu',orderSamples:'✄ Commander des échantillons gratuits',allFeatures:'Toutes les propriétés',allColors:'Toutes les couleurs',armDims:'Dimensions (L×P×H)',descWord:'Description',armSeat:'Hauteur d’assise',priceApprox:'Prix approximatif (converti depuis Optisofa).',catPufai:'Poufs',catLovos:'Lits',catSlovos:'Canapés-lits',catKampines:'Canapés d’angle',sleepFn:'Fonction couchage',openBed:'🛏 Ouvrir en lit',closeSofa:'🛋 Replier en canapé',bedOnly:'Lit ouvert affiché · vue canapé à venir',catSofos:'Canapés',catSezlongai:'Canapés avec méridienne'}
+ lt:{brandSub:'Sofų konfigūratorius',order:'Užsakyti',priceNoteDefault:'pasirink modulius',upTo:'iki €',modulesWord:'moduliai',perMonth:'/mėn · 12 mėn.',or:'arba',catModular:'Modulinės sofos',catCorner:'Kampinės ir šezlongo sofos',catSeating:'Foteliai ir pufai',subAll:'Visos',subCorner:'Kampinės',subChaise:'Su šezlongu',subArmchair:'Foteliai',subPouffe:'Pufai',catArm:'Foteliai',secCollection:'Kolekcija',secPresets:'Greiti rinkiniai',secModules:'Moduliai',hintDefault:'Spustelk modulį ar greitą rinkinį kairėje',armHint:'Sukite pele · keiskite audinį dešinėje',wLabel:'Plotis, cm',lLabel:'Ilgis, cm',show:'Rodyti',rotate:'⟳ Pasukti',remove:'🗑 Šalinti',lock:'🔒 Užrakinti',unlock:'🔓 Atrakinti',dims:'📐 Matmenys',room:'🏠 Kambarys',center:'🎯 Centruoti',arrange:'🧲 Sutvarkyti',link:'🔗 Nuoroda',fabTitle:'Audinys',fabPick:'Pasirink audinį',orderSamples:'✄ Užsakyti nemokamus pavyzdžius',allFeatures:'Visos savybės',allColors:'Visos spalvos',armDims:'Matmenys (P×G×A)',descWord:'Aprašymas',armSeat:'Sėdynės aukštis',priceApprox:'Kaina apytikslė (perskaičiuota iš Optisofa).',catPufai:'Pufai',catLovos:'Lovos',catSlovos:'Sofos-lovos',catKampines:'Kampinės sofos',sleepFn:'Miego funkcija',openBed:'🛏 Atidaryti į lovą',closeSofa:'🛋 Sudėti į sofą',bedOnly:'Rodoma atidaryta lova · sofos vaizdas ruošiamas',catSofos:'Sofos',catSezlongai:'Sofos su šezlongu'},
+ en:{brandSub:'Sofa configurator',order:'Order',priceNoteDefault:'select modules',upTo:'up to €',modulesWord:'modules',perMonth:'/mo · 12 mo.',or:'or',catModular:'Modular sofas',catCorner:'Corner & chaise sofas',catSeating:'Armchairs & pouffes',subAll:'All',subCorner:'Corner',subChaise:'With chaise',subArmchair:'Armchairs',subPouffe:'Pouffes',catArm:'Armchairs',secCollection:'Collection',secPresets:'Quick sets',secModules:'Modules',hintDefault:'Click a module or quick set on the left',armHint:'Drag to rotate · change fabric on the right',wLabel:'Width, cm',lLabel:'Length, cm',show:'Show',rotate:'⟳ Rotate',remove:'🗑 Remove',lock:'🔒 Lock',unlock:'🔓 Unlock',dims:'📐 Dimensions',room:'🏠 Room',center:'🎯 Center',arrange:'🧲 Arrange',link:'🔗 Link',fabTitle:'Fabric',fabPick:'Select a fabric',orderSamples:'✄ Order free samples',allFeatures:'All features',allColors:'All colors',armDims:'Dimensions (W×D×H)',descWord:'Description',armSeat:'Seat height',priceApprox:'Approx. price (converted from Optisofa).',catPufai:'Poufs',catLovos:'Beds',catSlovos:'Sofa beds',catKampines:'Corner sofas',sleepFn:'Sleep function',openBed:'🛏 Open to bed',closeSofa:'🛋 Fold to sofa',bedOnly:'Showing open bed · sofa view coming',catSofos:'Sofas',catSezlongai:'Sofas with chaise'},
+ fr:{brandSub:'Configurateur de canapés',order:'Commander',priceNoteDefault:'choisissez les modules',upTo:'jusqu’à €',modulesWord:'modules',perMonth:'/mois · 12 mois',or:'ou',catModular:'Canapés modulaires',catCorner:'Canapés d’angle et méridienne',catSeating:'Fauteuils et poufs',subAll:'Tous',subCorner:'Angle',subChaise:'Méridienne',subArmchair:'Fauteuils',subPouffe:'Poufs',catArm:'Fauteuils',secCollection:'Collection',secPresets:'Ensembles rapides',secModules:'Modules',hintDefault:'Cliquez sur un module ou un ensemble à gauche',armHint:'Faites pivoter · changez le tissu à droite',wLabel:'Largeur, cm',lLabel:'Longueur, cm',show:'Afficher',rotate:'⟳ Pivoter',remove:'🗑 Supprimer',lock:'🔒 Verrouiller',unlock:'🔓 Déverrouiller',dims:'📐 Dimensions',room:'🏠 Pièce',center:'🎯 Centrer',arrange:'🧲 Aligner',link:'🔗 Lien',fabTitle:'Tissu',fabPick:'Choisissez un tissu',orderSamples:'✄ Commander des échantillons gratuits',allFeatures:'Toutes les propriétés',allColors:'Toutes les couleurs',armDims:'Dimensions (L×P×H)',descWord:'Description',armSeat:'Hauteur d’assise',priceApprox:'Prix approximatif (converti depuis Optisofa).',catPufai:'Poufs',catLovos:'Lits',catSlovos:'Canapés-lits',catKampines:'Canapés d’angle',sleepFn:'Fonction couchage',openBed:'🛏 Ouvrir en lit',closeSofa:'🛋 Replier en canapé',bedOnly:'Lit ouvert affiché · vue canapé à venir',catSofos:'Canapés',catSezlongai:'Canapés avec méridienne'}
 };
 let LANG='lt';
 function t(k){return (I18N[LANG]&&I18N[LANG][k])||(I18N.lt&&I18N.lt[k])||'';}
@@ -802,12 +824,35 @@ function makeFabricBump(){const s=128,c=document.createElement('canvas');c.width
   x.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(9,9);return t;}
 const FABRIC_BUMP=makeFabricBump();
 // MATINIS apmušalas — minimalus sheen (kad audinio spalva = swatch spalvai, be blizgesio)
-function fabricParams(cat){cat=(cat||'').toLowerCase();
-  if(cat.indexOf('matte')>=0)   return {rough:0.90,sheen:0.06,srough:0.9,bump:0.010};
-  if(cat.indexOf('velvet')>=0)  return {rough:0.66,sheen:0.16,srough:0.72,bump:0.006}; // švelnus aksomo atspindys, ne blizgus
-  if(cat.indexOf('boucle')>=0)  return {rough:0.96,sheen:0.03,srough:0.9,bump:0.055};
-  if(cat.indexOf('corduroy')>=0)return {rough:0.90,sheen:0.04,srough:0.85,bump:0.038};
-  return {rough:0.93,sheen:0.03,srough:0.9,bump:0.024};} // plain/weave/linen/outdoor
+/* ═══════ FABRIC MATERIAL CLASSES ═══════
+   9 physical classes (was 5 loose string matches). Each class gets its own light response AND its
+   own real-world repeat scale, so weave size on the furniture is believable per fabric type.
+   NOTE: these are DERIVED visual-calibration values, not official manufacturer fabric specs. */
+const FABRIC_CLASSES={
+  //                rough  sheen  srough  bump   repeatMm  aniso
+  'velvet':       {rough:0.64,sheen:0.22,srough:0.60,bump:0.008,repeatMm:300,aniso:0.35},
+  'matte-velvet': {rough:0.88,sheen:0.09,srough:0.86,bump:0.010,repeatMm:300,aniso:0.15},
+  'boucle':       {rough:0.97,sheen:0.03,srough:0.92,bump:0.060,repeatMm:340,aniso:0.0},
+  'corduroy-wide':{rough:0.88,sheen:0.09,srough:0.78,bump:0.044,repeatMm:320,aniso:0.0},
+  'corduroy-fine':{rough:0.90,sheen:0.07,srough:0.82,bump:0.036,repeatMm:250,aniso:0.0},
+  'linen-like':   {rough:0.94,sheen:0.05,srough:0.90,bump:0.028,repeatMm:270,aniso:0.0},
+  'plain-weave':  {rough:0.93,sheen:0.03,srough:0.90,bump:0.024,repeatMm:280,aniso:0.0},
+  'knit':         {rough:0.95,sheen:0.05,srough:0.90,bump:0.040,repeatMm:330,aniso:0.0},
+  'textured':     {rough:0.95,sheen:0.04,srough:0.90,bump:0.034,repeatMm:300,aniso:0.0}
+};
+/* Manufacturer category strings are inconsistently cased ("Plain" vs "plain") — normalise here. */
+function fabricClassOf(f){
+  const c=((f&&f.category)||'').toLowerCase(), n=((f&&f.name)||'').toLowerCase();
+  if(c.includes('matte'))    return 'matte-velvet';
+  if(c.includes('velvet'))   return 'velvet';
+  if(c.includes('boucle')||n.includes('boucle')) return 'boucle';
+  if(c.includes('corduroy')) return (n.includes('wide')||n.includes('jumbo'))?'corduroy-wide':'corduroy-fine';
+  if(c.includes('knit'))     return 'knit';
+  if(c.includes('linen')||n.includes('linen')) return 'linen-like';
+  return 'plain-weave';                       // plain / outdoor / unknown
+}
+function fabricProfile(f){return FABRIC_CLASSES[fabricClassOf(f)]||FABRIC_CLASSES['plain-weave'];}
+function fabricParams(cat){return fabricProfile({category:cat});}   // back-compat
 function classifyLegs(rec){
   const box=new THREE.Box3().setFromObject(rec.root);
   const minY=box.min.y,H=Math.max(0.001,box.max.y-box.min.y);
@@ -862,7 +907,9 @@ const WHITE=new THREE.Color(0xffffff); // bendras (be alokacijų kilpose)
 const FAB_TILE=0.16; // realus audinio mastelis — matosi ryškūs corduroy rumbeliai / boucle kilpos (kaip nuotraukoje)
 function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
   // VIENTISA spalva = nuotraukos vidurkis (be tiling raštų); tekstūra tik subtiliai
-  const base=fab._avg||(fab.hex?new THREE.Color(fab.hex):new THREE.Color(0xcbbfa8));const tex=rec._tex||null;const P=fabricParams(fab.category);
+  const base=fab._avg||(fab.hex?new THREE.Color(fab.hex):new THREE.Color(0xcbbfa8));const tex=rec._tex||null;
+  const P=fabricProfile(fab);                        // per-class light response
+  const TILE=(P.repeatMm||280)/1000;                 // per-class real-world weave scale
   if(rec.data&&rec.data.legFilter&&!rec._legDone){classifyLegs(rec);rec._legDone=true;}
   rec.root.traverse(o=>{if(o.isMesh){
     if(o.userData.noFab){return;} // kojos/pagrindas lieka originalūs
@@ -895,9 +942,9 @@ function applyFabricTo(rec){const fab=rec._fab||curFabric;if(!fab)return;
       o.material=mat;o.userData.fabMat=true;
     }
     const m=o.material,u=m.userData.u;
-    m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=WHITE;
+    m.roughness=P.rough;m.sheen=P.sheen;m.sheenRoughness=P.srough;m.sheenColor=WHITE;m.anisotropy=P.aniso||0;
     u.fBump.value=P.bump*2.4;
-    if(tex){u.fMap.value=tex;u.fScale.value=1.0/FAB_TILE;m.color.set(0xffffff);
+    if(tex){u.fMap.value=tex;u.fScale.value=1.0/TILE;m.color.set(0xffffff);
       u.uBaseCol.value.copy(base);u.uTexAvg.value.copy(fab._texLin||base);}
     else{u.fMap.value=null;u.fScale.value=0.0;m.color.copy(base);}
     m.needsUpdate=true;}});invalidate(3);}
@@ -1107,12 +1154,11 @@ function buildModules(){const fam=MANIFEST.families[curFamily];const wrap=$('#mo
 /* ── FOTELIAI (single-product režimas) ── */
 /* ── SINGLE-PRODUCT kategorijos: foteliai + pufai/lovos/sofos-lovos/kampinės (bendra logika) ── */
 const PRODUCT_CATS=[
-  {key:'pufai',       file:'pufai.json',       list:'pufaiList',    spec:'pufaiSpec'},
-  {key:'lovos',       file:'lovos.json',       list:'lovosList',    spec:'lovosSpec'},
-  {key:'sofos-lovos', file:'sofos-lovos.json', list:'slovosList',   spec:'slovosSpec'},
-  {key:'kampines',    file:'kampines.json',    list:'kampinesList', spec:'kampinesSpec'},
-  {key:'sofos',       file:'sofos.json',       list:'sofosList',    spec:'sofosSpec'},
-  {key:'sezlongai',   file:'sezlongai.json',   list:'sezlongaiList', spec:'sezlongaiSpec'},
+  {key:'sofos',         file:'sofos.json',         list:'sofosList',   spec:'sofosSpec'},
+  {key:'corner-chaise', file:'corner-chaise.json', list:'cornerList',  spec:'cornerSpec'},
+  {key:'sofos-lovos',   file:'sofos-lovos.json',   list:'slovosList',  spec:'slovosSpec'},
+  {key:'seating',       file:'seating.json',       list:'seatingList', spec:'seatingSpec'},
+  {key:'lovos',         file:'lovos.json',         list:'lovosList',   spec:'lovosSpec'},
 ];
 const PRODUCTS={}; // key -> [items]
 function catOf(a){ // grąžina {key,list,spec} produktui pagal kategoriją
@@ -1125,12 +1171,38 @@ function findProduct(code){ // suranda produktą bet kurioje single kategorijoje
   for(const c of PRODUCT_CATS){a=(PRODUCTS[c.key]||[]).find(x=>x.code===code);if(a)return a;}
   return null;
 }
+/* Sub-type filter (e.g. Armchairs | Pouffes inside "Armchairs & pouffes").
+   Sub-types are product ATTRIBUTES, not categories — per CATEGORY_ARCHITECTURE.md. */
+const SUBFILTER={};                                  // catKey -> 'all' | subtype
+function applySubfilter(catKey){
+  const cat=PRODUCT_CATS.find(c=>c.key===catKey); if(!cat)return;
+  const want=SUBFILTER[catKey]||'all';
+  const wrap=$('#'+cat.list); if(!wrap)return;
+  wrap.querySelectorAll('.armcard').forEach(el=>{
+    const it=(PRODUCTS[catKey]||[]).find(x=>x.code===el.dataset.code);
+    el.style.display=(want==='all'||!it||it.subtype===want)?'':'none';
+  });
+  genThumbs(cat.list);                               // lazily render newly revealed cards
+}
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('.subfilter .sf'); if(!b)return;
+  const holder=b.closest('.subfilter'), catKey=holder.dataset.for;
+  holder.querySelectorAll('.sf').forEach(x=>x.classList.toggle('active',x===b));
+  SUBFILTER[catKey]=b.dataset.sub; applySubfilter(catKey);
+});
 function buildProductList(items,listId){
   const wrap=$('#'+listId); if(!wrap)return; wrap.innerHTML='';
   (items||[]).forEach(a=>{
     const el=document.createElement('div'); el.className='armcard'; el.dataset.code=a.code;
     el.innerHTML=`<div class="thumb"><span>⏳</span></div><div class="info"><div class="nm">${a.name}</div><div class="meta">€${a.price_eur}</div></div>`;
-    el._glb=a.glb; el.onclick=()=>loadProduct(a); wrap.appendChild(el); // miniatiūra generuojama LAZY (atidarius kategoriją)
+    el._glb=a.glb; el.onclick=()=>loadProduct(a); wrap.appendChild(el);
+    /* Manufacturer photo (authorised, locally hosted) takes precedence over the 3D thumbnail.
+       Falls back silently to the generated thumbnail when no photo has been imported yet,
+       so the UI works identically before and after `scripts/ingest_manufacturer.py --media`. */
+    if(a.photo){const t=el.querySelector('.thumb');const im=new Image();
+      im.onload=()=>{t.style.backgroundImage=`url("${a.photo}")`;t.classList.add('has-photo');t.innerHTML='';el._thumbDone=true;};
+      im.onerror=()=>{};                                  // keep 3D thumbnail
+      im.src=a.photo;}
   });
 }
 // generuoja miniatiūras tik matomos kategorijos sąrašui — kad paleidžiant nesigrūstų visų 180 Draco dekodų
@@ -1178,11 +1250,40 @@ function addMattress(rec,a){
   rec.root.add(mesh);
 }
 const loadArmchair=loadProduct; // suderinamumas su deep-link / restore
+/* Contextual manufacturer drawer: official gallery + verified description + source link.
+   Rendered inside the existing spec panel so the 3D workspace stays uncluttered. */
+function manufacturerBlock(a){
+  const g=(a.gallery||[]).filter(Boolean);
+  if(!g.length && !a.mfDesc && !a.sourceUrl) return '';
+  let h='<div class="mf-block">';
+  if(g.length){
+    h+='<div class="mf-gal">'+g.map((u,i)=>
+        `<button class="mf-thumb${i?'':' active'}" data-i="${i}" style="background-image:url('${u}')" aria-label="Nuotrauka ${i+1}"></button>`
+      ).join('')+'</div>';
+  }
+  if(a.mfDesc) h+=`<p class="mf-desc">${a.mfDesc}</p>`;
+  if(a.sourceUrl) h+=`<a class="mf-src" href="${a.sourceUrl}" target="_blank" rel="noopener">Optisofa produkto puslapis ↗</a>`;
+  return h+'</div>';
+}
+document.addEventListener('click',ev=>{                   // gallery: click a thumb to enlarge
+  const b=ev.target.closest('.mf-thumb'); if(!b)return;
+  const gal=b.closest('.mf-gal');
+  gal.querySelectorAll('.mf-thumb').forEach(x=>x.classList.toggle('active',x===b));
+  const url=(b.style.backgroundImage||'').slice(5,-2);
+  if(url) openLightbox(url);
+});
+function openLightbox(url){
+  let lb=$('#mfLightbox');
+  if(!lb){lb=document.createElement('div');lb.id='mfLightbox';lb.className='mf-lb';
+    lb.innerHTML='<img alt="">';lb.onclick=()=>lb.classList.remove('show');document.body.appendChild(lb);}
+  lb.querySelector('img').src=url; lb.classList.add('show');
+}
 function buildArmSpec(a,specSel){
   const box=$('#'+(specSel||'armSpec')); if(!box)return;
   const row=(l,v)=>v?`<div class="as-row"><span>${l}</span><b>${v}</b></div>`:'';
   const feats=(a.features&&a.features.length)?`<ul>${a.features.map(f=>`<li>${f}</li>`).join('')}</ul>`:'';
   const flag=a.price_approx?`<div class="as-flag">${t('priceApprox')}</div>`:'';
+  const mfBlock=manufacturerBlock(a);
   // Miego funkcija (Dolphin) + Sofa↔Lova perjungiklis
   const cur=a._alt?(a.default_state==='sofa'?'lova':'sofa'):(a.default_state||'sofa');
   let stateHTML='';
@@ -1193,6 +1294,7 @@ function buildArmSpec(a,specSel){
     <div class="as-price">€${a.price_eur} <small>${t('or')} ≈ €${Math.round(a.price_eur/12)}${t('perMonth')}</small></div>
     ${row(t('armDims'),`${a.W}×${a.D}×${a.H} cm`)}
     ${stateHTML}
+    ${mfBlock}
     <button class="as-toggle" id="asToggle"><span>${t('descWord')}</span><b>+</b></button>
     <div class="as-more" id="asMore">
       ${row('Sėdynės aukštis',a.seat_h?a.seat_h+' cm':'')}
@@ -1302,7 +1404,8 @@ $('#btnZoomOut').onclick=()=>zoomBy(1.22);
 
 /* BUTTONS */
 $('#btnRotate').onclick=()=>{if(locked)return;if(selected){selected.rot=(selected.rot+1)%4;selected.root.rotation.y=selected.rot*Math.PI/2;sceneChanged();snapToNeighbors(selected);updateRoom();saveState();}};
-$('#btnDelete').onclick=()=>{if(locked)return;if(selected){const _d=selected;scene.remove(_d.root);disposeRec(_d);placed.splice(placed.indexOf(_d),1);updatePrice();select(null);updateRoom();if(!placed.length)setHint(t('hintDefault'));}};
+$('#btnDelete').onclick=()=>{if(locked)return;if(selected){const _d=selected;scene.remove(_d.root);disposeRec(_d);placed.splice(placed.indexOf(_d),1);updatePrice();select(null);updateRoom();
+  if(!placed.length){clearProductHighlight();setHint(t('hintDefault'));}}};
 /* GPU atminties valymas. SVARBU: geometrija DALINAMASI su glbCache (Object3D.clone() dalinasi
    geometry/material nuorodomis), todėl geometrijos NENAIKINAM — tik mūsų pačių sukurtas
    per-egzempliorių medžiagas (applyFabricTo / applyLegColor / addMattress). Tekstūros
@@ -1311,7 +1414,13 @@ function disposeRec(rec){ if(!rec||!rec.root)return;
   rec.root.traverse(o=>{ if(!o.isMesh||!o.material)return;
     (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>{ if(m&&m.dispose)m.dispose(); }); });
 }
-function clearAll(){placed.forEach(p=>{scene.remove(p.root);disposeRec(p);});placed.length=0;updatePrice();select(null);updateRoom();setHint(t('hintDefault'));}
+/* When the scene becomes empty, the catalogue must not keep showing a product as selected. */
+function clearProductHighlight(){
+  document.querySelectorAll('.armcard.active').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.arm-spec.show').forEach(sp=>sp.classList.remove('show'));
+}
+function clearAll(){placed.forEach(p=>{scene.remove(p.root);disposeRec(p);});placed.length=0;
+  updatePrice();select(null);updateRoom();setHint(t('hintDefault'));}
 function applyLockUI(){if(!placed.length)locked=false;const b=$('#btnLock');if(b){b.textContent=locked?t('unlock'):t('lock');b.classList.toggle('on',locked);}
   if(locked)select(null);
   $('#btnRotate').disabled=locked||!selected;$('#btnDelete').disabled=locked||!selected;
